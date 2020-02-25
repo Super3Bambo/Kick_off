@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "234025831223",
+    "firebase_url": "https://kickoff-aa2f2.firebaseio.com",
+    "project_id": "kickoff-aa2f2",
+    "storage_bucket": "kickoff-aa2f2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:234025831223:android:11d2b4c0b7dd834eafa8b2",
+        "android_client_info": {
+          "package_name": "com.example.kick_off"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "234025831223-5nr5iv7r6jqv4bsan4tbfm35gv3igcjr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBe0RZf1yQ_uRVm0qQ7Iy_s4PW9CG_UIvA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "234025831223-5nr5iv7r6jqv4bsan4tbfm35gv3igcjr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
