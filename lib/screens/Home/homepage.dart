@@ -1,4 +1,4 @@
-import 'dart:ui';
+//import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import './lobby.dart' as lobby;
@@ -6,7 +6,7 @@ import './profile.dart' as profile;
 import './myTeams.dart' as team;
 import './myMatches.dart' as match;
 import './help.dart' as help;
-import 'package:firebase_auth/firebase_auth.dart';
+/*
  abstract class IRegister extends StatefulWidget{
   final _auth= FirebaseAuth.instance;
   FirebaseUser loggedInUser;
@@ -28,20 +28,19 @@ void getCurrentUser()async{
 
   }
 }}
-class TabbedAppBar extends StatelessWidget {
+
+*/
+class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-
-
 
     return MaterialApp(
       home: DefaultTabController(
         length: 5,
         child: Scaffold(
           appBar: AppBar(
-            title: const Text('E7gzly'),
+            title: const Text('Kick Off'),
             bottom: TabBar(
               isScrollable: true,
                 //controller: controller,
@@ -69,4 +68,7 @@ class TabbedAppBar extends StatelessWidget {
     );
   }
 }
+
+
+
 

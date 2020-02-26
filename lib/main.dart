@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
-import './screens/homepage.dart';
-import './Auth/Register.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:rflutter_alert/rflutter_alert.dart';
+import './screens/warpper.dart';
+import './Services/Auth.dart';
+import './screens/Home/homepage.dart'; //will delete
+import './Auth/Register.dart';  //will delete
+import 'package:firebase_auth/firebase_auth.dart'; //will delete
+import './models/User.dart';
+import 'package:provider/provider.dart';
+import 'package:rflutter_alert/rflutter_alert.dart'; //will delete
 
 void main() => runApp(MyApp());
 
@@ -10,7 +14,13 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return StreamProvider<User>.value(
+      value: AuthService().user,
+      child: MaterialApp(
+        home: Wrapper(),
+      ),
+    );
+   /* return MaterialApp(
         title: 'Flutter Login',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
@@ -21,10 +31,10 @@ class MyApp extends StatelessWidget {
           '/homepage': (_) => TabbedAppBar(),
           '/registerpage': (_) => Register()
         }
-    );
-  }
+    );*/
+  } 
 }
-
+/*
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
   final String title;
@@ -142,3 +152,5 @@ String PASSWORD;
     );
   }
 }
+
+*/

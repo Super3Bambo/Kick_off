@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import './bookingFields.dart' as bookFields;
-import 'package:firebase_auth/firebase_auth.dart';
+import '../../Services/Auth.dart';
 class Lobby extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final _auth = FirebaseAuth.instance;
+      final AuthService _auth = AuthService();
+
 
     // TODO: implement build
     return Scaffold(
@@ -63,7 +64,7 @@ class Lobby extends StatelessWidget {
                 padding: EdgeInsets.all(8.0),
                 splashColor: Colors.blueAccent,
                 onPressed: () {
-                  _auth.signOut();
+                 _auth.signOut();
                   Navigator.pop(context);
                 },
                 child: Text(

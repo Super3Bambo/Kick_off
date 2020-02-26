@@ -1,5 +1,5 @@
 class User {
-  final String Id;
+  final String ID;
   final String Name;
   final String Position;
   final int Age;
@@ -8,6 +8,6 @@ class User {
   final bool Is_banned;
 
 
-    User({ this.Id , this.Name , this.Position , this.Age , this.Phone , this.Area , this.Is_banned });
+    User({ this.ID , this.Name , this.Position , this.Age , this.Phone , this.Area , this.Is_banned });
 
 }
