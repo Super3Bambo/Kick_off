@@ -4,7 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
 class Register extends StatelessWidget {
-final _auth = FirebaseAuth.instance();
+final _auth = FirebaseAuth.instance;
   String ID;
   String NAME;
   String PHONENUMBER;

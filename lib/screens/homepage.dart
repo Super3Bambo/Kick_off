@@ -1,11 +1,11 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import './screens/lobby.dart' as lobby;
-import './screens/profile.dart' as profile;
-import './screens/myTeams.dart' as team;
-import './screens/myMatches.dart' as match;
-import './screens/help.dart' as help;
+import './lobby.dart' as lobby;
+import './profile.dart' as profile;
+import './myTeams.dart' as team;
+import './myMatches.dart' as match;
+import './help.dart' as help;
 import 'package:firebase_auth/firebase_auth.dart';
  abstract class IRegister extends StatefulWidget{
   final _auth= FirebaseAuth.instance;

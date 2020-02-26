@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import './screens/FieldBook.dart' as FieldBook;
+import './FieldBook.dart' as FieldBook;
 
 class Booking extends StatelessWidget
 {

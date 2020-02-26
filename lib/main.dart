@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/homepage.dart';
+import './screens/homepage.dart';
 import './Auth/Register.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
@@ -34,7 +34,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-final _auth = FirebaseAuth.instance();
+final _auth = FirebaseAuth.instance;
 String EMAIL;
 String PASSWORD;
 

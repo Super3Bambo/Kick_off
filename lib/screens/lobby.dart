@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import './screens/bookingFields.dart' as bookFields;
+import './bookingFields.dart' as bookFields;
 import 'package:firebase_auth/firebase_auth.dart';
 class Lobby extends StatelessWidget {
   @override

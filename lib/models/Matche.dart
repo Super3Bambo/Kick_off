@@ -1,9 +1,9 @@
-class match{
-  final string Date;
-  final string Check_in;
-  final string Check_out;
+class Match {
+  final String Date;
+  final String Check_in;
+  final String Check_out;
   final bool Statue;
   final bool Privacy;
+  Match ({ this.Date , this.Check_in , this.Check_out , this.Statue , this.Privacy });
 }
 
-match({ this.Date , this.Check_in , this.Check_out , this.Statue , this.Privacy });

@@ -1,7 +1,8 @@
-class challenge {
-  final string Name;
-  final string Description;
-  final string Prize;
+class Challenge {
+  final String Name;
+  final String Description;
+  final String Prize;
+  
+  Challenge ({ this.Name , this.Description , this.Prize });
 }
 
-challenge ({ this.Name , this.Description , this.Prize });
