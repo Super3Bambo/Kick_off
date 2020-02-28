@@ -1,3 +1,4 @@
+import '../Services/User.dart';
 import '../models/User.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -35,12 +36,17 @@ class AuthService {
     try {
       AuthResult result = await _auth.createUserWithEmailAndPassword(email: email, password: password);
       FirebaseUser user = result.user;
+      await UserService(userid: user.uid).updateUserData('0','new crew member', '100' , '' , '' , '');
       return _userFromFirebaseUser(user);
     } catch (error) {
       print(error.toString());
       return null;
     } 
   }
+
+  Future<FirebaseUser> GetCurrentUser () async {
+     return await _auth.currentUser();
+    }
 
   // sign out
   Future signOut() async {
