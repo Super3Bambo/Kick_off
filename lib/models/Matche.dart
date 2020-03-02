@@ -1,3 +1,5 @@
+import './User.dart';
+
 class Match {
     final String ID;
 
