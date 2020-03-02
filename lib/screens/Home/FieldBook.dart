@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:table_calendar/table_calendar.dart';
-
+import './Droplist.dart' as DropList;
 class FieldBook extends StatefulWidget
 {
   @override
@@ -57,11 +57,26 @@ class _FieldBookState extends State<FieldBook>{
                   new TableCalendar(
                     initialCalendarFormat: CalendarFormat.week,
                     startingDayOfWeek: StartingDayOfWeek.saturday,
-                    calendarController: _controller,)
-                ],
+                    calendarController: _controller,onDaySelected: (date,events){
+
+                    Navigator.push(
+                      context, MaterialPageRoute(builder: (context) => DropList.DropList()),);
+
+                  },),
+
+
+
+
+
+                ]
+                ,
               ),
             )
         )
+
     );
+
+
   }
+
 }
