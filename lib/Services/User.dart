@@ -10,6 +10,17 @@ class UserService {
   final CollectionReference users = Firestore.instance.collection('user');
 
   Future<void> updateUserData(String fName, String lName, String age,String position ,String area,String phone, ) async {
+    return await users.document(userid).updateData({
+      'FName': fName,
+      'LName': lName,
+      'Age': age,
+      'Position': position ,
+      'Area': area,
+      'Phone': phone,
+    });
+  }
+
+  Future<void> addUserData(String fName, String lName, String age,String position ,String area,String phone, ) async {
     return await users.document(userid).setData({
       'FName': fName,
       'LName': lName,

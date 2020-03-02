@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../Shared/Loading.dart';
-
 import '../../Services/User.dart';
 import '../../models/User.dart';
 
@@ -133,7 +132,14 @@ return StreamBuilder<User>(
                 ),
                 onPressed: () async {
                   if(_formKey.currentState.validate()){
-                    await UserService(userid: user.ID).updateUserData(fName, lName, age, position, area, phone);
+                    await UserService(userid: user.ID).updateUserData(
+                      fName ?? userData.FName,
+                      lName ?? userData.LName,
+                      age ?? userData.Age,
+                      position ?? userData.Position,
+                      area ?? userData.Area,
+                      phone ?? userData.Phone
+                           );
                     Navigator.pop(context);
                   }
                 }
@@ -149,6 +155,7 @@ return StreamBuilder<User>(
     );
     }else {
         return Loading();
+        
     }
     }
     ,);
