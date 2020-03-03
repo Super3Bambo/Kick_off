@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/models/Rating.dart';
 import '../../Services/Auth.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import '../../Shared/Loading.dart';
@@ -24,9 +25,19 @@ class _RegisterState extends State<Register> {
   String email = '';
   String password = '';
   String fName, lName, age, position, area, phone;
+  static List <Rating> rating=[
+    Rating(Morality: 5,
+    Skills: 5,
+    Position_Skills: 4),
 
+    Rating(Morality: 1,
+    Skills: 2,
+    Position_Skills: 3),
+  ];
+ static int r = rating.length;
   @override
     Widget build(BuildContext context) {
+      print(r);
       return  loading? Loading() : Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -161,7 +172,7 @@ SizedBox(height: 15.0,),
                 onPressed: () async {
                   if(_formKey.currentState.validate()){
                       setState(() => loading = true);
-                    dynamic result = await _auth.registerWithEmailAndPassword(email, password ,fName, lName, age, position, area, phone);
+                    dynamic result = await _auth.registerWithEmailAndPassword(email, password ,fName, lName, age, position, area, phone );
                     if(result == null) {
                       setState(() {
                      Alert(context: context, title: "Invalid data",desc: "Enter valid email" ).show();

@@ -1,3 +1,5 @@
+import 'package:flutter_app/models/Rating.dart';
+
 import '../models/User.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -20,7 +22,7 @@ class UserService {
     });
   }
 
-  Future<void> addUserData(String fName, String lName, String age,String position ,String area,String phone, ) async {
+  Future<void> addUserData(String fName, String lName, String age,String position ,String area,String phone,  ) async {
     return await users.document(userid).setData({
       'FName': fName,
       'LName': lName,
@@ -28,6 +30,12 @@ class UserService {
       'Position': position ,
       'Area': area,
       'Phone': phone,
+      /*'Rating': rating.map((r)=>{
+        'Skills':r.Skills,
+        'Morality':r.Morality,
+        'Position_Skills':r.Position_Skills
+      }).toList(),*/
+      
     });
   }
 
@@ -40,6 +48,8 @@ class UserService {
       LName: snapshot.data['LName'],
       Phone: snapshot.data['Phone'],
       Area : snapshot.data['Area'],
+     // rating: snapshot.data["Rating"],
+      
     );
   }
   

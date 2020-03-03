@@ -1,3 +1,6 @@
+import './Rating.dart';
+
+
 class User {
   final String ID;
   final String FName;
@@ -8,8 +11,7 @@ class User {
   final String Area;
   final bool Is_banned;
   final String Photo_url;
-
-
-    User({ this.ID , this.FName , this.LName, this.Position , this.Age , this.Phone , this.Area , this.Is_banned = false, this.Photo_url});
+  List<Rating> rating;
+    User({ this.ID , this.FName , this.LName, this.Position , this.Age , this.Phone , this.Area , this.Is_banned = false, this.Photo_url , this.rating});
 
 }
