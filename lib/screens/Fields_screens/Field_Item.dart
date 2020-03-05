@@ -7,8 +7,8 @@ class FieldItem extends StatelessWidget
 {
   @override
   Widget build(BuildContext context) {
-    final fields = Provider.of<Field>(context);
-        
+    final fields = Provider.of<Field>(context , listen: false);
+    
         
         
       /*  return  Card(
@@ -68,8 +68,10 @@ class FieldItem extends StatelessWidget
         margin: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
         child: ListTile(
           onTap: (){
-             Navigator.push(
-                context, MaterialPageRoute(builder: (context) => FieldDetails()),);
+              Navigator.of(context).pushNamed(
+              FieldDetails.routeName,
+              arguments: fields.ID,
+);
           },
           leading: CircleAvatar(
             radius: 25.0,
