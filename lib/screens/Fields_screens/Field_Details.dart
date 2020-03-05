@@ -1,26 +1,15 @@
-/*import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:table_calendar/table_calendar.dart';
-import './Droplist.dart' as DropList;
-class FieldBook extends StatefulWidget
-{
-  @override
-  _FieldBookState createState() => _FieldBookState();
-}
 
-class _FieldBookState extends State<FieldBook>{
-  CalendarController _controller ;
 
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    _controller = CalendarController();
-  }
+class FieldDetails extends StatelessWidget{
 
-  @override
+@override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text('field name'),
+      ),
         body: Center(
             child: SingleChildScrollView(
               child: Column(
@@ -54,21 +43,7 @@ class _FieldBookState extends State<FieldBook>{
                       ],
                     ),
                   ),
-                /*  new TableCalendar(
-                    initialCalendarFormat: CalendarFormat.week,
-                    startingDayOfWeek: StartingDayOfWeek.saturday,
-                    calendarController: _controller,onDaySelected: (date,events){
-
-                    Navigator.push(
-                      context, MaterialPageRoute(builder: (context) => DropList.DropList()),);
-
-                  },),*/
-
-
-
-
-
-                ]
+             ]
                 ,
               ),
             )
@@ -79,4 +54,4 @@ class _FieldBookState extends State<FieldBook>{
 
   }
 
-}*/
+}

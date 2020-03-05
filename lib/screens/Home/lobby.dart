@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import './bookingFields.dart' as bookFields;
+import '.././Fields_screens/Fields_Overview.dart';
 import '../../Services/Auth.dart';
 class Lobby extends StatelessWidget {
   @override
@@ -7,7 +7,6 @@ class Lobby extends StatelessWidget {
       final AuthService _auth = AuthService();
 
 
-    // TODO: implement build
     return Scaffold(
       body: Center(
         child: Container(
@@ -27,7 +26,7 @@ class Lobby extends StatelessWidget {
                 onPressed: () {
                   /*...*/ Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => bookFields.Booking()),);
+                      MaterialPageRoute(builder: (context) => FieldsOverview()),);
                 },
                 child: Text(
                   "Book Now",

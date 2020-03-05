@@ -1,7 +1,9 @@
+import 'package:flutter/cupertino.dart';
+
 import './Rating.dart';
 
 
-class User {
+class User extends ChangeNotifier {
   final String ID;
   final String FName;
   final String LName;
