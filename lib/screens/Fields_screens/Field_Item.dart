@@ -65,13 +65,13 @@ class FieldItem extends StatelessWidget
       padding: const EdgeInsets.only(top: 0.0),
       
       child: Card(  
+        color: Color.fromARGB(300, 30, 30,30),
         margin: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
         child: ListTile(
           onTap: (){
               Navigator.of(context).pushNamed(
               FieldDetails.routeName,
-              arguments: fields.ID,
-);
+              arguments: fields.ID,);
           },
           leading: CircleAvatar(
             radius: 25.0,

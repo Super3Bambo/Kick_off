@@ -5,7 +5,7 @@ import '../../Providers/FieldsProvider.dart';
 
 
 class FieldDetails extends StatelessWidget{
-  static const routeName = '';
+  static const routeName = 'field-detail';
 @override
   Widget build(BuildContext context) {
     final fieldId =

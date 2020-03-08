@@ -12,6 +12,8 @@ class Field with ChangeNotifier {
   final String Finish_at;
   final String Price;
   final String Photo_url;
-
-  Field ({ this.ID , this.Name , this.Capacitance , this.Location , this.Start_at , this.Price ,  this.Finish_at  , this.Photo_url });
+  final bool  Ball;
+  final bool  Bathroom;
+  final bool  Refree;
+  Field ({ this.ID , this.Name , this.Capacitance , this.Location , this.Start_at , this.Price ,  this.Finish_at  , this.Photo_url , this.Ball , this.Bathroom , this.Refree});
 }

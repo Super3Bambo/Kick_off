@@ -11,22 +11,18 @@ class Fieldview extends StatelessWidget {
 
 final fieldsData = Provider.of<Fields>(context);
     final fields = fieldsData.fields;
-
-return ListView.builder(
+return Scaffold(
+  appBar: AppBar(
+    title: Text('Fields'),
+  ),
+body: ListView.builder(
       padding: const EdgeInsets.fromLTRB(15.0, 30.0, 15.0, 0.0),
           itemCount:fields.length ,
           itemBuilder: (context, index) => ChangeNotifierProvider.value(
             value: fields[index],
           // builder: (c)=> fields[index],
-            child: FieldItem(
-                ), 
-                 
-          ),
-          
-    
-
+            child: FieldItem(),      
+          ),),
           );
-          
-
   }
   }
