@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 
-class Field with ChangeNotifier {
+class Field  {
   
 
    final String ID;
@@ -15,5 +15,5 @@ class Field with ChangeNotifier {
   final bool  Ball;
   final bool  Bathroom;
   final bool  Refree;
-  Field ({ this.ID , this.Name , this.Capacitance , this.Location , this.Start_at , this.Price ,  this.Finish_at  , this.Photo_url , this.Ball , this.Bathroom , this.Refree});
+  Field ({ this.ID, this.Name , this.Capacitance , this.Location , this.Start_at , this.Price ,  this.Finish_at  ,this.Photo_url , this.Ball , this.Bathroom , this.Refree});
 }

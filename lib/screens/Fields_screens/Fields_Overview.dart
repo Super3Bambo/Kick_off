@@ -1,9 +1,11 @@
-import 'package:flutter/material.dart';
-//import 'package:flutter_app/models/field.dart';
+/*import 'package:flutter/material.dart';
+import 'package:flutter_app/models/field.dart';
 import './Fields_Iistview.dart';
 import 'package:provider/provider.dart';
 import '../../Providers/FieldsProvider.dart';
 import './Field_Details.dart';
+import '../../Providers/MatchesProvider.dart';
+import '../../models/User.dart';
 
 
 class FieldsOverview extends StatelessWidget
@@ -29,8 +31,15 @@ class FieldsOverview extends StatelessWidget
     ),
     );
          */
-        return ChangeNotifierProvider.value(
+
+
+        return MultiProvider(
+           providers: [
+         ChangeNotifierProvider.value(
           value: Fields(),
+        ),
+      ],
+
         child: MaterialApp(
           // title: 'Fields',
            home: Fieldview(), 
@@ -51,4 +60,4 @@ class FieldsOverview extends StatelessWidget
           
     
 }
-}
+}*/

@@ -1,4 +1,5 @@
-/*import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 import '../../Providers/FieldsProvider.dart';
@@ -7,20 +8,22 @@ import '../../models/User.dart';
 
 
 
-class FieldDetails extends StatelessWidget{
-  static const routeName = 'field-detail';
+class FieldDetails extends StatefulWidget{
+  
+  final DocumentSnapshot field;
+  FieldDetails({this.field});
+
+  @override
+  _FieldDetailsState createState() => _FieldDetailsState();
+}
+
+class _FieldDetailsState extends State<FieldDetails> {
 @override
   Widget build(BuildContext context) {
-    final fieldId =
-        ModalRoute.of(context).settings.arguments as String; // is the id!
-
-    final loaddedfields = Provider.of<Fields>(context, listen: false,).findById(fieldId);
-    final match = Provider.of<matches>(context ,  listen: false);
-    final users = Provider.of<User> (context);
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(loaddedfields.Name),
+        title: Text(widget.field.data['Name']),
       ),
         body: Center(
             child: SingleChildScrollView(
@@ -30,7 +33,7 @@ class FieldDetails extends StatelessWidget{
                 children: <Widget>[
                   new ClipRRect(
                     child: Image(
-                      image: AssetImage(loaddedfields.Photo_url),
+                      image: AssetImage('images/5omasy.jpg'),
                     ),
                     borderRadius: BorderRadius.only(
                       topLeft: new Radius.circular(16.0),
@@ -43,13 +46,13 @@ class FieldDetails extends StatelessWidget{
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        new Text(loaddedfields.Name,style: TextStyle(fontSize: 20.0),),
+                        new Text(widget.field.data['Name'],style: TextStyle(fontSize: 20.0),),
                         new SizedBox(height: 16.0),
                         new Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
-                            new Text(loaddedfields.Location),
-                            new Text(loaddedfields.Price),
+                            new Text(widget.field.data['Location']),
+                            new Text(widget.field.data['Price']),
                           ],
                         ),
       //                 FlatButton(
@@ -72,5 +75,4 @@ class FieldDetails extends StatelessWidget{
 
 
   }
-
-}*/
+}

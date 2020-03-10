@@ -1,11 +1,17 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
+import './field.dart';
 import './User.dart';
 
-class Match {
-    final String ID;
+class Match with ChangeNotifier{
 
-  final String Date;
-  final String Check_in;
-  final String Check_out;
-  Match ({ this.ID ,this.Date , this.Check_in , this.Check_out });
+  final String ID;
+  final String field;
+  final DateTime Date;
+  final String Price;
+  final DateTime Check_in;
+  final DateTime Check_out;
+  //final String users;
+  Match ({ this.ID , this.field, this.Date , this.Price,  this.Check_in , this.Check_out });
 }
 

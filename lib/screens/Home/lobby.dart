@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import '.././Fields_screens/Fields_Overview.dart';
+import '../testttt/fieldform.dart';
 import '../../Services/Auth.dart';
+import '../testttt/showfielddata.dart';
+import '../testttt/hh.dart';
 class Lobby extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -23,10 +26,11 @@ class Lobby extends StatelessWidget {
                 disabledTextColor: Colors.black,
                 padding: EdgeInsets.all(8.0),
                 splashColor: Colors.blueAccent,
-                onPressed: () {
-                  /*...*/ Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => FieldsOverview()),);
+              onPressed: () {
+                 // Navigator.push(
+                   //   context,
+                   //   MaterialPageRoute(builder: (context) => FieldsOverview()),);
+                   Navigator.push(context, MaterialPageRoute(builder: (context) =>  sss() ),);
                 },
                 child: Text(
                   "Book Now",
@@ -44,7 +48,7 @@ class Lobby extends StatelessWidget {
                 padding: EdgeInsets.all(8.0),
                 splashColor: Colors.blueAccent,
                 onPressed: () {
-                  /*...*/
+                 Navigator.push(context, MaterialPageRoute(builder: (context) =>  fieldform() ),);
                 },
                 child: Text(
                   "Participate",
