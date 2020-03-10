@@ -16,9 +16,9 @@ class MyApp extends StatelessWidget {
       value: AuthService().user,
       child: MaterialApp(
         home: Wrapper(),
-      /*  routes: {
+        routes: {
             FieldDetails.routeName: (ctx) => FieldDetails(),
-        },*/
+        },
         
       ),
     );
