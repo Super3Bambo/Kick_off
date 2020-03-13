@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         home: Wrapper(),
         routes: {
-            FieldDetails.routeName: (ctx) => FieldDetails(),
+         //   FieldDetails.routeName: (ctx) => FieldDetails(),
         },
         
       ),

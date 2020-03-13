@@ -34,6 +34,7 @@ class FieldService {
   List<Field> _fieldDataFromSnapshot(QuerySnapshot snapshot) {
     return  snapshot.documents.map((doc){
     return Field(
+      ID: doc.documentID,
       Name: doc.data['Name'] ?? '',
       Capacitance:  doc.data['Capacitance'] ?? '',
       Location :  doc.data['Location'] ?? '',
@@ -45,14 +46,32 @@ class FieldService {
     }).toList();
   }
   
-   Stream<List<Field>> get fieldses {
+
+Stream<List<Field>> get fieldses {
     return field.snapshots().map(_fieldDataFromSnapshot);
   }
+  /*
+  Field _onefieldDataFromSnapshot(DocumentSnapshot snapshot) {
+    return Field(
+      Name: snapshot.data['Name'] ?? '',
+      Capacitance:  snapshot.data['Capacitance'] ?? '',
+      Location :  snapshot.data['Location'] ?? '',
+      Start_at:  snapshot.data['Start_at'] ?? '',
+      Finish_at:  snapshot.data['Finish_at'] ?? '',
+      Price :  snapshot.data['Price'] ?? '',
+     // rating: snapshot.data["Rating"],
+    );
+  }
 
+   
+  Stream<Field> get userData {
+    return field.document().snapshots()
+      .map(_onefieldDataFromSnapshot);
+  }
   /*Future getfields() async {
     var filestore = Firestore.instance;
     QuerySnapshot docs = await filestore.collection('Field').getDocuments();
     return docs.documents;
   }
-  */
+  */*/
   }

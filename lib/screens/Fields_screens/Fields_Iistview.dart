@@ -26,3 +26,27 @@ body: ListView.builder(
           );
   }
   }*/
+
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../../models/field.dart';
+import 'Field_Item.dart';
+class Fieldview extends StatefulWidget {
+  @override
+  _FieldviewState createState() => _FieldviewState();
+}
+
+class _FieldviewState extends State<Fieldview> {
+  @override
+  Widget build(BuildContext context) {
+
+    final field = Provider.of<List<Field>>(context) ?? [];
+
+    return ListView.builder(
+      itemCount: field.length,
+      itemBuilder: (context, index) {
+        return FieldItem(fields: field[index]);
+      },
+    );
+  }
+}
