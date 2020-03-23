@@ -1,16 +1,43 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/Shared/Loading.dart';
 import '../../screens/User/Edit_User.dart';
 import '../../screens/User/Show_User_Data.dart';
-
+import '../../models/User.dart';
+import '../../Services/User.dart';
 import 'dart:ui' as ui;
+import 'package:provider/provider.dart';
+import 'dart:io';
+import 'package:image_picker/image_picker.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:path/path.dart';
 
-class Profile extends StatelessWidget {
+
+
+class Profile extends StatefulWidget {
+
+  @override
+  _ProfileState createState() => _ProfileState();
+}
+
+class _ProfileState extends State<Profile> {
+    File _image;
 
   @override
   Widget build(BuildContext context) {
+
+
+
     final _width = MediaQuery.of(context).size.width;
     final _height = MediaQuery.of(context).size.height;
     final String imgUrl = 'https://thumbs.dreamstime.com/b/avatar-man-soccer-player-graphic-sports-clothes-front-view-over-isolated-background-illustration-73244786.jpg';
+
+ User user = Provider.of<User>(context);
+
+return StreamBuilder<User>(
+      stream: UserService(userid: user.ID).userData,
+      builder: (context, snapshot) {
+        if(snapshot.hasData){
+          User userData = snapshot.data;
 
     return  Stack(children: <Widget>[
        Container(color: Colors.blue,),
@@ -31,10 +58,29 @@ class Profile extends StatelessWidget {
           body:  Center(
             child:  Column(
               children: <Widget>[
-                 SizedBox(height: _height/12,),
-                 CircleAvatar(radius:_width<_height? _width/4:_height/4,backgroundImage: NetworkImage(imgUrl),),
+                                     SizedBox(height: _height/12,),
+
+                 
+                 CircleAvatar(
+                    radius: 100,
+                    child: ClipOval(
+                   child: SizedBox(
+                      width: 220.0,
+                          height: 220.0,
+                  //backgroundImage: NetworkImage(imgUrl),
+                  child: (userData.Photo_url!=null)?Image.network(
+                          /* --------------------*/  userData.Photo_url,
+                            fit: BoxFit.fill,
+                          ):Image.network(
+                            imgUrl,
+                            fit: BoxFit.fill,
+                          ),
+                 ),),),
+
+                  
+
                  SizedBox(height: _height/25.0,),
-                 Text('Mohamed Hilal', style:  TextStyle(fontWeight: FontWeight.bold, fontSize: _width/15, color: Colors.white),),
+                 Text(userData.FName + ' ' + '${ userData.LName}', style:  TextStyle(fontWeight: FontWeight.bold, fontSize: _width/15, color: Colors.white),),
                  Padding(padding:  EdgeInsets.only(top: _height/30, left: _width/8, right: _width/8),
                   child: Text('First Player to join the APP!',
                     style:  TextStyle(fontWeight: FontWeight.normal, fontSize: _width/25,color: Colors.white),textAlign: TextAlign.center,) ,),
@@ -57,15 +103,19 @@ class Profile extends StatelessWidget {
                  Divider(height: _height/30,color: Colors.white),
                  Row(
                   children: <Widget>[
-                    rowCell(99, 'SHOOTING'),
-                    rowCell(99, 'PASSING'),
-                    rowCell(99, 'DEFENDING'),
+                    rowCell(99, '${userData.Age}'),//
+                    rowCell(99, '${userData.Age}'),
+                    rowCell(99, '${userData.Age}'),
                   ],),
               ],
             ),
           )
       )
-    ],);
+    ],
+    );
+        }else{Loading();}
+        }
+        );
   }
 
   Widget rowCell(int count, String type) =>  Expanded(child:  Column(children: <Widget>[

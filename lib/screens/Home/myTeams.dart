@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import './createTeam.dart' as teamCreate;
-import './teamBoard.dart' as Board;
+import '.././Team/createTeam.dart' as teamCreate;
+import '.././Team/teamBoard.dart' as Board;
 
 class Teams extends StatelessWidget
 {
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Scaffold (
       body: Row(
             children: <Widget>[
@@ -22,7 +21,7 @@ class Teams extends StatelessWidget
                       padding: const EdgeInsets.all(36.0),
                       width: 300,
                       height: 100,
-                      child: Text('القمدين',
+                      child: Text('kij',
                         style: TextStyle(fontSize: 20.0),),
                     ),
                   ),

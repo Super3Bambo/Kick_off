@@ -45,12 +45,13 @@ class AuthService {
     } 
   }
 
- Future UserID () async {
+ User UserID ()  {
    // final FirebaseUser user = await _auth.currentUser();
     //final id =  user.uid.toString();
     // return await  _auth.currentUser();
     //return id ;
 
+    
     }
 
 

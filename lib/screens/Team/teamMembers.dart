@@ -4,7 +4,6 @@ class teamMembers extends StatelessWidget
 {
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Scaffold (
         body: Row(
           children: <Widget>[
@@ -18,7 +17,7 @@ class teamMembers extends StatelessWidget
                     padding: const EdgeInsets.all(36.0),
                     width: 300,
                     height: 100,
-                    child: Text('محمود محمد فراج اللي مبيعرفش يلعب',
+                    child: Text('tryr',
                       style: TextStyle(fontSize: 20.0),),
                   ),
                 ),

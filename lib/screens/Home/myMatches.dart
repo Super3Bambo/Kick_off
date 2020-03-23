@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/screens/Matches/Matches_Overview.dart';
 
 class Matches extends StatelessWidget
 {
   @override
   Widget build(BuildContext context) {
     return Scaffold (
-      body: Row(
+     /* body: Row(
         children: <Widget>[
           Expanded(
              child: Card(
@@ -14,6 +15,7 @@ class Matches extends StatelessWidget
                 onTap: () {
                 },
                 child: Container(
+                  
                   padding: const EdgeInsets.all(36.0),
                   width: 300,
                   height: 100,
@@ -24,7 +26,32 @@ class Matches extends StatelessWidget
             ),
           ),
         ],
-      )
+      )*/body: Center(
+        child: Container(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              SizedBox(
+                height: 200.0,
+              ),
+              new FlatButton(
+                color: Colors.blue,
+                textColor: Colors.white,
+                disabledColor: Colors.grey,
+                disabledTextColor: Colors.black,
+                padding: EdgeInsets.all(8.0),
+                splashColor: Colors.blueAccent,
+              onPressed: () {
+                 // Navigator.push(
+                   //   context,
+                   //   MaterialPageRoute(builder: (context) => FieldsOverview()),);
+                   Navigator.push(context, MaterialPageRoute(builder: (context) =>  MatchesOverview() ),);
+                },
+                child: Text(
+                  "Matches",
+                  style: TextStyle(fontSize: 20.0),
+                ),
+              ),],),),),
     );
   }
 }

@@ -75,6 +75,7 @@ class FieldDetails extends StatelessWidget{
 
 }*/
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import '../../models/field.dart';
@@ -98,7 +99,7 @@ class FieldDetails extends StatefulWidget{
 
 class _FieldDetailsState extends State<FieldDetails> {
 
-String date = DateTime.now().toString(), start , finish ; 
+DateTime start=DateTime.now() , finish=DateTime.now() ; 
 
          
 
@@ -107,7 +108,7 @@ String date = DateTime.now().toString(), start , finish ;
   Widget build(BuildContext context) {
     User user = Provider.of<User>(context);
     List <User> users=[
-    User(ID: user.ID,)
+    User(ID: user.ID,),
   ];
     return Scaffold(
       appBar: AppBar(
@@ -157,8 +158,7 @@ String date = DateTime.now().toString(), start , finish ;
               hintText: "Start",
               border:  OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))),
               validator: (val) => val.isEmpty ? 'Enter Your Frist Name' : null,
-                onChanged: (val) {
-                  setState(() => start = val); }
+               
                 ),
              
              
@@ -171,8 +171,6 @@ String date = DateTime.now().toString(), start , finish ;
               border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))), 
 
              validator: (val) => val.length == 8 ? 'Enter Your Last Name ' : null,
-                onChanged: (val) {
-                  setState(() => finish = val);}
             ),
 
             
@@ -184,7 +182,7 @@ String date = DateTime.now().toString(), start , finish ;
                   style: TextStyle(color: Colors.white),
                 ),
                 onPressed: () async {
-                  await MatchService().addMatch(widget.fieldid.ID, widget.fieldid.Location, date, start, finish, widget.fieldid.Price , users );
+                  await MatchService().addMatch(widget.fieldid.ID, widget.fieldid.Location, start, finish, widget.fieldid.Price , users );
                     
                      
                            

@@ -84,12 +84,12 @@ class FieldsOverview extends StatelessWidget {
          
         ),
         body: Container(
-          decoration: BoxDecoration(
+        /*  decoration: BoxDecoration(
             image: DecorationImage(
               image: AssetImage('images/5omasy.jpg'),
               fit: BoxFit.cover,
             ),
-          ),
+          ),*/
           child: Fieldview()
         ),
       ),

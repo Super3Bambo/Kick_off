@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import '../Home/teamMembers.dart' as teamMembers;
+import './teamMembers.dart' as teamMembers;
 import '../Home/League.dart' as leagues;
-import '../Home/teamMatches.dart' as teamMatches;
+import './teamMatches.dart' as teamMatches;
 
 class TeamBoard extends StatelessWidget {
 

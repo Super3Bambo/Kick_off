@@ -1,5 +1,5 @@
 import 'package:flutter_app/models/Rating.dart';
-
+import 'dart:io';
 import '../models/User.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -11,7 +11,7 @@ class UserService {
 
   final CollectionReference users = Firestore.instance.collection('user');
 
-  Future<void> updateUserData(String fName, String lName, String age,String position ,String area,String phone, ) async {
+  Future<void> updateUserData(String fName, String lName, String age,String position ,String area,String phone, String image ) async {
     return await users.document(userid).updateData({
       'FName': fName,
       'LName': lName,
@@ -19,6 +19,7 @@ class UserService {
       'Position': position ,
       'Area': area,
       'Phone': phone,
+      'Photo_Url' : image
     });
   }
 

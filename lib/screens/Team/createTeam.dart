@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 class CreateTeam extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
 
     final teamName = TextField(
       obscureText: false,

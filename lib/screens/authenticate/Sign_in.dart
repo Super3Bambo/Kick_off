@@ -71,7 +71,7 @@ class _RegisterState extends State<SignIn> {
               decoration: InputDecoration(
               contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
               hintText: "Password",
-hintStyle: TextStyle(color: Colors.grey),
+              hintStyle: TextStyle(color: Colors.grey),
               border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))), 
 
              validator: (val) => val.length == 8 ? ' password not correct  ' : null,
