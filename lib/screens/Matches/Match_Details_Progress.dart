@@ -2,22 +2,22 @@ import 'package:flutter/material.dart';
 //import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import '../../models/Matches.dart';
-//import '../../Services/Match.dart';
-//import '../../models/User.dart';
+import '../../Services/Match.dart';
+import '../../models/User.dart';
 import 'package:provider/provider.dart';
 
 
-class Match_Details extends StatefulWidget{
+class Match_DetailsProgress extends StatefulWidget{
   
   final Match matchid;
 
-  Match_Details({this.matchid});
+  Match_DetailsProgress({this.matchid});
  
   @override
-  _Match_DetailsState createState() => _Match_DetailsState();
+  _Match_DetailsProgressState createState() => _Match_DetailsProgressState();
 }
 
-class _Match_DetailsState extends State<Match_Details> {
+class _Match_DetailsProgressState extends State<Match_DetailsProgress> {
 
 
          
@@ -25,7 +25,13 @@ class _Match_DetailsState extends State<Match_Details> {
 
 @override
   Widget build(BuildContext context) {
-
+User user = Provider.of<User>(context);
+    List <User> users=[
+    User(ID: user.ID,),
+  ];
+  List<String> myList = List<String>(2);
+                        myList = widget.matchid.users.map((f)=>f.ID).toList();
+  String matchId = widget.matchid.ID;
 
  return Scaffold(
       appBar: AppBar(
@@ -59,8 +65,10 @@ class _Match_DetailsState extends State<Match_Details> {
                         new Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
-                            new Text(widget.matchid.Location),
+                           // new Text(widget.matchid.Location),
                             new Text(widget.matchid.users.length.toString()),
+                        
+                            
                             
                            /* ListView.builder(
                               itemCount: widget.matchid.users.length,
@@ -77,6 +85,24 @@ class _Match_DetailsState extends State<Match_Details> {
     )
     );
                                }),*/
+
+SizedBox(height: 20.0),
+              RaisedButton(
+                color: Colors.pink[300],
+                child: Text(
+                  'Join',
+                  style: TextStyle(color: Colors.white),
+                ),
+                onPressed: () async {
+                  await MatchService().joinMatch(matchId , users);
+                    
+                     
+                           
+                    Navigator.pop(context);
+                  
+                }
+              ),
+
                           ],
                         ),
                         ],

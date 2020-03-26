@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../models/Matches.dart';
-import 'Match_item.dart';
 import './Match_item_progress.dart';
 
 
-class Matchview extends StatefulWidget {
+class MatchviewProgress extends StatefulWidget {
   @override
-  _MatchviewState createState() => _MatchviewState();
+  _MatchviewProgressState createState() => _MatchviewProgressState();
 }
 
-class _MatchviewState extends State<Matchview> {
+class _MatchviewProgressState extends State<MatchviewProgress> {
   @override
   Widget build(BuildContext context) {
 
@@ -19,8 +18,8 @@ class _MatchviewState extends State<Matchview> {
     return ListView.builder(
       itemCount: match.length,
       itemBuilder: (context, index) {
-        if( match[index].users.length==10){
-        return MatchItem(match: match[index]);
+        if(  match[index].users.length>0  && match[index].users.length<10){
+        return MatchItemProgress(match: match[index]);
         }
       },
     );

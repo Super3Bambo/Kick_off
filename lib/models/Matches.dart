@@ -19,5 +19,18 @@ class Match {
   //final String users;
   Match ({ this.ID , this.Field, this.Location, this.Date , this.Price,  this.Check_in , this.Check_out ,  this.users});
 
+
+
+
+
+   /*  static List<Map> ConvertUsersToMap({List<User> user}) {
+    List<Map> steps = [];
+    user.forEach((User users) {
+      Map step = users.toMap();
+      steps.add(step);
+    });
+    return steps;
+  }
+*/
 }
 

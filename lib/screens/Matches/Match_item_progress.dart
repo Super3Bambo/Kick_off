@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/screens/Matches/Match_Details_Progress.dart';
 import '../../models/Matches.dart';
 //import './Field_Details.dart';
-import './Match_Details.dart';
 
-class MatchItem extends StatelessWidget {
+class MatchItemProgress extends StatelessWidget {
 
 
   final Match match;
-  MatchItem({ this.match });
+  MatchItemProgress({ this.match });
 
   @override
   Widget build(BuildContext context) {
     
 godetails(Match id){
-Navigator.push(context,MaterialPageRoute(builder: (context)=> Match_Details(matchid: match)  ) );
+Navigator.push(context,MaterialPageRoute(builder: (context)=> Match_DetailsProgress(matchid: match)  ) );
 
 }
     return Padding(
@@ -30,10 +30,9 @@ Navigator.push(context,MaterialPageRoute(builder: (context)=> Match_Details(matc
           ),
          title: Text(match.ID),
        //   subtitle: Text(match.users.map((f)=>f.ID).toString()),
-         subtitle: Text(match.users.length.toString()),
+         subtitle: Text(match.users.map((f)=>f.ID).toString()),
       ),
     )
     );
-
   }
 }

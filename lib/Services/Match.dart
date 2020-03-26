@@ -18,13 +18,19 @@ class MatchService {
       'Finish_at': finish,
       'Price': price,
       'Date': DateTime.now(),
-      'Players': users.map((u)=>{
-        'UserID':u.ID,
-      }).toList(),
+      'Players': users.map((u)=>{'UserID' :u.ID,}).toList(),
+        //'Players' : users,
+      // Map<String, dynamic>  {'Players': users}
+  //   'Players': Match().mapping(),
+  
+  });
       
-    });
   }
 
+Future <void> joinMatch(String ID , List<User> user)async{
+    
+  return await matches.document(ID).updateData({'Players':FieldValue.arrayUnion(user.map((e) => {'UserID': e.ID}).toList())});
+}
 
 
 List<Match> _matchesFromSnapshot(QuerySnapshot snapshot) {
