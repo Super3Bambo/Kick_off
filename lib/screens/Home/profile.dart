@@ -24,6 +24,13 @@ class _ProfileState extends State<Profile> {
 
   @override
   Widget build(BuildContext context) {
+    Future getImage() async {
+      var image = await ImagePicker.pickImage(source: ImageSource.gallery);
+
+      setState(() {
+        _image = image;
+      });
+    }
 
 
 
@@ -60,22 +67,28 @@ return StreamBuilder<User>(
               children: <Widget>[
                                      SizedBox(height: _height/12,),
 
-                 
-                 CircleAvatar(
+                 InkWell(
+                //   onTap: ()=>getImage(),
+               child:  CircleAvatar(
+                   
                     radius: 100,
                     child: ClipOval(
                    child: SizedBox(
                       width: 220.0,
                           height: 220.0,
+                          
                   //backgroundImage: NetworkImage(imgUrl),
                   child: (userData.Photo_url!=null)?Image.network(
                           /* --------------------*/  userData.Photo_url,
+                           /*child: (_image!=null)?Image.file(
+                            _image,*/
                             fit: BoxFit.fill,
                           ):Image.network(
                             imgUrl,
                             fit: BoxFit.fill,
                           ),
-                 ),),),
+                          
+                 ),),),),
 
                   
 

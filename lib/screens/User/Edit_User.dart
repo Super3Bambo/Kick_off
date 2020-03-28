@@ -26,10 +26,11 @@ class _EdituserState extends State<Edituser> {
   String fName, lName, age, position, area, phone;
       File _image;
       
+      
 
   @override
   Widget build(BuildContext context) {
-    String photo = _image.toString();
+    String photo ;
 
 Future getImage() async {
       var image = await ImagePicker.pickImage(source: ImageSource.gallery);
@@ -38,14 +39,14 @@ Future getImage() async {
         _image = image;
       });
     }
-
-    Future uploadPic(BuildContext context) async{
-      String fileName = basename(_image.path);
-       StorageReference firebaseStorageRef = FirebaseStorage.instance.ref().child(fileName);
+  /*  Future uploadPic(BuildContext context) async{
+    
+       StorageReference firebaseStorageRef = FirebaseStorage.instance.ref().child(_image.path);
        StorageUploadTask uploadTask = firebaseStorageRef.putFile(_image);
        StorageTaskSnapshot taskSnapshot=await uploadTask.onComplete;
-      
-    }
+       String imageurl = taskSnapshot.ref.getDownloadURL().toString(); 
+    }*/
+    
 
 
 
@@ -203,7 +204,10 @@ return StreamBuilder<User>(
                     style: TextStyle(color: Colors.white),
                   ),
                   onPressed: () async {
-                    uploadPic(context);
+                   // uploadPic(context);
+                   var firebaseStorageRef = FirebaseStorage.instance.ref().child(_image.path);
+       var uploadTask = firebaseStorageRef.putFile(_image);
+        photo = await (await uploadTask.onComplete ).ref.getDownloadURL(); 
                     if(_formKey.currentState.validate()){
                       await UserService(userid: user.ID).updateUserData(
                         fName ?? userData.FName,
@@ -212,7 +216,7 @@ return StreamBuilder<User>(
                         position ?? userData.Position,
                         area ?? userData.Area,
                         phone ?? userData.Phone,
-                        photo ?? userData.Photo_url
+                        photo.toString() ?? userData.Photo_url
                              );
                       Navigator.pop(context);
                     }
