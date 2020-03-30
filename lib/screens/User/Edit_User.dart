@@ -189,8 +189,8 @@ bool loading = false;
                                   FontAwesomeIcons.camera,
                                   size: 30.0,
                                 ),
-                                onPressed: () {
-                                  getImage();
+                                onPressed: () async{
+                                  await getImage();
                                 },
                               ),
                             ),],
@@ -209,7 +209,7 @@ bool loading = false;
 
                             onPressed: () async {
                               // uploadPic(context);
-                              if(_image!=null){
+                           //   if(_image!=null){
                               if(_formKey.currentState.validate()){
                                
                                  var firebaseStorageRef = FirebaseStorage.instance.ref().child(_image.path);
@@ -229,9 +229,9 @@ bool loading = false;
                                 loading = false;
                                 Navigator.pop(context);
                               }
-                              }
+                             // }
                               
-                              else{
+                              /*else{
                                 if(_formKey.currentState.validate()){
                                 setState(() => loading = true);
                                   await UserService(userid: user.ID).updateUserData(
@@ -245,7 +245,8 @@ bool loading = false;
                                 );
                                 loading = false;
                                 Navigator.pop(context);}
-                            }}
+                            }*/
+                            }
                         ),
 
                             ),)],
