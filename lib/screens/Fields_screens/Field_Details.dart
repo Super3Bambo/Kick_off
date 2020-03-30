@@ -75,7 +75,6 @@ class FieldDetails extends StatelessWidget{
 
 }*/
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import '../../models/field.dart';

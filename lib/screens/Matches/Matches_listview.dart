@@ -19,7 +19,7 @@ class _MatchviewState extends State<Matchview> {
     return ListView.builder(
       itemCount: match.length,
       itemBuilder: (context, index) {
-        if( match[index].users.length==10){
+        if( match[index].users.length >=10){
         return MatchItem(match: match[index]);
         }
       },

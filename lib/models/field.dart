@@ -3,8 +3,7 @@ import 'package:flutter/foundation.dart';
 class Field  {
   
 
-   final String ID;
-
+  final String ID;
   final String Name;
   final String Capacitance;
   final String Location;

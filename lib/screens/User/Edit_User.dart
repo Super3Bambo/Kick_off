@@ -23,7 +23,7 @@ class _EdituserState extends State<Edituser> {
   final _formKey = GlobalKey<FormState>();
 
   // form values
-  String fName, lName, age, position, area, phone;
+  String fName='', lName, age, position, area, phone;
       File _image;
       
       
@@ -39,13 +39,12 @@ Future getImage() async {
         _image = image;
       });
     }
-  /*  Future uploadPic(BuildContext context) async{
-    
-       StorageReference firebaseStorageRef = FirebaseStorage.instance.ref().child(_image.path);
+    Future uploadPic(BuildContext context) async{
+    String fileName = basename(_image.path);
+       StorageReference firebaseStorageRef = FirebaseStorage.instance.ref().child(fileName);
        StorageUploadTask uploadTask = firebaseStorageRef.putFile(_image);
        StorageTaskSnapshot taskSnapshot=await uploadTask.onComplete;
-       String imageurl = taskSnapshot.ref.getDownloadURL().toString(); 
-    }*/
+    }
     
 
 
@@ -55,8 +54,12 @@ Future getImage() async {
 return StreamBuilder<User>(
       stream: UserService(userid: user.ID).userData,
       builder: (context, snapshot) {
-        if(snapshot.hasData){
-          User userData = snapshot.data;
+        if(snapshot.hasData==null){
+          return Loading();
+         
+    }else {
+        
+         User userData = snapshot.data;
     return  Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -92,7 +95,7 @@ return StreamBuilder<User>(
                 hintText: "Last Name",
                 border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))), 
 
-               validator: (val) => val.length == 8 ? 'Enter Your Last Name ' : null,
+                validator: (val) => val.isEmpty ? 'Enter Your Frist Name' : null,
                   onChanged: (val) {
                     setState(() => lName = val);}
               ),
@@ -105,7 +108,7 @@ return StreamBuilder<User>(
                 hintText: "Age",
                 border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))), 
 
-               validator: (val) => val.length == 8 ? 'Enter Your Age ' : null,
+                validator: (val) => val.isEmpty ? 'Enter Your Frist Name' : null,
                   onChanged: (val) {
                     setState(() => age = val);}
               ),
@@ -118,7 +121,7 @@ return StreamBuilder<User>(
                 hintText: "area",
                 border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))), 
 
-               validator: (val) => val.length == 8 ? 'Enter Your area ' : null,
+                validator: (val) => val.isEmpty ? 'Enter Your Frist Name' : null,
                   onChanged: (val) {
                     setState(() => area = val);}
               ),
@@ -132,7 +135,7 @@ return StreamBuilder<User>(
                 hintText: "position",
                 border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))), 
 
-               validator: (val) => val.length == 8 ? 'Enter Your position ' : null,
+                validator: (val) => val.isEmpty ? 'Enter Your Frist Name' : null,
                   onChanged: (val) {
                     setState(() => position = val);}
               ),
@@ -148,7 +151,7 @@ return StreamBuilder<User>(
                 hintText: "Phone",
                 border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))), 
 
-               validator: (val) => val.length == 8 ? 'Enter Your Phone ' : null,
+                validator: (val) => val.isEmpty ? 'Enter Your Frist Name' : null,
                   onChanged: (val) {
                     setState(() => phone = val);}
               ),
@@ -173,7 +176,7 @@ return StreamBuilder<User>(
                             _image,
                             fit: BoxFit.fill,
                           ):Image.network(
-                            'https://thumbs.dreamstime.com/b/avatar-man-soccer-player-graphic-sports-clothes-front-view-over-isolated-background-illustration-73244786.jpg',
+                            userData.Photo_url,
                             fit: BoxFit.fill,
                           ),
                         ),
@@ -191,6 +194,7 @@ return StreamBuilder<User>(
                         ),
                         onPressed: () {
                           getImage();
+                           
                         },
                       ),
                     ),],
@@ -205,10 +209,13 @@ return StreamBuilder<User>(
                   ),
                   onPressed: () async {
                    // uploadPic(context);
-                   var firebaseStorageRef = FirebaseStorage.instance.ref().child(_image.path);
-       var uploadTask = firebaseStorageRef.putFile(_image);
-        photo = await (await uploadTask.onComplete ).ref.getDownloadURL(); 
+      
+                   
                     if(_formKey.currentState.validate()){
+                     var fileName = basename(_image.path);
+                          var firebaseStorageRef = FirebaseStorage.instance.ref().child(fileName);
+                          var uploadTask = firebaseStorageRef.putFile(_image);
+                         var photo = await (await uploadTask.onComplete ).ref.getDownloadURL();
                       await UserService(userid: user.ID).updateUserData(
                         fName ?? userData.FName,
                         lName ?? userData.LName,
@@ -218,8 +225,10 @@ return StreamBuilder<User>(
                         phone ?? userData.Phone,
                         photo.toString() ?? userData.Photo_url
                              );
-                      Navigator.pop(context);
+                              Navigator.pop(context);
+
                     }
+
                   }
                 ),
                 
@@ -232,9 +241,6 @@ return StreamBuilder<User>(
       ),
    )
     );
-    }else {
-        return Loading();
-        
     }
     }
     ,);

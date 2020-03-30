@@ -20,17 +20,9 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
-    File _image;
 
   @override
   Widget build(BuildContext context) {
-    Future getImage() async {
-      var image = await ImagePicker.pickImage(source: ImageSource.gallery);
-
-      setState(() {
-        _image = image;
-      });
-    }
 
 
 
@@ -42,7 +34,7 @@ class _ProfileState extends State<Profile> {
 
 return StreamBuilder<User>(
       stream: UserService(userid: user.ID).userData,
-      builder: (context, snapshot) {
+      builder: (context, snapshot){
         if(snapshot.hasData){
           User userData = snapshot.data;
 
@@ -78,10 +70,8 @@ return StreamBuilder<User>(
                           height: 220.0,
                           
                   //backgroundImage: NetworkImage(imgUrl),
-                  child: (userData.Photo_url!=null)?Image.network(
+                 child: (userData.Photo_url!=null)?Image.network(
                           /* --------------------*/  userData.Photo_url,
-                           /*child: (_image!=null)?Image.file(
-                            _image,*/
                             fit: BoxFit.fill,
                           ):Image.network(
                             imgUrl,
@@ -126,7 +116,7 @@ return StreamBuilder<User>(
       )
     ],
     );
-        }else{Loading();}
+        }else{return Loading();}
         }
         );
   }
