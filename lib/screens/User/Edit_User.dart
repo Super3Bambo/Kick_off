@@ -189,8 +189,8 @@ bool loading = false;
                                   FontAwesomeIcons.camera,
                                   size: 30.0,
                                 ),
-                                onPressed: () async{
-                                  await getImage();
+                                onPressed: () {
+                                  getImage();
                                 },
                               ),
                             ),],
@@ -211,8 +211,7 @@ bool loading = false;
                               // uploadPic(context);
                               if(_image!=null){
                               if(_formKey.currentState.validate()){
-                               
-                                 var firebaseStorageRef = FirebaseStorage.instance.ref().child(_image.path);
+                              var firebaseStorageRef = FirebaseStorage.instance.ref().child(_image.path);
                               var uploadTask = firebaseStorageRef.putFile(_image);
                               photo = await (await uploadTask.onComplete ).ref.getDownloadURL();
                                 setState(() => loading = true);
@@ -223,13 +222,13 @@ bool loading = false;
                                     position ?? userData.Position,
                                     area ?? userData.Area,
                                     phone ?? userData.Phone,
-                                    photo.toString() ?? userData.Photo_url
+                                    photo.toString() ??userData.Photo_url
                                 );
                               
                                 loading = false;
                                 Navigator.pop(context);
                               }
-                             }
+                              }
                               
                               else{
                                 if(_formKey.currentState.validate()){
@@ -241,7 +240,7 @@ bool loading = false;
                                     position ?? userData.Position,
                                     area ?? userData.Area,
                                     phone ?? userData.Phone,
-                                     userData.Photo_url
+                                     userData.Photo_url 
                                 );
                                 loading = false;
                                 Navigator.pop(context);}
