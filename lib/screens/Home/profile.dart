@@ -126,7 +126,7 @@ return StreamBuilder<User>(
       )
     ],
     );
-        }else{Loading();}
+        }else{ return Loading();}
         }
         );
   }
