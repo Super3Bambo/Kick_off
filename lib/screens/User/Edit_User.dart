@@ -169,11 +169,11 @@ bool loading = false;
                                   child: new SizedBox(
                                     width: 80.0,
                                     height: 80.0,
-                                    child: (userData.Photo_url!=null)?Image.network(
-                                     userData.Photo_url,
+                                    child: (_image!=null)?Image.file(
+                                     _image,
                                       fit: BoxFit.fill,
                                     ):Image.network(
-                                      'https://thumbs.dreamstime.com/b/avatar-man-soccer-player-graphic-sports-clothes-front-view-over-isolated-background-illustration-73244786.jpg',
+                                      userData.Photo_url,
                                       fit: BoxFit.fill,
                                     ),
                                   ),
@@ -209,7 +209,7 @@ bool loading = false;
 
                             onPressed: () async {
                               // uploadPic(context);
-                           //   if(_image!=null){
+                              if(_image!=null){
                               if(_formKey.currentState.validate()){
                                
                                  var firebaseStorageRef = FirebaseStorage.instance.ref().child(_image.path);
@@ -229,9 +229,9 @@ bool loading = false;
                                 loading = false;
                                 Navigator.pop(context);
                               }
-                             // }
+                             }
                               
-                              /*else{
+                              else{
                                 if(_formKey.currentState.validate()){
                                 setState(() => loading = true);
                                   await UserService(userid: user.ID).updateUserData(
@@ -245,7 +245,7 @@ bool loading = false;
                                 );
                                 loading = false;
                                 Navigator.pop(context);}
-                            }*/
+                            }
                             }
                         ),
 
