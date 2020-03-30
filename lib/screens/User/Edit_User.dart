@@ -23,17 +23,10 @@ class _EdituserState extends State<Edituser> {
   final _formKey = GlobalKey<FormState>();
 
   // form values
-<<<<<<< HEAD
-  String fName='', lName, age, position, area, phone;
-      File _image;
-      
-      
-=======
   String fName, lName, age, position, area, phone;
   File _image;
 
-
->>>>>>> 88da370317c63d34013d8dc919fcd8e7d570fa46
+bool loading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -46,15 +39,6 @@ class _EdituserState extends State<Edituser> {
         _image = image;
       });
     }
-<<<<<<< HEAD
-    Future uploadPic(BuildContext context) async{
-    String fileName = basename(_image.path);
-       StorageReference firebaseStorageRef = FirebaseStorage.instance.ref().child(fileName);
-       StorageUploadTask uploadTask = firebaseStorageRef.putFile(_image);
-       StorageTaskSnapshot taskSnapshot=await uploadTask.onComplete;
-    }
-    
-=======
     /*  Future uploadPic(BuildContext context) async{
 
        StorageReference firebaseStorageRef = FirebaseStorage.instance.ref().child(_image.path);
@@ -62,7 +46,6 @@ class _EdituserState extends State<Edituser> {
        StorageTaskSnapshot taskSnapshot=await uploadTask.onComplete;
        String imageurl = taskSnapshot.ref.getDownloadURL().toString();
     }*/
->>>>>>> 88da370317c63d34013d8dc919fcd8e7d570fa46
 
 
 
@@ -72,61 +55,14 @@ class _EdituserState extends State<Edituser> {
     return StreamBuilder<User>(
       stream: UserService(userid: user.ID).userData,
       builder: (context, snapshot) {
-<<<<<<< HEAD
-        if(snapshot.hasData==null){
-          return Loading();
-         
-    }else {
-        
-         User userData = snapshot.data;
-    return  Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.blue[600],
-        elevation: 0.0,
-        title: Text('Edit Profile'),
-      ),
-   body: Container(
-        child: SingleChildScrollView(
-        padding: EdgeInsets.symmetric(vertical: 20.0 , horizontal: 50.0),
-        child: Form(
-          key: _formKey,
-          child: Column(children: <Widget>[
-            SizedBox(height: 20.0,),
-              TextFormField(
-                initialValue: userData.FName,
-                decoration: InputDecoration(
-                contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-                hintText: "Frist Name",
-                border:  OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))),
-                validator: (val) => val.isEmpty ? 'Enter Your Frist Name' : null,
-                  onChanged: (val) {
-                    setState(() => fName = val); }
-                  ),
-               
-               
-            SizedBox(height: 20.0,),
-              TextFormField(
-                initialValue: userData.LName,
-                decoration: InputDecoration(
-                  
-                contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-                hintText: "Last Name",
-                border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))), 
-
-                validator: (val) => val.isEmpty ? 'Enter Your Frist Name' : null,
-                  onChanged: (val) {
-                    setState(() => lName = val);}
-=======
         if(snapshot.hasData){
           User userData = snapshot.data;
-          return  Scaffold(
+          return loading? Loading(): Scaffold (
               backgroundColor: Colors.white,
               appBar: AppBar(
                 backgroundColor: Colors.blue[600],
                 elevation: 0.0,
                 title: Text('Edit Profile'),
->>>>>>> 88da370317c63d34013d8dc919fcd8e7d570fa46
               ),
               body: Container(
                 child: SingleChildScrollView(
@@ -146,39 +82,11 @@ class _EdituserState extends State<Edituser> {
                               setState(() => fName = val); }
                         ),
 
-<<<<<<< HEAD
-              SizedBox(height: 20.0,),
-                TextFormField(
-                  initialValue: userData.Age,
-                decoration: InputDecoration(
-                contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-                hintText: "Age",
-                border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))), 
-
-                validator: (val) => val.isEmpty ? 'Enter Your Frist Name' : null,
-                  onChanged: (val) {
-                    setState(() => age = val);}
-              ),
-
-              SizedBox(height: 20.0,),
-                TextFormField(
-                initialValue: userData.Area,
-                decoration: InputDecoration(
-                contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-                hintText: "area",
-                border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))), 
-
-                validator: (val) => val.isEmpty ? 'Enter Your Frist Name' : null,
-                  onChanged: (val) {
-                    setState(() => area = val);}
-              ),
-=======
 
                         SizedBox(height: 20.0,),
                         TextFormField(
                             initialValue: userData.LName,
                             decoration: InputDecoration(
->>>>>>> 88da370317c63d34013d8dc919fcd8e7d570fa46
 
                                 contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
                                 hintText: "Last Name",
@@ -189,12 +97,6 @@ class _EdituserState extends State<Edituser> {
                               setState(() => lName = val);}
                         ),
 
-<<<<<<< HEAD
-                validator: (val) => val.isEmpty ? 'Enter Your Frist Name' : null,
-                  onChanged: (val) {
-                    setState(() => position = val);}
-              ),
-=======
                         SizedBox(height: 20.0,),
                         TextFormField(
                             initialValue: userData.Age,
@@ -207,7 +109,6 @@ class _EdituserState extends State<Edituser> {
                             onChanged: (val) {
                               setState(() => age = val);}
                         ),
->>>>>>> 88da370317c63d34013d8dc919fcd8e7d570fa46
 
                         SizedBox(height: 20.0,),
                         TextFormField(
@@ -236,36 +137,6 @@ class _EdituserState extends State<Edituser> {
                               setState(() => position = val);}
                         ),
 
-<<<<<<< HEAD
-                validator: (val) => val.isEmpty ? 'Enter Your Frist Name' : null,
-                  onChanged: (val) {
-                    setState(() => phone = val);}
-              ),
-
-
-                  SizedBox(
-                height: 20.0,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Align(
-                    alignment: Alignment.center,
-                    child: CircleAvatar(
-                      radius: 30,
-                      backgroundColor: Color(0xff476cfb),
-                      child: ClipOval(
-                        child: new SizedBox(
-                          width: 80.0,
-                          height: 80.0,
-                          child: (_image!=null)?Image.file(
-                            _image,
-                            fit: BoxFit.fill,
-                          ):Image.network(
-                            userData.Photo_url,
-                            fit: BoxFit.fill,
-                          ),
-=======
 
 
 
@@ -280,7 +151,6 @@ class _EdituserState extends State<Edituser> {
                             validator: (val) => val.length == 8 ? 'Enter Your Phone ' : null,
                             onChanged: (val) {
                               setState(() => phone = val);}
->>>>>>> 88da370317c63d34013d8dc919fcd8e7d570fa46
                         ),
 
 
@@ -299,8 +169,8 @@ class _EdituserState extends State<Edituser> {
                                   child: new SizedBox(
                                     width: 80.0,
                                     height: 80.0,
-                                    child: (_image!=null)?Image.file(
-                                      _image,
+                                    child: (userData.Photo_url!=null)?Image.network(
+                                     userData.Photo_url,
                                       fit: BoxFit.fill,
                                     ):Image.network(
                                       'https://thumbs.dreamstime.com/b/avatar-man-soccer-player-graphic-sports-clothes-front-view-over-isolated-background-illustration-73244786.jpg',
@@ -339,10 +209,13 @@ class _EdituserState extends State<Edituser> {
 
                             onPressed: () async {
                               // uploadPic(context);
-                              var firebaseStorageRef = FirebaseStorage.instance.ref().child(_image.path);
+                              if(_image!=null){
+                              if(_formKey.currentState.validate()){
+                               
+                                 var firebaseStorageRef = FirebaseStorage.instance.ref().child(_image.path);
                               var uploadTask = firebaseStorageRef.putFile(_image);
                               photo = await (await uploadTask.onComplete ).ref.getDownloadURL();
-                              if(_formKey.currentState.validate()){
+                                setState(() => loading = true);
                                 await UserService(userid: user.ID).updateUserData(
                                     fName ?? userData.FName,
                                     lName ?? userData.LName,
@@ -352,64 +225,32 @@ class _EdituserState extends State<Edituser> {
                                     phone ?? userData.Phone,
                                     photo.toString() ?? userData.Photo_url
                                 );
+                              
+                                loading = false;
                                 Navigator.pop(context);
                               }
-                            }
+                              }
+                              
+                              else{
+                                if(_formKey.currentState.validate()){
+                                setState(() => loading = true);
+                                  await UserService(userid: user.ID).updateUserData(
+                                    fName ?? userData.FName,
+                                    lName ?? userData.LName,
+                                    age ?? userData.Age,
+                                    position ?? userData.Position,
+                                    area ?? userData.Area,
+                                    phone ?? userData.Phone,
+                                     userData.Photo_url
+                                );
+                                loading = false;
+                                Navigator.pop(context);}
+                            }}
                         ),
-<<<<<<< HEAD
-                        onPressed: () {
-                          getImage();
-                           
-                        },
-                      ),
-                    ),],
-              ),
-=======
->>>>>>> 88da370317c63d34013d8dc919fcd8e7d570fa46
 
                             ),)],
                       )
                   ),
-<<<<<<< HEAD
-                  onPressed: () async {
-                   // uploadPic(context);
-      
-                   
-                    if(_formKey.currentState.validate()){
-                     var fileName = basename(_image.path);
-                          var firebaseStorageRef = FirebaseStorage.instance.ref().child(fileName);
-                          var uploadTask = firebaseStorageRef.putFile(_image);
-                         var photo = await (await uploadTask.onComplete ).ref.getDownloadURL();
-                      await UserService(userid: user.ID).updateUserData(
-                        fName ?? userData.FName,
-                        lName ?? userData.LName,
-                        age ?? userData.Age,
-                        position ?? userData.Position,
-                        area ?? userData.Area,
-                        phone ?? userData.Phone,
-                        photo.toString() ?? userData.Photo_url
-                             );
-                              Navigator.pop(context);
-
-                    }
-
-                  }
-                ),
-                
-           
-
-
-          ],
-          )
-        ),
-      ),
-   )
-    );
-    }
-    }
-    ,);
-    }
-=======
                 ),
               )
           );
@@ -420,6 +261,5 @@ class _EdituserState extends State<Edituser> {
       }
       ,);
   }
->>>>>>> 88da370317c63d34013d8dc919fcd8e7d570fa46
 }
 
