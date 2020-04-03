@@ -37,7 +37,6 @@ class _RegisterState extends State<Register> {
  static int r = rating.length;
   @override
     Widget build(BuildContext context) {
-      print(r);
       return  loading? Loading() : Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -86,7 +85,7 @@ class _RegisterState extends State<Register> {
               ),
 
 
-SizedBox(height: 15.0,),
+            SizedBox(height: 15.0,),
               TextFormField(
                 decoration: InputDecoration(
                 contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),

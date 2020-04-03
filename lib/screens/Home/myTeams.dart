@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import '.././Team/createTeam.dart' as teamCreate;
 import '.././Team/teamBoard.dart' as Board;
+import '../Team/Teams_OverView.dart';
 
 class Teams extends StatelessWidget
 {
   @override
   Widget build(BuildContext context) {
     return Scaffold (
-      body: Row(
+     /* body: Row(
             children: <Widget>[
               Expanded(
                 child: Card(
@@ -28,8 +29,35 @@ class Teams extends StatelessWidget
                 ),
               ),
             ],
-          ),
-        floatingActionButton: FloatingActionButton(
+
+          ),*/
+                    body: Container(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                     children: <Widget>[
+                         SizedBox(
+                    height: 170.0,
+                  ),
+            FlatButton(
+                color: Colors.blue,
+                textColor: Colors.white,
+                disabledColor: Colors.grey,
+                disabledTextColor: Colors.black,
+                padding: EdgeInsets.all(8.0),
+                splashColor: Colors.blueAccent,
+              onPressed: () {
+                 // Navigator.push(
+                   //   context,
+                   //   MaterialPageRoute(builder: (context) => FieldsOverview()),);
+                   Navigator.push(context, MaterialPageRoute(builder: (context) =>  Teams_OverView() ),);
+                },
+                child: Text(
+                  "Your Teams",
+                  style: TextStyle(fontSize: 20.0),
+                ),
+              ),
+                        
+        FloatingActionButton(
         onPressed: () {
           Navigator.push(
             context, MaterialPageRoute(builder: (context) => teamCreate.CreateTeam()),);
@@ -38,6 +66,7 @@ class Teams extends StatelessWidget
     child: Icon(Icons.add),
     backgroundColor: Colors.lightBlueAccent[700],
     ),
-    );
+                      ] ))
+                      );
   }
 }

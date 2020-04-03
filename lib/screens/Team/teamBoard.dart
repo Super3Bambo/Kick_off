@@ -2,11 +2,17 @@ import 'package:flutter/material.dart';
 import './teamMembers.dart' as teamMembers;
 import '../Home/League.dart' as leagues;
 import './teamMatches.dart' as teamMatches;
+import 'package:flutter_app/models/team.dart';
+
 
 class TeamBoard extends StatelessWidget {
+final Team team;
+
+  TeamBoard({this.team});
 
   @override
   Widget build(BuildContext context) {
+
 
     return MaterialApp(
       home: DefaultTabController(
@@ -27,7 +33,7 @@ class TeamBoard extends StatelessWidget {
           body: TabBarView(
             //controller: controller,
               children: <Widget>[
-                new teamMembers.teamMembers(),
+                new teamMembers.TeamMembers(team: team),
                 new teamMatches.teamMatches(),
                 new leagues.League(),
               ]
