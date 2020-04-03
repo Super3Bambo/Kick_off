@@ -1,27 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/screens/Matches/Match_Details.dart';
 import 'package:flutter_app/screens/Matches/Match_item.dart';
 import 'package:provider/provider.dart';
 import '../../models/Matches.dart';
 import './Match_item_progress.dart';
 
 
-class MatchesOverview extends StatefulWidget {
+class MatchCompleted extends StatefulWidget {
   @override
-  _MatchesOverviewState createState() => _MatchesOverviewState();
-   final Match matchid;
+  _MatchCompletedState createState() => _MatchCompletedState();
+  final Match matchid;
 
-  MatchesOverview({this.matchid}); 
+  MatchCompleted({this.matchid}); 
 }
 
-class _MatchesOverviewState extends State<MatchesOverview> {
+class _MatchCompletedState extends State<MatchCompleted> {
   DateTime now=DateTime.now();
 int diff;
   @override
   Widget build(BuildContext context) {
 
-final match = Provider.of<List<Match>>(context) ?? [];
-
-
+    final match = Provider.of<List<Match>>(context) ?? [];
 DateTime finish= new Text(widget.matchid.Check_out.toString()) as DateTime;
 
     diff=finish.difference(now).inSeconds;
@@ -31,7 +30,7 @@ DateTime finish= new Text(widget.matchid.Check_out.toString()) as DateTime;
 
       itemCount: match.length,
       itemBuilder: (context, index) {
-        if(  diff<0){
+        if( match[index].users.length==10&&diff>0){
         return MatchItem(match: match[index]);
         }
 
