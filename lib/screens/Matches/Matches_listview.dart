@@ -15,13 +15,17 @@ class _MatchviewState extends State<Matchview> {
   Widget build(BuildContext context) {
 
     final match = Provider.of<List<Match>>(context) ?? [];
-
+ 
     return ListView.builder(
       itemCount: match.length,
       itemBuilder: (context, index) {
-        if( match[index].users.length >=10){
+      //  return ListTile();
+      //for (int i = 0; i==index; i++) {
+        
+      
         return MatchItem(match: match[index]);
-        }
+        
+       
       },
     );
   }

@@ -94,9 +94,11 @@ SizedBox(height: 20.0),
                   style: TextStyle(color: Colors.white),
                 ),
                 onPressed: () async {
+                  int t= widget.matchid.users.length+1;
                   await MatchService().joinMatch(matchId , users);
+                    await MatchService().editMatch(widget.matchid.ID ,widget.matchid.Field, widget.matchid.Date.toDate() ,widget.matchid.Location, widget.matchid.Check_in.toDate(), widget.matchid.Check_out.toDate()
+                    , widget.matchid.Price, t.toString());
                     
-                     
                            
                     Navigator.pop(context);
                   

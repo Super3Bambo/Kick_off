@@ -1,10 +1,12 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_app/models/RatingField.dart';
 import 'package:flutter_app/models/Matches.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../models/User.dart';
 class MatchService {
 
-
+final String userid;
+  MatchService({ this.userid });
   
 
   final CollectionReference matches = Firestore.instance.collection('Match');
@@ -17,8 +19,26 @@ class MatchService {
       'Start_at': start ,
       'Finish_at': finish,
       'Price': price,
+      'Counter': '1',
       'Date': DateTime.now(),
       'Players': users.map((u)=>{'UserID' :u.ID,}).toList(),
+        //'Players' : users,
+      // Map<String, dynamic>  {'Players': users}
+  //   'Players': Match().mapping(),
+  
+  });
+      
+  }
+  Future<void> editMatch(String id, String fieldid,DateTime date, String location  ,DateTime start ,DateTime finish ,String price,  String c) async {
+    return await matches.document(id).updateData({
+      'FieldId': fieldid,
+      'Location': location,
+      'Start_at': start ,
+      'Finish_at': finish,
+      'Price': price,
+      'Counter':c,
+      'Date': DateTime.now(),
+      //'Players': users.map((u)=>{'UserID' :u.ID,}).toList(),
         //'Players' : users,
       // Map<String, dynamic>  {'Players': users}
   //   'Players': Match().mapping(),
@@ -54,9 +74,15 @@ List<Match> _matchesFromSnapshot(QuerySnapshot snapshot) {
   }
   
 
-Stream<List<Match>> get matcheses {
+Stream<List<Match>> get allmatches {
+  
     return matches.snapshots().map(_matchesFromSnapshot);
 
   }
 
+Stream<List<Match>> get matchcontaimuser {
+  
+    return matches.where("Players" ,arrayContains: {'UserID' :userid}).snapshots().map(_matchesFromSnapshot);
+
+  }
 }

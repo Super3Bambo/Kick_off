@@ -59,7 +59,7 @@ class _Match_DetailsState extends State<Match_Details> {
                         new Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
-                            new Text(widget.matchid.Check_out.toString()),
+                            new Text(widget.matchid.Location),
                             new Text(widget.matchid.users.length.toString()),
                             
                            /* ListView.builder(

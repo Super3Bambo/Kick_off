@@ -10,11 +10,12 @@ class Match {
   final String Price;
   final Timestamp Check_in;
   final Timestamp Check_out;
+  final String Counter;
   final List <User> users;
 
   
   //final String users;
-  Match ({ this.ID , this.Field, this.Location, this.Date , this.Price,  this.Check_in , this.Check_out ,  this.users});
+  Match ({ this.ID , this.Field, this.Location, this.Date , this.Price,  this.Check_in , this.Check_out ,  this.users , this.Counter});
 
 
 

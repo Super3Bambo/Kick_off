@@ -1,3 +1,4 @@
+import 'package:flutter_app/models/User.dart';
 import '../../models/Matches.dart';
 import '../../Services/Match.dart';
 import 'package:flutter/material.dart';
@@ -12,8 +13,10 @@ class MatchesOverviewProgress extends StatelessWidget {
   Widget build(BuildContext context) {
 
 
+     User user = Provider.of<User>(context);
+
     return StreamProvider<List<Match>>.value(
-      value: MatchService().matcheses,
+      value: MatchService(userid:user.ID ).allmatches,
       
 
       child: Scaffold(
