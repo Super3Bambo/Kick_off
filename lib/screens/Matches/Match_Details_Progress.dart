@@ -12,6 +12,7 @@ class Match_DetailsProgress extends StatefulWidget{
   final Match matchid;
 
   Match_DetailsProgress({this.matchid});
+   
  
   @override
   _Match_DetailsProgressState createState() => _Match_DetailsProgressState();
@@ -32,8 +33,48 @@ User user = Provider.of<User>(context);
   List<String> myList = List<String>();
                         myList = widget.matchid.users.map((f)=>f.ID).toList();
   String matchId = widget.matchid.ID;
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+  _showSnackBar() {
+    final snackBar = new SnackBar(
+        content: new Text("You already in this Match"),
+        duration: new Duration(seconds: 3),
+        //backgroundColor: Colors.pink[300],
+        action: new SnackBarAction(label: 'Back', onPressed: (){
+           Navigator.pop(context);
+        }),
+    );
+    //How to display Snackbar ?
+    _scaffoldKey.currentState.showSnackBar(snackBar);
+  }
+
+   _showSnackBar2() {
+    final snackBar = new SnackBar(
+        content: new Text("atch Complete"),
+        duration: new Duration(seconds: 3),
+        //backgroundColor: Colors.pink[300],
+        action: new SnackBarAction(label: 'Back', onPressed: (){
+           Navigator.pop(context);
+        }),
+    );
+    //How to display Snackbar ?
+    _scaffoldKey.currentState.showSnackBar(snackBar);
+  }
+
+   _showSnackBar3() {
+    final snackBar = new SnackBar(
+        content: new Text("Join to match Done"),
+        duration: new Duration(seconds: 3),
+        //backgroundColor: Colors.pink[300],
+        action: new SnackBarAction(label: 'Back', onPressed: (){
+           Navigator.pop(context);
+        }),
+    );
+    //How to display Snackbar ?
+    _scaffoldKey.currentState.showSnackBar(snackBar);
+  }
 
  return Scaffold(
+   key: _scaffoldKey,
       appBar: AppBar(
         title: Text(user.ID),
       ),
@@ -95,7 +136,7 @@ SizedBox(height: 20.0),
                 ),
                 onPressed: () async {
                   if(myList.contains(user.ID)){
-              Scaffold.of(context).showSnackBar(
+              /*Scaffold.of(context).showSnackBar(
                 SnackBar(
                   content: Text(
                     'You Already in This Match',
@@ -108,16 +149,37 @@ SizedBox(height: 20.0),
                     },
                   ),
                 ),
-              );
+              );*/
+              _showSnackBar();
 
-                  }else{
+              
+
+                  }
+                  
+                else if (myList.length==10) {
+                   _showSnackBar2();
+                 } 
+                  else{
                   int t= widget.matchid.users.length;
                   await MatchService().joinMatch(matchId , users);
                     await MatchService().editMatch(widget.matchid.ID ,widget.matchid.Field, widget.matchid.Date.toDate() ,widget.matchid.Location, widget.matchid.Check_in.toDate(),
                      widget.matchid.Check_out.toDate() , widget.matchid.Price, t.toString());
-                    
-                           
-                    Navigator.pop(context);
+                    _showSnackBar3();
+                         /*   Scaffold.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(
+                    'Join to match Done',
+                  ),
+                  duration: Duration(seconds: 2),
+                  action: SnackBarAction(
+                    label: 'Back',
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+                ),
+              );*/
+                   // Navigator.pop(context);
                     }
                   
                 }

@@ -76,14 +76,15 @@ List<Match> _matchesFromSnapshot(QuerySnapshot snapshot) {
 
 Stream<List<Match>> get allmatches {
   
-    return matches.where("Start_at" ,isGreaterThan: DateTime.now()).where("Counter" ,isLessThan: '9').
+    return matches.where("Start_at" ,isLessThan: DateTime.now()).
     snapshots().map(_matchesFromSnapshot);
 
   }
+  
 
 Stream<List<Match>> get matchcontaimuser {
   
-    return matches.where("Players" ,arrayContains: {'UserID' :userid}).
+    return matches.where("Players" ,arrayContains: {'UserID' :userid}).where("Start_at" ,isLessThan: DateTime.now()).
     snapshots().map(_matchesFromSnapshot);
 
   }
