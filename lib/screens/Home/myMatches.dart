@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/screens/Matches/Matches_Overview.dart';
+import 'package:flutter_app/screens/Matches/Matches_Overview_History.dart';
+import 'package:flutter_app/screens/Matches/Matches_Overview_User.dart';
+import 'package:flutter_app/screens/Matches/Matches_Overview_Complete.dart';
 import 'package:flutter_app/screens/Matches/Matches_Overview_Progress.dart';
 
 class Matches extends StatelessWidget
@@ -33,7 +35,7 @@ class Matches extends StatelessWidget
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
               SizedBox(
-                height: 170.0,
+                height: 110.0,
               ),
               new FlatButton(
                 color: Colors.blue,
@@ -70,7 +72,49 @@ class Matches extends StatelessWidget
                    Navigator.push(context, MaterialPageRoute(builder: (context) =>  MatchesOverview() ),);
                 },
                 child: Text(
-                  "Histroy Matches",
+                  "My Matches",
+                  style: TextStyle(fontSize: 20.0),
+                ),
+              ),
+              SizedBox(
+                height: 50.0,
+              ),
+              new FlatButton(
+                color: Colors.blue,
+                textColor: Colors.white,
+                disabledColor: Colors.grey,
+                disabledTextColor: Colors.black,
+                padding: EdgeInsets.all(8.0),
+                splashColor: Colors.blueAccent,
+              onPressed: () {
+                 // Navigator.push(
+                   //   context,
+                   //   MaterialPageRoute(builder: (context) => FieldsOverview()),);
+                   Navigator.push(context, MaterialPageRoute(builder: (context) =>  MatchesOverview_Complete() ),);
+                },
+                child: Text(
+                  "Complete Maches",
+                  style: TextStyle(fontSize: 20.0),
+                ),
+              ),
+               SizedBox(
+                height: 50.0,
+              ),
+              new FlatButton(
+                color: Colors.blue,
+                textColor: Colors.white,
+                disabledColor: Colors.grey,
+                disabledTextColor: Colors.black,
+                padding: EdgeInsets.all(8.0),
+                splashColor: Colors.blueAccent,
+              onPressed: () {
+                 // Navigator.push(
+                   //   context,
+                   //   MaterialPageRoute(builder: (context) => FieldsOverview()),);
+                   Navigator.push(context, MaterialPageRoute(builder: (context) =>  MatchesOverview_History() ),);
+                },
+                child: Text(
+                  "History Matches",
                   style: TextStyle(fontSize: 20.0),
                 ),
               ),

@@ -195,7 +195,8 @@ class _FieldDetailsState extends State<FieldDetails> {
                                 start,
                                 finish,
                                 widget.fieldid.Price,
-                                users);
+                                users,
+                                users.length.toString());
 
                             Navigator.pop(context);
                           } else {

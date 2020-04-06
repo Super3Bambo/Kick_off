@@ -12,14 +12,14 @@ final String userid;
   final CollectionReference matches = Firestore.instance.collection('Match');
 
   
-  Future<void> addMatch( String fieldid, String location  ,DateTime start ,DateTime finish ,String price, List<User> users ) async {
+  Future<void> addMatch( String fieldid, String location  ,DateTime start ,DateTime finish ,String price, List<User> users , String counter) async {
     return await matches.document().setData({
       'FieldId': fieldid,
       'Location': location,
       'Start_at': start ,
       'Finish_at': finish,
       'Price': price,
-      'Counter': '1',
+      'Counter': counter,
       'Date': DateTime.now(),
       'Players': users.map((u)=>{'UserID' :u.ID,}).toList(),
         //'Players' : users,
@@ -29,15 +29,15 @@ final String userid;
   });
       
   }
-  Future<void> editMatch(String id, String fieldid,DateTime date, String location  ,DateTime start ,DateTime finish ,String price,  String c) async {
+  Future<void> editMatch(String id, String fieldid,DateTime date, String location  ,DateTime start ,DateTime finish ,String price,  String counter) async {
     return await matches.document(id).updateData({
       'FieldId': fieldid,
       'Location': location,
       'Start_at': start ,
       'Finish_at': finish,
       'Price': price,
-      'Counter':c,
-      'Date': DateTime.now(),
+      'Counter':counter,
+      'Date':date ,
       //'Players': users.map((u)=>{'UserID' :u.ID,}).toList(),
         //'Players' : users,
       // Map<String, dynamic>  {'Players': users}
@@ -76,13 +76,23 @@ List<Match> _matchesFromSnapshot(QuerySnapshot snapshot) {
 
 Stream<List<Match>> get allmatches {
   
-    return matches.snapshots().map(_matchesFromSnapshot);
+    return matches.where("Start_at" ,isGreaterThan: DateTime.now()).snapshots().map(_matchesFromSnapshot);
 
   }
 
 Stream<List<Match>> get matchcontaimuser {
   
     return matches.where("Players" ,arrayContains: {'UserID' :userid}).snapshots().map(_matchesFromSnapshot);
+
+  }
+Stream<List<Match>> get historymatches {
+  
+    return matches.where("Players" ,arrayContains: {'UserID' :userid}).where("Finish_at" ,isLessThan: DateTime.now()).snapshots().map(_matchesFromSnapshot);
+
+  }
+  Stream<List<Match>> get completematches {
+  
+    return matches.where("Counter" ,isEqualTo: '10').snapshots().map(_matchesFromSnapshot);
 
   }
 }

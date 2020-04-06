@@ -2,10 +2,10 @@ import '../../models/Matches.dart';
 import '../../Services/Match.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import './Matches_listview.dart';
+import './Matches_listview_Complete.dart';
 import '../../models/User.dart';
 
-class MatchesOverview extends StatelessWidget {
+class MatchesOverview_Complete extends StatelessWidget {
 
   
 
@@ -15,7 +15,7 @@ class MatchesOverview extends StatelessWidget {
     User user = Provider.of<User>(context);
 
     return StreamProvider<List<Match>>.value(
-      value: MatchService(userid:user.ID ).matchcontaimuser,
+      value: MatchService(userid:user.ID ).completematches,
       
 
       child: Scaffold(
@@ -30,7 +30,7 @@ class MatchesOverview extends StatelessWidget {
               fit: BoxFit.cover,
             ),
           ),*/
-          child: Matchview(),
+          child: Matchview_Complete(),
         ),
       ),
     );

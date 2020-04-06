@@ -2,22 +2,22 @@ import 'package:flutter/material.dart';
 //import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import '../../models/Matches.dart';
-import '../../Services/Match.dart';
-import '../../models/User.dart';
+//import '../../Services/Match.dart';
+//import '../../models/User.dart';
 import 'package:provider/provider.dart';
 
 
-class Match_DetailsProgress extends StatefulWidget{
+class Match_Details extends StatefulWidget{
   
   final Match matchid;
 
-  Match_DetailsProgress({this.matchid});
+  Match_Details({this.matchid});
  
   @override
-  _Match_DetailsProgressState createState() => _Match_DetailsProgressState();
+  _Match_DetailsState createState() => _Match_DetailsState();
 }
 
-class _Match_DetailsProgressState extends State<Match_DetailsProgress> {
+class _Match_DetailsState extends State<Match_Details> {
 
 
          
@@ -25,17 +25,11 @@ class _Match_DetailsProgressState extends State<Match_DetailsProgress> {
 
 @override
   Widget build(BuildContext context) {
-User user = Provider.of<User>(context);
-    List <User> users=[
-    User(ID: user.ID,),
-  ];
-  List<String> myList = List<String>();
-                        myList = widget.matchid.users.map((f)=>f.ID).toList();
-  String matchId = widget.matchid.ID;
+
 
  return Scaffold(
       appBar: AppBar(
-        title: Text(myList.last.toString()),
+        title: Text(widget.matchid.ID),
       ),
 
 
@@ -65,13 +59,11 @@ User user = Provider.of<User>(context);
                         new Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
-                           // new Text(widget.matchid.Location),
-                            new Text(myList.length.toString()),
-                        
+                            new Text(widget.matchid.Location),
+                            new Text(widget.matchid.users.length.toString()),
                             
-                            
-                       /*    ListView.builder(
-                              itemCount:myList.length,
+                           /* ListView.builder(
+                              itemCount: widget.matchid.users.length,
                                itemBuilder: (context, index) {
                                 return Padding(
                                   padding: const EdgeInsets.only(top: 8.0),
@@ -85,26 +77,6 @@ User user = Provider.of<User>(context);
     )
     );
                                }),*/
-
-SizedBox(height: 20.0),
-              RaisedButton(
-                color: Colors.pink[300],
-                child: Text(
-                  'Join',
-                  style: TextStyle(color: Colors.white),
-                ),
-                onPressed: () async {
-                  int t= widget.matchid.users.length;
-                  await MatchService().joinMatch(matchId , users);
-                    await MatchService().editMatch(widget.matchid.ID ,widget.matchid.Field, widget.matchid.Date.toDate() ,widget.matchid.Location, widget.matchid.Check_in.toDate(),
-                     widget.matchid.Check_out.toDate() , widget.matchid.Price, t.toString());
-                    
-                           
-                    Navigator.pop(context);
-                  
-                }
-              ),
-
                           ],
                         ),
                         ],

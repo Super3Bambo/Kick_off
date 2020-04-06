@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import '../../models/Matches.dart';
 //import './Field_Details.dart';
-import './Match_Details.dart';
+import './Match_Details_History.dart';
 
-class MatchItem extends StatelessWidget {
+class MatchItem_History extends StatelessWidget {
 
 
   final Match match;
-  MatchItem({ this.match });
+  MatchItem_History({ this.match });
 
   @override
   Widget build(BuildContext context) {
     
 godetails(Match id){
-Navigator.push(context,MaterialPageRoute(builder: (context)=> Match_Details(matchid: match)  ) );
+Navigator.push(context,MaterialPageRoute(builder: (context)=> Match_Details_History(matchid: match)  ) );
 
 }
     return Padding(
