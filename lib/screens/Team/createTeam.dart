@@ -66,7 +66,7 @@ body:  Container(
                   onPressed: () async {
                     if(_formKey.currentState.validate()){
                         setState(() => loading = true);
-                        await TeamService().createTeam(name, nO_Team, users);
+                        await TeamService().createTeam(name, nO_Team, users , users.length.toString());
                      loading = false;
                      Navigator.pop(context);
 

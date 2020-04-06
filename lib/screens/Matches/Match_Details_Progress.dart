@@ -35,7 +35,7 @@ User user = Provider.of<User>(context);
 
  return Scaffold(
       appBar: AppBar(
-        title: Text(myList.last.toString()),
+        title: Text(user.ID),
       ),
 
 
@@ -94,6 +94,23 @@ SizedBox(height: 20.0),
                   style: TextStyle(color: Colors.white),
                 ),
                 onPressed: () async {
+                  if(myList.contains(user.ID)){
+              Scaffold.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(
+                    'You Already in This Match',
+                  ),
+                  duration: Duration(seconds: 2),
+                  action: SnackBarAction(
+                    label: 'Back',
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+                ),
+              );
+
+                  }else{
                   int t= widget.matchid.users.length;
                   await MatchService().joinMatch(matchId , users);
                     await MatchService().editMatch(widget.matchid.ID ,widget.matchid.Field, widget.matchid.Date.toDate() ,widget.matchid.Location, widget.matchid.Check_in.toDate(),
@@ -101,6 +118,7 @@ SizedBox(height: 20.0),
                     
                            
                     Navigator.pop(context);
+                    }
                   
                 }
               ),

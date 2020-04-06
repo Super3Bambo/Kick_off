@@ -76,23 +76,29 @@ List<Match> _matchesFromSnapshot(QuerySnapshot snapshot) {
 
 Stream<List<Match>> get allmatches {
   
-    return matches.where("Start_at" ,isGreaterThan: DateTime.now()).snapshots().map(_matchesFromSnapshot);
+    return matches.where("Start_at" ,isGreaterThan: DateTime.now()).where("Counter" ,isLessThan: '9').
+    snapshots().map(_matchesFromSnapshot);
 
   }
 
 Stream<List<Match>> get matchcontaimuser {
   
-    return matches.where("Players" ,arrayContains: {'UserID' :userid}).snapshots().map(_matchesFromSnapshot);
+    return matches.where("Players" ,arrayContains: {'UserID' :userid}).
+    snapshots().map(_matchesFromSnapshot);
 
   }
 Stream<List<Match>> get historymatches {
   
-    return matches.where("Players" ,arrayContains: {'UserID' :userid}).where("Finish_at" ,isLessThan: DateTime.now()).snapshots().map(_matchesFromSnapshot);
+    return matches.where("Players" ,arrayContains: {'UserID' :userid}).
+    where("Finish_at" ,isLessThan: DateTime.now()).
+    where("Counter" ,isEqualTo: '9').
+    snapshots().map(_matchesFromSnapshot);
 
   }
   Stream<List<Match>> get completematches {
   
-    return matches.where("Counter" ,isEqualTo: '10').snapshots().map(_matchesFromSnapshot);
+    return matches.where("Counter" ,isEqualTo: '9').
+    snapshots().map(_matchesFromSnapshot);
 
   }
 }

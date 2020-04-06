@@ -14,10 +14,11 @@ class TeamService {
   }
 
 
-  Future<void> createTeam(  String name ,String nO_Team, List<User> users ) async {
+  Future<void> createTeam(  String name ,String nO_Team, List<User> users , String counter ) async {
     return await teams.document().setData({
       'Date': DateTime.now(),
       'Name':name ,
+      'Counter' : counter,
       'NO_Team': nO_Team ,
       'Players': users.map((u)=>{'UserID' :u.ID,}).toList(),
       

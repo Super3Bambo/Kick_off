@@ -7,7 +7,8 @@ class  Team {
   final String NO_team;
   final Timestamp Date;
   final List <User> users;
+  String Counter;
 
-  Team ({ this.ID ,  this.Name , this.NO_team  , this.Date , this.users});
+  Team ({ this.ID ,  this.Name , this.NO_team  , this.Date , this.users , this.Counter});
 }
 
