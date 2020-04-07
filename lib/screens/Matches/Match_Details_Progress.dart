@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 //import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_app/screens/Matches/Members_OverView.dart';
 import '../../models/Matches.dart';
 import '../../Services/Match.dart';
 import '../../models/User.dart';
@@ -26,6 +27,9 @@ class _Match_DetailsProgressState extends State<Match_DetailsProgress> {
 
 @override
   Widget build(BuildContext context) {
+
+    gomember(Match id) { Navigator.push(context,MaterialPageRoute(builder: (context)=> MatchesOverview(matchid: widget.matchid)  ) );}
+
 User user = Provider.of<User>(context);
     List <User> users=[
     User(ID: user.ID,),
@@ -127,7 +131,7 @@ User user = Provider.of<User>(context);
     );
                                }),*/
 
-SizedBox(height: 20.0),
+                SizedBox(height: 20.0),
               RaisedButton(
                 color: Colors.pink[300],
                 child: Text(
@@ -183,6 +187,20 @@ SizedBox(height: 20.0),
                     }
                   
                 }
+              ),
+
+              SizedBox(height: 20.0),
+              RaisedButton(
+                color: Colors.pink[300],
+                child: Text(
+                  'Members',
+                  style: TextStyle(color: Colors.white),
+                ),
+                onPressed: ()  {
+                  gomember(widget.matchid);
+                    }
+                  
+                
               ),
 
                           ],

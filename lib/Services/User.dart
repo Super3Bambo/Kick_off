@@ -5,7 +5,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class UserService {
 
   final String userid;
-  UserService({ this.userid });
+  List<String> user;
+  UserService({ this.userid,this.user });
   
 
   final CollectionReference users = Firestore.instance.collection('user');
@@ -54,7 +55,29 @@ class UserService {
       
     );
   }
+
+  List<User> _usersFromSnapshot(QuerySnapshot snapshot) {
+    return  snapshot.documents.map((doc){
+    return User(
+      ID: doc.documentID,
+      FName: doc.data['FName'] ?? '',
+      LName:  doc.data['LName'] ?? '',
+      Position :  doc.data['Position'] ?? '',
+      Phone:  doc.data['Phone'] ?? '',
+      Photo_url:  doc.data['Photo_Url'] ?? '',
+      Area:doc.data['Area'] ?? '' ,
+      Age :  doc.data['Age'] ?? '',
+    );
+    }).toList();
+  }
   
+Stream<List<User>> get members {
+  
+    return users.where('ID' , whereIn: user).
+    snapshots().map(_usersFromSnapshot);
+
+  }
+
   Stream<User> get userData {
     return users.document(userid).snapshots()
       .map(_userDataFromSnapshot);
