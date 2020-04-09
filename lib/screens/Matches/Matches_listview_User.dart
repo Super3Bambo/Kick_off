@@ -12,21 +12,27 @@ class Matchview extends StatefulWidget {
 
 class _MatchviewState extends State<Matchview> {
   @override
+
+  Future<Null> getrefresh()async{
+    await Future.delayed(Duration(seconds:1));
+  }
   Widget build(BuildContext context) {
 
     final match = Provider.of<List<Match>>(context) ?? [];
  
-    return ListView.builder(
-      itemCount: match.length,
-      itemBuilder: (context, index) {
-      //  return ListTile();
-      //for (int i = 0; i==index; i++) {
+     return RefreshIndicator(
+            onRefresh: getrefresh,
+          child: ListView.builder(
+        itemCount: match.length,
+        itemBuilder: (context, index) {
         
-      
-        return MatchItem(match: match[index]);
+          
         
-       
-      },
+          return MatchItem(match: match[index]);
+          
+         
+        },
+      ),
     );
   }
 }

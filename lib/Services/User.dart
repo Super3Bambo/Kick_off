@@ -41,6 +41,26 @@ class UserService {
     });
   }
 
+  Future <void> follow(String ID , List<User> user)async{
+    
+  return await users.document(ID).updateData({'Following':FieldValue.arrayUnion(user.map((e) => {'UserID': e.ID}).toList())});
+}
+
+Future <void> follower(String ID , List<User> user)async{
+    
+  return await users.document(ID).updateData({'Followers':FieldValue.arrayUnion(user.map((e) => {'UserID': e.ID}).toList())});
+}
+
+Future <void> unfollow(String ID , List<User> user)async{
+    
+  return await users.document(ID).updateData({'Followers':FieldValue.arrayRemove(user.map((e) => {'UserID': e.ID}).toList())});
+}
+
+Future <void> unefollow(String ID , List<User> user)async{
+    
+  return await users.document(ID).updateData({'Following':FieldValue.arrayRemove(user.map((e) => {'UserID': e.ID}).toList())});
+}
+
   User _userDataFromSnapshot(DocumentSnapshot snapshot) {
     return User(
       ID: userid,
@@ -50,7 +70,9 @@ class UserService {
       LName: snapshot.data['LName'],
       Phone: snapshot.data['Phone'],
       Area : snapshot.data['Area'],
-      Photo_url: snapshot.data['Photo_Url']
+      Photo_url: snapshot.data['Photo_Url'],
+      followerusers: snapshot.data['Followers'].map<User>((user) =>User.fromMap(user)).toList() ?? [],
+      followingusers: snapshot.data['Following'].map<User>((user) =>User.fromMap(user)).toList() ?? [],
      // rating: snapshot.data["Rating"],
       
     );
@@ -67,6 +89,8 @@ class UserService {
       Photo_url:  doc.data['Photo_Url'] ?? '',
       Area:doc.data['Area'] ?? '' ,
       Age :  doc.data['Age'] ?? '',
+      followerusers: doc.data['Followers'].map<User>((user) =>User.fromMap(user)).toList() ?? [],
+      followingusers: doc.data['Following'].map<User>((user) =>User.fromMap(user)).toList() ?? [],
     );
     }).toList();
   }

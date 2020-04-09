@@ -13,8 +13,10 @@ class User with ChangeNotifier {
    String Area;
    bool Is_banned;
    String Photo_url;
+   List<User> followingusers;
+   List<User> followerusers;
  // List<Rating> rating;
-    User({ this.ID , this.FName , this.LName, this.Position , this.Age , this.Phone , this.Area , this.Is_banned = false, this.Photo_url , /*this.rating*/});
+    User({ this.ID , this.FName , this.LName, this.Position , this.Age , this.Phone , this.Area , this.Is_banned = false, this.Photo_url , this.followingusers , this.followerusers /*this.rating*/});
 
      User.fromMap(Map<dynamic, dynamic> data)
        : ID = data['UserID'];

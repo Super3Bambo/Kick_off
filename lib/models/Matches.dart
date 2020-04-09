@@ -10,7 +10,7 @@ class Match {
   final String Price;
   final Timestamp Check_in;
   final Timestamp Check_out;
-  final String Counter;
+  final int Counter;
   final List <User> users;
 
   
