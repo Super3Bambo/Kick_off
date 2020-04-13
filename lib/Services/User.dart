@@ -6,7 +6,8 @@ class UserService {
 
   final String userid;
   List<String> user;
-  UserService({ this.userid,this.user });
+  List<String> usr;
+  UserService({ this.userid,this.user,this.usr });
   
 
   final CollectionReference users = Firestore.instance.collection('user');
@@ -95,6 +96,13 @@ Future <void> unefollow(String ID , List<User> user)async{
     }).toList();
   }
   
+  Stream<List<User>> get friends {
+  
+    return users.where('ID' , whereIn:  usr ).
+    snapshots().map(_usersFromSnapshot);
+
+  }
+
 Stream<List<User>> get members {
   
     return users.where('ID' , whereIn: user).
