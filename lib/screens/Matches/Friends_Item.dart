@@ -3,6 +3,7 @@ import 'package:flutter_app/models/User.dart';
 import 'package:flutter_app/screens/Home/homepage.dart';
 import 'package:provider/provider.dart';
 import 'Friends_Details.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 
 class FriendsItem extends StatelessWidget {
 
@@ -26,6 +27,7 @@ class FriendsItem extends StatelessWidget {
         
         margin: EdgeInsets.fromLTRB(20.0, 6.0, 20.0, 0.0),
         child: ListTile(    
+          onTap: (){ return godetails(friends);},
         trailing:SingleChildScrollView(
           child: Column(
           children: <Widget>[
@@ -37,7 +39,7 @@ class FriendsItem extends StatelessWidget {
                   style: TextStyle(color: Colors.white),
                 ),
                 onPressed: ()  {
-                    
+                       
                     }
                 
               ),
