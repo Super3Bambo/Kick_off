@@ -5,7 +5,8 @@ import '../models/User.dart';
 class TeamService {
 
 
-  
+  final String userid;
+  TeamService({this.userid});
 
   final CollectionReference teams = Firestore.instance.collection('Team');
 
@@ -44,7 +45,7 @@ class TeamService {
   
 
 Stream<List<Team>> get teamz {
-    return teams.snapshots().map(_teamsFromSnapshot);
+    return teams.where("Players" ,arrayContains: {'UserID' :userid}).snapshots().map(_teamsFromSnapshot);
 
   }
   

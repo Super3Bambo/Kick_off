@@ -1,6 +1,8 @@
-import './Tests.dart';
+import 'package:flutter_app/models/User.dart';
+import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/models/team.dart';
+import 'Members_Item.dart';
 
 class TeamMembers extends StatefulWidget{
   final Team team;
@@ -37,10 +39,11 @@ class _TeamMembersState extends State<TeamMembers> {
           ],
         )
     );*/
+    final members = Provider.of<List<User>>(context) ?? [];
     return ListView.builder(
-      itemCount: widget.team.users.length,
+      itemCount: members.length,
       itemBuilder: (context, index){
-        return Test(team: widget.team)  ;
+        return Members_Item(members: members[index])  ;
       });
   }
 }

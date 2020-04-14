@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/screens/Team/TeamMember_OverView.dart';
 import './teamMembers.dart' as teamMembers;
 import '../Home/League.dart' as leagues;
-import './teamMatches.dart' as teamMatches;
+import './FieldsChallengeOverview.dart' as teamMatches;
 import 'package:flutter_app/models/team.dart';
+
+import 'MatchChallengeOverView.dart';
 
 
 class TeamBoard extends StatelessWidget {
@@ -16,7 +19,7 @@ final Team team;
 
     return MaterialApp(
       home: DefaultTabController(
-        length: 3,
+        length: 4,
         child: Scaffold(
           appBar: AppBar(
             title: const Text('Kick Off'),
@@ -25,16 +28,19 @@ final Team team;
                 //controller: controller,
                 tabs: <Tab>[
                   new Tab(icon: new Icon(Icons.group),text: 'Members'),
-                  new Tab(icon: new Icon(Icons.access_time),text: 'Matches'),
+                  new Tab(icon: new Icon(Icons.supervised_user_circle),text: 'My Matches'),
+                  new Tab(icon: new Icon(Icons.access_time),text: 'Fields'),
                   new Tab(icon: new Icon(Icons.stars),text: 'Leagues'),
+
                 ]
             ),
           ),
           body: TabBarView(
             //controller: controller,
               children: <Widget>[
-                new teamMembers.TeamMembers(team: team),
-                new teamMatches.teamMatches(),
+                new Members_OverView(teamid: team),
+                new MatchesOverviewChallenge(teamid: team),
+                new teamMatches.FieldsChallengeOverview(teamid: team),
                 new leagues.League(),
               ]
             ),
