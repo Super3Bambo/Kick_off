@@ -21,7 +21,7 @@ class FriendsOverview extends StatelessWidget {
           User userData = snapshot.data;
     return StreamProvider<List<User>>.value(
       value: UserService(usr:userData.followingusers.map((e) => e.ID).toList() ).friends,
-      
+
       child: Scaffold(
         appBar: AppBar(
           title:Text('Match Members')         

@@ -1,76 +1,12 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_app/models/User.dart';
-import 'package:provider/provider.dart';
-import 'Friends_Details.dart';
-import 'Match_Details_Progress.dart';
 import 'dart:async';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 
-class FriendsItem extends StatelessWidget {
-
-
-
-  final User friends;
-  FriendsItem({ this.friends });
-
-  
-  @override
-  Widget build(BuildContext context) {
-       User user = Provider.of<User>(context);
-
-    godetails(User id){Navigator.push(context,MaterialPageRoute(builder: (context)=> Friends_Details(userid: friends)  ) );}
-
-  
-    return Padding(
-        
-      padding: const EdgeInsets.only(top: 8.0),
-      
-      child: Card(
-        
-        margin: EdgeInsets.fromLTRB(20.0, 6.0, 20.0, 0.0),
-        child: ListTile(    
-          onTap: (){ return godetails(friends);},
-        trailing:SingleChildScrollView(
-          child: Column(
-          children: <Widget>[
-            SizedBox(height: 2.0),
-              FlatButton(
-                color: Colors.pink[400],
-                child: Text(
-                  'Invite',
-                  style: TextStyle(color: Colors.white),
-                ),
-                onPressed: ()  {        Navigator.push(context, MaterialPageRoute(builder: (context) =>  _MainScreen() ),);
-
-
-
-
-                }
-                
-              ),
-          ],
-        ),),
-        //  onTap: () {IconButton(icon:Icon(Icons.grade), onPressed:(){} );} 
-             
-          
-          leading: CircleAvatar(
-            radius: 25.0,
-            backgroundImage: AssetImage('images/5omasy.jpg'),
-          ),
-         title: Text(friends.FName),
-       //   subtitle: Text(match.users.map((f)=>f.ID).toString()),
-         subtitle: Text(friends.Age),
-      ),
-    )
-    );
-
-  }
-}
 class _MainScreen extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => _MainScreenState();
@@ -150,7 +86,6 @@ class _MainScreenState extends State<_MainScreen> {
 
   @override
   Widget build(BuildContext context) {
-
     return Material(
       child: Scaffold(
         appBar: AppBar(
@@ -185,14 +120,9 @@ class _MainScreenState extends State<_MainScreen> {
                   ),
                   onTap: () async {
                     if (_linkMessage != null) {
-
                       await launch(_linkMessage);
-
-
-
                     }
-
-                 },
+                  },
                   onLongPress: () {
                     Clipboard.setData(ClipboardData(text: _linkMessage));
                     Scaffold.of(context).showSnackBar(
