@@ -1,4 +1,5 @@
 import 'package:flutter_app/models/Rating.dart';
+import 'package:flutter_app/models/field.dart';
 import '../models/User.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -16,24 +17,31 @@ class UserService {
   Future<void> updateUserData(String fName, String lName, String age,String position ,String area,String phone, String imageurl ) async {
         
     return await users.document(userid).updateData({
+      'ID':userid,
       'FName': fName,
       'LName': lName,
       'Age': age,
       'Position': position ,
+      'Role':"User",
       'Area': area,
       'Phone': phone,
       'Photo_Url' : imageurl
     });
   }
 
-  Future<void> addUserData(String fName, String lName, String age,String position ,String area,String phone,  ) async {
+  Future<void> addUserData(String fName, String lName, String age,String position ,String area,String phone, ) async {
+    List<Field> start; List <Field> finish ; List<Field> duration;
     return await users.document(userid).setData({
       'FName': fName,
       'LName': lName,
       'Age': age,
       'Position': position ,
       'Area': area,
+      'Role':"User",
       'Phone': phone,
+      'Start':  start.map((u)=>{'StartTime' :DateTime.now().toString(),}).toList(),
+      'Finish': finish.map((u)=>{'FinishTime' :DateTime.now().toString(),}).toList(),
+      'Duration': duration.map((u)=>{'Dur' :DateTime.now().toString(),}).toList(),
       /*'Rating': rating.map((r)=>{
         'Skills':r.Skills,
         'Morality':r.Morality,
@@ -42,6 +50,33 @@ class UserService {
       
     });
   }
+
+  Future <void> timestart(String ID , List<Field> time)async{
+    
+  return await users.document(ID).updateData({'Start':FieldValue.arrayUnion(time.map((e) =>{"StartTime": e.Start_at}).toList())});
+}
+Future <void> timefinish(String ID , List<Field> time)async{
+    
+  return await users.document(ID).updateData({'Finish':FieldValue.arrayUnion(time.map((e) => {'FinishTime':e.Finish_at}).toList())});
+}
+Future <void> duration(String ID , List<Field> time)async{
+    
+  return await users.document(ID).updateData({'Duration':FieldValue.arrayUnion(time.map((e) =>{"Dur":e.Duration} ).toList())});
+}
+
+Future <void> removetimestart(String ID , List<Field> time)async{
+    
+  return await users.document(ID).updateData({'Start':FieldValue.arrayRemove(time.map((e) => {'StartTime':e.Start_at}).toList())});
+}
+Future <void> removetimefinish(String ID , List<Field> time)async{
+    
+  return await users.document(ID).updateData({'Finish':FieldValue.arrayRemove(time.map((e) => {'FinishTime':e.Finish_at}).toList())});
+}
+Future <void> removeduration(String ID , List<Field> time)async{
+    
+  return await users.document(ID).updateData({'Duration':FieldValue.arrayRemove(time.map((e) => {'Dur':e.Duration}).toList())});
+}
+
 
   Future <void> follow(String ID , List<User> user)async{
     
@@ -72,9 +107,13 @@ Future <void> unefollow(String ID , List<User> user)async{
       LName: snapshot.data['LName'],
       Phone: snapshot.data['Phone'],
       Area : snapshot.data['Area'],
+      Role:snapshot.data['Role'],
       Photo_url: snapshot.data['Photo_Url'],
       followerusers: snapshot.data['Followers'].map<User>((user) =>User.fromMap(user)).toList() ?? [],
       followingusers: snapshot.data['Following'].map<User>((user) =>User.fromMap(user)).toList() ?? [],
+      start_time: snapshot.data['Start'].map<Field>((times) =>Field.fromMap(times)).toList() ?? [],
+      finish_time: snapshot.data['Finish'].map<Field>((timess) =>Field.fromMap2(timess)).toList() ?? [],
+      duration: snapshot.data['Duration'].map<Field>((timesss) =>Field.fromMap3(timesss)).toList() ?? [],
      // rating: snapshot.data["Rating"],
       
     );
@@ -93,6 +132,9 @@ Future <void> unefollow(String ID , List<User> user)async{
       Age :  doc.data['Age'] ?? '',
       followerusers: doc.data['Followers'].map<User>((user) =>User.fromMap(user)).toList() ?? [],
       followingusers: doc.data['Following'].map<User>((user) =>User.fromMap(user)).toList() ?? [],
+      start_time: doc.data['Start'].map<Field>((times) =>Field.fromMap(times)).toList() ?? [],
+      finish_time: doc.data['Finish'].map<Field>((timess) =>Field.fromMap2(timess)).toList() ?? [],
+      duration: doc.data['Duration'].map<Field>((timesss) =>Field.fromMap3(timesss)).toList() ?? [],
     );
     }).toList();
   }

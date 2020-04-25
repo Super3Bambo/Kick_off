@@ -4,6 +4,8 @@ import './Home/homepage.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'Home/Choise.dart';
+
 
 
 
@@ -19,7 +21,7 @@ class Wrapper extends StatelessWidget {
     if (user == null){
       return Authenticate();
     } else {
-      return HomePage();
+      return Choise();
     }
     
   }

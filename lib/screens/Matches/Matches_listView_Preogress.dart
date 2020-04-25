@@ -18,9 +18,9 @@ class _MatchviewProgressState extends State<MatchviewProgress> {
     return ListView.builder(
       itemCount: match.length,
       itemBuilder: (context, index) {
-        if( /* match[index].users.length>0  && match[index].users.length<10*/ match[index].users.length!=10){
+       
         return MatchItemProgress(match: match[index]);
-        }
+        
       },
     );
   }

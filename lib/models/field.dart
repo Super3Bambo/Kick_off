@@ -1,18 +1,32 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 
 class Field  {
   
 
-  final String ID;
-  final String Name;
-  final String Capacitance;
-  final String Location;
-  final String Start_at;
-  final String Finish_at;
-  final String Price;
-  final String Photo_url;
-  final bool  Ball;
-  final bool  Bathroom;
-  final bool  Refree;
-  Field ({ this.ID, this.Name , this.Capacitance , this.Location , this.Start_at , this.Price ,  this.Finish_at  ,this.Photo_url , this.Ball , this.Bathroom , this.Refree});
+   String ID;
+   String Name;
+   String Capacitance;
+   String Location;
+   String Start_at;
+   String Finish_at;
+   String Duration;
+   String Price;
+   String Photo_url;
+   bool  Ball;
+   bool  Bathroom;
+   bool  Refree;
+   List<Field> start_time;
+  List<Field> finish_time;
+  List<Field> duration;
+
+
+  Field ({ this.ID, this.Name , this.Capacitance , this.Location , this.Start_at , this.Price ,  this.Finish_at,this.Duration  ,this.Photo_url , this.Ball , 
+  this.Bathroom , this.Refree , this.start_time , this.finish_time , this.duration});
+    Field.fromMap(Map<dynamic, dynamic> data)
+       : Start_at = data['StartTime'];
+    Field.fromMap2(Map<dynamic, dynamic> data)
+       : Finish_at = data['FinishTime'];
+    Field.fromMap3(Map<dynamic, dynamic> data)
+       : Duration = data['Dur'];
 }

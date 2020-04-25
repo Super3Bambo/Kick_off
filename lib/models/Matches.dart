@@ -9,8 +9,8 @@ class Match {
   final String Location;
   final Timestamp Date;
   final String Price;
-  final Timestamp Check_in;
-  final Timestamp Check_out;
+  final String Check_in;
+  final String Check_out;
   final int Counter;
   final bool Challenge;
   final List <User> users;

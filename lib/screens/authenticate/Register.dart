@@ -178,6 +178,7 @@ class _RegisterState extends State<Register> {
                         setState(() {
                        Alert(context: context, title: "Invalid data",desc: "Enter valid email" ).show();
                         loading = false;
+                        
 
                         });
                       }

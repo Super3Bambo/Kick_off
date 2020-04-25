@@ -13,7 +13,7 @@ final String userid,teamid;
   final CollectionReference matches = Firestore.instance.collection('Match');
 
   
-  Future<void> addMatch( String fieldid, String location  ,DateTime start ,DateTime finish ,String price, List<User> users , ) async {
+  Future<void> addMatch( String fieldid, String location  ,String start ,String finish ,String price, List<User> users , ) async {
     return await matches.document().setData({
       'FieldId': fieldid,
       'Location': location,
@@ -31,7 +31,7 @@ final String userid,teamid;
   });
       
   }
- Future<void> addChallenge( String fieldid, String location  ,DateTime start ,DateTime finish ,String price, List<Team> teams , ) async {
+ Future<void> addChallenge( String fieldid, String location  ,String start ,String finish ,String price, List<Team> teams , ) async {
     return await matches.document().setData({
       'FieldId': fieldid,
       'Location': location,
@@ -39,7 +39,7 @@ final String userid,teamid;
       'Finish_at': finish,
       'Price': price,
       'Counter': 1,
-      'Challenge':false,
+      'Challenge':true,
       'Date': DateTime.now(),
       'Players': teams.map((u)=>{'UserID' :u.ID,}).toList(),
         //'Players' : users,
@@ -51,7 +51,7 @@ final String userid,teamid;
   }
 
 
-  Future<void> editMatch(String id, String fieldid,DateTime date, String location  ,DateTime start ,DateTime finish ,String price,  int counter) async {
+  Future<void> editMatch(String id, String fieldid,DateTime date, String location  ,String start ,String finish ,String price,  int counter) async {
     return await matches.document(id).updateData({
       'FieldId': fieldid,
       'Location': location,
@@ -95,6 +95,7 @@ List<Match> _matchesFromSnapshot(QuerySnapshot snapshot) {
       //users: List.from(doc.data['Players']) ?? [],
 
       users: doc.data['Players'].map<User>((player) =>User.fromMap(player)).toList() ?? [],
+      
 
 
      // rating: snapshot.data["Rating"],
@@ -128,14 +129,14 @@ List<Match> _matchesFromSnapshot(QuerySnapshot snapshot) {
 
 Stream<List<Match>> get allmatches {
   
-    return matches.where("Start_at" ,isGreaterThan: Timestamp.now()).where('Challenge' ,isEqualTo: false).
+    return matches.where("Start_at" ,isGreaterThan: DateTime.now().toString()).where('Challenge' ,isEqualTo: false).
     snapshots().map(_matchesFromSnapshot);
 
   }
   Stream<List<Match>> get allchallenge {
   
     return matches.where("Players" ,arrayContains: {'UserID' :teamid}).
-    where("Start_at" ,isGreaterThan: Timestamp.now()).
+    where("Start_at" ,isGreaterThan: DateTime.now().toString()).
     where('Challenge' ,isEqualTo: true).
     snapshots().map(_challengesFromSnapshot);
 
@@ -144,21 +145,21 @@ Stream<List<Match>> get allmatches {
 
 Stream<List<Match>> get matchcontaimuser {
   
-    return matches.where("Players" ,arrayContains: {'UserID' :userid}).where("Start_at" ,isGreaterThan: Timestamp.now()).
+    return matches.where("Players" ,arrayContains: {'UserID' :userid}).where("Start_at" ,isGreaterThan: DateTime.now().toString()).
     snapshots().map(_matchesFromSnapshot);
 
   }
 Stream<List<Match>> get historymatches {
   
     return matches.where("Players" ,arrayContains: {'UserID' :userid}).
-    where("Finish_at" ,isLessThan: Timestamp.now()).
+    where("Finish_at" ,isLessThan: DateTime.now().toString()).
     where("Counter" ,isEqualTo: 10).
     snapshots().map(_matchesFromSnapshot);
 
   }
   Stream<List<Match>> get completematches {
   
-    return matches.where("Counter" ,isEqualTo: 10).where("Finish_at" ,isGreaterThan: Timestamp.now()).where('Challenge' ,isEqualTo: false).
+    return matches.where("Counter" ,isEqualTo: 10).where("Finish_at" ,isGreaterThan: DateTime.now().toString()).where('Challenge' ,isEqualTo: false).
     snapshots().map(_matchesFromSnapshot);
 
   }

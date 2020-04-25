@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/screens/Matches/test3.dart';
 import '../../models/Matches.dart';
 //import './Field_Details.dart';
 import './Match_Details_User.dart';
@@ -13,7 +14,7 @@ class MatchItem extends StatelessWidget {
   Widget build(BuildContext context) {
     
 godetails(Match id){
-Navigator.push(context,MaterialPageRoute(builder: (context)=> Match_Details(matchid: match)  ) );
+Navigator.push(context,MaterialPageRoute(builder: (context)=> ttt(matchid: match)  ) );
 
 }
     return Padding(

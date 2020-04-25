@@ -158,8 +158,8 @@ User user = Provider.of<User>(context);
                   //String counter= count.toString();
                  // setState(() => loading = true);
                   await MatchService().joinMatch(matchId , users);
-                   await MatchService().editMatch(widget.matchid.ID ,widget.matchid.Field, widget.matchid.Date.toDate() ,widget.matchid.Location, widget.matchid.Check_in.toDate(),
-                     widget.matchid.Check_out.toDate() , widget.matchid.Price, count);
+                   await MatchService().editMatch(widget.matchid.ID ,widget.matchid.Field, widget.matchid.Date.toDate() ,widget.matchid.Location, widget.matchid.Check_in,
+                     widget.matchid.Check_out , widget.matchid.Price, count);
                     _showSnackBar3();
                     }
                   
