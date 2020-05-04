@@ -90,6 +90,7 @@ class _RegisterState extends State<SignIn> {
                   if(_formKey.currentState.validate()){
                     setState(() => loading = true);
                     dynamic result = await _auth.signInWithEmailAndPassword(email, password);
+                    
                     if(result == null) {
                       setState(() {
                      Alert(context: context, title: "Invalid data",desc: " invalid email or password" ).show();

@@ -1,3 +1,4 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 //import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
@@ -8,6 +9,7 @@ import 'package:flutter_app/Shared/Loading.dart';
 import 'package:flutter_app/models/User.dart';
 import 'package:flutter_app/models/field.dart';
 import 'package:flutter_app/screens/Matches/Friends_Overview.dart';
+import 'package:flutter_app/screens/Matches/Match_notfication.dart';
 import '../../models/Matches.dart';
 //import '../../Services/Match.dart';
 //import '../../models/User.dart';
@@ -32,6 +34,7 @@ class Match_Details extends StatefulWidget{
 }
 
 class _Match_DetailsState extends State<Match_Details> {
+    //final FirebaseMessaging _fcm=FirebaseMessaging();
 
 String _linkMessage;
   bool _isCreatingLink = false;
@@ -46,6 +49,11 @@ String _linkMessage;
   void initState() {
     super.initState();
     initDynamicLinks();
+   // _fcm.getToken().then((token){
+//print ("The token ID is "+ token);
+
+  //  });
+
   }
 
   void initDynamicLinks() async {
@@ -252,9 +260,11 @@ _showSnackBar() {
                                  
                                  //   Navigator.of(context).pushNamed(demo.routeName,);
 
-                                   onPressed: !_isCreatingLink
-                                   ? () => _createDynamicLink(true): null,
+                                   onPressed:(){ //!_isCreatingLink
+                                   //? () => _createDynamicLink(true): null,
+                                    Navigator.push(context, MaterialPageRoute(builder: (context) =>  Firebase_Messaging() ),);
 
+                                   }
 
                       
                       ),
