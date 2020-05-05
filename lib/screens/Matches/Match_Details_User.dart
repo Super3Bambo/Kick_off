@@ -240,7 +240,7 @@ _showSnackBar() {
                                       await UserService().removetimefinish(user.ID, finishs);
                                       await UserService().removeduration(user.ID, dur);
                            await MatchService().editMatch(widget.matchid.ID ,widget.matchid.Field, widget.matchid.Date.toDate() ,widget.matchid.Location, widget.matchid.Check_in,
-                           widget.matchid.Check_out , widget.matchid.Price, count);
+                           widget.matchid.Check_out , widget.matchid.Price, count , widget.matchid.Topic);
                           _showSnackBar();
                       }
                       ),
@@ -260,11 +260,11 @@ _showSnackBar() {
                                  
                                  //   Navigator.of(context).pushNamed(demo.routeName,);
 
-                                   onPressed:(){ //!_isCreatingLink
-                                   //? () => _createDynamicLink(true): null,
-                                    Navigator.push(context, MaterialPageRoute(builder: (context) =>  Firebase_Messaging() ),);
+                                   onPressed:!_isCreatingLink
+                                   ? () => _createDynamicLink(true): null,
+                                  //  Navigator.push(context, MaterialPageRoute(builder: (context) =>  Firebase_Messaging() ),);
 
-                                   }
+                                   
 
                       
                       ),
@@ -367,7 +367,7 @@ _showSnackBar() {
                     var count= (widget.matchid.Counter)-1;
                    await MatchService().disjoinMatch(matchId , users);
                      await MatchService().editMatch(widget.matchid.ID ,widget.matchid.Field, widget.matchid.Date.toDate() ,widget.matchid.Location, widget.matchid.Check_in,
-                     widget.matchid.Check_out , widget.matchid.Price, count);
+                     widget.matchid.Check_out , widget.matchid.Price, count , widget.matchid.Topic);
                     _showSnackBar();
                 }
                 )

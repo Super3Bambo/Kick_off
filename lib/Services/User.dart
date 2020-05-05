@@ -31,6 +31,7 @@ class UserService {
 
   Future<void> addUserData(String fName, String lName, String age,String position ,String area,String phone, ) async {
     List<Field> start; List <Field> finish ; List<Field> duration;
+    List<UserRating> rating;
     return await users.document(userid).setData({
       'FName': fName,
       'LName': lName,
@@ -42,11 +43,11 @@ class UserService {
       'Start':  start.map((u)=>{'StartTime' :DateTime.now().toString(),}).toList(),
       'Finish': finish.map((u)=>{'FinishTime' :DateTime.now().toString(),}).toList(),
       'Duration': duration.map((u)=>{'Dur' :DateTime.now().toString(),}).toList(),
-      /*'Rating': rating.map((r)=>{
-        'Skills':r.Skills,
-        'Morality':r.Morality,
-        'Position_Skills':r.Position_Skills
-      }).toList(),*/
+      'Rating': rating.map((r)=>{
+        'Skills':r.Skills=0,
+        'Morality':r.Morality=0,
+        'Position_Skills':r.Position_Skills=0
+      }).toList()
       
     });
   }
@@ -114,6 +115,7 @@ Future <void> unefollow(String ID , List<User> user)async{
       start_time: snapshot.data['Start'].map<Field>((times) =>Field.fromMap(times)).toList() ?? [],
       finish_time: snapshot.data['Finish'].map<Field>((timess) =>Field.fromMap2(timess)).toList() ?? [],
       duration: snapshot.data['Duration'].map<Field>((timesss) =>Field.fromMap3(timesss)).toList() ?? [],
+      rating: snapshot.data['Rating'].map<UserRating>((skill)=>UserRating.fromMap(skill)).toList()?? [],
      // rating: snapshot.data["Rating"],
       
     );

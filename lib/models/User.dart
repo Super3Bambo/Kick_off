@@ -20,10 +20,9 @@ class User with ChangeNotifier {
   List<Field> start_time;
   List<Field> finish_time; 
     List<Field> duration; 
-
-  // List<Rating> rating;
+   List<UserRating> rating;
     User({ this.ID , this.FName , this.LName, this.Position , this.Age , this.Phone , this.Area , this.Is_banned = false, this.Photo_url ,
-     this.followingusers , this.followerusers /*this.rating*/ ,this.start_time ,this.finish_time,this.duration,this.Role});
+     this.followingusers , this.followerusers /*this.rating*/ ,this.start_time ,this.finish_time,this.duration,this.Role ,this.rating});
 
      User.fromMap(Map<dynamic, dynamic> data)
        : ID = data['UserID'];

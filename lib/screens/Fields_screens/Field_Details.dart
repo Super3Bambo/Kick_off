@@ -75,12 +75,15 @@ class FieldDetails extends StatelessWidget{
 
 }*/
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_app/Services/Fields.dart';
 import 'package:flutter_app/Services/User.dart';
 import 'package:flutter_app/Shared/Loading.dart';
+import 'package:random_string_one/random_string.dart';
 import '../../models/field.dart';
 import '../../Services/Match.dart';
 import '../../models/User.dart';
@@ -104,9 +107,67 @@ class _FieldDetailsState extends State<FieldDetails> {
   DateTime now=DateTime.now();
 bool loading = false;
 
+
+final Firestore _db = Firestore.instance;
+  final FirebaseMessaging _fcm = FirebaseMessaging();
+
+
+  @override
+  void initState() {
+    super.initState();
+   
+
+    _fcm.configure(
+      onMessage: (Map<String, dynamic> message) async {
+        print("onMessage: $message");
+        // final snackbar = SnackBar(
+        //   content: Text(message['notification']['title']),
+        //   action: SnackBarAction(
+        //     label: 'Go',
+        //     onPressed: () => null,
+        //   ),
+        // );
+
+        // Scaffold.of(context).showSnackBar(snackbar);
+        showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+                content: ListTile(
+                  title: Text(message['notification']['title']),
+                  subtitle: Text(message['notification']['body']),
+                ),
+                actions: <Widget>[
+                  FlatButton(
+                    color: Colors.amber,
+                    child: Text('Ok'),
+                    onPressed: () => Navigator.of(context).pop(),
+                  ),
+                ],
+              ),
+        );
+      },
+      onLaunch: (Map<String, dynamic> message) async {
+        print("onLaunch: $message");
+        // TODO optional
+      },
+      onResume: (Map<String, dynamic> message) async {
+        print("onResume: $message");
+        // TODO optional
+      },
+    );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+  
+
   @override
   Widget build(BuildContext context) {
-
+        int sum = 0;
+    widget.fieldid.rate.map((e) => e.Rate).forEach((int e){sum += e;});
+      double count= sum/widget.fieldid.rate.length;
     User user = Provider.of<User>(context);
     List<User> users = [
       User(
@@ -172,7 +233,7 @@ DateFormat dateFormat = DateFormat("yyyy-MM-dd HH:00:00:000");
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
                           new Text(widget.fieldid.Location),
-                          new Text(widget.fieldid.Price),
+                          new Text(count.toStringAsFixed(2)),
                         ],
                       ),
                       //                 FlatButton(
@@ -273,8 +334,11 @@ DateFormat dateFormat = DateFormat("yyyy-MM-dd HH:00:00:000");
                               });}
                            
                              else {
+    // Subscribe the user to a topic
                                var s=dateFormat.format(start);
                                var f= dateFormat.format(finish);
+                               var topic=  randomString(9, includeSymbols: false , includeNumbers: false , includeLowercase: false );
+                                _fcm.subscribeToTopic(topic);
                                 await MatchService().addMatch(
                                   widget.fieldid.ID,
                                   widget.fieldid.Location,
@@ -282,6 +346,7 @@ DateFormat dateFormat = DateFormat("yyyy-MM-dd HH:00:00:000");
                                   f,
                                   widget.fieldid.Price,
                                   users,
+                                  topic
                                   );
                                   await FieldService().timestart(widget.fieldid.ID, starts);
                                   await FieldService().timefinish(widget.fieldid.ID, finishs);

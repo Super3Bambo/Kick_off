@@ -13,12 +13,13 @@ class Match {
   final String Check_out;
   final int Counter;
   final bool Challenge;
+  final String Topic;
   final List <User> users;
   final List <Team> team;
 
   
   //final String users;
-  Match ({ this.ID , this.Field, this.Location, this.Date , this.Price,  this.Check_in , this.Check_out ,  this.users , this.Counter ,this.Challenge, this.team});
+  Match ({ this.ID , this.Field, this.Location, this.Date , this.Price,  this.Check_in , this.Check_out ,  this.users , this.Counter ,this.Challenge, this.team , this.Topic});
 
 
 

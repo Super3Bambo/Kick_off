@@ -41,6 +41,7 @@ dependencies:
   datetime_picker_formfield: ^0.1.8
   flutter_local_notifications: ^0.7.1+1
   fluttertoast: ^3.1.0
+  random_string_one: ^1.0.2
   #datetime_picker_formfield: ^1.0.0
 
 dev_dependencies:

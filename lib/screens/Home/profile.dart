@@ -37,8 +37,17 @@ return StreamBuilder<User>(
       builder: (context, snapshot){
         if(snapshot.hasData){
           User userData = snapshot.data;
-
-    return  Stack(children: <Widget>[
+          int sumskills = 0;
+          int sumMorality = 0;
+          int sumPos = 0;
+   userData.rating.map((e) => e.Skills).forEach((int e){sumskills += e;});
+      double skillscount= sumskills/userData.rating.length;   
+       userData.rating.map((e) => e.Morality).forEach((int e){sumMorality += e;});
+      double moralitycount= sumMorality/userData.rating.length;   
+       userData.rating.map((e) => e.Position_Skills).forEach((int e){sumPos += e;});
+      double poscount= sumPos/userData.rating.length;   
+      double total =(skillscount*6+moralitycount*2+poscount)/(3*3);
+       return  Stack(children: <Widget>[
        Container(color: Colors.blue,),
        Image.network(imgUrl, fit: BoxFit.fill,),
        BackdropFilter(
@@ -105,8 +114,9 @@ return StreamBuilder<User>(
                   ],)),color: Colors.blue[50],),),
                  Divider(height: _height/30,color: Colors.white),
                  Row(
+                   
                   children: <Widget>[
-                    rowCell(99, '${userData.Age}'),//
+                    rowCell(total.toInt(), '${total}'),//
                     rowCell(99, '${userData.Age}'),
                     rowCell(99, '${userData.Age}'),
                   ],),

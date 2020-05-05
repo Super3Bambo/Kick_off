@@ -3,6 +3,7 @@ import 'package:flutter_app/models/RatingField.dart';
 import 'package:flutter_app/models/Matches.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_app/models/team.dart';
+import 'package:random_string_one/random_string.dart';
 import '../models/User.dart';
 class MatchService {
 
@@ -13,13 +14,14 @@ final String userid,teamid;
   final CollectionReference matches = Firestore.instance.collection('Match');
 
   
-  Future<void> addMatch( String fieldid, String location  ,String start ,String finish ,String price, List<User> users , ) async {
+  Future<void> addMatch( String fieldid, String location  ,String start ,String finish ,String price, List<User> users ,String topic ) async {
     return await matches.document().setData({
       'FieldId': fieldid,
       'Location': location,
       'Start_at': start ,
       'Finish_at': finish,
       'Price': price,
+      'Topic':topic,
       'Counter': 1,
       'Challenge':false,
       'Date': DateTime.now(),
@@ -31,12 +33,13 @@ final String userid,teamid;
   });
       
   }
- Future<void> addChallenge( String fieldid, String location  ,String start ,String finish ,String price, List<Team> teams , ) async {
+ Future<void> addChallenge( String fieldid, String location  ,String start ,String finish ,String price, List<Team> teams ,String topic ) async {
     return await matches.document().setData({
       'FieldId': fieldid,
       'Location': location,
       'Start_at': start ,
       'Finish_at': finish,
+      'Topic':topic,
       'Price': price,
       'Counter': 1,
       'Challenge':true,
@@ -51,12 +54,13 @@ final String userid,teamid;
   }
 
 
-  Future<void> editMatch(String id, String fieldid,DateTime date, String location  ,String start ,String finish ,String price,  int counter) async {
+  Future<void> editMatch(String id, String fieldid,DateTime date, String location  ,String start ,String finish ,String price,  int counter , String topic) async {
     return await matches.document(id).updateData({
       'FieldId': fieldid,
       'Location': location,
       'Start_at': start ,
       'Finish_at': finish,
+      'Topic':topic,
       'Price': price,
       'Counter':counter,
       'Date':date ,
@@ -92,6 +96,7 @@ List<Match> _matchesFromSnapshot(QuerySnapshot snapshot) {
       Challenge: doc.data['Challenge'],
       Price :  doc.data['Price'] ?? '',
       Counter: doc.data['Counter'] ?? '',
+      Topic: doc.data['Topic'],
       //users: List.from(doc.data['Players']) ?? [],
 
       users: doc.data['Players'].map<User>((player) =>User.fromMap(player)).toList() ?? [],
@@ -114,6 +119,7 @@ List<Match> _matchesFromSnapshot(QuerySnapshot snapshot) {
       Challenge: doc.data['Challenge'],
       Price :  doc.data['Price'] ?? '',
       Counter: doc.data['Counter'] ?? '',
+      Topic: doc.data['Topic'],
       //users: List.from(doc.data['Players']) ?? [],
 
       team: doc.data['Players'].map<Team>((player) =>Team.fromMap(player)).toList() ?? [],

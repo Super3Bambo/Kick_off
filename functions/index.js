@@ -3,20 +3,22 @@ const admin=require('firebase-admin');
 admin.initializeApp(functions.config().functions);
 
 
-exports.BookTrigger=functions.firestore.document('Match/{matchid}').onCreate
+exports.boo=functions.firestore.document('Match/{MatchId}').onUpdate
 (
 async (snapshot,context)=>
-{
-var payload = {notification: {title: 'New match is available!', body: 'https://kickoff3.page.link/mVYD'}, data: {click_action: 'FLUTTER_NOTIFICATION_CLICK'}}
 
-const response = await admin.messaging().sendToTopic('Admin'.payload);
+{
+    const  match =  snapshot.after.data();
+var payload = {notification: {title: match.Topic, body: match.Location}, data: {click_action: 'FLUTTER_NOTIFICATION_CLICK'}}
+
+const response = await admin.messaging().sendToTopic(match.Topic , payload)
 }
 
 
 );
 
 
-exports.MatchTrigger=functions.firestore.document('Match/{matchid}').onCreate
+/*exports.MatchTrigger=functions.firestore.document('Match/{matchid}').onCreate
 (
     
 async (snapshot,context)=>
@@ -27,4 +29,4 @@ var payload = {notification: {title: 'New match is available!', body: 'https://k
 const response = await admin.messaging().sendToDevice(tokens.payload);
 }
 
-);
+);*/

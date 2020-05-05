@@ -11,8 +11,9 @@ class FieldService {
   final CollectionReference field = Firestore.instance.collection('Field');
 
   
-  Future<void> addFieldData(String name, String cap, String location ,String price, bool ref , bool ball , bool bathroom  ) async {
+  Future<void> addFieldData(String name, String cap, String location ,String price, bool ref , bool ball , bool bathroom ,   ) async {
     List<Field> start; List <Field> finish ; List<Field> duration;
+    List<FieldRating> rating;
     return await field.document().setData({
       'Name': name,
       'Capacitance': cap,
@@ -24,11 +25,9 @@ class FieldService {
       'Start':  start.map((u)=>{'StartTime' :DateTime.now().toString(),}).toList(),
       'Finish': finish.map((u)=>{'FinishTime' :DateTime.now().toString(),}).toList(),
       'Duration': duration.map((u)=>{'Dur' :DateTime.now().toString(),}).toList(),
-      /*'Rating': rating.map((r)=>{
-        'Skills':r.Skills,
-        'Morality':r.Morality,
-        'Position_Skills':r.Position_Skills
-      }).toList(),*/
+      'Rating': rating.map((r)=>{
+      'Rate':r.Rate=0,
+      }).toList(),
       
     });
   }
@@ -70,6 +69,8 @@ Future <void> removeduration(String ID , List<Field> time)async{
       start_time: doc.data['Start'].map<Field>((times) =>Field.fromMap(times)).toList() ?? [],
       finish_time: doc.data['Finish'].map<Field>((timess) =>Field.fromMap2(timess)).toList() ?? [],
       duration: doc.data['Duration'].map<Field>((timesss) =>Field.fromMap3(timesss)).toList() ?? [],
+      rate: doc.data['Rate'].map<FieldRating>((rates) =>FieldRating.fromMap(rates)).toList() ?? [],
+
 
 
 
@@ -88,6 +89,8 @@ Future <void> removeduration(String ID , List<Field> time)async{
       start_time: snapshot.data['Start'].map<Field>((times) =>Field.fromMap(times)).toList() ?? [],
       finish_time: snapshot.data['Finish'].map<Field>((timess) =>Field.fromMap2(timess)).toList() ?? [],
       duration: snapshot.data['Duration'].map<Field>((timesss) =>Field.fromMap3(timesss)).toList() ?? [],
+      rate:snapshot.data['Rate'].map<FieldRating>((rates) =>FieldRating.fromMap(rates)).toList() ?? [],
+
 
 
 

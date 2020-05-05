@@ -25,16 +25,6 @@ class _RegisterState extends State<Register> {
   String email = '';
   String password = '';
   String fName, lName, age, position, area, phone;
-  static List <Rating> rating=[
-    Rating(Morality: 5,
-    Skills: 5,
-    Position_Skills: 4),
-
-    Rating(Morality: 1,
-    Skills: 2,
-    Position_Skills: 3),
-  ];
- static int r = rating.length;
   @override
     Widget build(BuildContext context) {
       return  loading? Loading() : Scaffold(
