@@ -202,6 +202,9 @@ class _MyHomePageState extends State<MyHomePage> {
 import 'package:flutter/material.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'Match_Details_User.dart';
+import'package:flutter/cupertino.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+
 class Firebase_Messaging extends StatefulWidget{
 
 @override
@@ -212,12 +215,67 @@ _Firebase_MessagingState createState()=>_Firebase_MessagingState();
 class _Firebase_MessagingState extends State <Firebase_Messaging>{
 
 final FirebaseMessaging _firebaseMessaging=FirebaseMessaging();
+FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin= new FlutterLocalNotificationsPlugin();
+var initilizationSettingsAndroid;
+var initilizationSettings;
+var initilizationSettingsIOS;
+
+void _showNotification()async{
+await _demoNotification();
+}
+
+Future<void> _demoNotification()async{
+ var androidPlateform= AndroidNotificationDetails('channel ID','channel name','chaneel Description',importance: Importance.Max,priority: Priority.High,ticker: 'text ticker');
+ var iosPlateform=IOSNotificationDetails();
+  var plateformChannel=NotificationDetails(androidPlateform,iosPlateform);
+  await flutterLocalNotificationsPlugin.show(0, 'A new Match', 'Come and join us!', plateformChannel,payload: 'test payload');
+}
+
 
 @override
 void initState() {
+  super.initState();
+  initilizationSettingsAndroid = new AndroidInitializationSettings('app_icon');
+  initilizationSettings=new InitializationSettings(initilizationSettingsAndroid, initilizationSettingsIOS);
+  initilizationSettingsIOS = new IOSInitializationSettings(
+        onDidReceiveLocalNotification: onDidReceiveLocalNotification);
+    initilizationSettings = new InitializationSettings(
+        initilizationSettingsAndroid, initilizationSettingsIOS);
+    flutterLocalNotificationsPlugin.initialize(initilizationSettings,
+        onSelectNotification: onSelectNotification);
   getDeviceToken();
       configureCallbacks();
         }
+
+ Future onDidReceiveLocalNotification(
+      int id, String title, String body, String payload) async {
+    await showDialog(
+        context: context,
+        builder: (BuildContext context) => CupertinoAlertDialog(
+              title: Text(title),
+              content: Text(body),
+              actions: <Widget>[
+                CupertinoDialogAction(
+                  isDefaultAction: true,
+                  child: Text('Ok'),
+                  onPressed: () async {
+                    Navigator.of(context, rootNavigator: true).pop();
+                    await Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => Match_Details()));
+                  },
+                )
+              ],
+            ));
+
+
+    }
+Future onSelectNotification(String payload)async{
+if(payload!=null){
+  debugPrint('Notification Payload : $payload');
+}
+await Navigator.push(context, new MaterialPageRoute(builder: (context) =>new Match_Details()));
+}
+
       @override
       Widget build(BuildContext context) {
       
@@ -233,7 +291,7 @@ void initState() {
   _firebaseMessaging.configure(
   
   onMessage: (message) async{
-  
+  _showNotification();
     print('onMessage: $message');
   },
   onResume: (message) async{
