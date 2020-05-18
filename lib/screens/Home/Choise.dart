@@ -4,6 +4,8 @@ import 'package:flutter_app/models/User.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/screens/Home/Test.dart';
 import 'package:flutter_app/screens/authenticate/authenticate.dart';
+import 'package:flutter_app/screens/authenticate/OnBorder.dart';
+import 'package:flutter_app/screens/authenticate/Rgester_Complete.dart';
 import 'package:provider/provider.dart';
 import 'Testtows.dart';
 import 'homepage.dart';
@@ -35,7 +37,9 @@ class Choise extends StatelessWidget {
           else{return Testtts();}
           
           
-          }else{return Loading();}});
+          }else{ 
+            //new Duration(seconds :2);
+             return Example();}});
     
   }else {return Authenticate();}
 }}

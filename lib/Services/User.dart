@@ -29,25 +29,29 @@ class UserService {
     });
   }
 
-  Future<void> addUserData(String fName, String lName, String age,String position ,String area,String phone, ) async {
-    List<Field> start; List <Field> finish ; List<Field> duration;
-    List<UserRating> rating;
+  Future<void> addUserData(String fName, String lName, String age,String position, String photo ,String area,String phone, String token , List<Field> date  ,List<User> follow,List<UserRating> rating) async {
     return await users.document(userid).setData({
+      'ID':userid,
       'FName': fName,
       'LName': lName,
       'Age': age,
       'Position': position ,
       'Area': area,
+      'Token':token,
       'Role':"User",
       'Phone': phone,
-      'Start':  start.map((u)=>{'StartTime' :DateTime.now().toString(),}).toList(),
-      'Finish': finish.map((u)=>{'FinishTime' :DateTime.now().toString(),}).toList(),
-      'Duration': duration.map((u)=>{'Dur' :DateTime.now().toString(),}).toList(),
+      'Photo_Url':photo,
+      'Start':  date.map((u)=>{'StartTime' :u.Date}).toList(),
+      'Finish': date.map((u)=>{'FinishTime' :u.Date}).toList(),
+      'Duration': date.map((u)=>{'Dur' :u.Date}).toList(),
       'Rating': rating.map((r)=>{
-        'Skills':r.Skills=0,
-        'Morality':r.Morality=0,
-        'Position_Skills':r.Position_Skills=0
-      }).toList()
+        'Skills':r.Skills,
+        'Morality':r.Morality,
+        'Pos':r.Position_Skills
+      }).toList(),
+      'Followers':follow.map((f)=>{'UserID': f.ID}).toList(),
+      'Following':follow.map((f)=>{'UserID': f.ID}).toList(),
+
       
     });
   }
@@ -116,7 +120,6 @@ Future <void> unefollow(String ID , List<User> user)async{
       finish_time: snapshot.data['Finish'].map<Field>((timess) =>Field.fromMap2(timess)).toList() ?? [],
       duration: snapshot.data['Duration'].map<Field>((timesss) =>Field.fromMap3(timesss)).toList() ?? [],
       rating: snapshot.data['Rating'].map<UserRating>((skill)=>UserRating.fromMap(skill)).toList()?? [],
-     // rating: snapshot.data["Rating"],
       
     );
   }

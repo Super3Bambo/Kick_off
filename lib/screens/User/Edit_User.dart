@@ -30,7 +30,7 @@ bool loading = false;
 
   @override
   Widget build(BuildContext context) {
-    String photo ;
+   // String photo ;
 
     Future getImage() async {
       var image = await ImagePicker.pickImage(source: ImageSource.gallery);
@@ -154,7 +154,7 @@ bool loading = false;
                         ),
 
 
-                        SizedBox(
+                       /* SizedBox(
                           height: 20.0,
                         ),
                         Row(
@@ -180,7 +180,7 @@ bool loading = false;
                                 ),
                               ),
                             ),
-                            Padding(
+                            /*Padding(
                               padding: EdgeInsets.only(left: 100.0),
 
                               child: IconButton(
@@ -193,8 +193,8 @@ bool loading = false;
                                   getImage();
                                 },
                               ),
-                            ),],
-                        ),
+                            ),*/],
+                        ),*/
 
                         SizedBox(height: 20.0),
 
@@ -209,11 +209,11 @@ bool loading = false;
 
                             onPressed: () async {
                               // uploadPic(context);
-                              if(_image!=null){
+                             // if(_image!=null){
                               if(_formKey.currentState.validate()){
-                              var firebaseStorageRef = FirebaseStorage.instance.ref().child(_image.path);
-                              var uploadTask = firebaseStorageRef.putFile(_image);
-                              photo = await (await uploadTask.onComplete ).ref.getDownloadURL();
+                              //var firebaseStorageRef = FirebaseStorage.instance.ref().child(_image.path);
+                             // var uploadTask = firebaseStorageRef.putFile(_image);
+                            //  photo = await (await uploadTask.onComplete ).ref.getDownloadURL();
                                 setState(() => loading = true);
                                 await UserService(userid: user.ID).updateUserData(
                                     fName ?? userData.FName,
@@ -222,29 +222,13 @@ bool loading = false;
                                     position ?? userData.Position,
                                     area ?? userData.Area,
                                     phone ?? userData.Phone,
-                                    photo.toString() ??userData.Photo_url
+                                   userData.Photo_url
                                 );
                               
                                 loading = false;
                                 Navigator.pop(context);
                               }
-                              }
-                              
-                              else{
-                                if(_formKey.currentState.validate()){
-                                setState(() => loading = true);
-                                  await UserService(userid: user.ID).updateUserData(
-                                    fName ?? userData.FName,
-                                    lName ?? userData.LName,
-                                    age ?? userData.Age,
-                                    position ?? userData.Position,
-                                    area ?? userData.Area,
-                                    phone ?? userData.Phone,
-                                     userData.Photo_url 
-                                );
-                                loading = false;
-                                Navigator.pop(context);}
-                            }
+                             // }
                             }
                         ),
 

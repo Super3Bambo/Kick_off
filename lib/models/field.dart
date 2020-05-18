@@ -13,6 +13,7 @@ class Field  {
    String Finish_at;
    String Duration;
    String Price;
+   String Date;
    String Photo_url;
    bool  Ball;
    bool  Bathroom;
@@ -23,7 +24,7 @@ class Field  {
   List<FieldRating> rate;
 
 
-  Field ({ this.ID, this.Name , this.Capacitance , this.Location , this.Start_at , this.Price ,  this.Finish_at,this.Duration  ,this.Photo_url , this.Ball , 
+  Field ({ this.ID, this.Name , this.Capacitance , this.Date, this.Location , this.Start_at , this.Price ,  this.Finish_at,this.Duration  ,this.Photo_url , this.Ball , 
   this.Bathroom , this.Refree , this.start_time , this.finish_time , this.duration , this.rate});
     Field.fromMap(Map<dynamic, dynamic> data)
        : Start_at = data['StartTime'];

@@ -14,7 +14,7 @@ import '../../models/Matches.dart';
 //import '../../Services/Match.dart';
 //import '../../models/User.dart';
 import 'package:provider/provider.dart';
-import './test2.dart';
+import './Invite_Page.dart';
 import 'dart:async';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/services.dart';

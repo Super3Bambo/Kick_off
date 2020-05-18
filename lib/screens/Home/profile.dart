@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/Shared/Loading.dart';
 import '../../screens/User/Edit_User.dart';
-import '../../screens/User/Show_User_Data.dart';
 import '../../models/User.dart';
 import '../../Services/User.dart';
 import 'dart:ui' as ui;
@@ -20,10 +19,19 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
+  String fName, lName, age, position, area, phone;
+  bool loading = false;
+
 
   @override
   Widget build(BuildContext context) {
-
+/* Future getImage() async {
+      var image = await ImagePicker.pickImage(source: ImageSource.gallery);
+       
+       
+       setState(() {
+          _image = image;
+       });}*/
 
 
     final _width = MediaQuery.of(context).size.width;
@@ -37,6 +45,33 @@ return StreamBuilder<User>(
       builder: (context, snapshot){
         if(snapshot.hasData){
           User userData = snapshot.data;
+
+    Future getImage() async {
+      var image = await ImagePicker.pickImage(source: ImageSource.gallery);
+       
+       
+      if(image!=null){
+        var firebaseStorageRef = FirebaseStorage.instance.ref().child(image.path);
+        var uploadTask = firebaseStorageRef.putFile(image);
+        var photo = await (await uploadTask.onComplete ).ref.getDownloadURL();
+        setState(() {
+          loading =true;
+        });
+         await UserService(userid: user.ID).updateUserData(
+                                    fName ?? userData.FName,
+                                    lName ?? userData.LName,
+                                    age ?? userData.Age,
+                                    position ?? userData.Position,
+                                    area ?? userData.Area,
+                                    phone ?? userData.Phone,
+                                    photo.toString(),
+
+      );
+      loading = false;
+      }}
+
+
+
           int sumskills = 0;
           int sumMorality = 0;
           int sumPos = 0;
@@ -66,10 +101,10 @@ return StreamBuilder<User>(
           body:  Center(
             child:  Column(
               children: <Widget>[
-                                     SizedBox(height: _height/12,),
+            SizedBox(height: _height/12,),
 
                  InkWell(
-                //   onTap: ()=>getImage(),
+                   onTap: ()=>getImage(),
                child:  CircleAvatar(
                    
                     radius: 100,
