@@ -86,7 +86,7 @@ class _RegisterState extends State<Register> {
                   onPressed: () async {
                     if(_formKey.currentState.validate()){
                         setState(() => loading = true);
-                      dynamic result = await _auth.registerWithEmailAndPassword(email, password ,fName, lName, age, position, area, phone );
+                      dynamic result = await _auth.registerWithEmailAndPassword(email, password );
                          // Navigator.push(context,MaterialPageRoute(builder: (context)=> regsec()  ) );                      
                           if(result == null) {
                         setState(() {
