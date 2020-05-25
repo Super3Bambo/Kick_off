@@ -4,12 +4,12 @@ import 'package:flutter_app/Shared/Loading.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'clipper.dart';
 
-class test extends StatefulWidget {
+class AuthPage extends StatefulWidget {
   @override
-  _testState createState() => _testState();
+  _AuthPageState createState() => _AuthPageState();
 }
 
-class _testState extends State<test> {
+class _AuthPageState extends State<AuthPage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   TextEditingController _emailController = new TextEditingController();
   TextEditingController _passwordController = new TextEditingController();

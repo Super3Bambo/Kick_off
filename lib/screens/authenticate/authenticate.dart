@@ -1,4 +1,4 @@
-import './Register.dart';
+/*import './Register.dart';
 import './Sign_in.dart';
 import 'package:flutter/material.dart';
 
@@ -23,4 +23,4 @@ class _AuthenticateState extends State<Authenticate> {
       return Register(toggleView:  toggleView);
     }
   }
-}
+}*/

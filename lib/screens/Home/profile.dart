@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/Shared/Loading.dart';
+import 'package:rating_bar/rating_bar.dart';
 import '../../screens/User/Edit_User.dart';
 import '../../models/User.dart';
 import '../../Services/User.dart';
@@ -128,33 +129,78 @@ return StreamBuilder<User>(
 
                  SizedBox(height: _height/25.0,),
                  Text(userData.FName + ' ' + '${ userData.LName}', style:  TextStyle(fontWeight: FontWeight.bold, fontSize: _width/15, color: Colors.white),),
-                 Padding(padding:  EdgeInsets.only(top: _height/30, left: _width/8, right: _width/8),
-                  child: Text('First Player to join the APP!',
-                    style:  TextStyle(fontWeight: FontWeight.normal, fontSize: _width/25,color: Colors.white),textAlign: TextAlign.center,) ,),
+                 RatingBar.readOnly(
+                    initialRating: total,
+                    isHalfAllowed: true,
+                    halfFilledIcon: Icons.star_half,
+                    filledIcon: Icons.star,
+                    emptyIcon: Icons.star_border,
+                    filledColor: Colors.lime[100],
+                    emptyColor: Colors.lime[100],
+                    halfFilledColor: Colors.lime[100], 
+                  ),
                  Divider(height: _height/30,color: Colors.white,),
-                 Padding(padding:  EdgeInsets.only(left: _width/8, right: _width/8), child: new FlatButton(onPressed: (){},
-                  child:  Container(child:  Row(mainAxisAlignment: MainAxisAlignment.center,children: <Widget>[
-              FlatButton.icon(
-              icon: Icon(Icons.edit),
-              label: Text('Edit'),
-              onPressed: (){
-                               Navigator.push(
-              context,
-             MaterialPageRoute(builder: (context) => Edituser()));
-
-              },
-            ),                    //new Icon(Icons.edit),
-                    //new SizedBox(width: _width/30,),
+                 Container(child:  Row(mainAxisAlignment: MainAxisAlignment.spaceAround,children: <Widget>[
+                    RaisedButton(
+              padding: EdgeInsets.fromLTRB(10.0,10.0,10.0,10.0),
+                  color: Colors.white,
+                  child: Text(
+                    'Followers',
+                    style: TextStyle(color: Colors.black,fontSize: 15, fontWeight: FontWeight.bold),
+                  ),
+                  onPressed: ()  {
+                      }
+                  
+                ),
+               RaisedButton(
+              padding: EdgeInsets.fromLTRB(10.0,10.0,10.0,10.0),
+                  color: Colors.white,
+                  child: Text(
+                    'Following',
+                    style: TextStyle(color: Colors.black,fontSize: 15, fontWeight: FontWeight.bold),
+                  ),
+                  onPressed: ()  {
+                      }
+                  
+                ),
+                 RaisedButton(
+              padding: EdgeInsets.fromLTRB(10.0,10.0,10.0,10.0),
+                  color: Colors.white,
+                  child: Text(
+                    'Edit',
+                    style: TextStyle(color: Colors.black, fontSize: 15, fontWeight: FontWeight.bold),
+                  ),
+                  onPressed: ()  {
+                      }
+                  
+                ),          //new Icon(Icons.edit),
+                   //new SizedBox(width: _width/30,),
                  //   new Text('Edit')
-                  ],)),color: Colors.blue[50],),),
+                 ],)),
                  Divider(height: _height/30,color: Colors.white),
-                 Row(
-                   
+                 Column(
+                   children:[
+                     Container(
+                       margin: EdgeInsets.only(left:8),
+                child: Row(
+                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: <Widget>[
-                    rowCell(total.toInt(), '${total}'),//
-                    rowCell(99, '${userData.Age}'),
-                    rowCell(99, '${userData.Age}'),
-                  ],),
+                    Text('Age' ,style: TextStyle(color: Colors.white70,fontSize: 20, fontWeight: FontWeight.bold)),
+                    Container(
+                      margin: EdgeInsets.only(left:16),
+                    child: Text('Area',style: TextStyle(color: Colors.white70,fontSize: 20, fontWeight: FontWeight.bold),),),
+                    Text('Position',style: TextStyle(color: Colors.white70,fontSize: 20, fontWeight: FontWeight.bold),),
+                  ],),),
+                  
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: <Widget>[
+                    Text(userData.Age ,style: TextStyle(color: Colors.white,fontSize: 20, fontWeight: FontWeight.bold)),
+                    Text(userData.Area,style: TextStyle(color: Colors.white,fontSize: 20, fontWeight: FontWeight.bold),),
+                    Text(userData.Position,style: TextStyle(color: Colors.white,fontSize: 20, fontWeight: FontWeight.bold),),
+                  ],
+                  )
+                  ,]),
               ],
             ),
           )

@@ -9,6 +9,7 @@ import 'package:flutter_app/screens/authenticate/Rgester_Complete.dart';
 import 'package:provider/provider.dart';
 import 'Testtows.dart';
 import 'homepage.dart';
+import '../authenticate/Log_Reg_Page.dart';
 
 
 
@@ -41,5 +42,5 @@ class Choise extends StatelessWidget {
             //new Duration(seconds :2);
              return Example();}});
     
-  }else {return Authenticate();}
+  }else {return AuthPage();}
 }}

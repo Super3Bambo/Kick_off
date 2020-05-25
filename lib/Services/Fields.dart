@@ -70,6 +70,9 @@ Future <void> removeduration(String ID , List<Field> time)async{
       finish_time: doc.data['Finish'].map<Field>((timess) =>Field.fromMap2(timess)).toList() ?? [],
       duration: doc.data['Duration'].map<Field>((timesss) =>Field.fromMap3(timesss)).toList() ?? [],
       rate: doc.data['Rate'].map<FieldRating>((rates) =>FieldRating.fromMap(rates)).toList() ?? [],
+      Ball: doc.data['Ball'] ?? '',
+      Refree: doc.data['Refree'] ?? '',
+      Bathroom: doc.data['Bathroom'] ?? '',
 
 
 
@@ -90,6 +93,9 @@ Future <void> removeduration(String ID , List<Field> time)async{
       finish_time: snapshot.data['Finish'].map<Field>((timess) =>Field.fromMap2(timess)).toList() ?? [],
       duration: snapshot.data['Duration'].map<Field>((timesss) =>Field.fromMap3(timesss)).toList() ?? [],
       rate:snapshot.data['Rate'].map<FieldRating>((rates) =>FieldRating.fromMap(rates)).toList() ?? [],
+      Ball: snapshot.data['Ball'] ?? '',
+      Refree: snapshot.data['Refree'] ?? '',
+      Bathroom: snapshot.data['Bathroom'] ?? '',
 
 
 

@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+/*import 'package:flutter/material.dart';
 import 'package:flutter_app/models/Rating.dart';
 import 'package:flutter_app/screens/authenticate/OnBorder.dart';
 import '../../Services/Auth.dart';
@@ -109,3 +109,4 @@ class _RegisterState extends State<Register> {
    ));
     }
 }
+*/

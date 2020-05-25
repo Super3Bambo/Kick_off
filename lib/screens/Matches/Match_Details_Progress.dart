@@ -3,17 +3,31 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_app/Shared/Loading.dart';
 import 'package:flutter_app/screens/Matches/Members_OverView.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../models/Matches.dart';
 import '../../Services/Match.dart';
 import '../../models/User.dart';
 import 'package:provider/provider.dart';
 import '../../Services/User.dart';
+import 'package:flutter_icons/flutter_icons.dart';
+import 'package:percent_indicator/percent_indicator.dart';
+import 'package:getflutter/getflutter.dart';
+
 
 
 class Match_DetailsProgress extends StatefulWidget{
   
   final Match matchid;
-
+  bool val =false;
+ 
+final List<String> imageList = [
+  "https://cdn.pixabay.com/photo/2017/12/03/18/04/christmas-balls-2995437_960_720.jpg",
+  "https://cdn.pixabay.com/photo/2017/12/13/00/23/christmas-3015776_960_720.jpg",
+  "https://cdn.pixabay.com/photo/2019/12/19/10/55/christmas-market-4705877_960_720.jpg",
+  "https://cdn.pixabay.com/photo/2019/12/20/00/03/road-4707345_960_720.jpg",
+  "https://cdn.pixabay.com/photo/2019/12/22/04/18/x-mas-4711785__340.jpg",
+  "https://cdn.pixabay.com/photo/2016/11/22/07/09/spruce-1848543__340.jpg"
+];
   Match_DetailsProgress({this.matchid});
    
  
@@ -75,7 +89,7 @@ User user = Provider.of<User>(context);
         }),
     );
     //How to display Snackbar ?
-    _scaffoldKey.currentState.showSnackBar(snackBar);
+    _scaffoldKey.currentState.showSnackBar(snackBar); 
   }
 
  return  Scaffold(
@@ -85,108 +99,227 @@ User user = Provider.of<User>(context);
       ),
 
 
-        body: Center(
-            child: SingleChildScrollView(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  new ClipRRect(
-                    child: Image(
-                      image: AssetImage('images/5omasy.jpg'),
+        body: Container(
+          margin: EdgeInsets.fromLTRB(10.0, 20.0, 10.0, 10.0),
+                  child: Center(
+                child: Column(
+                  //mainAxisAlignment: MainAxisAlignment.start,
+                 // crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    new ClipRRect(
+                      child: /*Image(
+                        image: AssetImage('images/5omasy.jpg'),
+                        fit: BoxFit.cover,
+                      ),*/GFCarousel(
+                              items: widget.imageList.map(
+                                  (url) {
+                                  return Container(
+                                    margin: EdgeInsets.all(8.0),
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                                        child: Image.network(
+                                          url,
+                                          fit: BoxFit.cover,
+                                            //width: 1000.0
+                                        ),
+                                      ),
+                                    );
+                                    },
+                                  ).toList(),
+                              ),
                     ),
-                    borderRadius: BorderRadius.only(
-                      topLeft: new Radius.circular(16.0),
-                      topRight: new Radius.circular(16.0),
-                    ),
-                  ),
-                  new Padding(
-                    padding: new EdgeInsets.all(16.0),
-                    child: new Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        new Text(widget.matchid.Date.toDate().toString(),style: TextStyle(fontSize: 20.0),),
-                        new SizedBox(height: 16.0),
-                        new Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                           // new Text(widget.matchid.Location),
-                            new Text(myList.length.toString()),
+                    new Padding(
+                      padding: new EdgeInsets.all(16.0),
+                      child: new Column(
+
                         
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        
+                        children: <Widget>[
+
+                          
                             
-                            
-                       /*    ListView.builder(
-                              itemCount:myList.length,
-                               itemBuilder: (context, index) {
-                                return Padding(
-                                  padding: const EdgeInsets.only(top: 8.0),
-                                   child: Card(
-                                      margin: EdgeInsets.fromLTRB(20.0, 6.0, 20.0, 0.0),
-                                       child: ListTile( 
-                                       title: Text('fds'),
-                                        subtitle: Text('dfs',
-        ),
+                          Column(
+                            children: <Widget>[
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisSize: MainAxisSize.max,
+                                 mainAxisAlignment:MainAxisAlignment.start,
+
+                                children: <Widget>[
+                                  Container(
+                                    margin: EdgeInsets.only(top:10,),
+                                child:
+                                Icon(FontAwesome.calendar, size: 20, color: Colors.blueAccent,),),
+                                Container(
+                                  margin: EdgeInsets.only(left:110 ,top: 10),
+                                      child: Text(widget.matchid.Check_in.substring(0,10) ,style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
+)
+                                
+                             
+                              ],),
+                               Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisSize: MainAxisSize.max,
+                                 mainAxisAlignment:MainAxisAlignment.start,
+
+                                children: <Widget>[
+                                   Container(
+                                    margin: EdgeInsets.only(top:10,),
+                                child: Icon(FontAwesome.clock_o , size: 20, color: Colors.blue,),),
+                                Container(
+                                  margin: EdgeInsets.only(left:110, top: 10),
+                                      child: Text(widget.matchid.Check_in.substring(11,16) ,style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
+)
+                                
+                                
+                              ],),
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisSize: MainAxisSize.max,
+                                 mainAxisAlignment:MainAxisAlignment.start,
+
+                                children: <Widget>[
+                                  Container(
+                                    margin: EdgeInsets.only(top:10,),
+                                child: Icon(FontAwesome.dollar, size: 20,color: Colors.green,),),
+                                Container(
+                                  margin: EdgeInsets.only(left:110,top: 10),
+                                      child: Text(widget.matchid.Price +" " + '\$',style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
+)
+                                
+                                
+                              ],
+                              ),
+
+                               Container(
+                               margin: EdgeInsets.only(top:15,bottom: 10) ,
+                               child:Row(
+                                 mainAxisAlignment:MainAxisAlignment.spaceBetween,
+                            mainAxisSize:MainAxisSize.max,
+                            crossAxisAlignment:CrossAxisAlignment.start,
+                                 children: <Widget>[
+                                Icon(FontAwesome.bath , size: 30,),
+                                Icon(Ionicons.md_football ,size: 30,),
+                                Icon(MaterialIcons.person_outline, size: 30, /*color: widget.val?Colors.yellow : Colors.red*/),
+                             // IconToggle(value: true ,activeColor: Colors.yellow,),
+                            ],
+
+                          ),),
+
+                                CircularPercentIndicator(
+                                    radius: 100.0,
+                                    lineWidth: 7.0,
+                                    percent: widget.matchid.users.length.toDouble()/10,
+                                    header: Padding(padding: EdgeInsets.fromLTRB(00.0, 20.0, 00.0,00.0),),
+                                    center: Container(
+                                      margin: EdgeInsets.only(top: 25),
+                                      child: Column(
+                                        children:[
+                                         
+                                          Icon(
+                                      Icons.person_pin,
+                                      size: 40.0,
+                                      color: Colors.blue,
+                                      
+                                    ),
+                                     Text( widget.matchid.users.length.toString() + '' '/' '' '${10}',style: TextStyle(fontWeight: FontWeight.bold),),
+
+                                        ]
+                                      ),
+                                    ),/* */
+                                    footer: Padding(padding: EdgeInsets.fromLTRB(00.0, 0.0, 00.0,20.0),),
+                                    backgroundColor: Colors.grey,
+                                    progressColor: Colors.blue,
+                                      ),
+                            ],
+                          ),
+
+                          
+                          new Row(
+                         mainAxisAlignment:MainAxisAlignment.center,
+
+                            children: <Widget>[
+                              
+                             // new Text(widget.matchid.Location),
+                          
+                              
+                              
+                         /*    ListView.builder(
+                                itemCount:myList.length,
+                                 itemBuilder: (context, index) {
+                                  return Padding(
+                                    padding: const EdgeInsets.only(top: 8.0),
+                                     child: Card(
+                                        margin: EdgeInsets.fromLTRB(20.0, 6.0, 20.0, 0.0),
+                                         child: ListTile( 
+                                         title: Text('fds'),
+                                          subtitle: Text('dfs',
+          ),
       ),
     )
     );
-                               }),*/
+                                 }),*/
 
-                SizedBox(height: 20.0),
-              RaisedButton(
-                color: Colors.pink[300],
-                child: Text(
-                  'Join',
-                  style: TextStyle(color: Colors.white),
-                ),
-                onPressed: () async {
-                  if(myList.contains(user.ID)){
-              
-              _showSnackBar();
-
-              
-
-                  }
-                  
-                else if (widget.matchid.Counter==10) {
-                   _showSnackBar2();
-                 } 
-
-                  else{
-                  var count= (widget.matchid.Counter)+1;
-                  //int count =(c).to;
-                  //String counter= count.toString();
-                 // setState(() => loading = true);
-                  await MatchService().joinMatch(matchId , users);
-                   await MatchService().editMatch(widget.matchid.ID ,widget.matchid.Field, widget.matchid.Date.toDate() ,widget.matchid.Location, widget.matchid.Check_in,
-                     widget.matchid.Check_out , widget.matchid.Price, count , widget.matchid.Topic);
-                    _showSnackBar3();
-                    }
-                  
-                }
-              ),
-
-              SizedBox(height: 20.0),
-              RaisedButton(
-                color: Colors.pink[300],
-                child: Text(
-                  'Members',
-                  style: TextStyle(color: Colors.white),
-                ),
-                onPressed: ()  {
-                  gomember(widget.matchid);
-                    }
+                  SizedBox(height: 20.0,),
+                RaisedButton(
+                  padding: EdgeInsets.fromLTRB(50.0,10.0,50.0,10.0),
+                  color: Colors.blueAccent,
+                  child: Text(
+                    'Join',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  onPressed: () async {
+                    if(myList.contains(user.ID)){
                 
-              ),
+                _showSnackBar();
 
+                
+
+                    }
+                    
+                  else if (widget.matchid.Counter==10) {
+                     _showSnackBar2();
+                   } 
+
+                    else{
+                    var count= (widget.matchid.Counter)+1;
+                    //int count =(c).to;
+                    //String counter= count.toString();
+                   // setState(() => loading = true);
+                    await MatchService().joinMatch(matchId , users);
+                     await MatchService().editMatch(widget.matchid.ID ,widget.matchid.Field, widget.matchid.Date.toDate() ,widget.matchid.Location, widget.matchid.Check_in,
+                       widget.matchid.Check_out , widget.matchid.Price, count , widget.matchid.Topic);
+                      _showSnackBar3();
+                      }
+                    
+                  }
+                ),
+
+                SizedBox(height: 20.0, width: 80,),
+                RaisedButton(
+              padding: EdgeInsets.fromLTRB(50.0,10.0,50.0,10.0),
+                  color: Colors.blueAccent,
+                  child: Text(
+                    'Members',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  onPressed: ()  {
+                    gomember(widget.matchid);
+                      }
+                  
+                ),
+
+                            ],
+                          ),
                           ],
-                        ),
-                        ],
-                        ),
-                        ),
-                ],),
-                ),
-                ),
+                          ),
+                          ),
+                  ],),
+                  ),
+        ),
+                
  );
               
       //                 FlatButton(

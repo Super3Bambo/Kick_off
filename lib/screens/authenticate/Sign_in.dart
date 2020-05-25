@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+/*import 'package:flutter/material.dart';
 import '../../Services/Auth.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import '../../Shared/Loading.dart';
@@ -111,3 +111,4 @@ class _RegisterState extends State<SignIn> {
     ));
     }
 }
+*/
