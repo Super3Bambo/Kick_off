@@ -42,10 +42,30 @@ class TeamService {
     );
     }).toList();
   }
+
+  Team _teamFromSnapshot(DocumentSnapshot snapshot) {
+    return Team(
+      ID: snapshot.documentID,
+      Date: snapshot.data['Date'] ?? '',
+      Name:  snapshot.data['Name'] ?? '',
+      NO_team :  snapshot.data['NO_Team'] ?? '',
+      //users: List.from(doc.data['Players']) ?? [],
+
+      users: snapshot.data['Players'].map<User>((player) =>User.fromMap(player)).toList() ?? [],
+
+
+     // rating: snapshot.data["Rating"],
+    );
+  }
   
 
 Stream<List<Team>> get teamz {
     return teams.where("Players" ,arrayContains: {'UserID' :userid}).snapshots().map(_teamsFromSnapshot);
+
+  }
+
+  Stream<Team> get teamone {
+    return teams.document(userid).snapshots().map(_teamFromSnapshot);
 
   }
   

@@ -83,6 +83,8 @@ String _linkMessage;
 
           if (deepLink != null) {
             Navigator.pushNamed(context, deepLink.path);
+            
+           
           }
         }, onError: (OnLinkErrorException e) async {
       print('onLinkError');
@@ -173,251 +175,253 @@ _showSnackBar() {
               ),
               body: Container(
                               margin: EdgeInsets.fromLTRB(10.0, 20.0, 10.0, 10.0),
-                  child: Center(
+                  child: SingleChildScrollView(
+                                      child: Center(
                 child: Column(
-                  //mainAxisAlignment: MainAxisAlignment.start,
+                    //mainAxisAlignment: MainAxisAlignment.start,
                  // crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    new ClipRRect(
-                      child: /*Image(
-                        image: AssetImage('images/5omasy.jpg'),
-                        fit: BoxFit.cover,
-                      ),*/GFCarousel(
-                              items: widget.imageList.map(
-                                  (url) {
-                                  return Container(
-                                    margin: EdgeInsets.all(8.0),
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                                        child: Image.network(
-                                          url,
-                                          fit: BoxFit.cover,
-                                            //width: 1000.0
+                    children: <Widget>[
+                      new ClipRRect(
+                        child: /*Image(
+                          image: AssetImage('images/5omasy.jpg'),
+                          fit: BoxFit.cover,
+                        ),*/GFCarousel(
+                                items: widget.imageList.map(
+                                    (url) {
+                                    return Container(
+                                      margin: EdgeInsets.all(8.0),
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                                          child: Image.network(
+                                            url,
+                                            fit: BoxFit.cover,
+                                              //width: 1000.0
+                                          ),
                                         ),
-                                      ),
-                                    );
-                                    },
-                                  ).toList(),
-                              ),
-                    ),
-                    new Padding(
-                      padding: new EdgeInsets.all(16.0),
-                      child: new Column(
-
-                        
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        
-                        children: <Widget>[
+                                      );
+                                      },
+                                    ).toList(),
+                                ),
+                      ),
+                      new Padding(
+                        padding: new EdgeInsets.all(16.0),
+                        child: new Column(
 
                           
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          
+                          children: <Widget>[
+
                             
-                          Column(
-                            children: <Widget>[
-                              Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisSize: MainAxisSize.max,
-                                 mainAxisAlignment:MainAxisAlignment.start,
+                              
+                            Column(
+                              children: <Widget>[
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisSize: MainAxisSize.max,
+                                   mainAxisAlignment:MainAxisAlignment.start,
 
-                                children: <Widget>[
+                                  children: <Widget>[
+                                    Container(
+                                      margin: EdgeInsets.only(top:10,),
+                                  child:
+                                  Icon(FontAwesome.calendar, size: 20, color: Colors.blueAccent,),),
                                   Container(
-                                    margin: EdgeInsets.only(top:10,),
-                                child:
-                                Icon(FontAwesome.calendar, size: 20, color: Colors.blueAccent,),),
-                                Container(
-                                  margin: EdgeInsets.only(left:110 ,top: 10),
-                                      child: Text(widget.matchid.Check_in.substring(0,10) ,style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
+                                    margin: EdgeInsets.only(left:110 ,top: 10),
+                                        child: Text(widget.matchid.Check_in.substring(0,10) ,style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
 )
-                                
-                             
-                              ],),
-                               Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisSize: MainAxisSize.max,
-                                 mainAxisAlignment:MainAxisAlignment.start,
+                                  
+                               
+                                ],),
+                                 Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisSize: MainAxisSize.max,
+                                   mainAxisAlignment:MainAxisAlignment.start,
 
-                                children: <Widget>[
-                                   Container(
-                                    margin: EdgeInsets.only(top:10,),
-                                child: Icon(FontAwesome.clock_o , size: 20, color: Colors.blue,),),
-                                Container(
-                                  margin: EdgeInsets.only(left:110, top: 10),
-                                      child: Text(widget.matchid.Check_in.substring(11,16) ,style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
-)
-                                
-                                
-                              ],),
-                              Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisSize: MainAxisSize.max,
-                                 mainAxisAlignment:MainAxisAlignment.start,
-
-                                children: <Widget>[
+                                  children: <Widget>[
+                                     Container(
+                                      margin: EdgeInsets.only(top:10,),
+                                  child: Icon(FontAwesome.clock_o , size: 20, color: Colors.blue,),),
                                   Container(
-                                    margin: EdgeInsets.only(top:10,),
-                                child: Icon(FontAwesome.dollar, size: 20,color: Colors.green,),),
-                                Container(
-                                  margin: EdgeInsets.only(left:110,top: 10),
-                                      child: Text(widget.matchid.Price +" " + '\$',style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
+                                    margin: EdgeInsets.only(left:110, top: 10),
+                                        child: Text(widget.matchid.Check_in.substring(11,16) ,style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
 )
-                                
-                                
+                                  
+                                  
+                                ],),
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisSize: MainAxisSize.max,
+                                   mainAxisAlignment:MainAxisAlignment.start,
+
+                                  children: <Widget>[
+                                    Container(
+                                      margin: EdgeInsets.only(top:10,),
+                                  child: Icon(FontAwesome.dollar, size: 20,color: Colors.green,),),
+                                  Container(
+                                    margin: EdgeInsets.only(left:110,top: 10),
+                                        child: Text(widget.matchid.Price +" " + '\$',style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
+)
+                                  
+                                  
+                                ],
+                                ),
+
+                                 Container(
+                                 margin: EdgeInsets.only(top:15,bottom: 10) ,
+                                 child:Row(
+                                   mainAxisAlignment:MainAxisAlignment.spaceBetween,
+                              mainAxisSize:MainAxisSize.max,
+                              crossAxisAlignment:CrossAxisAlignment.start,
+                                   children: <Widget>[
+                                  Icon(FontAwesome.bath , size: 30,),
+                                  Icon(Ionicons.md_football ,size: 30,),
+                                  Icon(MaterialIcons.person_outline, size: 30, /*color: widget.val?Colors.yellow : Colors.red*/),
+                               // IconToggle(value: true ,activeColor: Colors.yellow,),
                               ],
-                              ),
 
-                               Container(
-                               margin: EdgeInsets.only(top:15,bottom: 10) ,
-                               child:Row(
-                                 mainAxisAlignment:MainAxisAlignment.spaceBetween,
-                            mainAxisSize:MainAxisSize.max,
-                            crossAxisAlignment:CrossAxisAlignment.start,
-                                 children: <Widget>[
-                                Icon(FontAwesome.bath , size: 30,),
-                                Icon(Ionicons.md_football ,size: 30,),
-                                Icon(MaterialIcons.person_outline, size: 30, /*color: widget.val?Colors.yellow : Colors.red*/),
-                             // IconToggle(value: true ,activeColor: Colors.yellow,),
-                            ],
+                            ),),
 
-                          ),),
+                                  CircularPercentIndicator(
+                                      radius: 100.0,
+                                      lineWidth: 7.0,
+                                      percent: widget.matchid.users.length.toDouble()/10,
+                                      header: Padding(padding: EdgeInsets.fromLTRB(00.0, 20.0, 00.0,00.0),),
+                                      center: Container(
+                                        margin: EdgeInsets.only(top: 25),
+                                        child: Column(
+                                          children:[
+                                           
+                                            Icon(
+                                        Icons.person_pin,
+                                        size: 40.0,
+                                        color: Colors.blue,
+                                        
+                                      ),
+                                       Text( widget.matchid.users.length.toString() + '' '/' '' '${10}',style: TextStyle(fontWeight: FontWeight.bold),),
 
-                                CircularPercentIndicator(
-                                    radius: 100.0,
-                                    lineWidth: 7.0,
-                                    percent: widget.matchid.users.length.toDouble()/10,
-                                    header: Padding(padding: EdgeInsets.fromLTRB(00.0, 20.0, 00.0,00.0),),
-                                    center: Container(
-                                      margin: EdgeInsets.only(top: 25),
-                                      child: Column(
-                                        children:[
-                                         
-                                          Icon(
-                                      Icons.person_pin,
-                                      size: 40.0,
-                                      color: Colors.blue,
+                                          ]
+                                        ),
+                                      ),/* */
+                                      footer: Padding(padding: EdgeInsets.fromLTRB(00.0, 0.0, 00.0,20.0),),
+                                      backgroundColor: Colors.grey,
+                                      progressColor: Colors.blue,
+                                        ),
+                              ],
+                            ),
                                       
-                                    ),
-                                     Text( widget.matchid.users.length.toString() + '' '/' '' '${10}',style: TextStyle(fontWeight: FontWeight.bold),),
-
-                                        ]
-                                      ),
-                                    ),/* */
-                                    footer: Padding(padding: EdgeInsets.fromLTRB(00.0, 0.0, 00.0,20.0),),
-                                    backgroundColor: Colors.grey,
-                                    progressColor: Colors.blue,
-                                      ),
-                            ],
-                          ),
-                                    
-                                   /* ListView.builder(
-                                      itemCount: widget.matchid.users.length,
-                                       itemBuilder: (context, index) {
-                                        return Padding(
-                                          padding: const EdgeInsets.only(top: 8.0),
-                                           child: Card(
-                                              margin: EdgeInsets.fromLTRB(20.0, 6.0, 20.0, 0.0),
-                                               child: ListTile( 
-                                               title: Text('fds'),
-                                                subtitle: Text('dfs',
+                                     /* ListView.builder(
+                                        itemCount: widget.matchid.users.length,
+                                         itemBuilder: (context, index) {
+                                          return Padding(
+                                            padding: const EdgeInsets.only(top: 8.0),
+                                             child: Card(
+                                                margin: EdgeInsets.fromLTRB(20.0, 6.0, 20.0, 0.0),
+                                                 child: ListTile( 
+                                                 title: Text('fds'),
+                                                  subtitle: Text('dfs',
                 ),
           ),
     )
     );
-                                       }),*/
-                        new Row(
-                         mainAxisAlignment:MainAxisAlignment.start,
+                                         }),*/
+                          new Row(
+                           mainAxisAlignment:MainAxisAlignment.start,
 
-                            children: <Widget>[
+                              children: <Widget>[
 
-                        SizedBox(height: 20.0,width: 60,),
-                      RaisedButton(
-                         padding: EdgeInsets.fromLTRB(10.0,10.0,10.0,10.0),
-                        color: Colors.pink[300],
-                        child: Text(
-                          'DisJoin',
-                          style: TextStyle(color: Colors.white),
-                        ),
-                        onPressed: () async {
-
-
+                          SizedBox(height: 20.0,width: 60,),
+                        RaisedButton(
+                           padding: EdgeInsets.fromLTRB(10.0,10.0,10.0,10.0),
+                          color: Colors.pink[300],
+                          child: Text(
+                            'DisJoin',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          onPressed: () async {
 
 
-                                
-                                  var f=dateFormat.parse(widget.matchid.Check_in);
-                                    var duration =f.add(new Duration(hours: 1));
 
 
-                                         List<Field> starts=[
-                                      Field(Start_at:widget.matchid.Check_in )];
-                                        List<Field> finishs=[
-                                      Field(Finish_at:widget.matchid.Check_out )];
-                                       List<Field> dur=[
-                                  Field(Duration:dateFormat.format(duration) ) ];
+                                  
+                                    var f=dateFormat.parse(widget.matchid.Check_in);
+                                      var duration =f.add(new Duration(hours: 1));
 
 
-                            var count= (widget.matchid.Counter)-1;
-                           await MatchService().disjoinMatch(matchId , users);
-                                       await FieldService().removetimestart(widget.matchid.Field, starts);
-                                        await FieldService().removetimefinish(widget.matchid.Field, finishs);
-                                        await FieldService().removeduration(widget.matchid.Field, dur);
-                                        await UserService().removetimestart(user.ID, starts);
-                                        await UserService().removetimefinish(user.ID, finishs);
-                                        await UserService().removeduration(user.ID, dur);
-                             await MatchService().editMatch(widget.matchid.ID ,widget.matchid.Field, widget.matchid.Date.toDate() ,widget.matchid.Location, widget.matchid.Check_in,
-                             widget.matchid.Check_out , widget.matchid.Price, count , widget.matchid.Topic);
-                            _showSnackBar();
-                        }
-                        ),
-                        
-                        
-                        
-                                                SizedBox(height: 20.0,width: 80,),
+                                           List<Field> starts=[
+                                        Field(Start_at:widget.matchid.Check_in )];
+                                          List<Field> finishs=[
+                                        Field(Finish_at:widget.matchid.Check_out )];
+                                         List<Field> dur=[
+                                    Field(Duration:dateFormat.format(duration) ) ];
 
-                         RaisedButton(
-                            padding: EdgeInsets.fromLTRB(10.0,10.0,10.0,10.0),
-                        color: Colors.pink[300],
-                        child: Text(
-                          'Invite Friends',
-                          style: TextStyle(color: Colors.white),
-                        ),
-                       
-                          //Navigator.push(context, MaterialPageRoute(builder: (context) =>  FriendsOverview() ),);
-                                      //godetails(widget.matchid);
-                                   
-                                   //   Navigator.of(context).pushNamed(demo.routeName,);
 
-                                     onPressed:!_isCreatingLink
-                                     ? () => _createDynamicLink(true): null,
-                                    //  Navigator.push(context, MaterialPageRoute(builder: (context) =>  Firebase_Messaging() ),);
+                              var count= (widget.matchid.Counter)-1;
+                             await MatchService().disjoinMatch(matchId , users);
+                                         await FieldService().removetimestart(widget.matchid.Field, starts);
+                                          await FieldService().removetimefinish(widget.matchid.Field, finishs);
+                                          await FieldService().removeduration(widget.matchid.Field, dur);
+                                          await UserService().removetimestart(user.ID, starts);
+                                          await UserService().removetimefinish(user.ID, finishs);
+                                          await UserService().removeduration(user.ID, dur);
+                               await MatchService().editMatch(widget.matchid.ID ,widget.matchid.Field, widget.matchid.Date.toDate() ,widget.matchid.Location, widget.matchid.Check_in,
+                               widget.matchid.Check_out , widget.matchid.Price, count , widget.matchid.Topic);
+                              _showSnackBar();
+                          }
+                          ),
+                          
+                          
+                          
+                                                  SizedBox(height: 20.0,width: 80,),
 
+                           RaisedButton(
+                              padding: EdgeInsets.fromLTRB(10.0,10.0,10.0,10.0),
+                          color: Colors.pink[300],
+                          child: Text(
+                            'Invite Friends',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                         
+                            //Navigator.push(context, MaterialPageRoute(builder: (context) =>  FriendsOverview() ),);
+                                        //godetails(widget.matchid);
                                      
+                                     //   Navigator.of(context).pushNamed(demo.routeName,);
 
-                        
+                                       onPressed:!_isCreatingLink
+                                       ? () => _createDynamicLink(true): null,
+                                      //  Navigator.push(context, MaterialPageRoute(builder: (context) =>  Firebase_Messaging() ),);
+
+                                       
+
+                          
+                          ),
+                                    
+                              ]),
+
+                       InkWell(
+
+                      child: Center(
+                        child: Text(
+                                       _linkMessage ?? '',
+                          style: const TextStyle(color: Colors.blue),
                         ),
-                                  
-                            ]),
-
-                     InkWell(
-
-                    child: Center(
-                      child: Text(
-                                     _linkMessage ?? '',
-                        style: const TextStyle(color: Colors.blue),
                       ),
-                    ),
-                    onTap: () async {
-                      if (_linkMessage != null) {
-                        await launch(_linkMessage);
-                      }
+                      onTap: () async {
+                        if (_linkMessage != null) {
+                          await launch(_linkMessage);
+                        }
 
-                    },
-                    onLongPress: () {
-                      Clipboard.setData(ClipboardData(text: _linkMessage));
-                    },
+                      },
+                      onLongPress: () {
+                        Clipboard.setData(ClipboardData(text: _linkMessage));
+                      },
+                    ),
+                                    
+                           ]) )
+                    ]),
+                                  ),
                   ),
-                                  
-                         ]) )
-                  ]),
-                                ),
                       ),
                         );
                         
@@ -431,6 +435,7 @@ _showSnackBar() {
      return  Scaffold(
    key: _scaffoldKey,
       appBar: AppBar(
+        
         title: Text(widget.matchid.ID),
       ),
 

@@ -19,7 +19,7 @@ class _TeamViewState extends State<TeamView> {
       itemCount: team.length,
       itemBuilder: (context, index) {
        
-        return TeamItem(team: team[index]);
+        //return TeamItem(team: team[index]);
         
       },
     );

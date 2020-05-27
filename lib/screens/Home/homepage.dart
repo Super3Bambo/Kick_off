@@ -14,18 +14,25 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return MaterialApp(
+      theme: ThemeData(
+    primaryColor: Colors.blue[800],
+    accentColor: Colors.cyan,
+      ),
       home: DefaultTabController(
         length: 5,
         child: Scaffold(
+          
           appBar: AppBar(
+            
             title: const Text('Kick Off'),
             bottom: TabBar(
+              
               isScrollable: true,
                 //controller: controller,
                 tabs: <Tab>[
                   new Tab(icon: new Icon(Icons.person),text: 'Profile'),
                   new Tab(icon: new Icon(Icons.public),text: 'Lobby'),
-                  new Tab(icon: new Icon(Icons.group),text: 'My Teams'),
+                  new Tab(icon: new Icon(Icons.group),text: 'Team'),
                   new Tab(icon: new Icon(Icons.schedule),text: 'My Matches'),
                   new Tab(icon: new Icon(Icons.help),text: 'Help'),
                 ]

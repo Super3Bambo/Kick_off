@@ -120,6 +120,7 @@ Future <void> unefollow(String ID , List<User> user)async{
       finish_time: snapshot.data['Finish'].map<Field>((timess) =>Field.fromMap2(timess)).toList() ?? [],
       duration: snapshot.data['Duration'].map<Field>((timesss) =>Field.fromMap3(timesss)).toList() ?? [],
       rating: snapshot.data['Rating'].map<UserRating>((skill)=>UserRating.fromMap(skill)).toList()?? [],
+      TeamID: snapshot.data['TeamID'],
       
     );
   }
@@ -140,6 +141,7 @@ Future <void> unefollow(String ID , List<User> user)async{
       start_time: doc.data['Start'].map<Field>((times) =>Field.fromMap(times)).toList() ?? [],
       finish_time: doc.data['Finish'].map<Field>((timess) =>Field.fromMap2(timess)).toList() ?? [],
       duration: doc.data['Duration'].map<Field>((timesss) =>Field.fromMap3(timesss)).toList() ?? [],
+      TeamID: doc.data['TeamID'],
     );
     }).toList();
   }
