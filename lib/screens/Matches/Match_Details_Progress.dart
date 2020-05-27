@@ -17,6 +17,7 @@ import 'package:percent_indicator/percent_indicator.dart';
 import 'package:getflutter/getflutter.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'Match_Details_User.dart';
+import 'Matches_Overview_Progress.dart';
 
 
 class Match_DetailsProgress extends StatefulWidget{
@@ -55,10 +56,10 @@ class _Match_DetailsProgressState extends State<Match_DetailsProgress> {
   }
 
   Future<void> _demoNotification()async{
-    var androidPlateform= AndroidNotificationDetails('channel ID','channel name','chaneel Description',importance: Importance.Max,priority: Priority.High,ticker: 'text ticker');
-    var iosPlateform=IOSNotificationDetails();
-    var plateformChannel=NotificationDetails(androidPlateform,iosPlateform);
-    await flutterLocalNotificationsPlugin.show(0, 'A new member in the match', 'Check it out!', plateformChannel,payload: 'test payload');
+    // var androidPlateform= AndroidNotificationDetails('channel ID','channel name','chaneel Description',importance: Importance.Max,priority: Priority.High,ticker: 'text ticker');
+    // var iosPlateform=IOSNotificationDetails();
+    // var plateformChannel=NotificationDetails(androidPlateform,iosPlateform);
+    // await flutterLocalNotificationsPlugin.show(0, 'A new member in the match', 'Check it out!', plateformChannel,payload: 'test payload');
   }
 
 
@@ -76,9 +77,12 @@ class _Match_DetailsProgressState extends State<Match_DetailsProgress> {
 
     _fcm.configure(
       onMessage: (Map<String, dynamic> message) async {
-        _showNotification();
+       // _showNotification();
 
-
+var androidPlateform= AndroidNotificationDetails('channel ID','channel name','chaneel Description',importance: Importance.Max,priority: Priority.High,ticker: 'text ticker');
+    var iosPlateform=IOSNotificationDetails();
+    var plateformChannel=NotificationDetails(androidPlateform,iosPlateform);
+    await flutterLocalNotificationsPlugin.show(0, message['notification']['title'], message['notification']['body'], plateformChannel,payload: 'test payload');
         print("onMessage: $message");
         // final snackbar = SnackBar(
         //   content: Text(message['notification']['title']),
@@ -89,7 +93,7 @@ class _Match_DetailsProgressState extends State<Match_DetailsProgress> {
         // );
 
         // Scaffold.of(context).showSnackBar(snackbar);
-        /* showDialog(
+         /*showDialog(
           context: context,
           builder: (context) => AlertDialog(
                 content: ListTile(
@@ -129,9 +133,9 @@ class _Match_DetailsProgressState extends State<Match_DetailsProgress> {
               isDefaultAction: true,
               child: Text('Ok'),
               onPressed: () async {
-                Navigator.of(context, rootNavigator: true).pop();
+               // Navigator.of(context, rootNavigator: true).pop();
                 await Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => Matches()));
+                    MaterialPageRoute(builder: (context) => MatchesOverviewProgress()));
               },
             )
           ],
@@ -143,7 +147,7 @@ class _Match_DetailsProgressState extends State<Match_DetailsProgress> {
     if(payload!=null){
       debugPrint('Notification Payload : $payload');
     }
-    await Navigator.push(context, new MaterialPageRoute(builder: (context) =>Matches()));
+    await Navigator.push(context, new MaterialPageRoute(builder: (context) =>MatchesOverviewProgress()));
   }
 
 

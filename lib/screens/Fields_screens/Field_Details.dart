@@ -86,7 +86,23 @@ Future<void> _demoNotification()async{
 
     _fcm.configure(
       onMessage: (Map<String, dynamic> message) async {
-          _showNotification();
+         // _showNotification();
+         showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+                content: ListTile(
+                  title: Text(message['notification']['title']),
+                  subtitle: Text(message['notification']['body']),
+                ),
+                actions: <Widget>[
+                  FlatButton(
+                    color: Colors.amber,
+                    child: Text('Ok'),
+                    onPressed: () => Navigator.of(context).pop(),
+                  ),
+                ],
+              ),
+        );
 
  
         print("onMessage: $message");
