@@ -166,13 +166,13 @@ _showSnackBar() {
   if (widget.matchid.Counter!=10) {/************************************************************ */
 
     
-            return  Scaffold(  
+            return  Scaffold(
              key: _scaffoldKey,
               appBar: AppBar(
               title: Text(widget.matchid.ID),
               ),
-              body: Container(
-                              margin: EdgeInsets.fromLTRB(10.0, 20.0, 10.0, 10.0),
+              body: SingleChildScrollView(
+                              padding: EdgeInsets.fromLTRB(10.0, 20.0, 10.0, 10.0),
                   child: Center(
                 child: Column(
                   //mainAxisAlignment: MainAxisAlignment.start,

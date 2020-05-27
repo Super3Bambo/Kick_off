@@ -17,7 +17,11 @@ godetails(Match id){
 Navigator.push(context,MaterialPageRoute(builder: (context)=> ttt(matchid: match)  ) );
 
 }
-   return Card(
+   return Row(
+       children: <Widget>[
+   Expanded(
+   child:
+     Card(
   
     margin:EdgeInsets.fromLTRB(0.0, 5.0, 0.0, 5.0),
 
@@ -55,12 +59,15 @@ child: Padding(
         padding: const EdgeInsets.only(bottom: 50 , top: 20) ,
 
         child: Row(
-          children: <Widget>[     
-           
-              Text(match.users.map((f)=>f.ID).toString()),
-              Text('data')
-              
- ],
+          children: <Widget>[
+            Expanded(child: new Column(
+    children: [
+    new Container(
+              child: Text(match.users.map((f)=>f.ID).toString())),
+              new Container(
+              child: Text('data'))
+
+ ],),),],
    mainAxisAlignment:MainAxisAlignment.spaceBetween,
     mainAxisSize:MainAxisSize.max,
        crossAxisAlignment:CrossAxisAlignment.start,
@@ -71,6 +78,6 @@ child: Padding(
      )
    ],)
    
-));
+)),),],);
   }
 }

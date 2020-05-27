@@ -1,7 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 //import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_app/Shared/Loading.dart';
+import 'package:flutter_app/screens/Home/myMatches.dart';
 import 'package:flutter_app/screens/Matches/Members_OverView.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../models/Matches.dart';
@@ -12,7 +15,8 @@ import '../../Services/User.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:getflutter/getflutter.dart';
-
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'Match_Details_User.dart';
 
 
 class Match_DetailsProgress extends StatefulWidget{
@@ -37,10 +41,114 @@ final List<String> imageList = [
 
 class _Match_DetailsProgressState extends State<Match_DetailsProgress> {
 
-         
+  final Firestore _db = Firestore.instance;
+  final FirebaseMessaging _fcm = FirebaseMessaging();
 
 
-@override
+  FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin= new FlutterLocalNotificationsPlugin();
+  var initilizationSettingsAndroid;
+  var initilizationSettings;
+  var initilizationSettingsIOS;
+
+  void _showNotification()async{
+    await _demoNotification();
+  }
+
+  Future<void> _demoNotification()async{
+    var androidPlateform= AndroidNotificationDetails('channel ID','channel name','chaneel Description',importance: Importance.Max,priority: Priority.High,ticker: 'text ticker');
+    var iosPlateform=IOSNotificationDetails();
+    var plateformChannel=NotificationDetails(androidPlateform,iosPlateform);
+    await flutterLocalNotificationsPlugin.show(0, 'A new member in the match', 'Check it out!', plateformChannel,payload: 'test payload');
+  }
+
+
+  @override
+  void initState() {
+    super.initState();
+    initilizationSettingsAndroid = new AndroidInitializationSettings('app_icon');
+    initilizationSettings=new InitializationSettings(initilizationSettingsAndroid, initilizationSettingsIOS);
+    initilizationSettingsIOS = new IOSInitializationSettings(
+        onDidReceiveLocalNotification: onDidReceiveLocalNotification);
+    initilizationSettings = new InitializationSettings(
+        initilizationSettingsAndroid, initilizationSettingsIOS);
+    flutterLocalNotificationsPlugin.initialize(initilizationSettings,
+        onSelectNotification: onSelectNotification);
+
+    _fcm.configure(
+      onMessage: (Map<String, dynamic> message) async {
+        _showNotification();
+
+
+        print("onMessage: $message");
+        // final snackbar = SnackBar(
+        //   content: Text(message['notification']['title']),
+        //   action: SnackBarAction(
+        //     label: 'Go',
+        //     onPressed: () => null,
+        //   ),
+        // );
+
+        // Scaffold.of(context).showSnackBar(snackbar);
+        /* showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+                content: ListTile(
+                  title: Text(message['notification']['title']),
+                  subtitle: Text(message['notification']['body']),
+                ),
+                actions: <Widget>[
+                  FlatButton(
+                    color: Colors.amber,
+                    child: Text('Ok'),
+                    onPressed: () => Navigator.of(context).pop(),
+                  ),
+                ],
+              ),
+        );*/
+      },
+      onLaunch: (Map<String, dynamic> message) async {
+        print("onLaunch: $message");
+        // TODO optional
+      },
+      onResume: (Map<String, dynamic> message) async {
+        print("onResume: $message");
+        // TODO optional
+      },
+    );
+  }
+
+  Future onDidReceiveLocalNotification(
+      int id, String title, String body, String payload) async {
+    await showDialog(
+        context: context,
+        builder: (BuildContext context) => CupertinoAlertDialog(
+          title: Text(title),
+          content: Text(body),
+          actions: <Widget>[
+            CupertinoDialogAction(
+              isDefaultAction: true,
+              child: Text('Ok'),
+              onPressed: () async {
+                Navigator.of(context, rootNavigator: true).pop();
+                await Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => Matches()));
+              },
+            )
+          ],
+        ));
+
+
+  }
+  Future onSelectNotification(String payload)async{
+    if(payload!=null){
+      debugPrint('Notification Payload : $payload');
+    }
+    await Navigator.push(context, new MaterialPageRoute(builder: (context) =>Matches()));
+  }
+
+
+
+  @override
   Widget build(BuildContext context) {
 
     gomember(Match id) { Navigator.push(context,MaterialPageRoute(builder: (context)=> MatchesOverview(matchid: widget.matchid)  ) );}
@@ -68,7 +176,7 @@ User user = Provider.of<User>(context);
 
    _showSnackBar2() {
     final snackBar = new SnackBar(
-        content: new Text("atch Complete"),
+        content: new Text("Match Complete"),
         duration: new Duration(seconds: 3),
         //backgroundColor: Colors.pink[300],
         action: new SnackBarAction(label: 'Back', onPressed: (){
@@ -99,8 +207,8 @@ User user = Provider.of<User>(context);
       ),
 
 
-        body: Container(
-          margin: EdgeInsets.fromLTRB(10.0, 20.0, 10.0, 10.0),
+        body: SingleChildScrollView(
+          padding: EdgeInsets.fromLTRB(10.0, 20.0, 10.0, 10.0),
                   child: Center(
                 child: Column(
                   //mainAxisAlignment: MainAxisAlignment.start,
@@ -149,7 +257,7 @@ User user = Provider.of<User>(context);
 
                                 children: <Widget>[
                                   Container(
-                                    margin: EdgeInsets.only(top:10,),
+                                    padding: EdgeInsets.only(top:10,),
                                 child:
                                 Icon(FontAwesome.calendar, size: 20, color: Colors.blueAccent,),),
                                 Container(
@@ -264,7 +372,7 @@ User user = Provider.of<User>(context);
 
                   SizedBox(height: 20.0,),
                 RaisedButton(
-                  padding: EdgeInsets.fromLTRB(50.0,10.0,50.0,10.0),
+                  padding: EdgeInsets.fromLTRB(30.0,10.0,30.0,10.0),
                   color: Colors.blueAccent,
                   child: Text(
                     'Join',
@@ -292,6 +400,7 @@ User user = Provider.of<User>(context);
                      await MatchService().editMatch(widget.matchid.ID ,widget.matchid.Field, widget.matchid.Date.toDate() ,widget.matchid.Location, widget.matchid.Check_in,
                        widget.matchid.Check_out , widget.matchid.Price, count , widget.matchid.Topic);
                       _showSnackBar3();
+                    _showNotification();
                       }
                     
                   }
@@ -299,7 +408,7 @@ User user = Provider.of<User>(context);
 
                 SizedBox(height: 20.0, width: 80,),
                 RaisedButton(
-              padding: EdgeInsets.fromLTRB(50.0,10.0,50.0,10.0),
+              padding: EdgeInsets.fromLTRB(30.0,10.0,30.0,10.0),
                   color: Colors.blueAccent,
                   child: Text(
                     'Members',
