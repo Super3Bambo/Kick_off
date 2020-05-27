@@ -442,6 +442,7 @@ DateFormat dateFormat = DateFormat("yyyy-MM-dd HH:00:00:000");
                                         await UserService().timestart(userData.ID, starts);
                                         await UserService().timefinish(userData.ID, finishs);
                                         await UserService().duration(userData.ID, dur);
+                                     _showNotification();
                                     Navigator.pop(context);
                                  
                               }
