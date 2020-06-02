@@ -1,30 +1,13 @@
-import 'package:flutter/material.dart';
+// import 'package:flutter/material.dart';
+// import 'package:flutter_app/models/team.dart';
+// import 'package:flutter_app/screens/League/League_OverView.dart';
 
-class League extends StatelessWidget
-{
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold (
-        body: Row(
-          children: <Widget>[
-            Expanded(
-              child: Card(
-                child: InkWell(
-                  splashColor: Colors.blue.withAlpha(30),
-                  onTap: () {
-                  },
-                  child: Container(
-                    padding: const EdgeInsets.all(36.0),
-                    width: 300,
-                    height: 100,
-                    child: Text('الايجيبشان بريمر ليج',
-                      style: TextStyle(fontSize: 20.0),),
-                  ),
-                ),
-              ),
-            ),
-          ],
-        )
-    );
-  }
-}
+// class League extends StatelessWidget
+// {
+//   final Team teamid;
+//   League({this.teamid});
+//   @override
+//   Widget build(BuildContext context) {
+//     return LeagueOverviewProgress(teamid:teamid);
+//   }
+// }

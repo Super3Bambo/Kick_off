@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/models/team.dart';
+import 'package:flutter_app/screens/Team/test.dart';
 import 'package:provider/provider.dart';
 import 'Team_item.dart' ;
 
@@ -19,7 +20,7 @@ class _TeamViewState extends State<TeamView> {
       itemCount: team.length,
       itemBuilder: (context, index) {
        
-        //return TeamItem(team: team[index]);
+        return test(team: team[index]);
         
       },
     );

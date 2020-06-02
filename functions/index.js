@@ -1,3 +1,4 @@
+
 const functions = require('firebase-functions');
 const admin=require('firebase-admin');
 admin.initializeApp(functions.config().functions);
@@ -16,7 +17,6 @@ const response = await admin.messaging().sendToTopic(match.Topic , payload)
 
 
 );
-
 
 /*exports.MatchTrigger=functions.firestore.document('Match/{matchid}').onCreate
 (

@@ -16,8 +16,8 @@ class FieldChallengeItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     
-godetails(Field id){
-Navigator.push(context,MaterialPageRoute(builder: (context)=> FieldDetails(fieldid: fields)  ) );
+godetails(Field id , Team ids){
+Navigator.push(context,MaterialPageRoute(builder: (context)=> FieldDetails(fieldid: fields ,teamid:teamid )  ) );
 
 }
     return Padding(
@@ -26,7 +26,7 @@ Navigator.push(context,MaterialPageRoute(builder: (context)=> FieldDetails(field
         
         margin: EdgeInsets.fromLTRB(20.0, 6.0, 20.0, 0.0),
         child: ListTile(
-          onTap: () => godetails(fields), 
+          onTap: () => godetails(fields , teamid), 
           
           leading: CircleAvatar(
             radius: 25.0,

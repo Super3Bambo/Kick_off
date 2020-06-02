@@ -30,7 +30,7 @@ class _FieldDetailsState extends State<FieldDetails> {
 
     return Scaffold(
         appBar: AppBar(
-          title: Text(widget.fieldid.ID),
+          title: Text(widget.teamid.ID),
         ),
         body: Center(
             child: SingleChildScrollView(

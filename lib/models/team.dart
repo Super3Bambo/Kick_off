@@ -14,5 +14,8 @@ class  Team {
   Team.fromMap( Map<dynamic, dynamic> data)
        : ID = data['UserID'];
 
+       Team.fromMap2( Map<dynamic, dynamic> data)
+       : ID = data['TeamID'];
+
 }
 

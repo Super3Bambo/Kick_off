@@ -50,9 +50,9 @@ class _FieldDetailsState extends State<FieldDetails> {
   DateTime now=DateTime.now();
 bool loading = false;
 
-
+final FirebaseMessaging _fcm = FirebaseMessaging();
 final Firestore _db = Firestore.instance;
-  final FirebaseMessaging _fcm = FirebaseMessaging();
+  /*
 
   
 FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin= new FlutterLocalNotificationsPlugin();
@@ -176,7 +176,7 @@ await Navigator.push(context, new MaterialPageRoute(builder: (context) =>new Mat
   @override
   void dispose() {
     super.dispose();
-  }
+  }*/
     final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
 
@@ -458,7 +458,7 @@ DateFormat dateFormat = DateFormat("yyyy-MM-dd HH:00:00:000");
                                         await UserService().timestart(userData.ID, starts);
                                         await UserService().timefinish(userData.ID, finishs);
                                         await UserService().duration(userData.ID, dur);
-                                     _showNotification();
+                                    // _showNotification();
                                     Navigator.pop(context);
                                  
                               }

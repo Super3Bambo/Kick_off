@@ -77,13 +77,14 @@ class _Match_DetailsProgressState extends State<Match_DetailsProgress> {
 
     _fcm.configure(
       onMessage: (Map<String, dynamic> message) async {
-       // _showNotification();
+        // _showNotification();
 
 var androidPlateform= AndroidNotificationDetails('channel ID','channel name','chaneel Description',importance: Importance.Max,priority: Priority.High,ticker: 'text ticker');
     var iosPlateform=IOSNotificationDetails();
     var plateformChannel=NotificationDetails(androidPlateform,iosPlateform);
     await flutterLocalNotificationsPlugin.show(0, message['notification']['title'], message['notification']['body'], plateformChannel,payload: 'test payload');
         print("onMessage: $message");
+        
         // final snackbar = SnackBar(
         //   content: Text(message['notification']['title']),
         //   action: SnackBarAction(
@@ -406,7 +407,7 @@ User user = Provider.of<User>(context);
                        widget.matchid.Check_out , widget.matchid.Price, count , widget.matchid.Topic);
                        _fcm.subscribeToTopic(widget.matchid.Topic);
                       _showSnackBar3();
-                    _showNotification();
+                   // _showNotification();
                       }
                       
                       

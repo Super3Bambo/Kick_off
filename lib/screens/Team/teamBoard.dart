@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/screens/Team/TeamMember_OverView.dart';
 import './teamMembers.dart' as teamMembers;
 import '../Home/League.dart' as leagues;
-import './FieldsChallengeOverview.dart' as teamMatches;
+import './FieldsChallengeOverview.dart';
 import 'package:flutter_app/models/team.dart';
-
+import '../League/League_OverView.dart';
 import 'MatchChallengeOverView.dart';
 
 
@@ -40,8 +40,8 @@ final Team team;
               children: <Widget>[
                 new Members_OverView(teamid: team),
                 new MatchesOverviewChallenge(teamid: team),
-                new teamMatches.FieldsChallengeOverview(teamid: team),
-                new leagues.League(),
+                new FieldsChallengeOverview(teamid: team),
+                new LeagueOverviewProgress(teamid: team),
               ]
             ),
           ),
