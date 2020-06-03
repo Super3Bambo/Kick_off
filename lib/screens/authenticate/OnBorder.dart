@@ -7,6 +7,7 @@ class Example extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+
       home: OnboardingMe(
       /// Number of Pages for the screens
       numOfPage: 3,
@@ -31,19 +32,19 @@ class Example extends StatelessWidget {
       /// List that maps your screen content
       screenContent: [
         {
-          "Scr 1 Heading" : "Screen 1 Heading Goes Here",
-          "Scr 1 Sub Heading" : "Screen 1 Sub Heading Goes Here",
-          "Scr 1 Image Path" : "images/5omasy.jpg",
+          "Scr 1 Heading" : "Football",
+          "Scr 1 Sub Heading" : "Our rounded leather",
+          "Scr 1 Image Path" : "images/balls.jpg",
         },
         {
-          "Scr 2 Heading" : "Screen 2 Heading Goes Here",
-          "Scr 2 Sub Heading" : "Screen 2 Sub Heading Goes Here",
-          "Scr 2 Image Path" : "images/5omasy.jpg",
+          "Scr 2 Heading" : "Fields",
+          "Scr 2 Sub Heading" : "Our theatre",
+          "Scr 2 Image Path" : "images/stadium.jpg",
         },
         {
-          "Scr 3 Heading" : "Screen 3 Heading Goes Here",
-          "Scr 3 Sub Heading" : "Screen 3 Sub Heading Goes Here",
-          "Scr 3 Image Path" : "images/5omasy.jpg",
+          "Scr 3 Heading" : "Happiness",
+          "Scr 3 Sub Heading" : "Football is our passion",
+          "Scr 3 Image Path" : "images/fans.jpg",
         },
       ],
 

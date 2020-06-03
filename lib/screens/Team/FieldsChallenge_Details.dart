@@ -7,6 +7,27 @@ import '../../models/User.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
+import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter_app/Services/Fields.dart';
+import 'package:flutter_app/Services/User.dart';
+import 'package:flutter_app/Shared/Loading.dart';
+import 'package:flutter_app/screens/Matches/Match_Details_Complete.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:getflutter/getflutter.dart';
+import 'package:random_string_one/random_string.dart';
+import '../../models/field.dart';
+import '../../Services/Match.dart';
+import '../../models/User.dart';
+import 'package:provider/provider.dart';
+import 'package:intl/intl.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:flutter_icons/flutter_icons.dart';
 
 
 class FieldDetails extends StatefulWidget {
@@ -15,7 +36,14 @@ class FieldDetails extends StatefulWidget {
   final Field fieldid;
 final Team teamid;
   FieldDetails({this.fieldid,this.teamid});
-
+  final List<String> imageList = [
+    "https://cdn.pixabay.com/photo/2017/12/03/18/04/christmas-balls-2995437_960_720.jpg",
+    "https://cdn.pixabay.com/photo/2017/12/13/00/23/christmas-3015776_960_720.jpg",
+    "https://cdn.pixabay.com/photo/2019/12/19/10/55/christmas-market-4705877_960_720.jpg",
+    "https://cdn.pixabay.com/photo/2019/12/20/00/03/road-4707345_960_720.jpg",
+    "https://cdn.pixabay.com/photo/2019/12/22/04/18/x-mas-4711785__340.jpg",
+    "https://cdn.pixabay.com/photo/2016/11/22/07/09/spruce-1848543__340.jpg"
+  ];
   @override
   _FieldDetailsState createState() => _FieldDetailsState();
 }
@@ -24,111 +52,303 @@ class _FieldDetailsState extends State<FieldDetails> {
   DateTime start, finish = DateTime.now();
   int diff,diff2;
   DateTime now=DateTime.now();
+  final FirebaseMessaging _fcm = FirebaseMessaging();
+  final Firestore _db = Firestore.instance;
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+
 
   @override
   Widget build(BuildContext context) {
+    int sum = 0;
+    widget.fieldid.rate.map((e) => e.Rate).forEach((int e){sum += e;});
+    double count= sum/widget.fieldid.rate.length;
+    User user = Provider.of<User>(context);
+    List<User> users = [
+      User(
+        ID: user.ID,
+      ),
+    ];
 
-    return Scaffold(
-        appBar: AppBar(
-          title: Text(widget.teamid.ID),
-        ),
-        body: Center(
-            child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              new ClipRRect(
-                
-                child: Image(
-                  image: AssetImage('images/5omasy.jpg'),
+
+    List<String> startfield = List<String>();
+    startfield = widget.fieldid.start_time.map((e) => e.Start_at).toList();
+    List<String> finishfield = List<String>();
+    finishfield = widget.fieldid.finish_time.map((e) => e.Finish_at).toList();
+    List<String> durationfield = List<String>();
+    durationfield = widget.fieldid.duration.map((e) => e.Duration).toList();
+
+    List<String> startuser = List<String>();
+    startfield = widget.fieldid.start_time.map((e) => e.Start_at).toList();
+    List<String> finishuser = List<String>();
+    finishfield = widget.fieldid.finish_time.map((e) => e.Finish_at).toList();
+    List<String> durationuser = List<String>();
+    durationfield = widget.fieldid.duration.map((e) => e.Duration).toList();
+
+
+
+    DateFormat dateFormat = DateFormat("yyyy-MM-dd HH:00:00:000");
+    return StreamBuilder<User>(
+        stream: UserService(userid: user.ID).userData,
+        builder: (context, snapshot) {
+          if(snapshot.hasData){
+            User userData = snapshot.data;
+            return  Scaffold (
+                key: _scaffoldKey,
+                appBar: AppBar(
+                  title: Text(durationfield.first),
                 ),
-                borderRadius: BorderRadius.only(
-                  topLeft: new Radius.circular(16.0),
-                  topRight: new Radius.circular(16.0),
-                ),
-              ),
-              new Padding(
-                padding: new EdgeInsets.all(16.0),
-                child: new Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    new Text(
-                      widget.fieldid.Name,
-                      style: TextStyle(fontSize: 20.0),
-                    ),
-                    new SizedBox(height: 16.0),
-                    new Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        new Text(widget.fieldid.Location),
-                        new Text(widget.fieldid.Price),
-                      ],
-                    ),
-                    //                 FlatButton(
-                    //                child: Text('Book NOW'),
-                    //                  onPressed: () {
+
+                body: Container(
+                  child: Center(
+                      child: SingleChildScrollView(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            new ClipRRect(
+                              child:GFCarousel(
+                                items: widget.imageList.map(
+                                      (url) {
+                                    return Container(
+                                      margin: EdgeInsets.all(8.0),
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                                        child: Image.network(
+                                          url,
+                                          fit: BoxFit.cover,
+                                          //width: 1000.0
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                ).toList(),
+                              ),
+                            ),
+                            new Padding(
+                              padding: new EdgeInsets.all(16.0),
+                              child: new Column(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+
+                                  children: <Widget>[
+
+                                    Column(
+                                      children: <Widget>[
+                                        Row(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:MainAxisAlignment.start,
+
+                                          children: <Widget>[
+                                            Container(
+                                              margin: EdgeInsets.only(top:10,),
+                                              child:
+                                              Icon(FontAwesome.star, size: 20, color: Colors.yellow[800],),),
+                                            Container(
+                                              margin: EdgeInsets.only(left:110 ,top: 10),
+                                              child: Text(count.floor().toString() ,style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
+                                            )
+
+
+
+                                          ],),
+                                        Row(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:MainAxisAlignment.start,
+
+                                          children: <Widget>[
+                                            Container(
+                                              margin: EdgeInsets.only(top:10,),
+                                              child: Icon( FontAwesome.location_arrow , size: 20, color: Colors.blue,) ,/*Icon( FontAwesome.location_arrow , size: 20, color: Colors.blue,)*/ ),
+
+                                            Container(
+                                              margin: EdgeInsets.only(left:110, top: 10),
+                                              child: Text(widget.fieldid.Location ,style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
+                                            )
+
+
+                                          ],),
+
+
+                                        Row(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:MainAxisAlignment.start,
+
+                                          children: <Widget>[
+                                            Container(
+                                              margin: EdgeInsets.only(top:10,),
+                                              child: Icon(FontAwesome.newspaper_o , size: 20, color: Colors.blue,),),
+                                            Container(
+                                              margin: EdgeInsets.only(left:110, top: 10),
+                                              child: Text(widget.fieldid.Name ,style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
+                                            )
+
+
+                                          ],),
+
+                                        Container(
+                                          margin: EdgeInsets.only(top:25,bottom: 10) ,
+                                          child:Row(
+                                            mainAxisAlignment:MainAxisAlignment.spaceBetween,
+                                            mainAxisSize:MainAxisSize.max,
+                                            crossAxisAlignment:CrossAxisAlignment.start,
+                                            children: <Widget>[
+                                              Icon(FontAwesome.bath , size: 30, color: widget.fieldid.Bathroom? Colors.green[900]: Colors.grey[700],),
+                                              Icon(Ionicons.md_football ,size: 30,color: widget.fieldid.Ball? Colors.green[900]: Colors.grey[700],),
+                                              Icon(MaterialIcons.person_outline, size: 30,color: widget.fieldid.Refree? Colors.green[900]: Colors.grey[700],),
+                                              // IconToggle(value: true ,activeColor: Colors.yellow,),
+                                            ],
+
+                                          ),),
+
+
+
+
+                                        new SizedBox(height: 16.0),
+                                        new Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: <Widget>[
+
+                                          ],
+                                        ),
+                                        //                 FlatButton(
+                                        //                child: Text('Book NOW'),
+                                        //                  onPressed: () {
 //                      )
 
-                    SizedBox(
-                      height: 20.0,
-                    ),
-                    DateTimePickerFormField(
-                      inputType: InputType.both,
-                      format: DateFormat("EEEE, MMMM d, yyyy 'at' h:mma"),
-                      editable: false,
-                      decoration: InputDecoration(
-                          labelText: 'Start', hasFloatingPlaceholder: false),
-                      onChanged: (dt) {
-                        setState(() => start = dt);
-                      },
-                    ),
+                                        SizedBox(
+                                          height: 20.0,
+                                        ),
+                                        DateTimePickerFormField(
+                                          inputType: InputType.both,
+                                          format: DateFormat("EEEE, MMMM d, yyyy 'at' h:mm a"),
+                                          editable: false,
+                                          decoration: InputDecoration(
+                                              labelText: 'Start', hasFloatingPlaceholder: false),
+                                          onChanged: (dt) {
+                                            setState(() => start = dt);
+                                          },
+                                        ),
 
-                    SizedBox(
-                      height: 20.0,
-                    ),
-                    DateTimePickerFormField(
-                      inputType: InputType.both,
-                      format: DateFormat("EEEE, MMMM d, yyyy 'at' h:mma"),
-                      editable: false,
-                      decoration: InputDecoration(
-                          labelText: 'Finish', hasFloatingPlaceholder: false),
-                      onChanged: (dt) {
-                        setState(() => finish = dt);
-                      },
-                    ),
+                                        SizedBox(
+                                          height: 20.0,
+                                        ),
+                                        DateTimePickerFormField(
+                                          inputType: InputType.both,
+                                          format: DateFormat("EEEE, MMMM d, yyyy 'at' h:mm a"),
+                                          editable: false,
+                                          decoration: InputDecoration(
+                                              labelText: 'Finish', hasFloatingPlaceholder: false),
+                                          onChanged: (dt) {
+                                            setState(() => finish = dt);
+                                          },
+                                        ),
 
-                    SizedBox(height: 20.0),
-                    RaisedButton(
-                        color: Colors.pink[300],
-                        child: Text(
-                          'Book',
-                          style: TextStyle(color: Colors.white),
+                                        SizedBox(height: 20.0),
+                                        RaisedButton(
+                                            color: Colors.blue[700],
+                                            child: Text(
+                                              'Book',
+                                              style: TextStyle(color: Colors.white),
+                                            ),
+
+                                            onPressed: () async {
+                                              List<String> startuser = List<String>();
+                                              startuser = userData.start_time.map((e) => e.Start_at).toList();
+                                              List<String> finishuser = List<String>();
+                                              finishuser =userData.finish_time.map((e) => e.Finish_at).toList();
+                                              List<String> durationuser = List<String>();
+                                              durationuser =userData.duration.map((e) => e.Duration).toList();
+
+
+                                              var duration = start.add(new Duration(hours: 1));
+                                              List<Field> dur=[
+                                                Field(Duration:dateFormat.format(duration) ) ];
+                                              List<Field> starts=[
+                                                Field(Start_at:dateFormat.format(start) )
+                                              ];
+                                              List<Field> finishs=[
+                                                Field(Finish_at:dateFormat.format(finish) )
+                                              ];
+
+                                              if (start.isAfter(finish)) {
+                                                Alert(context:  context, title: "Error",desc:startuser.first ).show();
+
+                                              }
+
+                                              else if(userData.start_time.contains(dateFormat.format(start))||userData.start_time.contains(dateFormat.format(finish))||
+                                                  userData.start_time.contains(dateFormat.format(duration))){
+                                                Alert(context:  _scaffoldKey.currentContext, title: "Error",desc: 'bb' ).show();
+
+                                              }
+
+                                              else if(userData.finish_time.contains(dateFormat.format(start))||userData.finish_time.contains(dateFormat.format(finish))||
+                                                  userData.finish_time.contains(dateFormat.format(duration))){
+                                                Alert(context:  _scaffoldKey.currentContext, title: "Error",desc: 'bb' ).show();
+
+                                              }
+                                              else  if(userData.duration.contains(dateFormat.format(start))||userData.duration.map((e) => e.duration).contains(dateFormat.format(finish))||
+                                                  userData.duration.contains(dateFormat.format(duration))){
+
+                                                Alert(context:  _scaffoldKey.currentContext, title: "Error",desc: 'bb' ).show();
+
+                                              }
+                                              else  if(startfield.contains(dateFormat.format(start))||startfield.contains(dateFormat.format(finish))||
+                                                  startfield.contains(dateFormat.format(duration))){
+
+                                                Alert(context:  _scaffoldKey.currentContext, title: "Error",desc: 'cc' ).show();
+
+
+                                              }
+                                              else  if(finishfield.contains(dateFormat.format(start))||finishfield.contains(dateFormat.format(finish))||
+                                                  finishfield.contains(dateFormat.format(duration)) ){
+
+                                                Alert(context:  _scaffoldKey.currentContext, title: "Error",desc: 'cc' ).show();
+
+                                              }
+                                              else   if(durationfield.contains(dateFormat.format(start))||durationfield.contains(dateFormat.format(finish))||
+                                                  durationfield.contains(dateFormat.format(duration)) ){
+                                                Alert(context: _scaffoldKey.currentContext, title: "Error",desc: 'cc', ).show();
+
+                                              }
+
+                                              else {
+                                                // Subscribe the user to a topic
+                                                var s=dateFormat.format(start);
+                                                var f= dateFormat.format(finish);
+                                                var topic=  randomString(9, includeSymbols: false , includeNumbers: false , includeLowercase: false );
+                                                _fcm.subscribeToTopic(topic);
+                                                await MatchService().addMatch(
+                                                    widget.fieldid.ID,
+                                                    widget.fieldid.Location,
+                                                    s,
+                                                    f,
+                                                    widget.fieldid.Price,
+                                                    users,
+                                                    topic
+                                                );
+                                                await FieldService().timestart(widget.fieldid.ID, starts);
+                                                await FieldService().timefinish(widget.fieldid.ID, finishs);
+                                                await FieldService().duration(widget.fieldid.ID, dur);
+                                                await UserService().timestart(userData.ID, starts);
+                                                await UserService().timefinish(userData.ID, finishs);
+                                                await UserService().duration(userData.ID, dur);
+                                                // _showNotification();
+                                                Navigator.pop(context);
+
+                                              }
+                                            }),
+                                      ],
+                                    ),
+                                  ]),
+                            )],
                         ),
-                        onPressed: () async {
-                         /* diff = finish.difference(start).inHours;
-                          diff2 = start.difference(now).inHours;
-                          if (0<diff&&10>=diff&&diff2>=2) {
-                           await MatchService().addMatch(
-                                widget.fieldid.ID,
-                                widget.fieldid.Location,
-                                start,
-                                finish,
-                                widget.fieldid.Price,
-                                users,
-                                );
-
-                            Navigator.pop(context);
-                          } else {
-                           Alert(context: context, title: "Error",desc: "Choose suitable time or duration" ).show();
-                          }*/
-                        }),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        )));
+                      )
+                  ),
+                )
+            );}else{return Loading();}}
+    );
   }
 }
