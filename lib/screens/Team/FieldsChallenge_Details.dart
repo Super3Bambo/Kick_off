@@ -1,41 +1,26 @@
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_app/Services/Team.dart';
 import 'package:flutter_app/models/team.dart';
 import '../../models/field.dart';
-import '../../models/User.dart';
-import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
-import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_app/Services/Fields.dart';
-import 'package:flutter_app/Services/User.dart';
-import 'package:flutter_app/Shared/Loading.dart';
-import 'package:flutter_app/screens/Matches/Match_Details_Complete.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:getflutter/getflutter.dart';
 import 'package:random_string_one/random_string.dart';
-import '../../models/field.dart';
 import '../../Services/Match.dart';
-import '../../models/User.dart';
-import 'package:provider/provider.dart';
-import 'package:intl/intl.dart';
-import 'package:rflutter_alert/rflutter_alert.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 
 
-class FieldDetails extends StatefulWidget {
+class FieldDetailsTeam extends StatefulWidget {
   
   
   final Field fieldid;
 final Team teamid;
-  FieldDetails({this.fieldid,this.teamid});
+  FieldDetailsTeam({this.fieldid,this.teamid});
   final List<String> imageList = [
     "https://cdn.pixabay.com/photo/2017/12/03/18/04/christmas-balls-2995437_960_720.jpg",
     "https://cdn.pixabay.com/photo/2017/12/13/00/23/christmas-3015776_960_720.jpg",
@@ -45,10 +30,10 @@ final Team teamid;
     "https://cdn.pixabay.com/photo/2016/11/22/07/09/spruce-1848543__340.jpg"
   ];
   @override
-  _FieldDetailsState createState() => _FieldDetailsState();
+  _FieldDetailsTeamState createState() => _FieldDetailsTeamState();
 }
 
-class _FieldDetailsState extends State<FieldDetails> {
+class _FieldDetailsTeamState extends State<FieldDetailsTeam> {
   DateTime start, finish = DateTime.now();
   int diff,diff2;
   DateTime now=DateTime.now();
@@ -62,40 +47,48 @@ class _FieldDetailsState extends State<FieldDetails> {
     int sum = 0;
     widget.fieldid.rate.map((e) => e.Rate).forEach((int e){sum += e;});
     double count= sum/widget.fieldid.rate.length;
-    User user = Provider.of<User>(context);
-    List<User> users = [
-      User(
-        ID: user.ID,
+    // User user = Provider.of<User>(context);
+    // List<User> users = [
+    //   User(
+    //     ID: user.ID,
+    //   ),
+    // ];
+    List<Team> teams=[
+      Team(
+        ID: widget.teamid.ID,
       ),
     ];
 
 
-    List<String> startfield = List<String>();
-    startfield = widget.fieldid.start_time.map((e) => e.Start_at).toList();
-    List<String> finishfield = List<String>();
-    finishfield = widget.fieldid.finish_time.map((e) => e.Finish_at).toList();
-    List<String> durationfield = List<String>();
-    durationfield = widget.fieldid.duration.map((e) => e.Duration).toList();
+     List<String> startfield = List<String>();
+     startfield = widget.fieldid.start_time.map((e) => e.Start_at).toList();
+     List<String> finishfield = List<String>();
+     finishfield = widget.fieldid.finish_time.map((e) => e.Finish_at).toList();
+     List<String> durationfield = List<String>();
+     durationfield = widget.fieldid.duration.map((e) => e.Duration).toList();
 
-    List<String> startuser = List<String>();
-    startfield = widget.fieldid.start_time.map((e) => e.Start_at).toList();
-    List<String> finishuser = List<String>();
-    finishfield = widget.fieldid.finish_time.map((e) => e.Finish_at).toList();
-    List<String> durationuser = List<String>();
-    durationfield = widget.fieldid.duration.map((e) => e.Duration).toList();
+                                              List<String> startusers = List<String>();
+                                               startusers = widget.teamid.start_time.map((e) => e.Start_at).toList();
+                                               List<String> finishuser = List<String>();
+                                               finishuser =widget.teamid.finish_time.map((e) => e.Finish_at).toList();
+                                               List<String> durationuser = List<String>();
+                                               durationuser =widget.teamid.duration.map((e) => e.Duration).toList();
+      
+    // List<String> startuser = List<String>();
+    // startfield = widget.fieldid.start_time.map((e) => e.Start_at).toList();
+    // List<String> finishuser = List<String>();
+    // finishfield = widget.fieldid.finish_time.map((e) => e.Finish_at).toList();
+    // List<String> durationuser = List<String>();
+    // durationfield = widget.fieldid.duration.map((e) => e.Duration).toList();
 
 
 
     DateFormat dateFormat = DateFormat("yyyy-MM-dd HH:00:00:000");
-    return StreamBuilder<User>(
-        stream: UserService(userid: user.ID).userData,
-        builder: (context, snapshot) {
-          if(snapshot.hasData){
-            User userData = snapshot.data;
+   
             return  Scaffold (
                 key: _scaffoldKey,
                 appBar: AppBar(
-                  title: Text(durationfield.first),
+                  title: Text(startusers.last),
                 ),
 
                 body: Container(
@@ -255,12 +248,7 @@ class _FieldDetailsState extends State<FieldDetails> {
                                             ),
 
                                             onPressed: () async {
-                                              List<String> startuser = List<String>();
-                                              startuser = userData.start_time.map((e) => e.Start_at).toList();
-                                              List<String> finishuser = List<String>();
-                                              finishuser =userData.finish_time.map((e) => e.Finish_at).toList();
-                                              List<String> durationuser = List<String>();
-                                              durationuser =userData.duration.map((e) => e.Duration).toList();
+                                              
 
 
                                               var duration = start.add(new Duration(hours: 1));
@@ -274,72 +262,72 @@ class _FieldDetailsState extends State<FieldDetails> {
                                               ];
 
                                               if (start.isAfter(finish)) {
-                                                Alert(context:  context, title: "Error",desc:startuser.first ).show();
+                                                Alert(context:  context, title: "Error",desc:'dsds' ).show();
 
                                               }
 
-                                              else if(userData.start_time.contains(dateFormat.format(start))||userData.start_time.contains(dateFormat.format(finish))||
-                                                  userData.start_time.contains(dateFormat.format(duration))){
-                                                Alert(context:  _scaffoldKey.currentContext, title: "Error",desc: 'bb' ).show();
-
-                                              }
-
-                                              else if(userData.finish_time.contains(dateFormat.format(start))||userData.finish_time.contains(dateFormat.format(finish))||
-                                                  userData.finish_time.contains(dateFormat.format(duration))){
-                                                Alert(context:  _scaffoldKey.currentContext, title: "Error",desc: 'bb' ).show();
-
-                                              }
-                                              else  if(userData.duration.contains(dateFormat.format(start))||userData.duration.map((e) => e.duration).contains(dateFormat.format(finish))||
-                                                  userData.duration.contains(dateFormat.format(duration))){
-
-                                                Alert(context:  _scaffoldKey.currentContext, title: "Error",desc: 'bb' ).show();
-
-                                              }
-                                              else  if(startfield.contains(dateFormat.format(start))||startfield.contains(dateFormat.format(finish))||
+                                              else if(startfield.contains(dateFormat.format(start))||startfield.contains(dateFormat.format(finish))||
                                                   startfield.contains(dateFormat.format(duration))){
+                                                Alert(context:  _scaffoldKey.currentContext, title: "Error",desc: 'b' ).show();
 
-                                                Alert(context:  _scaffoldKey.currentContext, title: "Error",desc: 'cc' ).show();
+                                              }
+
+                                              else if(finishfield.contains(dateFormat.format(start))||finishfield.contains(dateFormat.format(finish))||
+                                                  finishfield.contains(dateFormat.format(duration))){
+                                                Alert(context:  _scaffoldKey.currentContext, title: "Error",desc: 'bb' ).show();
+
+                                              }
+                                              else  if(durationfield.contains(dateFormat.format(start))||durationfield.contains(dateFormat.format(finish))||
+                                                durationfield.contains(dateFormat.format(duration))){
+
+                                                Alert(context:  _scaffoldKey.currentContext, title: "Error",desc: 'bbb' ).show();
+
+                                              }
+                                              else  if(startusers.contains(dateFormat.format(start))||startusers.contains(dateFormat.format(finish))||
+                                                  startusers.contains(dateFormat.format(duration))){
+
+                                                Alert(context:  _scaffoldKey.currentContext, title: "Error",desc: 'c' ).show();
 
 
                                               }
-                                              else  if(finishfield.contains(dateFormat.format(start))||finishfield.contains(dateFormat.format(finish))||
-                                                  finishfield.contains(dateFormat.format(duration)) ){
+                                              else  if( durationuser.contains(dateFormat.format(start))||durationuser.contains(dateFormat.format(finish))||
+                                               durationuser.contains(dateFormat.format(duration)) ){
 
                                                 Alert(context:  _scaffoldKey.currentContext, title: "Error",desc: 'cc' ).show();
 
                                               }
-                                              else   if(durationfield.contains(dateFormat.format(start))||durationfield.contains(dateFormat.format(finish))||
-                                                  durationfield.contains(dateFormat.format(duration)) ){
-                                                Alert(context: _scaffoldKey.currentContext, title: "Error",desc: 'cc', ).show();
+                                              else   if(  finishuser.contains(dateFormat.format(start))||  finishuser.contains(dateFormat.format(finish))||
+                                                   finishuser.contains(dateFormat.format(duration)) ){
+                                                Alert(context: _scaffoldKey.currentContext, title: "Error",desc: 'ccb', ).show();
 
                                               }
 
                                               else {
                                                 // Subscribe the user to a topic
-                                                var s=dateFormat.format(start);
-                                                var f= dateFormat.format(finish);
-                                                var topic=  randomString(9, includeSymbols: false , includeNumbers: false , includeLowercase: false );
-                                                _fcm.subscribeToTopic(topic);
-                                                await MatchService().addMatch(
-                                                    widget.fieldid.ID,
-                                                    widget.fieldid.Location,
-                                                    s,
-                                                    f,
-                                                    widget.fieldid.Price,
-                                                    users,
-                                                    topic
-                                                );
-                                                await FieldService().timestart(widget.fieldid.ID, starts);
-                                                await FieldService().timefinish(widget.fieldid.ID, finishs);
-                                                await FieldService().duration(widget.fieldid.ID, dur);
-                                                await UserService().timestart(userData.ID, starts);
-                                                await UserService().timefinish(userData.ID, finishs);
-                                                await UserService().duration(userData.ID, dur);
-                                                // _showNotification();
-                                                Navigator.pop(context);
+                                                 var startime=dateFormat.format(start);
+                                                 var finishtime= dateFormat.format(finish);
+                                                 var topic=  randomString(9, includeSymbols: false , includeNumbers: false , includeLowercase: false );
+                                                 _fcm.subscribeToTopic(topic);
+                                                 await MatchService().addChallenge(
+                                                     widget.fieldid.ID,
+                                                     widget.fieldid.Location,
+                                                     startime,
+                                                     finishtime,
+                                                     widget.fieldid.Price,
+                                                     teams,
+                                                      topic
+                                                 );
+                                                 await FieldService().timestart(widget.fieldid.ID, starts);
+                                                 await FieldService().timefinish(widget.fieldid.ID, finishs);
+                                                 await FieldService().duration(widget.fieldid.ID, dur);
+                                                 await TeamService().timestart(widget.teamid.ID, starts);
+                                                 await TeamService().timefinish(widget.teamid.ID, finishs);
+                                                 await TeamService().duration(widget.teamid.ID, dur);
+                                                  Navigator.pop(context);
 
                                               }
-                                            }),
+                                            }
+                                            ),
                                       ],
                                     ),
                                   ]),
@@ -348,7 +336,6 @@ class _FieldDetailsState extends State<FieldDetails> {
                       )
                   ),
                 )
-            );}else{return Loading();}}
-    );
+            );
   }
 }

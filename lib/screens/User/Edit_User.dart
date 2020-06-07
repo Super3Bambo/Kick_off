@@ -3,17 +3,16 @@ import 'package:provider/provider.dart';
 import '../../Shared/Loading.dart';
 import '../../Services/User.dart';
 import '../../models/User.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
-import 'package:firebase_storage/firebase_storage.dart';
-import 'package:path/path.dart';
 
 
 
 
 
 class Edituser extends StatefulWidget {
+           static const routeName = '/rrr';
+
   @override
   _EdituserState createState() => _EdituserState();
 }
@@ -24,31 +23,11 @@ class _EdituserState extends State<Edituser> {
 
   // form values
   String fName, lName, age, position, area, phone;
-  File _image;
 
 bool loading = false;
 
   @override
   Widget build(BuildContext context) {
-   // String photo ;
-
-    Future getImage() async {
-      var image = await ImagePicker.pickImage(source: ImageSource.gallery);
-
-      setState(() {
-        _image = image;
-      });
-    }
-    /*  Future uploadPic(BuildContext context) async{
-
-       StorageReference firebaseStorageRef = FirebaseStorage.instance.ref().child(_image.path);
-       StorageUploadTask uploadTask = firebaseStorageRef.putFile(_image);
-       StorageTaskSnapshot taskSnapshot=await uploadTask.onComplete;
-       String imageurl = taskSnapshot.ref.getDownloadURL().toString();
-    }*/
-
-
-
 
     User user = Provider.of<User>(context);
 
@@ -222,7 +201,9 @@ bool loading = false;
                                     position ?? userData.Position,
                                     area ?? userData.Area,
                                     phone ?? userData.Phone,
-                                   userData.Photo_url
+                                      userData.Photo_url,
+                                      userData.TeamID,
+                                      userData.Token
                                 );
                               
                                 loading = false;

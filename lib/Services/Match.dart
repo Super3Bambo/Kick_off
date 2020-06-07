@@ -159,7 +159,7 @@ Stream<List<Match>> get historymatches {
   
     return matches.where("Players" ,arrayContains: {'UserID' :userid}).
     where("Finish_at" ,isLessThan: DateTime.now().toString()).
-    where("Counter" ,isEqualTo: 10).
+    where("Counter" ,isEqualTo: 10).where('Challenge' ,isEqualTo: false).
     snapshots().map(_matchesFromSnapshot);
 
   }

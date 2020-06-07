@@ -36,9 +36,7 @@ if(team!=null){
                                       margin: EdgeInsets.all(8.0),
                                       child: ClipRRect(
                                         borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                                          child: Image(
-                          image: AssetImage('images/5omasy.jpg'),
-                          fit: BoxFit.cover,
+                                          child: Image.network( team.Photo ,fit: BoxFit.cover,
                         ),
                                         ),
                                       )

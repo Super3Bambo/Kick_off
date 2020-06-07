@@ -16,6 +16,7 @@ class User with ChangeNotifier {
    bool Is_banned;
    String Photo_url;
    String TeamID;
+   String Token;
    List<User> followingusers;
    List<User> followerusers;
   List<Field> start_time;
@@ -23,7 +24,7 @@ class User with ChangeNotifier {
     List<Field> duration; 
    List<UserRating> rating;
     User({ this.ID , this.FName , this.LName, this.Position , this.TeamID,this.Age , this.Phone , this.Area , this.Is_banned = false, this.Photo_url ,
-     this.followingusers , this.followerusers /*this.rating*/ ,this.start_time ,this.finish_time,this.duration,this.Role ,this.rating});
+     this.followingusers , this.followerusers /*this.rating*/ ,this.start_time ,this.finish_time,this.duration,this.Role ,this.rating ,this.Token});
 
      User.fromMap(Map<dynamic, dynamic> data)
        : ID = data['UserID'];

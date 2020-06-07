@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/Services/Auth.dart';
 import 'package:flutter_app/Shared/Loading.dart';
@@ -127,10 +128,13 @@ class _AuthPageState extends State<AuthPage> {
         bool obsecure) {
       return  Container(
         padding: EdgeInsets.only(left: 20, right: 20),
-        child: TextField(
+        child: TextFormField(
           controller: controller,
           obscureText: obsecure,
+          // validator: (controller)=> controller.isEmpty? 'Enter your Email OR Password': null || controller.length<8? 'password length must be 8 or more': null,
           
+          // onChanged: (controller) {
+          //         setState(() => _email = controller); },
           style: TextStyle(
             fontSize: 20,
           ),
@@ -189,8 +193,17 @@ class _AuthPageState extends State<AuthPage> {
     Future<void> _loginUser() async {
       _email = _emailController.text;
       _password = _passwordController.text;
-     /* _emailController.clear();
-      _passwordController.clear();*/
+      if(_email.isEmpty){
+         setState(() {
+              Alert(context: context, title: "Invalid data",desc: " enter your email" ).show();});
+      }else if(_password.length<8){
+                    setState(() {
+              Alert(context: context, title: "Invalid data",desc: " PassWord Length Atleast 8 " ).show();});
+      }else if(_password.isEmpty){
+                    setState(() {
+              Alert(context: context, title: "Invalid data",desc: " enter your PassWord" ).show();});
+      }
+          else{
                     setState(() => loading = true);
                     dynamic result = await _auth.signInWithEmailAndPassword(_email, _password);
                     
@@ -198,15 +211,24 @@ class _AuthPageState extends State<AuthPage> {
                       setState(() {
                      Alert(context: context, title: "Invalid data",desc: " invalid email or password" ).show();
                       
-                        loading = false;});}
+                        loading = false;});}}
 
     }
 
     Future<void> _registerUser() async {
       _email = _emailController.text;
       _password = _passwordController.text;
-    /* _emailController.clear();
-      _passwordController.clear();*/
+     if(_email.isEmpty){
+         setState(() {
+              Alert(context: context, title: "Invalid data",desc: " enter your email" ).show();});
+      }else if(_password.length<8){
+                    setState(() {
+              Alert(context: context, title: "Invalid data",desc: " PassWord Length Atleast 8 " ).show();});
+      }else if(_password.isEmpty){
+                    setState(() {
+              Alert(context: context, title: "Invalid data",desc: " enter your PassWord" ).show();});
+      }
+          else{
       setState(() => loading = true);
                       dynamic result = await _auth.registerWithEmailAndPassword(_email, _password );
                     
@@ -217,7 +239,7 @@ class _AuthPageState extends State<AuthPage> {
                         loading = false;
 
                       });}
-    }
+    }}
 
     void _loginSheet() {
       _scaffoldKey.currentState.showBottomSheet<void>((BuildContext context) {

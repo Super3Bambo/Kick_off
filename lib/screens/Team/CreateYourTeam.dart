@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/screens/User/Edit_User.dart';
 import 'package:flutter_app/screens/authenticate/Rgester_Complete.dart';
 import 'package:onboardme/onboardme.dart';
 
+import 'createTeam.dart';
 
-class Example extends StatelessWidget {
+
+class teamborder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      
 
       home: Center(
               child: OnboardingMe(
@@ -26,7 +30,7 @@ class Example extends StatelessWidget {
 
         /// List of  Call-to-action action
         ctaText: [
-          'Skip',
+          '',
           'Get Started'
         ],
 
@@ -35,17 +39,18 @@ class Example extends StatelessWidget {
           {
             "Scr 1 Heading" : "Football",
             "Scr 1 Sub Heading" : "Our rounded leather",
-            "Scr 1 Image Path" : "images/balls.jpg",
+            "Scr 1 Image Path" : "images/balls.jpg",//
           },
           {
             "Scr 2 Heading" : "Fields",
             "Scr 2 Sub Heading" : "Our theatre",
-            "Scr 2 Image Path" : "images/stadium.jpg",
+            "Scr 2 Image Path" : "images/stadium.jpg",//
           },
           {
             "Scr 3 Heading" : "Happiness",
             "Scr 3 Sub Heading" : "Football is our passion",
-            "Scr 3 Image Path" : "images/fans.jpg",
+            "Scr 3 Image Path" : "images/fans.jpg",//
+           
           },
         ],
 
@@ -53,11 +58,13 @@ class Example extends StatelessWidget {
         isPageIndicatorCircle: true,
 
         /// Home Screen Route that lands after on-boarding
-        homeRoute: '/regcomplete',
+        homeRoute: '/createteam',
+        homeRoute2: '/rrr',
     ),
       ),
     routes: <String, WidgetBuilder>{
-      '/regcomplete': (BuildContext context) => completeRegister()
+      '/createteam': (BuildContext context) => CreateTeam(),
+      '/rrr':(BuildContext context) => Edituser() ,
         },
         );
   }

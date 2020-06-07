@@ -92,6 +92,12 @@ flutter:
    - family: Anton
      fonts:
       - asset: assets/fonts/Anton-Regular.ttf
+   - family: Poppins
+     fonts:
+      - asset: assets/fonts/Poppins-SemiBold.ttf
+        weight: 600
+      - asset: assets/fonts/Poppins-Regular.ttf
+        weight: 400
   #   - family: Trajan Pro
   #     fonts:
   #       - asset: fonts/TrajanPro.ttf

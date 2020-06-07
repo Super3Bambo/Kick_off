@@ -1,3 +1,4 @@
+import 'package:flutter_app/Services/Auth.dart';
 import 'package:flutter_app/Services/User.dart';
 import 'package:flutter_app/Shared/Loading.dart';
 import 'package:flutter_app/models/User.dart';
@@ -39,8 +40,10 @@ class Choise extends StatelessWidget {
           
           
           }else{ 
-            //new Duration(seconds :2);
-             return Example();}});
+            
+             return Example();}
+             
+             });
     
   }else {return AuthPage();}
 }}

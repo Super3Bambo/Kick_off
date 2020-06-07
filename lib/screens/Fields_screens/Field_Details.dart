@@ -200,12 +200,12 @@ List<String> finishfield = List<String>();
 List<String> durationfield = List<String>();
     durationfield = widget.fieldid.duration.map((e) => e.Duration).toList();
 
-List<String> startuser = List<String>();
-    startfield = widget.fieldid.start_time.map((e) => e.Start_at).toList();
-List<String> finishuser = List<String>();
-    finishfield = widget.fieldid.finish_time.map((e) => e.Finish_at).toList();
-List<String> durationuser = List<String>();
-    durationfield = widget.fieldid.duration.map((e) => e.Duration).toList();
+// List<String> startuser = List<String>();
+//     startfield = widget.fieldid.start_time.map((e) => e.Start_at).toList();
+// List<String> finishuser = List<String>();
+//     finishfield = widget.fieldid.finish_time.map((e) => e.Finish_at).toList();
+// List<String> durationuser = List<String>();
+//     durationfield = widget.fieldid.duration.map((e) => e.Duration).toList();
 
 
 
@@ -401,19 +401,19 @@ DateFormat dateFormat = DateFormat("yyyy-MM-dd HH:00:00:000");
  
                                     }
                                    
-                                    else if(userData.start_time.contains(dateFormat.format(start))||userData.start_time.contains(dateFormat.format(finish))||
-                                    userData.start_time.contains(dateFormat.format(duration))){
+                                    else if(finishuser.contains(dateFormat.format(start))||finishuser.contains(dateFormat.format(finish))||
+                                   finishuser.contains(dateFormat.format(duration))){
                                         Alert(context:  _scaffoldKey.currentContext, title: "Error",desc: 'bb' ).show();
  
                                    }
                                     
-                                    else if(userData.finish_time.contains(dateFormat.format(start))||userData.finish_time.contains(dateFormat.format(finish))|| 
-                                    userData.finish_time.contains(dateFormat.format(duration))){
+                                    else if(startuser.contains(dateFormat.format(start))||startuser.contains(dateFormat.format(finish))|| 
+                                    startuser.contains(dateFormat.format(duration))){
                                                                         Alert(context:  _scaffoldKey.currentContext, title: "Error",desc: 'bb' ).show();
  
                                    }
-                                   else  if(userData.duration.contains(dateFormat.format(start))||userData.duration.map((e) => e.duration).contains(dateFormat.format(finish))|| 
-                                   userData.duration.contains(dateFormat.format(duration))){
+                                   else  if(durationuser.contains(dateFormat.format(start))||durationuser.contains(dateFormat.format(finish))|| 
+                                   durationuser.contains(dateFormat.format(duration))){
                                      
                                         Alert(context:  _scaffoldKey.currentContext, title: "Error",desc: 'bb' ).show();
  

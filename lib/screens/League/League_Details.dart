@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_app/Services/Fields.dart';
 import 'package:flutter_app/Services/League.dart';
+import 'package:flutter_app/Services/Team.dart';
 import 'package:flutter_app/models/field.dart';
 import 'package:flutter_app/models/league.dart';
 import 'package:flutter_app/models/team.dart';
@@ -10,6 +11,8 @@ import '../../models/Matches.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:percent_indicator/percent_indicator.dart';
+
+import 'LeagueMemberOverView.dart';
 
 
 
@@ -34,6 +37,10 @@ bool loading = false;
   Widget build(BuildContext context) {
 List <Team> tmid=[
     Team(ID:widget.teamid.ID,),
+  ];
+
+  List <League> lgid=[
+    League(ID:widget.league.ID,),
   ];
     List<String> lists = List<String>();
     List<String> templist = List<String>();
@@ -80,7 +87,7 @@ _showSnackBar() {
             return  Scaffold(
              key: _scaffoldKey,
               appBar: AppBar(
-              title: Text('fsdfs'),
+              title: Text(widget.league.teams.last.ID),
               ),
               body: Container(
                               margin: EdgeInsets.fromLTRB(10.0, 20.0, 10.0, 10.0),
@@ -224,6 +231,7 @@ _showSnackBar() {
                             }
                             else{
                            await LeagueService().joinLeague(widget.league.ID, tmid);
+                           await TeamService().joinLeague(widget.teamid.ID, lgid);
                            for(var i=0;i<(7-widget.league.teams.length);i++){
                              DateTime starttime = dateFormat.parse(widget.league.Start_Date);
                              var star =starttime.add(Duration( days: i , hours: (widget.league.teams.length+i)));
@@ -270,6 +278,20 @@ _showSnackBar() {
 
                             
                     ),
+                    RaisedButton(padding: EdgeInsets.fromLTRB(10.0,10.0,10.0,10.0),
+                          color: Colors.pink[300],
+                          child: Text(
+                            'Members',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          onPressed: () async {
+                            print(myList);
+                            print(templist);
+                    Navigator.push(context,MaterialPageRoute(builder: (context)=> LeaguememberOverview(leagueid:myList,)  ) );
+
+
+                          }
+                          ),
                     // RaisedButton(onPressed:  ()async{
                     //                myList.toSet();
                     //           templist.addAll(myList);

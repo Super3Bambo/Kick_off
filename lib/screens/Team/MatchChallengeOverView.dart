@@ -20,10 +20,7 @@ class MatchesOverviewChallenge extends StatelessWidget {
       value: MatchService(teamid: teamid.ID).allchallenge,
       
 child: Scaffold(
-        appBar: AppBar(
-          title: Text(teamid.ID),
-         
-        ),
+        
         body: Container(
      
           child: MatchviewChallenge(teamid: teamid,),

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/Shared/Loading.dart';
+import 'package:flutter_app/screens/User/FollowersOverView.dart';
+import 'package:flutter_app/screens/User/FollowingOverView.dart';
 import 'package:rating_bar/rating_bar.dart';
 import '../../screens/User/Edit_User.dart';
 import '../../models/User.dart';
@@ -20,7 +22,7 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
-  String fName, lName, age, position, area, phone;
+  String fName, lName, age, position, area, phone , token,teamid;
   bool loading = false;
 
 
@@ -66,6 +68,8 @@ return StreamBuilder<User>(
                                     area ?? userData.Area,
                                     phone ?? userData.Phone,
                                     photo.toString(),
+                                    teamid ?? userData.TeamID,
+                                    token ?? userData.Token,
 
       );
       loading = false;
@@ -112,7 +116,7 @@ return StreamBuilder<User>(
                     child: ClipOval(
                    child: SizedBox(
                       width: 220.0,
-                          height: 220.0,
+                      height: 220.0,
                           
                   //backgroundImage: NetworkImage(imgUrl),
                  child: (userData.Photo_url!=null)?Image.network(
@@ -149,8 +153,8 @@ return StreamBuilder<User>(
                     style: TextStyle(color: Colors.black,fontSize: 15, fontWeight: FontWeight.bold),
                   ),
                   onPressed: ()  {
+                    Navigator.push(context,MaterialPageRoute(builder: (context)=> FollowersOverview(userid: userData,)  ) );
                       }
-                  
                 ),
                RaisedButton(
               padding: EdgeInsets.fromLTRB(10.0,10.0,10.0,10.0),
@@ -160,6 +164,7 @@ return StreamBuilder<User>(
                     style: TextStyle(color: Colors.black,fontSize: 15, fontWeight: FontWeight.bold),
                   ),
                   onPressed: ()  {
+                    Navigator.push(context,MaterialPageRoute(builder: (context)=> FollowingOverview(userid: userData,)  ) );
                       }
                   
                 ),
@@ -171,6 +176,7 @@ return StreamBuilder<User>(
                     style: TextStyle(color: Colors.black, fontSize: 15, fontWeight: FontWeight.bold),
                   ),
                   onPressed: ()  {
+                     Navigator.push(context,MaterialPageRoute(builder: (context)=> Edituser()  ) );
                       }
                   
                 ),          //new Icon(Icons.edit),
@@ -211,9 +217,4 @@ return StreamBuilder<User>(
         }
         );
   }
-
-  Widget rowCell(int count, String type) =>  Expanded(child:  Column(children: <Widget>[
-     Text('$count',style:  TextStyle(color: Colors.white),),
-     Text(type,style:  TextStyle(color: Colors.white, fontWeight: FontWeight.normal))
-  ],));
 }

@@ -14,7 +14,7 @@ class UserService {
 
   final CollectionReference users = Firestore.instance.collection('user');
 
-  Future<void> updateUserData(String fName, String lName, String age,String position ,String area,String phone, String imageurl ) async {
+  Future<void> updateUserData(String fName, String lName, String age,String position ,String area,String phone, String imageurl,String teamid, String token , ) async {
         
     return await users.document(userid).updateData({
       'ID':userid,
@@ -25,7 +25,9 @@ class UserService {
       'Role':"User",
       'Area': area,
       'Phone': phone,
-      'Photo_Url' : imageurl
+      'Photo_Url' : imageurl,
+      'TeamID':teamid,
+      'Token':token,
     });
   }
 
@@ -41,6 +43,7 @@ class UserService {
       'Role':"User",
       'Phone': phone,
       'Photo_Url':photo,
+       'TeamID':'',
       'Start':  date.map((u)=>{'StartTime' :u.Date}).toList(),
       'Finish': date.map((u)=>{'FinishTime' :u.Date}).toList(),
       'Duration': date.map((u)=>{'Dur' :u.Date}).toList(),
@@ -121,6 +124,8 @@ Future <void> unefollow(String ID , List<User> user)async{
       duration: snapshot.data['Duration'].map<Field>((timesss) =>Field.fromMap3(timesss)).toList() ?? [],
       rating: snapshot.data['Rating'].map<UserRating>((skill)=>UserRating.fromMap(skill)).toList()?? [],
       TeamID: snapshot.data['TeamID'],
+      Token:snapshot.data['Token'] ,
+      
       
     );
   }
@@ -140,8 +145,10 @@ Future <void> unefollow(String ID , List<User> user)async{
       followingusers: doc.data['Following'].map<User>((user) =>User.fromMap(user)).toList() ?? [],
       start_time: doc.data['Start'].map<Field>((times) =>Field.fromMap(times)).toList() ?? [],
       finish_time: doc.data['Finish'].map<Field>((timess) =>Field.fromMap2(timess)).toList() ?? [],
+      rating: doc.data['Rating'].map<UserRating>((skill)=>UserRating.fromMap(skill)).toList()?? [],
       duration: doc.data['Duration'].map<Field>((timesss) =>Field.fromMap3(timesss)).toList() ?? [],
       TeamID: doc.data['TeamID'],
+      Token:doc.data['Token'],
     );
     }).toList();
   }

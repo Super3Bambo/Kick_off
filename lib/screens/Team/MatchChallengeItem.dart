@@ -25,7 +25,7 @@ Navigator.push(context,MaterialPageRoute(builder: (context)=> MatchChallenge_Det
     var diff= c.difference(now).inHours.toString();
     return Card(
 
-        margin:EdgeInsets.fromLTRB(0.0, 5.0, 0.0, 5.0),
+        margin:EdgeInsets.fromLTRB(0.0, 13.0, 0.0, 10.0),
 
         child: ClipRRect(
 
@@ -76,8 +76,8 @@ Navigator.push(context,MaterialPageRoute(builder: (context)=> MatchChallenge_Det
                                         animation: true,
                                         lineHeight: 20.0,
                                         animationDuration: 2000,
-                                        percent: match.users.length/10.toDouble(),
-                                        center: Text((match.users.length*10).toString() + '%' ,style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
+                                        percent: match.team.length/10.toDouble() ,
+                                        center: Text((match.team.length*10).toString() + '%' ,style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
                                         linearStrokeCap: LinearStrokeCap.roundAll,
                                         progressColor: Colors.blue,
                                       ),

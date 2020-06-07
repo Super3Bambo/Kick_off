@@ -31,6 +31,10 @@ class AuthService {
       return null;
     } 
   }
+  Future<bool> isVerified() async {
+    FirebaseUser user = await _auth.currentUser();
+    return user.isEmailVerified;
+  }
 
   // register with email and password
   Future registerWithEmailAndPassword(String email, String password  )  async {

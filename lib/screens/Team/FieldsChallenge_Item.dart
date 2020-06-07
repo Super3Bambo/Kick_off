@@ -1,14 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/models/team.dart';
-import 'package:flutter_app/screens/Team/FieldsChallenge_Details.dart';
-//import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../models/field.dart';
-import '../../Screens/Fields_screens/Field_Details.dart';
-import'package:flutter_app/screens/Fields_screens/Field_Details.dart';
-import 'package:flutter_app/screens/Fields_screens/Field_Details.dart';
 import 'package:flutter_app/screens/Team/FieldsChallenge_Details.dart';
-import '../../models/field.dart';
 import 'package:rating_bar/rating_bar.dart';
 
 class FieldChallengeItem extends StatelessWidget {
@@ -26,7 +20,7 @@ class FieldChallengeItem extends StatelessWidget {
     fields.rate.map((e) => e.Rate).forEach((int e){sum += e;});
     double count= sum/fields.rate.length;
 godetails(Field id , Team ids){
-Navigator.push(context,MaterialPageRoute(builder: (context)=> FieldChallengeItem(fields: fields ,teamid:teamid )  ) );
+Navigator.push(context,MaterialPageRoute(builder: (context)=> FieldDetailsTeam(fieldid: fields ,teamid:teamid )  ) );
 
 }
     return Padding(

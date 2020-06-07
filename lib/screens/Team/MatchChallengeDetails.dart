@@ -163,7 +163,7 @@ class _MatchChallenge_DetailsState extends State<MatchChallenge_Details> {
       User(ID: user.ID,),
     ];
     List<String> myList = List<String>();
-    myList = widget.matchid.users.map((f)=>f.ID).toList();
+    myList = widget.matchid.team.map((f)=>f.ID).toList();
     String matchId = widget.matchid.ID;
     final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
     _showSnackBar() {
@@ -325,7 +325,7 @@ class _MatchChallenge_DetailsState extends State<MatchChallenge_Details> {
                           CircularPercentIndicator(
                             radius: 100.0,
                             lineWidth: 7.0,
-                            percent: widget.matchid.users.length.toDouble()/10,
+                            percent: widget.matchid.team.length.toDouble()/10,
                             header: Padding(padding: EdgeInsets.fromLTRB(00.0, 20.0, 00.0,00.0),),
                             center: Container(
                               margin: EdgeInsets.only(top: 25),
@@ -338,7 +338,7 @@ class _MatchChallenge_DetailsState extends State<MatchChallenge_Details> {
                                       color: Colors.blue,
 
                                     ),
-                                    Text( widget.matchid.users.length.toString() + '' '/' '' '${10}',style: TextStyle(fontWeight: FontWeight.bold),),
+                                    Text( widget.matchid.team.length.toString() + '' '/' '' '${10}',style: TextStyle(fontWeight: FontWeight.bold),),
 
                                   ]
                               ),
