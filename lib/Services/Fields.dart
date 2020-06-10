@@ -25,8 +25,8 @@ class FieldService {
       'Start':  start.map((u)=>{'StartTime' :DateTime.now().toString(),}).toList(),
       'Finish': finish.map((u)=>{'FinishTime' :DateTime.now().toString(),}).toList(),
       'Duration': duration.map((u)=>{'Dur' :DateTime.now().toString(),}).toList(),
-      'Rating': rating.map((r)=>{
-      'Rate':r.Rate=0,
+      'Rate': rating.map((r)=>{
+      'Rates':r.Rate=0,
       }).toList(),
       
     });
@@ -57,6 +57,10 @@ Future <void> removeduration(String ID , List<Field> time)async{
   return await field.document(ID).updateData({'Duration':FieldValue.arrayRemove(time.map((e) => {'Dur':e.Duration}).toList())});
 }
 
+Future <void> ratefield(String ID , List<FieldRating> rate)async{
+    
+  return await field.document(ID).updateData({'Rate':FieldValue.arrayUnion(rate.map((e) => {'Rates':e.Rate}).toList())});
+}
 
   List<Field> _fieldDataFromSnapshot(QuerySnapshot snapshot) {
     return  snapshot.documents.map((doc){

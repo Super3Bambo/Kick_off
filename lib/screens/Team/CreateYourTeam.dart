@@ -3,6 +3,7 @@ import 'package:flutter_app/screens/User/Edit_User.dart';
 import 'package:flutter_app/screens/authenticate/Rgester_Complete.dart';
 import 'package:onboardme/onboardme.dart';
 
+import 'CreateorJoin.dart';
 import 'createTeam.dart';
 
 
@@ -30,7 +31,7 @@ class teamborder extends StatelessWidget {
 
         /// List of  Call-to-action action
         ctaText: [
-          '',
+          'Skip',
           'Get Started'
         ],
 
@@ -59,12 +60,12 @@ class teamborder extends StatelessWidget {
 
         /// Home Screen Route that lands after on-boarding
         homeRoute: '/createteam',
-        homeRoute2: '/rrr',
+        homeRoute2: '/createteam',
     ),
       ),
     routes: <String, WidgetBuilder>{
-      '/createteam': (BuildContext context) => CreateTeam(),
-      '/rrr':(BuildContext context) => Edituser() ,
+      '/createteam': (BuildContext context) => JoinBoard(),
+      '/createteam':(BuildContext context) => JoinBoard() ,
         },
         );
   }

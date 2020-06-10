@@ -7,6 +7,7 @@ import '../../Services/Match.dart';
 import '../../models/User.dart';
 import 'package:provider/provider.dart';
 import '../../Services/User.dart';
+import 'Followersitemshape.dart';
 import 'FollowingItem.dart';
 
 
@@ -28,7 +29,7 @@ class _FollowersUserState extends State<FollowersUser> {
           return ListView.builder( 
             itemCount: followers.length,
             itemBuilder: (context, index) {
-              return FollowersItem(followers:followers[index]); /* Padding(
+              return FollowersItemsahpe(followers:followers[index]); /* Padding(
       padding: const EdgeInsets.only(top: 8.0),
       child: Card(
         

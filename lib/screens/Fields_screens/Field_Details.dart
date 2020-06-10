@@ -400,6 +400,10 @@ DateFormat dateFormat = DateFormat("yyyy-MM-dd HH:00:00:000");
                                         Alert(context:  context, title: "Error",desc:startuser.first ).show();
  
                                     }
+                                    else if(start.isBefore(DateTime.now())){
+                                      Alert(context:  context, title: "Error",desc:'nonon' ).show();
+
+                                    }
                                    
                                     else if(finishuser.contains(dateFormat.format(start))||finishuser.contains(dateFormat.format(finish))||
                                    finishuser.contains(dateFormat.format(duration))){

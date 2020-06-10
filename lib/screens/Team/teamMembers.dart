@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/models/team.dart';
 import 'Members_Item.dart';
+import 'TeamMemberItemshape.dart';
 
 class TeamMembers extends StatefulWidget{
   final Team team;
@@ -43,7 +44,7 @@ class _TeamMembersState extends State<TeamMembers> {
     return ListView.builder(
       itemCount: members.length,
       itemBuilder: (context, index){
-        return Members_Item(members: members[index])  ;
+        return TeamMemberItemshape(members: members[index])  ;
       });
   }
 }

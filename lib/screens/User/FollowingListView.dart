@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 //import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_app/screens/User/test1.dart';
 import '../../models/Matches.dart';
 import '../../Services/Match.dart';
 import '../../models/User.dart';
 import 'package:provider/provider.dart';
 import '../../Services/User.dart';
 import 'FollowingItem.dart';
+import 'FollowingItemsahpe.dart';
 
 
 class FollowingUser extends StatefulWidget{
@@ -27,7 +27,7 @@ class _FollowingUserState extends State<FollowingUser> {
             itemCount: following.length,
             itemBuilder: (context, index) {
               //return FollowingItem(following:following[index]); 
-               return hhh(following:following[index]);
+               return FollowingItemsahpe(following:following[index]);
               
               /* Padding(
       padding: const EdgeInsets.only(top: 8.0),

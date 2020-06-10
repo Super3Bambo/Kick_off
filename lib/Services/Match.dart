@@ -7,8 +7,8 @@ import 'package:random_string_one/random_string.dart';
 import '../models/User.dart';
 class MatchService {
 
-final String userid,teamid;
-  MatchService({ this.userid ,this.teamid});
+final String userid,teamid, matchid;
+  MatchService({ this.userid ,this.teamid, this.matchid});
   
 
   final CollectionReference matches = Firestore.instance.collection('Match');
@@ -26,6 +26,8 @@ final String userid,teamid;
       'Challenge':false,
       'Date': DateTime.now(),
       'Players': users.map((u)=>{'UserID' :u.ID,}).toList(),
+      "evaluted":users.map((u)=>{'UserID' :u.ID,}).toList(),
+      'Deleted':false,
         //'Players' : users,
       // Map<String, dynamic>  {'Players': users}
   //   'Players': Match().mapping(),
@@ -45,6 +47,7 @@ final String userid,teamid;
       'Challenge':true,
       'Date': DateTime.now(),
       'Players': teams.map((u)=>{'UserID' :u.ID,}).toList(),
+      'Deleted':false,
         //'Players' : users,
       // Map<String, dynamic>  {'Players': users}
   //   'Players': Match().mapping(),
@@ -53,6 +56,18 @@ final String userid,teamid;
       
   }
 
+  Future<void> deleteMatch(String id, String fieldid,DateTime date, String location  ,String start ,String finish ,String price,  int counter , String topic) async {
+    return await matches.document(id).updateData({
+       'FieldId': fieldid,
+      'Location': location,
+      'Start_at': start ,
+      'Finish_at': finish,
+      'Topic':topic,
+      'Price': price,
+      'Counter':counter,
+      'Date':date ,
+      'Deleted':true,
+  });}
 
   Future<void> editMatch(String id, String fieldid,DateTime date, String location  ,String start ,String finish ,String price,  int counter , String topic) async {
     return await matches.document(id).updateData({
@@ -64,6 +79,7 @@ final String userid,teamid;
       'Price': price,
       'Counter':counter,
       'Date':date ,
+      'Deleted':false,
       //'Players': users.map((u)=>{'UserID' :u.ID,}).toList(),
         //'Players' : users,
       // Map<String, dynamic>  {'Players': users}
@@ -82,7 +98,10 @@ Future <void> disjoinMatch(String ID , List<User> user)async{
     
   return await matches.document(ID).updateData({'Players':FieldValue.arrayRemove(user.map((e) => {'UserID': e.ID}).toList())});
 }
-
+Future <void> removeevaluted(String ID , List<User> user)async{
+    
+  return await matches.document(ID).updateData({'evaluted':FieldValue.arrayRemove(user.map((e) => {'UserID': e.ID}).toList())});
+}
 
 List<Match> _matchesFromSnapshot(QuerySnapshot snapshot) {
     return  snapshot.documents.map((doc){
@@ -135,14 +154,14 @@ List<Match> _matchesFromSnapshot(QuerySnapshot snapshot) {
 
 Stream<List<Match>> get allmatches {
   
-    return matches.where("Start_at" ,isGreaterThan: DateTime.now().toString()).where('Challenge' ,isEqualTo: false).
+    return matches.where("Start_at" ,isGreaterThan: DateTime.now().toString()).where('Challenge' ,isEqualTo: false). where('Deleted' ,isEqualTo: false).
     snapshots().map(_matchesFromSnapshot);
 
   }
   Stream<List<Match>> get allchallenge {
   
     return matches.where("Players" ,arrayContains: {'UserID' :teamid}).
-    where("Start_at" ,isGreaterThan: DateTime.now().toString()).
+    where("Start_at" ,isGreaterThan: DateTime.now().toString()).where('Deleted' ,isEqualTo: false).
     where('Challenge' ,isEqualTo: true).
     snapshots().map(_challengesFromSnapshot);
 
@@ -163,9 +182,19 @@ Stream<List<Match>> get historymatches {
     snapshots().map(_matchesFromSnapshot);
 
   }
+  Stream<List<Match>> get historymatchesevaluted {
+  
+    return matches.where("evaluted" ,arrayContains: {'UserID' :userid}).
+    where("Finish_at" ,isLessThan: DateTime.now().toString()).
+    where("Counter" ,isEqualTo: 10).where('Challenge' ,isEqualTo: false).
+    snapshots().map(_matchesFromSnapshot);
+
+  }
+  
   Stream<List<Match>> get completematches {
   
     return matches.where("Counter" ,isEqualTo: 10).where("Finish_at" ,isGreaterThan: DateTime.now().toString()).where('Challenge' ,isEqualTo: false).
+    where("Players" ,arrayContains: {'UserID' :userid}).
     snapshots().map(_matchesFromSnapshot);
 
   }

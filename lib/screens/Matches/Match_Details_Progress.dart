@@ -4,9 +4,11 @@ import 'package:flutter/material.dart';
 //import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_app/Shared/Loading.dart';
+import 'package:flutter_app/models/field.dart';
 import 'package:flutter_app/screens/Home/myMatches.dart';
 import 'package:flutter_app/screens/Matches/Members_OverView.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 import '../../models/Matches.dart';
 import '../../Services/Match.dart';
 import '../../models/User.dart';
@@ -18,6 +20,7 @@ import 'package:getflutter/getflutter.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'Match_Details_User.dart';
 import 'Matches_Overview_Progress.dart';
+import 'package:intl/intl.dart';
 
 
 class Match_DetailsProgress extends StatefulWidget{
@@ -51,7 +54,7 @@ class _Match_DetailsProgressState extends State<Match_DetailsProgress> {
   var initilizationSettings;
   var initilizationSettingsIOS;
 
-  void _showNotification()async{
+ /* void _showNotification()async{
     await _demoNotification();
   }
 
@@ -151,11 +154,11 @@ var androidPlateform= AndroidNotificationDetails('channel ID','channel name','ch
     await Navigator.push(context, new MaterialPageRoute(builder: (context) =>MatchesOverviewProgress()));
   }
 
-
+*/
 
   @override
   Widget build(BuildContext context) {
-
+ DateFormat dateFormat = DateFormat("yyyy-MM-dd HH:00:00:000");
     gomember(Match id) { Navigator.push(context,MaterialPageRoute(builder: (context)=> MatchesOverview(matchid: widget.matchid)  ) );}
 
 User user = Provider.of<User>(context);
@@ -204,7 +207,11 @@ User user = Provider.of<User>(context);
     //How to display Snackbar ?
     _scaffoldKey.currentState.showSnackBar(snackBar); 
   }
-
+return StreamBuilder<User>(
+      stream: UserService(userid: user.ID).userData,
+      builder: (context, snapshot) {
+        if(snapshot.hasData){
+          User userData = snapshot.data;
  return  Scaffold(
    key: _scaffoldKey,
       appBar: AppBar(
@@ -385,6 +392,14 @@ User user = Provider.of<User>(context);
                       style: TextStyle(color: Colors.white),
                     ),
                     onPressed: () async {
+                      
+                                  List<String> startuser = List<String>();
+                                        startuser = userData.start_time.map((e) => e.Start_at).toList();
+                                  List<String> finishuser = List<String>();
+                                        finishuser =userData.finish_time.map((e) => e.Finish_at).toList();
+                                  List<String> durationuser = List<String>();
+                                         durationuser =userData.duration.map((e) => e.Duration).toList();
+                                                    
                       if(myList.contains(user.ID)){
                 
                 _showSnackBar();
@@ -398,17 +413,47 @@ User user = Provider.of<User>(context);
                    } 
 
                     else{
+                      
+
+                                      var f=dateFormat.parse(widget.matchid.Check_in);
+                                      var duration =f.add(new Duration(hours: 1));
+                                      var durs=dateFormat.format(duration);
+
+                                           List<Field> starts=[
+                                        Field(Start_at:widget.matchid.Check_in )];
+                                          List<Field> finishs=[
+                                        Field(Finish_at:widget.matchid.Check_out )];
+                                         List<Field> dur=[
+                                    Field(Duration:dateFormat.format(duration) ) ];
+
+                                      if(finishuser.contains((widget.matchid.Check_in))||finishuser.contains(widget.matchid.Check_out)||
+                                   finishuser.contains(durs)){
+                                        Alert(context:  _scaffoldKey.currentContext, title: "Error",desc: 'bb' ).show();
+ 
+                                   }
+                                    
+                                    else if(startuser.contains(widget.matchid.Check_in)||startuser.contains(widget.matchid.Check_out)|| 
+                                    startuser.contains(durs)){
+                                          Alert(context:  _scaffoldKey.currentContext, title: "Error",desc: 'bb' ).show();
+ 
+                                   }
+                                   else  if(durationuser.contains(widget.matchid.Check_in)||durationuser.contains(widget.matchid.Check_out)|| 
+                                   durationuser.contains(durs)){
+                                     
+                                        Alert(context:  _scaffoldKey.currentContext, title: "Error",desc: 'bb' ).show();}
+                                  else{
+                      
+                                          await UserService().timestart(user.ID, starts);
+                                          await UserService().timefinish(user.ID, finishs);
+                                          await UserService().duration(user.ID, dur);
                     var count= (widget.matchid.Counter)+1;
-                    //int count =(c).to;
-                    //String counter= count.toString();
-                   // setState(() => loading = true);
                     await MatchService().joinMatch(matchId , users);
                      await MatchService().editMatch(widget.matchid.ID ,widget.matchid.Field, widget.matchid.Date.toDate() ,widget.matchid.Location, widget.matchid.Check_in,
                        widget.matchid.Check_out , widget.matchid.Price, count , widget.matchid.Topic);
                        _fcm.subscribeToTopic(widget.matchid.Topic);
                       _showSnackBar3();
                    // _showNotification();
-                      }
+                      }}
                       
                       
                     }
@@ -438,6 +483,9 @@ User user = Provider.of<User>(context);
                   ),
         ),
                 
+ );
+ }else{return Loading();}
+ }
  );
               
       //                 FlatButton(

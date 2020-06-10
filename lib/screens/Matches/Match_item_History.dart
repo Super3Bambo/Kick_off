@@ -1,7 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/Services/User.dart';
+import 'package:flutter_app/Shared/Loading.dart';
+import 'package:flutter_app/models/User.dart';
 import '../../models/Matches.dart';
 //import './Field_Details.dart';
 import './Match_Details_History.dart';
+import 'test.dart';
+
+// List<User> temp(BuildContext context , List<String> users  ){
+//   List<User> userdata;
+//   for(var i=0;i<users.length;i++){
+//   StreamBuilder<User>(
+//       stream: UserService(userid: users[i]).userData,
+//       builder: (context, snapshot){
+//         if(snapshot.hasData){
+//           User userDatas = snapshot.data;
+//          userdata=[
+//            User(ID: userDatas.ID ,FName: userDatas.FName ,  )
+//          ];
+//          return userdata;
+          
+//           }
+// }}}
+
 
 class MatchItem_History extends StatelessWidget {
 
@@ -11,9 +32,11 @@ class MatchItem_History extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    List<String> myList = List<String>();
+    myList =match.users.map((f)=>f.ID).toList();
     
 godetails(Match id){
-Navigator.push(context,MaterialPageRoute(builder: (context)=> Match_Details_History(matchid: match)  ) );
+Navigator.push(context,MaterialPageRoute(builder: (context)=> test333(matchid: match)  ) );
 
 }
     return Card(
@@ -34,7 +57,11 @@ Navigator.push(context,MaterialPageRoute(builder: (context)=> Match_Details_Hist
           borderRadius: BorderRadius.circular(20),
 
      child:  GestureDetector(
-       onTap: () => godetails(match),
+       onTap: () {
+        godetails(match);
+       },
+       
+      // 
      
      
      child: Image.asset('images/5omasy.jpg', height: 200, width: 420, fit: BoxFit.cover, ),),
@@ -56,7 +83,7 @@ child: Padding(
         child: Row(
           children: <Widget>[     
            
-              Text(match.users.map((f)=>f.ID).toString()),
+              Text(match.Topic),
               Text('data')
               
  ],

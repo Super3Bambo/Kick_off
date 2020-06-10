@@ -63,6 +63,11 @@ class UserService {
     
   return await users.document(ID).updateData({'Start':FieldValue.arrayUnion(time.map((e) =>{"StartTime": e.Start_at}).toList())});
 }
+
+ Future <void> rate(String ID , List<UserRating> rate)async{
+    
+  return await users.document(ID).updateData({'Rating':FieldValue.arrayUnion(rate.map((r) =>{ 'Skills':r.Skills,'Morality':r.Morality,'Pos':r.Position_Skills}).toList())});
+}
 Future <void> timefinish(String ID , List<Field> time)async{
     
   return await users.document(ID).updateData({'Finish':FieldValue.arrayUnion(time.map((e) => {'FinishTime':e.Finish_at}).toList())});

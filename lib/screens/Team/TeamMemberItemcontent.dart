@@ -5,22 +5,22 @@ import 'package:rating_bar/rating_bar.dart';
 
 
 
-class PlanetRow extends StatelessWidget {
-  final User following;
-  PlanetRow({ this.following });
+class TeamMemberItemcontent extends StatelessWidget {
+  final User members;
+  TeamMemberItemcontent({ this.members });
   
     @override
   Widget build(BuildContext context) {
-     godetails(User id){Navigator.push(context,MaterialPageRoute(builder: (context)=> Following_Details(userid: following)  ) );}
+     godetails(User id){Navigator.push(context,MaterialPageRoute(builder: (context)=> Following_Details(userid: members)  ) );}
     int sumskills = 0;
     int sumMorality = 0;
     int sumPos = 0;
-      following.rating.map((e) => e.Skills).forEach((int e){sumskills += e;});
-      double skillscount= sumskills/following.rating.length;   
-       following.rating.map((e) => e.Morality).forEach((int e){sumMorality += e;});
-      double moralitycount= sumMorality/following.rating.length;   
-       following.rating.map((e) => e.Position_Skills).forEach((int e){sumPos += e;});
-      double poscount= sumPos/following.rating.length;   
+      members.rating.map((e) => e.Skills).forEach((int e){sumskills += e;});
+      double skillscount= sumskills/members.rating.length;   
+       members.rating.map((e) => e.Morality).forEach((int e){sumMorality += e;});
+      double moralitycount= sumMorality/members.rating.length;   
+       members.rating.map((e) => e.Position_Skills).forEach((int e){sumPos += e;});
+      double poscount= sumPos/members.rating.length;   
       double total =(skillscount*6+moralitycount*2+poscount)/(3*3);
     return new Container(
       
@@ -30,7 +30,7 @@ class PlanetRow extends StatelessWidget {
         horizontal: 24.0,
       ),
       child: InkWell(
-        onTap: (){godetails(following);},
+      //  onTap: (){godetails(members);},
               child: new Stack(
           children: <Widget>[
             Container(
@@ -55,7 +55,7 @@ class PlanetRow extends StatelessWidget {
         child: new Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            new Text(following.FName + ' '+following.LName,
+            new Text(members.FName + ' '+members.LName,
               style: headerTextStyle,
             ),
             RatingBar.readOnly(
@@ -77,7 +77,7 @@ class PlanetRow extends StatelessWidget {
                       color:  Color(0xffb6b2df),        
                    ),              
                 new Container(width: 8.0),
-                new Text(following.Position,
+                new Text(members.Position,
                   style: regularTextStyle,
                 ),
                 new Container(width: 24.0),
@@ -88,7 +88,7 @@ class PlanetRow extends StatelessWidget {
                                         
                    ),              
                   new Container(width: 8.0),
-                new Text(following.Age,
+                new Text(members.Age,
                   style: regularTextStyle,
                 ),
               ],
@@ -113,7 +113,7 @@ class PlanetRow extends StatelessWidget {
                      child: SizedBox(
                           width: 85.0,
                           height: 85.0,
-                            child: Image.asset('images/5omasy.jpg' , fit: BoxFit.fill, ),
+                            child: Image.network( members.Photo_url, fit: BoxFit.fill, ),
                     //backgroundImage: NetworkImage(imgUrl),
                             
                    

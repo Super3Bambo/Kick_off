@@ -26,13 +26,15 @@ class Teams_OverView extends StatelessWidget{
     return  loading?Loading():StreamProvider<Team>.value(
       value: TeamService(userid: userData.TeamID).teamone,
       
-         child: Scaffold(
-             backgroundColor: Color.fromRGBO(34, 149, 162, 150),
+         child: Container(
+           
+               color: Color.fromRGBO(34, 149, 162, 150),
        
         
-          body: TeamItem(),
+            child: TeamItem(),
         
-      ),
+      
+         ),
         
       
     );}

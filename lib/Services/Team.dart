@@ -110,6 +110,10 @@ Stream<List<Team>> get teamz {
     return teams.where("Players" ,arrayContains: {'UserID' :userid}).snapshots().map(_teamsFromSnapshot);
 
   }
+  Stream<List<Team>> get teamstojoin {
+    return teams.snapshots().map(_teamsFromSnapshot);
+
+  }
 Stream<List<Team>> get members {
   
     return teams.where('ID' ,whereIn: leagueid).

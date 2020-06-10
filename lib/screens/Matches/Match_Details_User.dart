@@ -8,6 +8,7 @@ import 'package:flutter_app/Services/User.dart';
 import 'package:flutter_app/Shared/Loading.dart';
 import 'package:flutter_app/models/User.dart';
 import 'package:flutter_app/models/field.dart';
+import 'package:flutter_app/screens/Home/myMatches.dart';
 import 'package:flutter_app/screens/Matches/Friends_Overview.dart';
 import 'package:flutter_app/screens/Matches/Match_notfication.dart';
 import '../../models/Matches.dart';
@@ -24,9 +25,12 @@ import 'package:flutter_icons/flutter_icons.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:getflutter/getflutter.dart';
 
+import 'Matches_Overview_User.dart';
+
 
 
 class Match_Details extends StatefulWidget{
+  static const routeName = '/backs';
   
   final Match matchid;
   final List<String> imageList = [
@@ -48,6 +52,8 @@ class _Match_DetailsState extends State<Match_Details> {
     //final FirebaseMessaging _fcm=FirebaseMessaging();
 
 String _linkMessage;
+  final FirebaseMessaging _fcm = FirebaseMessaging();
+
   bool _isCreatingLink = false;
   String _testString =
       "To test: long press link and then copy and click from a non-browser "
@@ -145,7 +151,7 @@ Navigator.push(context,MaterialPageRoute(builder: (context)=> FriendsOverview() 
 }
     DateFormat dateFormat = DateFormat("yyyy-MM-dd HH:00:00:000");
 
-  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+  final GlobalKey<ScaffoldState> _scaffoldKeys = new GlobalKey<ScaffoldState>();
   String matchId = widget.matchid.ID;  
 User user = Provider.of<User>(context);
     List <User> users=[
@@ -154,24 +160,23 @@ User user = Provider.of<User>(context);
 _showSnackBar() {
     final snackBar = new SnackBar(
         content: new Text("you out of match Done"),
-        duration: new Duration(seconds: 3),
+        duration: new Duration(seconds: 5),
         //backgroundColor: Colors.pink[300],
         action: new SnackBarAction(label: 'Back',
          onPressed: (){
            Navigator.pop(context);
         }),
     );
-    //How to display Snackbar ?
-    _scaffoldKey.currentState.showSnackBar(snackBar);
+    _scaffoldKeys.currentState.showSnackBar(snackBar);
   }
 
   if (widget.matchid.Counter!=10) {/************************************************************ */
 
     
             return  Scaffold(
-             key: _scaffoldKey,
+             key: _scaffoldKeys,
               appBar: AppBar(
-              title: Text(widget.matchid.ID),
+              title: Text(user.ID),
               ),
               body: Container(
                               margin: EdgeInsets.fromLTRB(10.0, 20.0, 10.0, 10.0),
@@ -310,22 +315,7 @@ _showSnackBar() {
                                         ),
                               ],
                             ),
-                                      
-                                     /* ListView.builder(
-                                        itemCount: widget.matchid.users.length,
-                                         itemBuilder: (context, index) {
-                                          return Padding(
-                                            padding: const EdgeInsets.only(top: 8.0),
-                                             child: Card(
-                                                margin: EdgeInsets.fromLTRB(20.0, 6.0, 20.0, 0.0),
-                                                 child: ListTile( 
-                                                 title: Text('fds'),
-                                                  subtitle: Text('dfs',
-                ),
-          ),
-    )
-    );
-                                         }),*/
+                                    
                           new Row(
                            mainAxisAlignment:MainAxisAlignment.start,
 
@@ -340,9 +330,36 @@ _showSnackBar() {
                             style: TextStyle(color: Colors.white),
                           ),
                           onPressed: () async {
+                            if(widget.matchid.Counter>1){
+                              
+                                    var f=dateFormat.parse(widget.matchid.Check_in);
+                                      var duration =f.add(new Duration(hours: 1));
 
 
+                                           List<Field> starts=[
+                                        Field(Start_at:widget.matchid.Check_in )];
+                                          List<Field> finishs=[
+                                        Field(Finish_at:widget.matchid.Check_out )];
+                                         List<Field> dur=[
+                                    Field(Duration:dateFormat.format(duration) ) ];
+                                      var count= (widget.matchid.Counter)-1;
+                                         await MatchService().disjoinMatch(matchId , users);
+                                 await FieldService().removetimestart(widget.matchid.Field, starts);
+                                 await FieldService().removetimefinish(widget.matchid.Field, finishs);
+                                 await FieldService().removeduration(widget.matchid.Field, dur);
+                                 await UserService().removetimestart(user.ID, starts);
+                                await UserService().removetimefinish(user.ID, finishs);
+                                await UserService().removeduration(user.ID, dur);
+                                 _fcm.unsubscribeFromTopic(widget.matchid.Topic);
+                                 await MatchService().editMatch(widget.matchid.ID ,widget.matchid.Field, widget.matchid.Date.toDate() ,widget.matchid.Location, widget.matchid.Check_in,
+                               widget.matchid.Check_out , widget.matchid.Price, count , widget.matchid.Topic);
+                               
+                                   _showSnackBar();
 
+                            }else{
+
+
+                               
 
                                   
                                     var f=dateFormat.parse(widget.matchid.Check_in);
@@ -359,16 +376,14 @@ _showSnackBar() {
 
                               var count= (widget.matchid.Counter)-1;
                              await MatchService().disjoinMatch(matchId , users);
-                                         await FieldService().removetimestart(widget.matchid.Field, starts);
-                                          await FieldService().removetimefinish(widget.matchid.Field, finishs);
-                                          await FieldService().removeduration(widget.matchid.Field, dur);
                                           await UserService().removetimestart(user.ID, starts);
                                           await UserService().removetimefinish(user.ID, finishs);
                                           await UserService().removeduration(user.ID, dur);
-                               await MatchService().editMatch(widget.matchid.ID ,widget.matchid.Field, widget.matchid.Date.toDate() ,widget.matchid.Location, widget.matchid.Check_in,
+                              _fcm.unsubscribeFromTopic(widget.matchid.Topic);
+                               await MatchService().deleteMatch(widget.matchid.ID ,widget.matchid.Field, widget.matchid.Date.toDate() ,widget.matchid.Location, widget.matchid.Check_in,
                                widget.matchid.Check_out , widget.matchid.Price, count , widget.matchid.Topic);
                               _showSnackBar();
-                          }
+                          }}
                           ),
                           
                           
@@ -433,7 +448,7 @@ _showSnackBar() {
   } else {/************************************************************************** */
 
      return  Scaffold(
-   key: _scaffoldKey,
+   key: _scaffoldKeys,
       appBar: AppBar(
         
         title: Text(widget.matchid.ID),
@@ -493,14 +508,61 @@ _showSnackBar() {
                   'DisJoin',
                   style: TextStyle(color: Colors.white),
                 ),
-                onPressed: () async {
-                   
-                    var count= (widget.matchid.Counter)-1;
-                   await MatchService().disjoinMatch(matchId , users);
-                     await MatchService().editMatch(widget.matchid.ID ,widget.matchid.Field, widget.matchid.Date.toDate() ,widget.matchid.Location, widget.matchid.Check_in,
-                     widget.matchid.Check_out , widget.matchid.Price, count , widget.matchid.Topic);
-                    _showSnackBar();
-                }
+                 onPressed: () async {
+                            if(widget.matchid.Counter>1){
+                              
+                                    var f=dateFormat.parse(widget.matchid.Check_in);
+                                      var duration =f.add(new Duration(hours: 1));
+
+
+                                           List<Field> starts=[
+                                        Field(Start_at:widget.matchid.Check_in )];
+                                          List<Field> finishs=[
+                                        Field(Finish_at:widget.matchid.Check_out )];
+                                         List<Field> dur=[
+                                    Field(Duration:dateFormat.format(duration) ) ];
+                                      var count= (widget.matchid.Counter)-1;
+                                         await MatchService().disjoinMatch(matchId , users);
+                                 await FieldService().removetimestart(widget.matchid.Field, starts);
+                                 await FieldService().removetimefinish(widget.matchid.Field, finishs);
+                                 await FieldService().removeduration(widget.matchid.Field, dur);
+                                 await UserService().removetimestart(user.ID, starts);
+                                await UserService().removetimefinish(user.ID, finishs);
+                                await UserService().removeduration(user.ID, dur);
+                                 _fcm.unsubscribeFromTopic(widget.matchid.Topic);
+                                 await MatchService().editMatch(widget.matchid.ID ,widget.matchid.Field, widget.matchid.Date.toDate() ,widget.matchid.Location, widget.matchid.Check_in,
+                               widget.matchid.Check_out , widget.matchid.Price, count , widget.matchid.Topic);
+                               
+                                   _showSnackBar();
+
+                            }else{
+
+
+                               
+
+                                  
+                                    var f=dateFormat.parse(widget.matchid.Check_in);
+                                      var duration =f.add(new Duration(hours: 1));
+
+
+                                           List<Field> starts=[
+                                        Field(Start_at:widget.matchid.Check_in )];
+                                          List<Field> finishs=[
+                                        Field(Finish_at:widget.matchid.Check_out )];
+                                         List<Field> dur=[
+                                    Field(Duration:dateFormat.format(duration) ) ];
+
+
+                              var count= (widget.matchid.Counter)-1;
+                             await MatchService().disjoinMatch(matchId , users);
+                                          await UserService().removetimestart(user.ID, starts);
+                                          await UserService().removetimefinish(user.ID, finishs);
+                                          await UserService().removeduration(user.ID, dur);
+                              _fcm.unsubscribeFromTopic(widget.matchid.Topic);
+                               await MatchService().deleteMatch(widget.matchid.ID ,widget.matchid.Field, widget.matchid.Date.toDate() ,widget.matchid.Location, widget.matchid.Check_in,
+                               widget.matchid.Check_out , widget.matchid.Price, count , widget.matchid.Topic);
+                              _showSnackBar();
+                          }}
                 )
                           ],
                         ),

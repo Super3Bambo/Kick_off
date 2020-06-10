@@ -12,8 +12,6 @@ import 'package:provider/provider.dart';
 import 'Teams_OverView.dart';
 
 class CreateTeam extends StatefulWidget {
-           static const routeName = '/createteam';
-
   @override
   _CreateTeamState createState() => _CreateTeamState();
 }
@@ -45,6 +43,7 @@ return StreamBuilder<User>(
           User userData = snapshot.data;
 
  return  Container(
+   color: Colors.white,
           child: SingleChildScrollView(
              padding: EdgeInsets.symmetric(vertical: 20.0 , horizontal: 50.0),
           child: Form(
@@ -143,7 +142,7 @@ return StreamBuilder<User>(
   )
   
   );
-      }});
+      }else{return Loading();}});
 
     /*final teamName = TextField(
       obscureText: false,

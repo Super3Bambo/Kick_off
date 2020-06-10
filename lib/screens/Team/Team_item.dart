@@ -33,7 +33,7 @@ if(team!=null){
                           fit: BoxFit.cover,
                         ),*/
                                      Container(
-                                      margin: EdgeInsets.all(8.0),
+                                      margin: EdgeInsets.all(8.0), 
                                       child: ClipRRect(
                                         borderRadius: BorderRadius.all(Radius.circular(10.0)),
                                           child: Image.network( team.Photo ,fit: BoxFit.cover,
