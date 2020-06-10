@@ -1,0 +1,256 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_app/Services/League.dart';
+import 'package:flutter_app/models/team.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:intl/intl.dart';
+class FormScreen extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return FormScreenState();
+  }
+}
+
+class FormScreenState extends State<FormScreen> {
+  String _fieldid;
+  DateTime _start;
+  DateTime _finish;
+  String _desc;
+  String _prize;
+  String _name;
+  List<Team> _teams;
+  DateFormat dateFormat = DateFormat("yyyy-MM-dd HH:00:00:000");
+
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  Widget _buildID() {
+    return TextFormField(
+      decoration: InputDecoration(labelText: 'ID'),
+      validator: (String value) {
+        if (value.isEmpty) {
+          return 'ID is Required';
+        }
+
+        return null;
+      },
+      onSaved: (String value) {
+        _fieldid = value;
+      },
+    );
+  }
+
+  Widget _buildStart() {
+    DateTimePickerFormField(
+      inputType: InputType.both,
+      format: DateFormat("EEEE, MMMM d, yyyy 'at' h:mm a"),
+      editable: false,
+      decoration: InputDecoration(
+          labelText: 'Finish', hasFloatingPlaceholder: false),
+      onChanged: (dt) {
+        setState(() => _start = dt );
+      },
+    );
+  }
+
+  Widget _buildFinish() {
+    DateTimePickerFormField(
+      inputType: InputType.both,
+      format: DateFormat("EEEE, MMMM d, yyyy 'at' h:mm a"),
+      editable: false,
+      decoration: InputDecoration(
+          labelText: 'Finish', hasFloatingPlaceholder: false),
+    onChanged: (dt) {
+    setState(() => _finish = dt);
+    },
+    );
+  }
+
+  Widget _buildDESC() {
+    return TextFormField(
+      decoration: InputDecoration(labelText: 'Describtion'),
+      validator: (String value) {
+        if (value.isEmpty) {
+          return 'Describtion is Required';
+        }
+
+        return null;
+      },
+      onSaved: (String value) {
+        _desc = value;
+      },
+    );
+  }
+
+  Widget _buildPrize() {
+    return TextFormField(
+      decoration: InputDecoration(labelText: 'Prize'),
+      validator: (String value) {
+        if (value.isEmpty) {
+          return 'Prize is Required';
+        }
+
+        return null;
+      },
+      onSaved: (String value) {
+        _prize = value;
+      },
+    );
+  }
+
+  Widget _buildName() {
+    return TextFormField(
+      decoration: InputDecoration(labelText: 'Name'),
+      validator: (String value) {
+        if (value.isEmpty) {
+          return 'Name is Required';
+        }
+
+
+        return null;
+      },
+      onSaved: (String value) {
+        _name = value;
+      },
+    );
+  }
+Widget _buildTeam1(){
+  return TextFormField(
+    decoration: InputDecoration(labelText: 'Team number 1'),
+    validator: (String value) {
+      if (value.isEmpty) {
+        return 'Name is Required';
+      }
+
+
+      return null;
+    },
+    onSaved: (String value) {
+      _teams = value as List<Team>;
+    },
+  );
+}
+  Widget _buildTeam2(){
+    return TextFormField(
+      decoration: InputDecoration(labelText: 'Team number 2'),
+      validator: (String value) {
+        if (value.isEmpty) {
+          return 'Name is Required';
+        }
+
+
+        return null;
+      },
+      onSaved: (String value) {
+        _teams = value as List<Team>;
+      },
+    );
+  }
+  Widget _buildTeam3(){
+    return TextFormField(
+      decoration: InputDecoration(labelText: 'Team number 3'),
+      validator: (String value) {
+        if (value.isEmpty) {
+          return 'Name is Required';
+        }
+
+
+        return null;
+      },
+      onSaved: (String value) {
+        _teams = value as List<Team>;
+      },
+    );
+  }
+  Widget _buildTeam4(){
+    return TextFormField(
+      decoration: InputDecoration(labelText: 'Team number 4'),
+      validator: (String value) {
+        if (value.isEmpty) {
+          return 'Name is Required';
+        }
+
+
+        return null;
+      },
+      onSaved: (String value) {
+        _teams = value as List<Team>;
+      },
+    );
+  }
+  Widget _buildTeam5(){
+    return TextFormField(
+      decoration: InputDecoration(labelText: 'Team number 5'),
+      validator: (String value) {
+        if (value.isEmpty) {
+          return 'Name is Required';
+        }
+
+
+        return null;
+      },
+      onSaved: (String value) {
+        _teams = value as List<Team>;
+      },
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text("Add a new league")),
+      body: Container(
+        margin: EdgeInsets.all(24),
+        child: Form(
+          key: _formKey,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              _buildID(),
+              _buildName(),
+              _buildStart(),
+              _buildFinish(),
+              _buildDESC(),
+              _buildPrize(),
+              _buildTeam1(),
+              _buildTeam2(),
+              _buildTeam3(),
+              _buildTeam4(),
+              _buildTeam5(),
+              SizedBox(height: 100),
+              RaisedButton(
+                child: Text(
+                  'Submit',
+                  style: TextStyle(color: Colors.blue, fontSize: 16),
+                ),
+                onPressed: () async {
+                  var s=dateFormat.format(_start);
+                  var f= dateFormat.format(_finish);
+                  await LeagueService().addleague(
+                    _fieldid,s,f,_teams,_prize,_name,_desc
+                  );
+                  if (!_formKey.currentState.validate()) {
+                    return;
+                  }
+
+                  _formKey.currentState.save();
+
+                  print(_fieldid);
+                  print(_name);
+                  print(_start);
+                  print(_finish);
+                  print(_desc);
+                  print(_prize);
+                  print(_teams);
+
+
+                  //Send to API
+                },
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
