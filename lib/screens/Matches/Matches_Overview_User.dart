@@ -18,12 +18,7 @@ class MatchesOverview extends StatelessWidget {
       value: MatchService(userid:user.ID ).matchcontaimuser,
       
 
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text('Matches'),
-         
-        ),
-        body: Container(
+      child:  Container(
        /*   decoration: BoxDecoration(
             image: DecorationImage(
               image: AssetImage('images/5omasy.jpg'),
@@ -32,7 +27,7 @@ class MatchesOverview extends StatelessWidget {
           ),*/
           child: Matchview(),
         ),
-      ),
+      
     );
   }
 }

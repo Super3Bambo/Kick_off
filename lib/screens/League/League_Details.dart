@@ -83,6 +83,18 @@ _showSnackBar() {
     );
     _scaffoldKey.currentState.showSnackBar(snackBar);
   }
+  _showSnackBar3() {
+    final snackBar = new SnackBar(
+        content: new Text("League is full"),
+        duration: new Duration(seconds: 3),
+        //backgroundColor: Colors.pink[300],
+        action: new SnackBarAction(label: 'Back',
+         onPressed: (){
+           Navigator.pop(context);
+        }),
+    );
+    _scaffoldKey.currentState.showSnackBar(snackBar);
+  }
 
             return  Scaffold(
              key: _scaffoldKey,
@@ -228,6 +240,9 @@ _showSnackBar() {
                             if(myList.contains(widget.teamid.ID)){
                               _showSnackBar2();
                              // print(myList);
+                            }
+                            else if(myList.length==8){
+                              _showSnackBar3();
                             }
                             else{
                            await LeagueService().joinLeague(widget.league.ID, tmid);

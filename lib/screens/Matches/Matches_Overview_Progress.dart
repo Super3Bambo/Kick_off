@@ -26,12 +26,7 @@ class MatchesOverviewProgress extends StatelessWidget {
 //'/': (BuildContext context) =>_MainScreen(),
 '/invite': (BuildContext context) => Match_DetailsProgress(),
 },*/
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text('Matches'),
-
-        ),
-        body: Container(
+      child: Container(
        /*   decoration: BoxDecoration(
             image: DecorationImage(
               image: AssetImage('images/5omasy.jpg'),
@@ -40,7 +35,7 @@ class MatchesOverviewProgress extends StatelessWidget {
           ),*/
           child: MatchviewProgress(),
         ),
-      ),
+      
     );
   }
 }

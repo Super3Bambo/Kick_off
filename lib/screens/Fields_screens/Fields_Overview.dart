@@ -78,12 +78,7 @@ class FieldsOverview extends StatelessWidget {
 
     return StreamProvider<List<Field>>.value(
       value: FieldService().fieldses,
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text('Fields'),
-         
-        ),
-        body: Container(
+        child: Container(
         /*  decoration: BoxDecoration(
             image: DecorationImage(
               image: AssetImage('images/5omasy.jpg'),
@@ -92,7 +87,6 @@ class FieldsOverview extends StatelessWidget {
           ),*/
           child: Fieldview()
         ),
-      ),
     );
   }
 }

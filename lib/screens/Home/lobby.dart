@@ -4,10 +4,13 @@ import '../../Services/Auth.dart';
 class Lobby extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-      final AuthService _auth = AuthService();
 
-
-    return Scaffold(
+ return   Container(
+        
+    child: FieldsOverview(),
+    
+    );
+   /* return Scaffold(
       body: Center(
         child: Container(
           child: Column(
@@ -76,6 +79,6 @@ class Lobby extends StatelessWidget {
           )
         )
       ),
-    );
+    );*/
   }
 }

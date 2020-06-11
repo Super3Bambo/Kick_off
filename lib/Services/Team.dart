@@ -63,6 +63,14 @@ Future <void> joinLeague(String ID , List<League> team)async{
     
   return await teams.document(ID).updateData({'League':FieldValue.arrayUnion(team.map((e) => {'LeagueID': e.ID}).toList())});
 }
+Future <void> joinTeam(String ID , List<User> user)async{
+    
+  return await teams.document(ID).updateData({'Players':FieldValue.arrayUnion(user.map((e) => {'UserID': e.ID}).toList())});
+}
+Future <void> disjoinTeam(String ID , List<User> user)async{
+    
+  return await teams.document(ID).updateData({'Players':FieldValue.arrayUnion(user.map((e) => {'LeagueID': e.ID}).toList())});
+}
 
   List<Team> _teamsFromSnapshot(QuerySnapshot snapshot) {
     return  snapshot.documents.map((doc){

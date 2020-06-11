@@ -18,12 +18,7 @@ class MatchesOverview_History extends StatelessWidget {
       value: MatchService(userid:user.ID ).historymatchesevaluted,
       
 
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text('Matches'),
-         
-        ),
-        body: Container(
+      child:  Container(
        /*   decoration: BoxDecoration(
             image: DecorationImage(
               image: AssetImage('images/5omasy.jpg'),
@@ -32,7 +27,7 @@ class MatchesOverview_History extends StatelessWidget {
           ),*/
           child: Matchview_History(),
         ),
-      ),
+      
     );
   }
 }

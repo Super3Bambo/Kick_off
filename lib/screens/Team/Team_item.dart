@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/Services/Team.dart';
+import 'package:flutter_app/Services/User.dart';
 import 'package:flutter_app/Shared/Loading.dart';
+import 'package:flutter_app/models/User.dart';
 import 'package:flutter_app/models/team.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
@@ -14,11 +17,19 @@ class TeamItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
         DateFormat dateFormat = DateFormat("yyyy-MM-dd HH:00:00:000");
-
+          User user =Provider.of<User>(context);
+          List<User> users =[
+            User(ID: user.ID),
+          ];
         Team team = Provider.of<Team>(context);
         godetails(Team id){
 Navigator.push(context,MaterialPageRoute(builder: (context)=> TeamBoard(team: team)  ) );}
 if(team!=null){
+  return StreamBuilder<User>(
+      stream: UserService(userid: user.ID).userData,
+      builder: (context, snapshot){
+        if(snapshot.hasData){
+          User userData = snapshot.data;
    return Container(
           margin: EdgeInsets.fromLTRB(10.0, 8.0, 10.0, 10.0),
                   child: SingleChildScrollView(
@@ -33,11 +44,11 @@ if(team!=null){
                           fit: BoxFit.cover,
                         ),*/
                                      Container(
-                                      margin: EdgeInsets.all(8.0), 
+                                      margin: EdgeInsets.all(9.0), 
                                       child: ClipRRect(
                                         borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                                          child: Image.network( team.Photo ,fit: BoxFit.cover,
-                        ),
+                                          child: team.Photo!=null? Image.network( team.Photo ,fit: BoxFit.cover, width: 400,height: 280,
+                        ):Image.network( 'https://image.freepik.com/free-vector/character-football-team-players-holding-trophy_16539-56.jpg' ,fit: BoxFit.cover),
                                         ),
                                       )
                                      
@@ -84,7 +95,7 @@ if(team!=null){
                                   child: Icon(FontAwesome.sort_numeric_asc , size: 20, color: Colors.blue,),),
                                   Container(
                                     margin: EdgeInsets.only(left:110, top: 10),
-                                        child: Text(team.NO_team ,style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
+                                        child: Text( team.users.length.toString() +' of ' + team.NO_team ,style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
 )
                                   
                                   
@@ -100,13 +111,27 @@ if(team!=null){
                                         child: Text('Info',style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
                                 ),
                                     Container(
-                                      margin: EdgeInsets.only(left:90,top: 2),
+                                      margin: EdgeInsets.only(left:90,top: 2 ,right: 50),
                                   child:IconButton(icon: Icon(FontAwesome.info_circle,color: Colors.red[900],), onPressed: ()=> godetails(team),autofocus: true,
                                   focusColor:Colors.grey , hoverColor: Colors.red[900],padding: EdgeInsets.all(10),
                                   ) 
                                   ),
-                                  
-                                  
+                                   Container(
+                                      margin: EdgeInsets.only(top:12, right: 15),
+                                        child: Text('Leave',style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
+                                ),
+                                  Container(
+                                      margin: EdgeInsets.only(top: 0 ),
+                                  child: IconButton(icon: Icon(FontAwesome.sign_out , size: 30, color: Colors.purpleAccent ,), 
+                                onPressed:()async{
+                            await TeamService().disjoinTeam(team.ID, users);
+                            String teamid="";
+                            
+                          await UserService(userid: user.ID).updateUserData(userData.FName, userData.LName, userData.Age, userData.Position, userData.Area, userData.Phone, 
+                          userData.Photo_url, teamid, userData.Token);
+                          //Navigator.pop(context);
+                                }
+                                ))
                                   
                                 ],
                                 ),
@@ -164,7 +189,7 @@ if(team!=null){
 
                             ),),
                                  Container(
-                                 margin: EdgeInsets.only(top:15,bottom: 10) ,
+                                 margin: EdgeInsets.only(top:15,bottom: 0) ,
                                  child:Row(
                                    mainAxisAlignment:MainAxisAlignment.spaceBetween,
                               mainAxisSize:MainAxisSize.max,
@@ -189,7 +214,7 @@ if(team!=null){
                               ],
 
                             ),),
-
+                              
                               ],
                             ),
 
@@ -197,8 +222,11 @@ if(team!=null){
                             new Row(
                            mainAxisAlignment:MainAxisAlignment.center,
 
-                              children: <Widget>[])])
-                              )
+                              children: <Widget>[
+                               
+                              ])])
+                              ),
+                                
                               ]
                               )
                               )
@@ -225,7 +253,7 @@ Navigator.push(context,MaterialPageRoute(builder: (context)=> TeamBoard(team: te
       ),
     )
     );*/
-
+        }else{return Loading();}});
 
 }else{return Loading();} 
   }
