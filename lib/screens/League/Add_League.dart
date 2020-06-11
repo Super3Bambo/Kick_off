@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/Services/Fields.dart';
 import 'package:flutter_app/Services/League.dart';
 import 'package:flutter_app/models/team.dart';
 import 'package:flutter/cupertino.dart';
@@ -20,11 +21,10 @@ class FormScreenState extends State<FormScreen> {
   String _prize;
   String _name;
   List<Team> _teams;
-  DateFormat dateFormat = DateFormat("yyyy-MM-dd HH:00:00:000");
 
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
-  Widget _buildID() {
+  /*Widget _buildID() {
     return TextFormField(
       decoration: InputDecoration(labelText: 'ID'),
       validator: (String value) {
@@ -193,32 +193,217 @@ Widget _buildTeam1(){
         _teams = value as List<Team>;
       },
     );
-  }
+  }*/
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text("Add a new league")),
-      body: Container(
-        margin: EdgeInsets.all(24),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              _buildID(),
-              _buildName(),
-              _buildStart(),
-              _buildFinish(),
-              _buildDESC(),
-              _buildPrize(),
-              _buildTeam1(),
-              _buildTeam2(),
-              _buildTeam3(),
-              _buildTeam4(),
-              _buildTeam5(),
-              SizedBox(height: 100),
-              RaisedButton(
+    DateFormat dateFormat = DateFormat("yyyy-MM-dd HH:00:00:000");
+
+    return  Scaffold (
+        key: _scaffoldKey,
+        appBar: AppBar(
+        title: Text('Add a new league!'),
+    ),
+
+    body: Container(
+    child: Center(
+    child: SingleChildScrollView(
+    child: Column(
+    mainAxisAlignment: MainAxisAlignment.start,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: <Widget>[
+    new Row(
+    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    children: <Widget>[
+
+
+    ],),
+
+    SizedBox(
+    height: 20.0,
+    ),
+    TextFormField(
+    decoration: InputDecoration(labelText: 'ID'),
+    validator: (String value) {
+    if (value.isEmpty) {
+    return 'ID is Required';
+    }
+
+    return null;
+    },
+    onSaved: (String value) {
+    _fieldid = value;
+    },
+    ),  SizedBox(
+    height: 20.0,
+    ),
+    DateTimePickerFormField(
+    inputType: InputType.both,
+    format: DateFormat("EEEE, MMMM d, yyyy 'at' h:mm a"),
+    editable: false,
+    decoration: InputDecoration(
+    labelText: 'Start', hasFloatingPlaceholder: false),
+    onChanged: (dt) {
+    setState(() => _start = dt );
+    },
+    ),
+
+    SizedBox(
+    height: 20.0,
+    ),
+
+    DateTimePickerFormField(
+    inputType: InputType.both,
+    format: DateFormat("EEEE, MMMM d, yyyy 'at' h:mm a"),
+    editable: false,
+    decoration: InputDecoration(
+    labelText: 'Finish', hasFloatingPlaceholder: false),
+    onChanged: (dt) {
+    setState(() => _finish = dt);
+    },
+    ),
+    SizedBox(
+    height: 20.0,
+    ),
+
+    TextFormField(
+    decoration: InputDecoration(labelText: 'Describtion'),
+    validator: (String value) {
+    if (value.isEmpty) {
+    return 'Describtion is Required';
+    }
+
+    return null;
+    },
+    onSaved: (String value) {
+    _desc = value;
+    },
+    ),
+
+    SizedBox(
+    height: 20.0,
+    ),
+    TextFormField(
+    decoration: InputDecoration(labelText: 'Prize'),
+    validator: (String value) {
+    if (value.isEmpty) {
+    return 'Prize is Required';
+    }
+
+    return null;
+    },
+    onSaved: (String value) {
+    _prize = value;
+    },
+    ),
+    SizedBox(
+    height: 20.0,
+    ),
+    TextFormField(
+    decoration: InputDecoration(labelText: 'Name'),
+    validator: (String value) {
+    if (value.isEmpty) {
+    return 'Name is Required';
+    }
+
+
+    return null;
+    },
+    onSaved: (String value) {
+    _name = value;
+    },
+    ),
+    SizedBox(
+    height: 20.0,
+    ),
+    TextFormField(
+    decoration: InputDecoration(labelText: 'Team number 1'),
+    validator: (String value) {
+    if (value.isEmpty) {
+    return 'Name is Required';
+    }
+
+
+    return null;
+    },
+    onSaved: (String value) {
+    _teams = value as List<Team>;
+    },
+    ),
+    SizedBox(
+    height: 20.0,
+    ),
+    TextFormField(
+    decoration: InputDecoration(labelText: 'Team number 2'),
+    validator: (String value) {
+    if (value.isEmpty) {
+    return 'Name is Required';
+    }
+
+
+    return null;
+    },
+    onSaved: (String value) {
+    _teams = value as List<Team>;
+    },
+    ),
+    SizedBox(
+    height: 20.0,
+    ),
+    TextFormField(
+    decoration: InputDecoration(labelText: 'Team number 3'),
+    validator: (String value) {
+    if (value.isEmpty) {
+    return 'Name is Required';
+    }
+
+
+    return null;
+    },
+    onSaved: (String value) {
+    _teams = value as List<Team>;
+    },
+    ),
+    SizedBox(
+    height: 20.0,
+    ),
+    TextFormField(
+    decoration: InputDecoration(labelText: 'Team number 4'),
+    validator: (String value) {
+    if (value.isEmpty) {
+    return 'Name is Required';
+    }
+
+
+    return null;
+    },
+    onSaved: (String value) {
+    _teams = value as List<Team>;
+    },
+    ),
+    SizedBox(
+    height: 20.0,
+    ),
+    TextFormField(
+    decoration: InputDecoration(labelText: 'Team number 5'),
+    validator: (String value) {
+    if (value.isEmpty) {
+    return 'Name is Required';
+    }
+
+
+    return null;
+    },
+    onSaved: (String value) {
+    _teams = value as List<Team>;
+    },
+    ),
+    SizedBox(
+    height: 20.0,
+    ),
+
+
+    RaisedButton(
                 child: Text(
                   'Submit',
                   style: TextStyle(color: Colors.blue, fontSize: 16),
@@ -229,11 +414,8 @@ Widget _buildTeam1(){
                   await LeagueService().addleague(
                     _fieldid,s,f,_teams,_prize,_name,_desc
                   );
-                  if (!_formKey.currentState.validate()) {
-                    return;
-                  }
+                  Navigator.pop(context);
 
-                  _formKey.currentState.save();
 
                   print(_fieldid);
                   print(_name);
@@ -248,9 +430,10 @@ Widget _buildTeam1(){
                 },
               )
             ],
+
           ),
         ),
       ),
-    );
+    ),);
   }
 }
