@@ -7,12 +7,12 @@ class Field  {
 
    String ID;
    String Name;
-   String Capacitance;
+   int Capacitance;
    String Location;
    String Start_at;
    String Finish_at;
    String Duration;
-   String Price;
+   int Price;
    String Date;
    String Photo_url;
    bool  Ball;

@@ -20,7 +20,7 @@ final CollectionReference league = Firestore.instance.collection('League');
       'Description': desc,
       'Prize':prize,
       'Name':name,
-      'Teams': teams.map((u)=>{'TeamID' :u.ID,}).toList(),
+      'Teams': teams.toList(),
         //'Players' : users,
       // Map<String, dynamic>  {'Players': users}
   //   'Players': Match().mapping(),

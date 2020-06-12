@@ -335,7 +335,7 @@ _showSnackBar() {
                                     var f=dateFormat.parse(widget.matchid.Check_in);
                                       var duration =f.add(new Duration(hours: 1));
 
-
+                                           _showSnackBar();
                                            List<Field> starts=[
                                         Field(Start_at:widget.matchid.Check_in )];
                                           List<Field> finishs=[
@@ -354,14 +354,15 @@ _showSnackBar() {
                                  await MatchService().editMatch(widget.matchid.ID ,widget.matchid.Field, widget.matchid.Date.toDate() ,widget.matchid.Location, widget.matchid.Check_in,
                                widget.matchid.Check_out , widget.matchid.Price, count , widget.matchid.Topic);
                                
-                                   _showSnackBar();
+                                  
 
                             }else{
 
 
                                
 
-                                  
+                                                                _showSnackBar();
+
                                     var f=dateFormat.parse(widget.matchid.Check_in);
                                       var duration =f.add(new Duration(hours: 1));
 
@@ -382,7 +383,6 @@ _showSnackBar() {
                               _fcm.unsubscribeFromTopic(widget.matchid.Topic);
                                await MatchService().deleteMatch(widget.matchid.ID ,widget.matchid.Field, widget.matchid.Date.toDate() ,widget.matchid.Location, widget.matchid.Check_in,
                                widget.matchid.Check_out , widget.matchid.Price, count , widget.matchid.Topic);
-                              _showSnackBar();
                           }}
                           ),
                           

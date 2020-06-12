@@ -4,33 +4,35 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class FieldService {
 
-  final String fieldid;
+  final String fieldid , ownerid;
 
-  FieldService({this.fieldid});
+  FieldService({this.fieldid, this.ownerid});
 
   final CollectionReference field = Firestore.instance.collection('Field');
 
   
-  Future<void> addFieldData(String name, String cap, String location ,String price, bool ref , bool ball , bool bathroom ,   ) async {
-    List<Field> start; List <Field> finish ; List<Field> duration;
-    List<FieldRating> rating;
+  Future<void> addFieldData(String name,  String location ,int price, bool ref , bool ball , bool bathroom , List<Field> time,List<FieldRating> rating  
+  ,String start ,String end ,String owner) async {
     return await field.document().setData({
       'Name': name,
-      'Capacitance': cap,
+      'Owner':owner,
+      'Capacitance': 10,
       'Location': location,
       'Price': price,
+      'Starttime':start,
+      'Endtime':end,
        'Ball': true,
       'Bathroom': true,
       'Refree': false,
-      'Start':  start.map((u)=>{'StartTime' :DateTime.now().toString(),}).toList(),
-      'Finish': finish.map((u)=>{'FinishTime' :DateTime.now().toString(),}).toList(),
-      'Duration': duration.map((u)=>{'Dur' :DateTime.now().toString(),}).toList(),
-      'Rate': rating.map((r)=>{
-      'Rates':r.Rate=0,
-      }).toList(),
+      'Start':  time.map((u)=>{'StartTime' :DateTime.now().toString(),}).toList(),
+      'Finish': time.map((u)=>{'FinishTime' :DateTime.now().toString(),}).toList(),
+      'Duration': time.map((u)=>{'Dur' :DateTime.now().toString(),}).toList(),
+      'Rate': rating.map((r)=>{'Rates':r.Rate,}).toList(),
       
     });
   }
+  Future<void> deleteField(id) async {
+    return await field.document(id).delete();}
 
   Future <void> timestart(String ID , List<Field> time)async{
     
@@ -114,6 +116,9 @@ Stream<List<Field>> get fieldses {
   }
   Stream<Field> get fieldd {
     return field.document(fieldid).snapshots().map(_onefieldDataFromSnapshot);
+  }
+  Stream<List<Field>> get fieldsowner {
+    return field.where('Owner', isEqualTo: ownerid).snapshots().map(_fieldDataFromSnapshot);
   }
   /*
   Field _onefieldDataFromSnapshot(DocumentSnapshot snapshot) {

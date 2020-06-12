@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/screens/Home/dashboard.dart';
+import 'package:flutter_app/screens/OwnerDashBoard/dashboard.dart';
 
 class Help extends StatelessWidget
 {
@@ -21,7 +21,7 @@ class Help extends StatelessWidget
           new Row(
             children: <Widget>[
               new FlatButton( onPressed: () { Navigator.push(context, MaterialPageRoute(builder: (context) =>Dashboard() ),); },
-                   child: Text('Dashboard ya Farrag ya metnak'))
+                   child: Text('Dashboard ya Farrag'))
             ],
           ),
           ]

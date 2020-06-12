@@ -5,25 +5,19 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_app/Services/Fields.dart';
-import 'package:flutter_app/Services/User.dart';
-import 'package:flutter_app/Shared/Loading.dart';
-import 'package:flutter_app/screens/Matches/Match_Details_Complete.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:flutter_app/Services/Match.dart';
+import 'package:flutter_app/models/User.dart';
+import 'package:flutter_app/models/field.dart';
 import 'package:getflutter/getflutter.dart';
 import 'package:random_string_one/random_string.dart';
-import '../../models/field.dart';
-import '../../Services/Match.dart';
-import '../../models/User.dart';
-import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 
 
 
 
-class FieldDetails extends StatefulWidget {
+class FieldDetailsowner extends StatefulWidget {
   final Field fieldid;
    final List<String> imageList = [
   "https://cdn.pixabay.com/photo/2017/12/03/18/04/christmas-balls-2995437_960_720.jpg",
@@ -34,17 +28,17 @@ class FieldDetails extends StatefulWidget {
   "https://cdn.pixabay.com/photo/2016/11/22/07/09/spruce-1848543__340.jpg"
 ];
 
-  FieldDetails({this.fieldid});
+  FieldDetailsowner({this.fieldid});
 
 
 
 
 
   @override
-  _FieldDetailsState createState() => _FieldDetailsState();
+  _FieldDetailsownerState createState() => _FieldDetailsownerState();
 }
 
-class _FieldDetailsState extends State<FieldDetails> {
+class _FieldDetailsownerState extends State<FieldDetailsowner> {
   DateTime start, finish ;
   int diff,diff2;
   DateTime now=DateTime.now();
@@ -52,131 +46,6 @@ bool loading = false;
 
 final FirebaseMessaging _fcm = FirebaseMessaging();
 final Firestore _db = Firestore.instance;
-  /*
-
-  
-FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin= new FlutterLocalNotificationsPlugin();
-var initilizationSettingsAndroid;
-var initilizationSettings;
-var initilizationSettingsIOS;
-
-void _showNotification()async{
-await _demoNotification();
-}
-
-Future<void> _demoNotification()async{
- var androidPlateform= AndroidNotificationDetails('channel ID','channel name','chaneel Description',importance: Importance.Max,priority: Priority.High,ticker: 'text ticker');
- var iosPlateform=IOSNotificationDetails();
-  var plateformChannel=NotificationDetails(androidPlateform,iosPlateform);
-  await flutterLocalNotificationsPlugin.show(0, 'A new Match', 'Come and join us!', plateformChannel,payload: 'test payload');
-}
-
-
-  @override
-  void initState() {
-    super.initState();
-    initilizationSettingsAndroid = new AndroidInitializationSettings('app_icon');
-  initilizationSettings=new InitializationSettings(initilizationSettingsAndroid, initilizationSettingsIOS);
-  initilizationSettingsIOS = new IOSInitializationSettings(
-        onDidReceiveLocalNotification: onDidReceiveLocalNotification);
-    initilizationSettings = new InitializationSettings(
-        initilizationSettingsAndroid, initilizationSettingsIOS);
-    flutterLocalNotificationsPlugin.initialize(initilizationSettings,
-        onSelectNotification: onSelectNotification);
-
-    _fcm.configure(
-      onMessage: (Map<String, dynamic> message) async {
-         // _showNotification();
-         showDialog(
-          context: context,
-          builder: (context) => AlertDialog(
-                content: ListTile(
-                  title: Text(message['notification']['title']),
-                  subtitle: Text(message['notification']['body']),
-                ),
-                actions: <Widget>[
-                  FlatButton(
-                    color: Colors.amber,
-                    child: Text('Ok'),
-                    onPressed: () => Navigator.of(context).pop(),
-                  ),
-                ],
-              ),
-        );
-
- 
-        print("onMessage: $message");
-        // final snackbar = SnackBar(
-        //   content: Text(message['notification']['title']),
-        //   action: SnackBarAction(
-        //     label: 'Go',
-        //     onPressed: () => null,
-        //   ),
-        // );
-
-        // Scaffold.of(context).showSnackBar(snackbar);
-       /* showDialog(
-          context: context,
-          builder: (context) => AlertDialog(
-                content: ListTile(
-                  title: Text(message['notification']['title']),
-                  subtitle: Text(message['notification']['body']),
-                ),
-                actions: <Widget>[
-                  FlatButton(
-                    color: Colors.amber,
-                    child: Text('Ok'),
-                    onPressed: () => Navigator.of(context).pop(),
-                  ),
-                ],
-              ),
-        );*/
-      },
-      onLaunch: (Map<String, dynamic> message) async {
-        print("onLaunch: $message");
-        // TODO optional
-      },
-      onResume: (Map<String, dynamic> message) async {
-        print("onResume: $message");
-        // TODO optional
-      },
-    );
-  }
-
-Future onDidReceiveLocalNotification(
-      int id, String title, String body, String payload) async {
-    await showDialog(
-        context: context,
-        builder: (BuildContext context) => CupertinoAlertDialog(
-              title: Text(title),
-              content: Text(body),
-              actions: <Widget>[
-                CupertinoDialogAction(
-                  isDefaultAction: true,
-                  child: Text('Ok'),
-                  onPressed: () async {
-                    Navigator.of(context, rootNavigator: true).pop();
-                    await Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => Match_Details()));
-                  },
-                )
-              ],
-            ));
-
-
-    }
-Future onSelectNotification(String payload)async{
-if(payload!=null){
-  debugPrint('Notification Payload : $payload');
-}
-await Navigator.push(context, new MaterialPageRoute(builder: (context) =>new Match_Details()));
-}
-
-
-  @override
-  void dispose() {
-    super.dispose();
-  }*/
     final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
 
@@ -185,12 +54,12 @@ await Navigator.push(context, new MaterialPageRoute(builder: (context) =>new Mat
         int sum = 0;
     widget.fieldid.rate.map((e) => e.Rate).forEach((int e){sum += e;});
       double count= sum/widget.fieldid.rate.length;
-    User user = Provider.of<User>(context);
-    List<User> users = [
-      User(
-        ID: user.ID,
-      ),
-    ];
+    // User user = Provider.of<User>(context);
+    // List<User> users = [
+    //   User(
+    //     ID: user.ID,
+    //   ),
+    // ];
 
     
         List<String> startfield = List<String>();
@@ -210,11 +79,6 @@ List<String> durationfield = List<String>();
 
 
 DateFormat dateFormat = DateFormat("yyyy-MM-dd HH:00:00:000");
-    return StreamBuilder<User>(
-      stream: UserService(userid: user.ID).userData,
-      builder: (context, snapshot) {
-        if(snapshot.hasData){
-          User userData = snapshot.data;
           return  Scaffold (
              key: _scaffoldKey,
           appBar: AppBar(
@@ -378,12 +242,12 @@ DateFormat dateFormat = DateFormat("yyyy-MM-dd HH:00:00:000");
                                 ),
                                 
                                 onPressed: () async {
-                                  List<String> startuser = List<String>();
-                                        startuser = userData.start_time.map((e) => e.Start_at).toList();
-                                  List<String> finishuser = List<String>();
-                                        finishuser =userData.finish_time.map((e) => e.Finish_at).toList();
-                                  List<String> durationuser = List<String>();
-                                         durationuser =userData.duration.map((e) => e.Duration).toList();
+                                  // List<String> startuser = List<String>();
+                                  //       startuser = userData.start_time.map((e) => e.Start_at).toList();
+                                  // List<String> finishuser = List<String>();
+                                  //       finishuser =userData.finish_time.map((e) => e.Finish_at).toList();
+                                  // List<String> durationuser = List<String>();
+                                  //        durationuser =userData.duration.map((e) => e.Duration).toList();
 
 
                                      var duration = start.add(new Duration(hours: 1));
@@ -397,7 +261,7 @@ DateFormat dateFormat = DateFormat("yyyy-MM-dd HH:00:00:000");
                                         ];
 
                                   if (start.isAfter(finish)) {
-                                        Alert(context:  context, title: "Error",desc:startuser.first ).show();
+                                        Alert(context:  context, title: "Error",desc:'gg' ).show();
  
                                     }
                                     else if(start.isBefore(DateTime.now())){
@@ -405,23 +269,23 @@ DateFormat dateFormat = DateFormat("yyyy-MM-dd HH:00:00:000");
 
                                     }
                                    
-                                    else if(finishuser.contains(dateFormat.format(start))||finishuser.contains(dateFormat.format(finish))||
-                                   finishuser.contains(dateFormat.format(duration))){
-                                        Alert(context:  _scaffoldKey.currentContext, title: "Error",desc: 'bb' ).show();
+                                //     else if(finishuser.contains(dateFormat.format(start))||finishuser.contains(dateFormat.format(finish))||
+                                //    finishuser.contains(dateFormat.format(duration))){
+                                //         Alert(context:  _scaffoldKey.currentContext, title: "Error",desc: 'bb' ).show();
  
-                                   }
+                                //    }
                                     
-                                    else if(startuser.contains(dateFormat.format(start))||startuser.contains(dateFormat.format(finish))|| 
-                                    startuser.contains(dateFormat.format(duration))){
-                                                                        Alert(context:  _scaffoldKey.currentContext, title: "Error",desc: 'bb' ).show();
+                                //     else if(startuser.contains(dateFormat.format(start))||startuser.contains(dateFormat.format(finish))|| 
+                                //     startuser.contains(dateFormat.format(duration))){
+                                //                                         Alert(context:  _scaffoldKey.currentContext, title: "Error",desc: 'bb' ).show();
  
-                                   }
-                                   else  if(durationuser.contains(dateFormat.format(start))||durationuser.contains(dateFormat.format(finish))|| 
-                                   durationuser.contains(dateFormat.format(duration))){
+                                //    }
+                                //    else  if(durationuser.contains(dateFormat.format(start))||durationuser.contains(dateFormat.format(finish))|| 
+                                //    durationuser.contains(dateFormat.format(duration))){
                                      
-                                        Alert(context:  _scaffoldKey.currentContext, title: "Error",desc: 'bb' ).show();
+                                //         Alert(context:  _scaffoldKey.currentContext, title: "Error",desc: 'bb' ).show();
  
-                                 }
+                                //  }
                                    else  if(startfield.contains(dateFormat.format(start))||startfield.contains(dateFormat.format(finish))||
                                    startfield.contains(dateFormat.format(duration))){
                                       
@@ -442,7 +306,8 @@ DateFormat dateFormat = DateFormat("yyyy-MM-dd HH:00:00:000");
                                     }
                                  
                                    else {
-    // Subscribe the user to a topic
+    // Subscribe the user to a topic  
+                                    List<User>users=[];
                                      var s=dateFormat.format(start);
                                      var f= dateFormat.format(finish);
                                      var topic=  randomString(9, includeSymbols: false , includeNumbers: false , includeLowercase: false );
@@ -459,9 +324,9 @@ DateFormat dateFormat = DateFormat("yyyy-MM-dd HH:00:00:000");
                                         await FieldService().timestart(widget.fieldid.ID, starts);
                                         await FieldService().timefinish(widget.fieldid.ID, finishs);
                                         await FieldService().duration(widget.fieldid.ID, dur);
-                                        await UserService().timestart(userData.ID, starts);
-                                        await UserService().timefinish(userData.ID, finishs);
-                                        await UserService().duration(userData.ID, dur);
+                                       // await UserService().timestart(userData.ID, starts);
+                                       // await UserService().timefinish(userData.ID, finishs);
+                                       // await UserService().duration(userData.ID, dur);
                                     // _showNotification();
                                     Navigator.pop(context);
                                  
@@ -475,7 +340,6 @@ DateFormat dateFormat = DateFormat("yyyy-MM-dd HH:00:00:000");
                 )
             ),
           )
-          );}else{return Loading();}}
     );
   }
 }

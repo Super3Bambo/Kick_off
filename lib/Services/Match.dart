@@ -7,8 +7,8 @@ import 'package:random_string_one/random_string.dart';
 import '../models/User.dart';
 class MatchService {
 
-final String userid,teamid, matchid;
-  MatchService({ this.userid ,this.teamid, this.matchid});
+final String userid,teamid, matchid , fieldid;
+  MatchService({ this.userid ,this.teamid, this.matchid ,this.fieldid});
   
 
   final CollectionReference matches = Firestore.instance.collection('Match');
@@ -32,9 +32,25 @@ final String userid,teamid, matchid;
       // Map<String, dynamic>  {'Players': users}
   //   'Players': Match().mapping(),
   
-  });
-      
-  }
+  });  }
+Future<void> addMatchadmin( String fieldid, String location  ,String start ,String finish ,String price, List<User> users ,String topic ) async {
+    return await matches.document().setData({
+      'FieldId': fieldid,
+      'Location': location,
+      'Start_at': start ,
+      'Finish_at': finish,
+      'Price': price,
+      'Topic':topic,
+      'Counter': 1,
+      'Challenge':false,
+      'Date': DateTime.now(),
+      'Players': users.toList(),
+      "evaluted":users.toList(),
+      'Deleted':false,
+  
+  });}
+
+
  Future<void> addChallenge( String fieldid, String location  ,String start ,String finish ,String price, List<Team> teams ,String topic ) async {
     return await matches.document().setData({
       'FieldId': fieldid,
@@ -151,7 +167,12 @@ List<Match> _matchesFromSnapshot(QuerySnapshot snapshot) {
 
   
   
+Stream<List<Match>> get matchowner {
+  
+    return matches.where('FieldId' , isEqualTo: fieldid).
+    snapshots().map(_matchesFromSnapshot);
 
+  }
 Stream<List<Match>> get allmatches {
   
     return matches.where("Start_at" ,isGreaterThan: DateTime.now().toString()).where('Challenge' ,isEqualTo: false). where('Deleted' ,isEqualTo: false).

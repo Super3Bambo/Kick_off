@@ -89,7 +89,7 @@ Navigator.push(context,MaterialPageRoute(builder: (context)=> FieldDetailsTeam(f
     children: <Widget>[
 
     Text('Name' +':' +fields.Name, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),),
-    Text('Price' + ':'+ fields.Price,style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20))  ,
+    Text('Price' + ':'+ fields.Price.toString(),style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20))  ,
     ]))
 
 

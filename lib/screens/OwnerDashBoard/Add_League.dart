@@ -24,177 +24,6 @@ class FormScreenState extends State<FormScreen> {
 
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
-  /*Widget _buildID() {
-    return TextFormField(
-      decoration: InputDecoration(labelText: 'ID'),
-      validator: (String value) {
-        if (value.isEmpty) {
-          return 'ID is Required';
-        }
-
-        return null;
-      },
-      onSaved: (String value) {
-        _fieldid = value;
-      },
-    );
-  }
-
-  Widget _buildStart() {
-    DateTimePickerFormField(
-      inputType: InputType.both,
-      format: DateFormat("EEEE, MMMM d, yyyy 'at' h:mm a"),
-      editable: false,
-      decoration: InputDecoration(
-          labelText: 'Finish', hasFloatingPlaceholder: false),
-      onChanged: (dt) {
-        setState(() => _start = dt );
-      },
-    );
-  }
-
-  Widget _buildFinish() {
-    DateTimePickerFormField(
-      inputType: InputType.both,
-      format: DateFormat("EEEE, MMMM d, yyyy 'at' h:mm a"),
-      editable: false,
-      decoration: InputDecoration(
-          labelText: 'Finish', hasFloatingPlaceholder: false),
-    onChanged: (dt) {
-    setState(() => _finish = dt);
-    },
-    );
-  }
-
-  Widget _buildDESC() {
-    return TextFormField(
-      decoration: InputDecoration(labelText: 'Describtion'),
-      validator: (String value) {
-        if (value.isEmpty) {
-          return 'Describtion is Required';
-        }
-
-        return null;
-      },
-      onSaved: (String value) {
-        _desc = value;
-      },
-    );
-  }
-
-  Widget _buildPrize() {
-    return TextFormField(
-      decoration: InputDecoration(labelText: 'Prize'),
-      validator: (String value) {
-        if (value.isEmpty) {
-          return 'Prize is Required';
-        }
-
-        return null;
-      },
-      onSaved: (String value) {
-        _prize = value;
-      },
-    );
-  }
-
-  Widget _buildName() {
-    return TextFormField(
-      decoration: InputDecoration(labelText: 'Name'),
-      validator: (String value) {
-        if (value.isEmpty) {
-          return 'Name is Required';
-        }
-
-
-        return null;
-      },
-      onSaved: (String value) {
-        _name = value;
-      },
-    );
-  }
-Widget _buildTeam1(){
-  return TextFormField(
-    decoration: InputDecoration(labelText: 'Team number 1'),
-    validator: (String value) {
-      if (value.isEmpty) {
-        return 'Name is Required';
-      }
-
-
-      return null;
-    },
-    onSaved: (String value) {
-      _teams = value as List<Team>;
-    },
-  );
-}
-  Widget _buildTeam2(){
-    return TextFormField(
-      decoration: InputDecoration(labelText: 'Team number 2'),
-      validator: (String value) {
-        if (value.isEmpty) {
-          return 'Name is Required';
-        }
-
-
-        return null;
-      },
-      onSaved: (String value) {
-        _teams = value as List<Team>;
-      },
-    );
-  }
-  Widget _buildTeam3(){
-    return TextFormField(
-      decoration: InputDecoration(labelText: 'Team number 3'),
-      validator: (String value) {
-        if (value.isEmpty) {
-          return 'Name is Required';
-        }
-
-
-        return null;
-      },
-      onSaved: (String value) {
-        _teams = value as List<Team>;
-      },
-    );
-  }
-  Widget _buildTeam4(){
-    return TextFormField(
-      decoration: InputDecoration(labelText: 'Team number 4'),
-      validator: (String value) {
-        if (value.isEmpty) {
-          return 'Name is Required';
-        }
-
-
-        return null;
-      },
-      onSaved: (String value) {
-        _teams = value as List<Team>;
-      },
-    );
-  }
-  Widget _buildTeam5(){
-    return TextFormField(
-      decoration: InputDecoration(labelText: 'Team number 5'),
-      validator: (String value) {
-        if (value.isEmpty) {
-          return 'Name is Required';
-        }
-
-
-        return null;
-      },
-      onSaved: (String value) {
-        _teams = value as List<Team>;
-      },
-    );
-  }*/
-
   @override
   Widget build(BuildContext context) {
     DateFormat dateFormat = DateFormat("yyyy-MM-dd HH:00:00:000");
@@ -234,7 +63,8 @@ Widget _buildTeam1(){
     onSaved: (String value) {
     _fieldid = value;
     },
-    ),  SizedBox(
+    ),
+      SizedBox(
     height: 20.0,
     ),
     DateTimePickerFormField(
@@ -437,3 +267,175 @@ Widget _buildTeam1(){
     ),);
   }
 }
+
+
+  /*Widget _buildID() {
+    return TextFormField(
+      decoration: InputDecoration(labelText: 'ID'),
+      validator: (String value) {
+        if (value.isEmpty) {
+          return 'ID is Required';
+        }
+
+        return null;
+      },
+      onSaved: (String value) {
+        _fieldid = value;
+      },
+    );
+  }
+
+  Widget _buildStart() {
+    DateTimePickerFormField(
+      inputType: InputType.both,
+      format: DateFormat("EEEE, MMMM d, yyyy 'at' h:mm a"),
+      editable: false,
+      decoration: InputDecoration(
+          labelText: 'Finish', hasFloatingPlaceholder: false),
+      onChanged: (dt) {
+        setState(() => _start = dt );
+      },
+    );
+  }
+
+  Widget _buildFinish() {
+    DateTimePickerFormField(
+      inputType: InputType.both,
+      format: DateFormat("EEEE, MMMM d, yyyy 'at' h:mm a"),
+      editable: false,
+      decoration: InputDecoration(
+          labelText: 'Finish', hasFloatingPlaceholder: false),
+    onChanged: (dt) {
+    setState(() => _finish = dt);
+    },
+    );
+  }
+
+  Widget _buildDESC() {
+    return TextFormField(
+      decoration: InputDecoration(labelText: 'Describtion'),
+      validator: (String value) {
+        if (value.isEmpty) {
+          return 'Describtion is Required';
+        }
+
+        return null;
+      },
+      onSaved: (String value) {
+        _desc = value;
+      },
+    );
+  }
+
+  Widget _buildPrize() {
+    return TextFormField(
+      decoration: InputDecoration(labelText: 'Prize'),
+      validator: (String value) {
+        if (value.isEmpty) {
+          return 'Prize is Required';
+        }
+
+        return null;
+      },
+      onSaved: (String value) {
+        _prize = value;
+      },
+    );
+  }
+
+  Widget _buildName() {
+    return TextFormField(
+      decoration: InputDecoration(labelText: 'Name'),
+      validator: (String value) {
+        if (value.isEmpty) {
+          return 'Name is Required';
+        }
+
+
+        return null;
+      },
+      onSaved: (String value) {
+        _name = value;
+      },
+    );
+  }
+Widget _buildTeam1(){
+  return TextFormField(
+    decoration: InputDecoration(labelText: 'Team number 1'),
+    validator: (String value) {
+      if (value.isEmpty) {
+        return 'Name is Required';
+      }
+
+
+      return null;
+    },
+    onSaved: (String value) {
+      _teams = value as List<Team>;
+    },
+  );
+}
+  Widget _buildTeam2(){
+    return TextFormField(
+      decoration: InputDecoration(labelText: 'Team number 2'),
+      validator: (String value) {
+        if (value.isEmpty) {
+          return 'Name is Required';
+        }
+
+
+        return null;
+      },
+      onSaved: (String value) {
+        _teams = value as List<Team>;
+      },
+    );
+  }
+  Widget _buildTeam3(){
+    return TextFormField(
+      decoration: InputDecoration(labelText: 'Team number 3'),
+      validator: (String value) {
+        if (value.isEmpty) {
+          return 'Name is Required';
+        }
+
+
+        return null;
+      },
+      onSaved: (String value) {
+        _teams = value as List<Team>;
+      },
+    );
+  }
+  Widget _buildTeam4(){
+    return TextFormField(
+      decoration: InputDecoration(labelText: 'Team number 4'),
+      validator: (String value) {
+        if (value.isEmpty) {
+          return 'Name is Required';
+        }
+
+
+        return null;
+      },
+      onSaved: (String value) {
+        _teams = value as List<Team>;
+      },
+    );
+  }
+  Widget _buildTeam5(){
+    return TextFormField(
+      decoration: InputDecoration(labelText: 'Team number 5'),
+      validator: (String value) {
+        if (value.isEmpty) {
+          return 'Name is Required';
+        }
+
+
+        return null;
+      },
+      onSaved: (String value) {
+        _teams = value as List<Team>;
+      },
+    );
+  }*/

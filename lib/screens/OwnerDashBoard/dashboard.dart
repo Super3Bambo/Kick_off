@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/screens/Fields_screens/Fields_Overview.dart';
-import 'package:flutter_app/screens/League/Add_League.dart';
 import 'package:flutter_app/screens/League/League_OverView.dart';
+import 'Add_League.dart';
+import 'test1.dart';
 
 class Dashboard extends StatefulWidget {
   @override
@@ -24,11 +24,10 @@ class _DashboardState extends State<Dashboard> {
           padding: EdgeInsets.all(3.0),
           children: <Widget>[
 
-            makeDashboardItem("Leagues", Icons.event_available),
-            makeDashboardItem2("New league", Icons.add_circle),
-            makeDashboardItem3("Fields", Icons.home),
-            makeDashboardItem("money", Icons.attach_money),
-            makeDashboardItem4("Matches", Icons.insert_chart)
+            makeDashboardItem("Profile", Icons.person),
+            makeDashboardItem2("Fields", Icons.home),
+            makeDashboardItem3('leagues', Icons.card_membership),
+           // makeDashboardItem4("Add New Field", Icons.create_new_folder),
           ],
         ),
       ),
@@ -73,7 +72,7 @@ class _DashboardState extends State<Dashboard> {
           decoration: BoxDecoration(color: Color.fromRGBO(220, 220, 220, 1.0)),
           child: new InkWell(
             onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) =>FormScreen() ),);
+              Navigator.push(context, MaterialPageRoute(builder: (context) =>fieldstemp() ),);
 
             },
             child: Column(
@@ -107,7 +106,7 @@ class _DashboardState extends State<Dashboard> {
           decoration: BoxDecoration(color: Color.fromRGBO(220, 220, 220, 1.0)),
           child: new InkWell(
             onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) =>FieldsOverview() ),);
+              Navigator.push(context, MaterialPageRoute(builder: (context) =>fieldstemp()));
 
             },
             child: Column(

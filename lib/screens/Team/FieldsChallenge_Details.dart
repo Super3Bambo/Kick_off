@@ -313,7 +313,7 @@ class _FieldDetailsTeamState extends State<FieldDetailsTeam> {
                                                      widget.fieldid.Location,
                                                      startime,
                                                      finishtime,
-                                                     widget.fieldid.Price,
+                                                     widget.fieldid.Price.toString(),
                                                      teams,
                                                       topic
                                                  );

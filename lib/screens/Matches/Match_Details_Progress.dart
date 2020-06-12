@@ -204,10 +204,10 @@ User user = Provider.of<User>(context);
            Navigator.pop(context);
         }),
     );
-    //How to display Snackbar ?
     _scaffoldKey.currentState.showSnackBar(snackBar); 
   }
 return StreamBuilder<User>(
+  key: _scaffoldKey,
       stream: UserService(userid: user.ID).userData,
       builder: (context, snapshot) {
         if(snapshot.hasData){
@@ -450,8 +450,9 @@ return StreamBuilder<User>(
                     await MatchService().joinMatch(matchId , users);
                      await MatchService().editMatch(widget.matchid.ID ,widget.matchid.Field, widget.matchid.Date.toDate() ,widget.matchid.Location, widget.matchid.Check_in,
                        widget.matchid.Check_out , widget.matchid.Price, count , widget.matchid.Topic);
+                        _showSnackBar3();
                        _fcm.subscribeToTopic(widget.matchid.Topic);
-                      _showSnackBar3();
+                     
                    // _showNotification();
                       }}
                       
