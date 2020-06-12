@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/screens/Fields_screens/Fields_Overview.dart';
 import 'package:flutter_app/screens/League/Add_League.dart';
 import 'package:flutter_app/screens/League/League_OverView.dart';
+import 'package:flutter_app/screens/League/League_dashboard.dart';
 
 class Dashboard extends StatefulWidget {
   @override
@@ -25,9 +26,9 @@ class _DashboardState extends State<Dashboard> {
           children: <Widget>[
 
             makeDashboardItem("Leagues", Icons.event_available),
-            makeDashboardItem2("New league", Icons.add_circle),
+            //makeDashboardItem2("New league", Icons.add_circle),
             makeDashboardItem3("Fields", Icons.home),
-            makeDashboardItem("money", Icons.attach_money),
+          //  makeDashboardItem("money", Icons.attach_money),
             makeDashboardItem4("Matches", Icons.insert_chart)
           ],
         ),
@@ -41,7 +42,10 @@ class _DashboardState extends State<Dashboard> {
         child: Container(
           decoration: BoxDecoration(color: Color.fromRGBO(220, 220, 220, 1.0)),
           child: new InkWell(
-            onTap: () {},
+            onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) =>LeagueDashboard() ),);
+
+            },
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               mainAxisSize: MainAxisSize.min,
