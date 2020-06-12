@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/screens/League/League_OverView.dart';
+import 'package:flutter_app/screens/League/League_dashboard.dart';
 import 'Add_League.dart';
 import 'test1.dart';
 
@@ -40,7 +41,10 @@ class _DashboardState extends State<Dashboard> {
         child: Container(
           decoration: BoxDecoration(color: Color.fromRGBO(220, 220, 220, 1.0)),
           child: new InkWell(
-            onTap: () {},
+            onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) =>LeagueDashboard() ),);
+
+            },
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               mainAxisSize: MainAxisSize.min,

@@ -3,10 +3,17 @@ import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/Services/Fields.dart';
 import 'package:flutter_app/Services/League.dart';
+import 'package:flutter_app/models/field.dart';
 import 'package:flutter_app/models/team.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
 class FormScreen extends StatefulWidget {
+
+  final Field fieldid;
+
+  FormScreen({this.fieldid});
+
+
   @override
   State<StatefulWidget> createState() {
     return FormScreenState();
@@ -14,7 +21,6 @@ class FormScreen extends StatefulWidget {
 }
 
 class FormScreenState extends State<FormScreen> {
-  String _fieldid;
   DateTime _start;
   DateTime _finish;
   String _desc;
@@ -51,13 +57,8 @@ class FormScreenState extends State<FormScreen> {
     SizedBox(
     height: 20.0,
     ),
-    TextFormField(
-    decoration: InputDecoration(labelText: 'ID'),
-    validator: (String value) {
-    if (value.isEmpty) {
-    return 'ID is Required';
-    }
 
+<<<<<<< HEAD:lib/screens/OwnerDashBoard/Add_League.dart
     return null;
     },
     onSaved: (String value) {
@@ -67,6 +68,8 @@ class FormScreenState extends State<FormScreen> {
       SizedBox(
     height: 20.0,
     ),
+=======
+>>>>>>> f3ebf57f4ade9dbc7f6681099e937488ca20c7c9:lib/screens/League/Add_League.dart
     DateTimePickerFormField(
     inputType: InputType.both,
     format: DateFormat("EEEE, MMMM d, yyyy 'at' h:mm a"),
@@ -105,9 +108,10 @@ class FormScreenState extends State<FormScreen> {
 
     return null;
     },
-    onSaved: (String value) {
-    _desc = value;
-    },
+
+      onChanged: (dt) {
+        setState(() => _desc = dt);
+      },
     ),
 
     SizedBox(
@@ -122,9 +126,10 @@ class FormScreenState extends State<FormScreen> {
 
     return null;
     },
-    onSaved: (String value) {
-    _prize = value;
-    },
+
+      onChanged: (dt) {
+        setState(() => _prize = dt);
+      },
     ),
     SizedBox(
     height: 20.0,
@@ -139,94 +144,10 @@ class FormScreenState extends State<FormScreen> {
 
     return null;
     },
-    onSaved: (String value) {
-    _name = value;
-    },
-    ),
-    SizedBox(
-    height: 20.0,
-    ),
-    TextFormField(
-    decoration: InputDecoration(labelText: 'Team number 1'),
-    validator: (String value) {
-    if (value.isEmpty) {
-    return 'Name is Required';
-    }
 
-
-    return null;
-    },
-    onSaved: (String value) {
-    _teams = value as List<Team>;
-    },
-    ),
-    SizedBox(
-    height: 20.0,
-    ),
-    TextFormField(
-    decoration: InputDecoration(labelText: 'Team number 2'),
-    validator: (String value) {
-    if (value.isEmpty) {
-    return 'Name is Required';
-    }
-
-
-    return null;
-    },
-    onSaved: (String value) {
-    _teams = value as List<Team>;
-    },
-    ),
-    SizedBox(
-    height: 20.0,
-    ),
-    TextFormField(
-    decoration: InputDecoration(labelText: 'Team number 3'),
-    validator: (String value) {
-    if (value.isEmpty) {
-    return 'Name is Required';
-    }
-
-
-    return null;
-    },
-    onSaved: (String value) {
-    _teams = value as List<Team>;
-    },
-    ),
-    SizedBox(
-    height: 20.0,
-    ),
-    TextFormField(
-    decoration: InputDecoration(labelText: 'Team number 4'),
-    validator: (String value) {
-    if (value.isEmpty) {
-    return 'Name is Required';
-    }
-
-
-    return null;
-    },
-    onSaved: (String value) {
-    _teams = value as List<Team>;
-    },
-    ),
-    SizedBox(
-    height: 20.0,
-    ),
-    TextFormField(
-    decoration: InputDecoration(labelText: 'Team number 5'),
-    validator: (String value) {
-    if (value.isEmpty) {
-    return 'Name is Required';
-    }
-
-
-    return null;
-    },
-    onSaved: (String value) {
-    _teams = value as List<Team>;
-    },
+      onChanged: (dt) {
+        setState(() => _name = dt);
+      },
     ),
     SizedBox(
     height: 20.0,
@@ -242,12 +163,12 @@ class FormScreenState extends State<FormScreen> {
                   var s=dateFormat.format(_start);
                   var f= dateFormat.format(_finish);
                   await LeagueService().addleague(
-                    _fieldid,s,f,_teams,_prize,_name,_desc
+                      widget.fieldid.ID,s,f,_teams,_prize,_name,_desc
                   );
                   Navigator.pop(context);
 
 
-                  print(_fieldid);
+
                   print(_name);
                   print(_start);
                   print(_finish);
