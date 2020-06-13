@@ -10,7 +10,6 @@ class FieldService {
 
   final CollectionReference field = Firestore.instance.collection('Field');
 
-  
   Future<void> addFieldData(String name,  String location ,int price, bool ref , bool ball , bool bathroom , List<Field> time,List<FieldRating> rating  
   ,String start ,String end ,String owner) async {
     return await field.document().setData({
@@ -28,7 +27,6 @@ class FieldService {
       'Finish': time.map((u)=>{'FinishTime' :DateTime.now().toString(),}).toList(),
       'Duration': time.map((u)=>{'Dur' :DateTime.now().toString(),}).toList(),
       'Rate': rating.map((r)=>{'Rates':r.Rate,}).toList(),
-      
     });
   }
   Future<void> deleteField(id) async {

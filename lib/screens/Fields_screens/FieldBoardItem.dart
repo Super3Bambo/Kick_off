@@ -87,24 +87,23 @@ class FieldItem extends StatelessWidget
 }*/
 
 import 'package:flutter/material.dart';
-//import 'package:flutter_app/screens/League/Add_League.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:rating_bar/rating_bar.dart';
 import '../../models/field.dart';
 import './Field_Details.dart';
 
 
-class FieldLeague extends StatelessWidget {
+class FieldBoardItem extends StatelessWidget {
 
 
   final Field fields;
-  FieldLeague({ this.fields });
+  FieldBoardItem({ this.fields });
 
   @override
   Widget build(BuildContext context) {
-   // int sum = 0;
-    //fields.rate.map((e) => e.Rate).forEach((int e){sum += e;});
-    //double count= sum/fields.rate.length;
+    int sum = 0;
+    fields.rate.map((e) => e.Rate).forEach((int e){sum += e;});
+    double count= sum/fields.rate.length;
 
     godetails(Field id){
       Navigator.push(context,MaterialPageRoute(builder: (context)=> FieldDetails(fieldid: fields)  ) );
@@ -128,14 +127,13 @@ class FieldLeague extends StatelessWidget {
                   borderRadius: BorderRadius.circular(20),
 
                   child:  GestureDetector(
-  //                  onTap: () => Navigator.push(context,MaterialPageRoute(builder: (context)=>FormScreen())),
+                    onTap: () => godetails(fields),
 
 
                     child: Image.asset('images/5omasy.jpg', height: 200, width: 420, fit: BoxFit.cover, ),),
                 ),
                 InkWell(
-    //              onTap: () =>    Navigator.push(context,MaterialPageRoute(builder: (context)=>FormScreen())),
-
+                  onTap: () => godetails(fields),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(10),
 
@@ -158,7 +156,7 @@ class FieldLeague extends StatelessWidget {
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: <Widget>[
                                     RatingBar.readOnly(
-      //                                initialRating: count.floor().toDouble(),
+                                      initialRating: count.floor().toDouble(),
                                       isHalfAllowed: true,
                                       halfFilledIcon: Icons.star_half,
                                       filledIcon: Icons.star,
@@ -175,8 +173,8 @@ class FieldLeague extends StatelessWidget {
 
                                       children: <Widget>[
 
-              //                          Text('Name' +':' +fields.Name, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),),
-                        //         Text('Price' + ':'+ fields.Price,style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20))  ,
+                                        Text('Name' +':' +fields.Name, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),),
+                                  //      Text('Price' + ':'+ fields.Price,style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20))  ,
                                       ]))
 
 

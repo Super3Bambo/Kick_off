@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/screens/League/League_OverView.dart';
 import 'package:flutter_app/screens/League/League_dashboard.dart';
+import 'package:flutter_app/screens/Matches/Analysis.dart';
+import 'package:flutter_app/screens/OwnerDashBoard/OwnerProfile.dart';
 import 'Add_League.dart';
 import 'test1.dart';
 
@@ -28,7 +30,9 @@ class _DashboardState extends State<Dashboard> {
             makeDashboardItem("Profile", Icons.person),
             makeDashboardItem2("Fields", Icons.home),
             makeDashboardItem3('leagues', Icons.card_membership),
-           // makeDashboardItem4("Add New Field", Icons.create_new_folder),
+            makeDashboardItem4('Analysis', Icons.insert_chart),
+
+            // makeDashboardItem4("Add New Field", Icons.create_new_folder),
           ],
         ),
       ),
@@ -42,7 +46,7 @@ class _DashboardState extends State<Dashboard> {
           decoration: BoxDecoration(color: Color.fromRGBO(220, 220, 220, 1.0)),
           child: new InkWell(
             onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) =>LeagueDashboard() ),);
+              Navigator.push(context, MaterialPageRoute(builder: (context) =>OwnerProfile() ),);
 
             },
             child: Column(
@@ -144,7 +148,7 @@ class _DashboardState extends State<Dashboard> {
           decoration: BoxDecoration(color: Color.fromRGBO(220, 220, 220, 1.0)),
           child: new InkWell(
             onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) =>LeagueOverviewProgress() ),);
+              Navigator.push(context, MaterialPageRoute(builder: (context) =>Analysis() ),);
 
             },
             child: Column(

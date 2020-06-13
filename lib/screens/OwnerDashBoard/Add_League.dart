@@ -58,7 +58,7 @@ class FormScreenState extends State<FormScreen> {
     height: 20.0,
     ),
 
-<<<<<<< HEAD:lib/screens/OwnerDashBoard/Add_League.dart
+/*<<<<<<< HEAD:lib/screens/OwnerDashBoard/Add_League.dart
     return null;
     },
     onSaved: (String value) {
@@ -69,7 +69,7 @@ class FormScreenState extends State<FormScreen> {
     height: 20.0,
     ),
 =======
->>>>>>> f3ebf57f4ade9dbc7f6681099e937488ca20c7c9:lib/screens/League/Add_League.dart
+>>>>>>> f3ebf57f4ade9dbc7f6681099e937488ca20c7c9:lib/screens/League/Add_League.dart*/
     DateTimePickerFormField(
     inputType: InputType.both,
     format: DateFormat("EEEE, MMMM d, yyyy 'at' h:mm a"),
