@@ -148,7 +148,7 @@ class _DashboardState extends State<Dashboard> {
           decoration: BoxDecoration(color: Color.fromRGBO(220, 220, 220, 1.0)),
           child: new InkWell(
             onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) =>Analysis() ),);
+             // Navigator.push(context, MaterialPageRoute(builder: (context) =>Analysis() ),);
 
             },
             child: Column(

@@ -207,7 +207,7 @@ User user = Provider.of<User>(context);
     _scaffoldKey.currentState.showSnackBar(snackBar); 
   }
 return StreamBuilder<User>(
-  key: _scaffoldKey,
+  //key: _scaffoldKey,
       stream: UserService(userid: user.ID).userData,
       builder: (context, snapshot) {
         if(snapshot.hasData){

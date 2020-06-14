@@ -41,7 +41,7 @@ Future<void> addMatchadmin( String fieldid, String location  ,String start ,Stri
       'Finish_at': finish,
       'Price': price,
       'Topic':topic,
-      'Counter': 1,
+      'Counter': 0,
       'Challenge':false,
       'Date': DateTime.now(),
       'Players': users.toList(),

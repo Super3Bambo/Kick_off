@@ -89,11 +89,13 @@ class FieldItem extends StatelessWidget
 import 'package:flutter/material.dart';
 import 'package:flutter_app/Services/Fields.dart';
 import 'package:flutter_app/models/field.dart';
-import 'package:flutter_app/screens/OwnerDashBoard/Field/test1.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:rating_bar/rating_bar.dart';
 import './Field_Details.dart';
+import 'Analysis.dart';
+import 'MatchFieldOverview.dart';
+import 'editfield.dart';
 
 
 class FieldItemowner extends StatelessWidget {
@@ -109,11 +111,16 @@ class FieldItemowner extends StatelessWidget {
       double count= sum/field.rate.length;
     
 godetails(Field id){
-Navigator.push(context,MaterialPageRoute(builder: (context)=> FieldDetailsowner(fieldid: field)  ) );
-}
+Navigator.push(context,MaterialPageRoute(builder: (context)=> FieldDetailsowner(fieldid: field)  ) );}
+
 godetails2(){
-Navigator.push(context,MaterialPageRoute(builder: (context)=> sss(field: field.ID)  ) );
-}
+Navigator.push(context,MaterialPageRoute(builder: (context)=> MatchFieldOverview(field: field.ID)  ) );}
+
+godetails3(Field id){
+Navigator.push(context,MaterialPageRoute(builder: (context)=> editField(field: field)  ) );}
+godetails4(){
+Navigator.push(context,MaterialPageRoute(builder: (context)=> AnalysisField(field: field,)  ) );}
+
 return  Card(
           margin: EdgeInsets.fromLTRB(20.0, 5.0, 20.0, 5.0),
          
@@ -219,9 +226,10 @@ return  Card(
                            mainAxisAlignment:MainAxisAlignment.spaceAround ,
                            children: <Widget>[
                              IconButton(icon: Icon(FontAwesome.calendar_plus_o,size: 30, color: Colors.green[600],),  onPressed: ()=>godetails( field),),
-                             IconButton(icon: Icon(FontAwesome.edit,size: 30, color: Colors.green[600],), onPressed: null),
+                             IconButton(icon: Icon(FontAwesome.edit,size: 30, color: Colors.green[600],), onPressed: ()=>godetails3(field)),
                              IconButton(icon: Icon(Icons.delete,size: 30, color: Colors.green[600],), onPressed:()async=> FieldService().deleteField(field.ID)),
                              IconButton(icon: Icon(Icons.list,size: 30, color: Colors.green[600],), onPressed: ()=>godetails2( ),),
+                             IconButton(icon: Icon(FontAwesome.pie_chart,size: 30, color: Colors.green[600],), onPressed: ()=>godetails4()),
                    
                  ],),
                        ),

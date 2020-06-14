@@ -8,11 +8,11 @@ import 'package:rating_bar/rating_bar.dart';
 import './Field_Details.dart';
 
 
-class fff extends StatelessWidget {
+class MatchFieldItem extends StatelessWidget {
 
 
-  final Match field;
-  fff({ this.field });
+  final Match match;
+  MatchFieldItem({ this.match });
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +23,7 @@ class fff extends StatelessWidget {
 // godetails(Field id){
 // Navigator.push(context,MaterialPageRoute(builder: (context)=> FieldDetailsowner(fieldid: field)  ) );}
 return  Card(
+  elevation: 10.0,
           margin: EdgeInsets.fromLTRB(20.0, 5.0, 20.0, 5.0),
          
           shape: new RoundedRectangleBorder(
@@ -36,22 +37,29 @@ return  Card(
               //margin: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
                 Container(
                     height: 77,
-                    margin: EdgeInsets.only(left:15,top: 10),
+                   // margin: EdgeInsets.only(left:15,top: 10),
                     child: Row(
-                      children: <Widget>[
-                        
-                           CircleAvatar(
-                             radius: 30.0,
-                             backgroundColor: Colors.brown[300],
-                             backgroundImage: AssetImage('images/1.jpg' ,),
-                           ),
-                           Row(
-                              mainAxisAlignment:MainAxisAlignment.spaceAround ,
+                      
+                              mainAxisAlignment:MainAxisAlignment.spaceEvenly,
                               mainAxisSize:MainAxisSize.max ,
                               crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        
+                           Container(
+                             width: 50,
+                             child: CircleAvatar(
+                               radius: 30.0,
+                               backgroundColor: Colors.brown[300],
+                               backgroundImage: AssetImage('images/1.jpg' ,),
+                             ),
+                           ),
+                           Row(
+                             
                              children: <Widget>[
                                 Container(
-                                  margin: EdgeInsets.only(bottom:5, left: 40 , right: 10),
+                                  width: 70,
+                                  
+                                  //margin: EdgeInsets.only(bottom:5, left: 40 , right: 10),
                                   child: Column(
                                     crossAxisAlignment: CrossAxisAlignment.center,
                                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -62,14 +70,15 @@ return  Card(
                                      child: Icon(Icons.attach_money,size: 30,)),
                                   Container(
                                 //   margin: EdgeInsets.only(left:50,right: 10),
-                                   child: Text(field.Price.toString(),style:TextStyle(fontWeight: FontWeight.bold ) ,)),
+                                   child: Text(match.Price.toString(),style:TextStyle(fontWeight: FontWeight.bold ) ,)),
                                  
                                   
                                ],),
                                 ),
 
                                Container(
-                                 margin: EdgeInsets.only(bottom:5, left: 10 , right: 10),
+                                 width: 70,
+                                // margin: EdgeInsets.only(bottom:5, left: 10 , right: 10),
                                  child: Column(
                                      crossAxisAlignment: CrossAxisAlignment.center,
                                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -82,7 +91,7 @@ return  Card(
                                        child: Icon(FontAwesome.newspaper_o ,size: 30,)),
                                      Container(
                                    //  margin: EdgeInsets.only(left:25,right: 0),
-                                     child: Text(field.ID,style:TextStyle(fontWeight: FontWeight.bold ) ,)),
+                                     child: Text(match.Location,style:TextStyle(fontWeight: FontWeight.bold ) ,)),
                                     //  Container(
                                     //  margin: EdgeInsets.only(left:25,right: 0),
                                     //  child: Text(field.Location ,style:TextStyle(fontWeight: FontWeight.bold ) ,)),
@@ -90,7 +99,8 @@ return  Card(
                                  ],),
                                ),
                                 Container(
-                                  margin: EdgeInsets.only(bottom:5, left: 10 , right: 10),
+                                  width: 70,
+                                 // margin: EdgeInsets.only(bottom:5, left: 10 , right: 10),
                                   child: Column(
                                       crossAxisAlignment: CrossAxisAlignment.center,
                                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -103,10 +113,13 @@ return  Card(
                                        child: Icon(Icons.location_on,size: 30,)),  
                                      Container(
                                    //  margin: EdgeInsets.only(left:25,right: 0),
-                                     child: Text(field.Location ,style:TextStyle(fontWeight: FontWeight.bold ) ,)),
+                                     child: Text(match.Location ,style:TextStyle(fontWeight: FontWeight.bold ) ,)),
                                   // Text(field.Location),  
                                ],),
-                                )
+                                ),
+                                Container(
+                                  width: 50,
+                                  child: IconButton(icon: Icon(Icons.delete,size: 20, color: Colors.green[600],), onPressed:()async=> FieldService().deleteField(match.ID))),
                              ],
                            )
                             

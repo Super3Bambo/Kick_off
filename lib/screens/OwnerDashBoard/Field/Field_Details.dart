@@ -79,6 +79,9 @@ List<String> durationfield = List<String>();
 
 
 DateFormat dateFormat = DateFormat("yyyy-MM-dd HH:00:00:000");
+DateFormat timeFormat = DateFormat("HH:00:00:000");
+
+
           return  Scaffold (
              key: _scaffoldKey,
           appBar: AppBar(
@@ -242,6 +245,23 @@ DateFormat dateFormat = DateFormat("yyyy-MM-dd HH:00:00:000");
                                 ),
                                 
                                 onPressed: () async {
+                                var starttemp= widget.fieldid.Start_at;
+                                var temp1 = starttemp.substring(0,2);
+                                var parsethestart = int.tryParse(temp1);
+
+                                 var endtemp =widget.fieldid.Finish_at;
+                                  var temp2 = endtemp.substring(0,2);
+                                  var parsetheEnd = int.tryParse(temp2);
+
+
+                                 var getstart=timeFormat.format(start);
+                                     var temp3 = getstart.substring(0,2);
+                                     var parsemystart = int.tryParse(temp3);
+
+                                   var getend=timeFormat.format(finish);
+                                     var temp4 = getend.substring(0,2);
+                                     var parsemyend = int.tryParse(temp4);
+
                                   // List<String> startuser = List<String>();
                                   //       startuser = userData.start_time.map((e) => e.Start_at).toList();
                                   // List<String> finishuser = List<String>();
@@ -251,8 +271,11 @@ DateFormat dateFormat = DateFormat("yyyy-MM-dd HH:00:00:000");
 
 
                                      var duration = start.add(new Duration(hours: 1));
+                                     var duration2 = start.add(new Duration(hours: 2));
                                       List<Field> dur=[
-                                      Field(Duration:dateFormat.format(duration) ) ];
+                                      Field(Duration:dateFormat.format(duration) ) ,
+                                      Field(Duration: dateFormat.format(duration2))
+                                      ];
                                       List<Field> starts=[
                                           Field(Start_at:dateFormat.format(start) )
                                         ];
@@ -262,10 +285,18 @@ DateFormat dateFormat = DateFormat("yyyy-MM-dd HH:00:00:000");
 
                                   if (start.isAfter(finish)) {
                                         Alert(context:  context, title: "Error",desc:'gg' ).show();
+                                        
  
                                     }
+                                      else if(finish.difference(start).inHours>3){
+                                      Alert(context:  context, title: "Error",desc:'ffff' ).show();}
+
                                     else if(start.isBefore(DateTime.now())){
                                       Alert(context:  context, title: "Error",desc:'nonon' ).show();
+                                      print(parsemyend);
+                                      print(parsemystart);
+                                      print(parsethestart);
+                                      print(parsetheEnd);
 
                                     }
                                    
@@ -299,20 +330,39 @@ DateFormat dateFormat = DateFormat("yyyy-MM-dd HH:00:00:000");
                                         Alert(context:  _scaffoldKey.currentContext, title: "Error",desc: 'cc' ).show();
                                            
                                     }
-                                   else   if(durationfield.contains(dateFormat.format(start))||durationfield.contains(dateFormat.format(finish))||
+                                   else if(durationfield.contains(dateFormat.format(start))||durationfield.contains(dateFormat.format(finish))||
                                    durationfield.contains(dateFormat.format(duration)) ){
                                                                        Alert(context: _scaffoldKey.currentContext, title: "Error",desc: 'cc', ).show();
                                           
                                     }
-                                 
+                                  else if(  (  !((parsethestart-parsemystart).isNegative) && (parsethestart-parsemystart)!=8) || (parsemystart==parsetheEnd) ){
+                                                    Alert(context: _scaffoldKey.currentContext, title: "Error",desc: 'str', ).show();
+                                      print(parsemyend);
+                                      print(parsemystart);
+                                      print(parsethestart);
+                                      print(parsetheEnd);
+                                          
+                                    }
+                                     else if(((parsemyend-parsetheEnd)==1||(parsemyend-parsetheEnd)==2)){
+                                                    Alert(context: _scaffoldKey.currentContext, title: "Error",desc: 'end', ).show();
+                                      print(parsemyend);
+                                      print(parsemystart);
+                                      print(parsethestart);
+                                      print(parsetheEnd);
+                                          
+                                    }
                                    else {
+                                     print(parsemyend);
+                                      print(parsemystart);
+                                      print(parsethestart);
+                                      print(parsetheEnd);
     // Subscribe the user to a topic  
                                     List<User>users=[];
                                      var s=dateFormat.format(start);
                                      var f= dateFormat.format(finish);
                                      var topic=  randomString(9, includeSymbols: false , includeNumbers: false , includeLowercase: false );
                                       _fcm.subscribeToTopic(topic);
-                                      await MatchService().addMatch(
+                                      await MatchService().addMatchadmin(
                                         widget.fieldid.ID,
                                         widget.fieldid.Location,
                                         s,

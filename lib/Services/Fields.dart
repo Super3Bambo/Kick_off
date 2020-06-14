@@ -20,12 +20,32 @@ class FieldService {
       'Price': price,
       'Starttime':start,
       'Endtime':end,
-       'Ball': true,
-      'Bathroom': true,
-      'Refree': false,
+       'Ball': ball,
+      'Bathroom': bathroom,
+      'Refree': ref,
       'Start':  time.map((u)=>{'StartTime' :DateTime.now().toString(),}).toList(),
       'Finish': time.map((u)=>{'FinishTime' :DateTime.now().toString(),}).toList(),
       'Duration': time.map((u)=>{'Dur' :DateTime.now().toString(),}).toList(),
+      'Rate': rating.map((r)=>{'Rates':r.Rate,}).toList(),
+    });
+  }
+
+  Future<void> editFieldData(String name,  String location ,int price, bool ref , bool ball , bool bathroom , List<Field> starts , List<Field> finish,
+  List<Field> dur,List<FieldRating> rating  ,String start ,String end ,String owner) async {
+    return await field.document(fieldid).updateData({
+      'Name': name,
+      'Owner':owner,
+      'Capacitance': 10,
+      'Location': location,
+      'Price': price,
+      'Starttime':start,
+      'Endtime':end,
+      'Ball': ball,
+      'Bathroom': bathroom,
+      'Refree': ref,
+      'Start':  starts.map((u)=>{'StartTime' :DateTime.now().toString(),}).toList(),
+      'Finish': finish.map((u)=>{'FinishTime' :DateTime.now().toString(),}).toList(),
+      'Duration': dur.map((u)=>{'Dur' :DateTime.now().toString(),}).toList(),
       'Rate': rating.map((r)=>{'Rates':r.Rate,}).toList(),
     });
   }
@@ -77,7 +97,9 @@ Future <void> ratefield(String ID , List<FieldRating> rate)async{
       Ball: doc.data['Ball'] ?? '',
       Refree: doc.data['Refree'] ?? '',
       Bathroom: doc.data['Bathroom'] ?? '',
-
+      Finish_at: doc.data['Endtime'] ?? '',
+      Start_at: doc.data['Starttime'] ?? '',
+      Owner: doc.data["Owner"]??'',
 
 
 
@@ -100,6 +122,9 @@ Future <void> ratefield(String ID , List<FieldRating> rate)async{
       Ball: snapshot.data['Ball'] ?? '',
       Refree: snapshot.data['Refree'] ?? '',
       Bathroom: snapshot.data['Bathroom'] ?? '',
+      Finish_at: snapshot.data['Endtime'] ?? '',
+      Start_at: snapshot.data['Starttime'] ?? '',
+       Owner: snapshot.data["Owner"]??'',
 
 
 
