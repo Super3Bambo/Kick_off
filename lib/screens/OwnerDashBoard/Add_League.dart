@@ -7,20 +7,20 @@ import 'package:flutter_app/models/field.dart';
 import 'package:flutter_app/models/team.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
-class FormScreen extends StatefulWidget {
+class AddLeague extends StatefulWidget {
 
   final Field fieldid;
 
-  FormScreen({this.fieldid});
+  AddLeague({this.fieldid});
 
 
   @override
   State<StatefulWidget> createState() {
-    return FormScreenState();
+    return AddLeagueState();
   }
 }
 
-class FormScreenState extends State<FormScreen> {
+class AddLeagueState extends State<AddLeague> {
   DateTime _start;
   DateTime _finish;
   String _desc;

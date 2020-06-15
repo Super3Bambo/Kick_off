@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/screens/League/League_OverView.dart';
 import 'package:flutter_app/screens/League/League_dashboard.dart';
 import 'package:flutter_app/screens/Matches/Analysis.dart';
+import 'package:flutter_app/screens/OwnerDashBoard/Field/Analysis.dart';
 import 'package:flutter_app/screens/OwnerDashBoard/OwnerProfile.dart';
+import 'package:flutter_app/screens/OwnerDashBoard/test2.dart';
 import 'Add_League.dart';
 import 'test1.dart';
 
@@ -114,7 +116,7 @@ class _DashboardState extends State<Dashboard> {
           decoration: BoxDecoration(color: Color.fromRGBO(220, 220, 220, 1.0)),
           child: new InkWell(
             onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) =>fieldstemp()));
+              Navigator.push(context, MaterialPageRoute(builder: (context) =>LeaguesTemp()));
 
             },
             child: Column(
@@ -148,7 +150,7 @@ class _DashboardState extends State<Dashboard> {
           decoration: BoxDecoration(color: Color.fromRGBO(220, 220, 220, 1.0)),
           child: new InkWell(
             onTap: () {
-             // Navigator.push(context, MaterialPageRoute(builder: (context) =>Analysis() ),);
+              //Navigator.push(context, MaterialPageRoute(builder: (context) =>AnalysisField() ),);
 
             },
             child: Column(
