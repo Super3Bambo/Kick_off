@@ -24,93 +24,100 @@ Navigator.push(context,MaterialPageRoute(builder: (context)=> Match_DetailsProgr
 DateTime c = dateFormat.parse(match.Check_in);
 var now= DateTime.now();
 var diff= c.difference(now).inHours.toString();
-return Card(
-  
-    margin:EdgeInsets.fromLTRB(0.0, 5.0, 0.0, 5.0),
-
-  child: ClipRRect(
+return Container(
+  padding: EdgeInsets.only(top:10),
+  margin: EdgeInsets.only(bottom: 5),
+  child:   Card(
     
-          borderRadius: BorderRadius.circular(20),
+      margin:EdgeInsets.fromLTRB(0.0, 5.0, 0.0, 5.0),
   
-   child:Column(mainAxisSize: MainAxisSize.min,
-   crossAxisAlignment: CrossAxisAlignment.center,
-   
-   children: <Widget>[
-    
-
-     ClipRRect(
-          borderRadius: BorderRadius.circular(20),
-
-     child:  GestureDetector(
-       onTap: () => godetails(match),
-     
-     
-     child: Image.asset('images/5omasy.jpg', height: 200, width: 420, fit: BoxFit.cover, ),),
-     ), 
-     InkWell(
-       onTap: () => godetails(match),
-            child: ClipRRect(
-                        borderRadius: BorderRadius.circular(10),
-
-                          child: Container(
-                color :Color.fromRGBO(207, 243, 246, 100) ,
-                 padding: EdgeInsets.fromLTRB(30.0, 0.0, 30.0,0.0),
-                       margin: EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 0.0),
-
-
-child: Padding(
-        padding: const EdgeInsets.only(bottom: 20 , top: 10) ,
-
-        
-        child: Column(
-          mainAxisAlignment:MainAxisAlignment.spaceBetween,
-        mainAxisSize:MainAxisSize.max,
-       crossAxisAlignment:CrossAxisAlignment.start,
-          children: <Widget>[     
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                 children: <Widget>[    
-                   Padding(
-              padding: EdgeInsets.all(2.0),
-              child: new LinearPercentIndicator(
-                width: 250,
-                animation: true,
-                lineHeight: 20.0,
-                animationDuration: 2000,
-                percent: match.users.length/10.toDouble(),
-                center: Text((match.users.length*10).toString() + '%' ,style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
-                linearStrokeCap: LinearStrokeCap.roundAll,
-                progressColor: Colors.blue,
-              ),
-            ),
-               
-              IconButton(icon: Icon(FontAwesomeIcons.locationArrow , color: Colors.blue ,size: 25,), onPressed: null,)
-
-                 ]
-              ),
-              Container(
-                  margin: EdgeInsets.only(top:20),
-              child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-
-                 children: <Widget>[    
-
-              Text('Start After' +':' +diff +' ' +'Hours', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),),
-              Text(  match.Price + '\$',style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20))  ,
-              ]))
-              
-             
-              
- ],
-   
+    child: ClipRRect(
       
-        ),
-        )),
+            borderRadius: BorderRadius.circular(20),
+    
+     child:Column(mainAxisSize: MainAxisSize.min,
+     crossAxisAlignment: CrossAxisAlignment.center,
+     
+     children: <Widget>[
+      
+  
+       ClipRRect(
+            borderRadius: BorderRadius.circular(20),
+  
+       child:  GestureDetector(
+         onTap: () => godetails(match),
+       
+       
+       child: Image.asset('images/5omasy.jpg', height: 200, width: 420, fit: BoxFit.cover, ),),
+       ), 
+       InkWell(
+         onTap: () => godetails(match),
+              child: ClipRRect(
+                          borderRadius: BorderRadius.circular(10),
+  
+                            child: Container(
+                  color :Color.fromRGBO(207, 243, 246, 100) ,
+                   padding: EdgeInsets.fromLTRB(30.0, 0.0, 30.0,0.0),
+                         margin: EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 0.0),
+  
+  
+  child: Container(
+    //margin: EdgeInsets.only(bottom:100),
+    child:   Padding(
+            padding: const EdgeInsets.only(bottom: 20 , top: 10) ,
+    
+            
+            child: Column(
+              mainAxisAlignment:MainAxisAlignment.spaceBetween,
+            mainAxisSize:MainAxisSize.max,
+           crossAxisAlignment:CrossAxisAlignment.start,
+              children: <Widget>[     
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                     children: <Widget>[    
+                       Padding(
+                  padding: EdgeInsets.all(2.0),
+                  child: new LinearPercentIndicator(
+                    width: 250,
+                    animation: true,
+                    lineHeight: 20.0,
+                    animationDuration: 2000,
+                    percent: match.users.length/10.toDouble(),
+                    center: Text((match.users.length*10).toString() + '%' ,style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
+                    linearStrokeCap: LinearStrokeCap.roundAll,
+                    progressColor: Colors.blue,
+                  ),
+                ),
+                   
+                  IconButton(icon: Icon(FontAwesomeIcons.locationArrow , color: Colors.blue ,size: 25,), onPressed: null,)
+    
+                     ]
+                  ),
+                  Container(
+                      margin: EdgeInsets.only(top:20),
+                  child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    
+                     children: <Widget>[    
+    
+                  Text('Start After' +':' +diff +' ' +'Hours', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),),
+                  Text(  match.Price + '\$',style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20))  ,
+                  ]))
+                  
+                 
+                  
+     ],
+       
+          
             ),
-     )
-   ],)
-   
-));
+            ),
+  )),
+              ),
+       )
+     ],)
+     
+  )),
+);
   }
 }
 /*return Padding(

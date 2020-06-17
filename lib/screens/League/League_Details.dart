@@ -32,6 +32,8 @@ class _League_DetailsState extends State<League_Details> {
 
 
 bool loading = false;
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +56,6 @@ Navigator.push(context,MaterialPageRoute(builder: (context)=> FriendsOverview() 
 }
     DateFormat dateFormat = DateFormat("yyyy-MM-dd HH:00:00:000");
 
-  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
  // String matchId = widget.matchid.ID;  
 
 _showSnackBar() {

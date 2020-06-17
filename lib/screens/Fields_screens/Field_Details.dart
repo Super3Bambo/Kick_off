@@ -1,14 +1,11 @@
-import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_app/Services/Fields.dart';
 import 'package:flutter_app/Services/User.dart';
 import 'package:flutter_app/Shared/Loading.dart';
-import 'package:flutter_app/screens/Matches/Match_Details_Complete.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:getflutter/getflutter.dart';
 import 'package:random_string_one/random_string.dart';
 import '../../models/field.dart';
@@ -17,8 +14,8 @@ import '../../models/User.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_icons/flutter_icons.dart';
+
 
 
 
@@ -47,136 +44,12 @@ class FieldDetails extends StatefulWidget {
 class _FieldDetailsState extends State<FieldDetails> {
   DateTime start, finish ;
   int diff,diff2;
+   var showstart,showend;
   DateTime now=DateTime.now();
 bool loading = false;
 
 final FirebaseMessaging _fcm = FirebaseMessaging();
 final Firestore _db = Firestore.instance;
-  /*
-
-  
-FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin= new FlutterLocalNotificationsPlugin();
-var initilizationSettingsAndroid;
-var initilizationSettings;
-var initilizationSettingsIOS;
-
-void _showNotification()async{
-await _demoNotification();
-}
-
-Future<void> _demoNotification()async{
- var androidPlateform= AndroidNotificationDetails('channel ID','channel name','chaneel Description',importance: Importance.Max,priority: Priority.High,ticker: 'text ticker');
- var iosPlateform=IOSNotificationDetails();
-  var plateformChannel=NotificationDetails(androidPlateform,iosPlateform);
-  await flutterLocalNotificationsPlugin.show(0, 'A new Match', 'Come and join us!', plateformChannel,payload: 'test payload');
-}
-
-
-  @override
-  void initState() {
-    super.initState();
-    initilizationSettingsAndroid = new AndroidInitializationSettings('app_icon');
-  initilizationSettings=new InitializationSettings(initilizationSettingsAndroid, initilizationSettingsIOS);
-  initilizationSettingsIOS = new IOSInitializationSettings(
-        onDidReceiveLocalNotification: onDidReceiveLocalNotification);
-    initilizationSettings = new InitializationSettings(
-        initilizationSettingsAndroid, initilizationSettingsIOS);
-    flutterLocalNotificationsPlugin.initialize(initilizationSettings,
-        onSelectNotification: onSelectNotification);
-
-    _fcm.configure(
-      onMessage: (Map<String, dynamic> message) async {
-         // _showNotification();
-         showDialog(
-          context: context,
-          builder: (context) => AlertDialog(
-                content: ListTile(
-                  title: Text(message['notification']['title']),
-                  subtitle: Text(message['notification']['body']),
-                ),
-                actions: <Widget>[
-                  FlatButton(
-                    color: Colors.amber,
-                    child: Text('Ok'),
-                    onPressed: () => Navigator.of(context).pop(),
-                  ),
-                ],
-              ),
-        );
-
- 
-        print("onMessage: $message");
-        // final snackbar = SnackBar(
-        //   content: Text(message['notification']['title']),
-        //   action: SnackBarAction(
-        //     label: 'Go',
-        //     onPressed: () => null,
-        //   ),
-        // );
-
-        // Scaffold.of(context).showSnackBar(snackbar);
-       /* showDialog(
-          context: context,
-          builder: (context) => AlertDialog(
-                content: ListTile(
-                  title: Text(message['notification']['title']),
-                  subtitle: Text(message['notification']['body']),
-                ),
-                actions: <Widget>[
-                  FlatButton(
-                    color: Colors.amber,
-                    child: Text('Ok'),
-                    onPressed: () => Navigator.of(context).pop(),
-                  ),
-                ],
-              ),
-        );*/
-      },
-      onLaunch: (Map<String, dynamic> message) async {
-        print("onLaunch: $message");
-        // TODO optional
-      },
-      onResume: (Map<String, dynamic> message) async {
-        print("onResume: $message");
-        // TODO optional
-      },
-    );
-  }
-
-Future onDidReceiveLocalNotification(
-      int id, String title, String body, String payload) async {
-    await showDialog(
-        context: context,
-        builder: (BuildContext context) => CupertinoAlertDialog(
-              title: Text(title),
-              content: Text(body),
-              actions: <Widget>[
-                CupertinoDialogAction(
-                  isDefaultAction: true,
-                  child: Text('Ok'),
-                  onPressed: () async {
-                    Navigator.of(context, rootNavigator: true).pop();
-                    await Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => Match_Details()));
-                  },
-                )
-              ],
-            ));
-
-
-    }
-Future onSelectNotification(String payload)async{
-if(payload!=null){
-  debugPrint('Notification Payload : $payload');
-}
-await Navigator.push(context, new MaterialPageRoute(builder: (context) =>new Match_Details()));
-}
-
-
-  @override
-  void dispose() {
-    super.dispose();
-  }*/
     final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
 
@@ -207,7 +80,18 @@ List<String> durationfield = List<String>();
 // List<String> durationuser = List<String>();
 //     durationfield = widget.fieldid.duration.map((e) => e.Duration).toList();
 
-
+_showSnackBar() {
+    final snackBar = new SnackBar(
+        content: new Text("you out of match Done"),
+        duration: new Duration(seconds: 5),
+        //backgroundColor: Colors.pink[300],
+        action: new SnackBarAction(label: 'Back',
+         onPressed: (){
+           Navigator.pop(context);
+        }),
+    );
+    _scaffoldKey.currentState.showSnackBar(snackBar);
+  }
 
 DateFormat dateFormat = DateFormat("yyyy-MM-dd HH:00:00:000");
 DateFormat timeFormat = DateFormat("HH:00:00:000");
@@ -343,7 +227,7 @@ DateFormat timeFormat = DateFormat("HH:00:00:000");
                             //                  onPressed: () {
 //                      )
 
-                            SizedBox(
+                            /*SizedBox(
                               height: 20.0,
                             ),
                             DateTimePickerFormField(
@@ -369,7 +253,135 @@ DateFormat timeFormat = DateFormat("HH:00:00:000");
                               onChanged: (dt) {
                                 setState(() => finish = dt);
                               },
+                            ),*/
+                             Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Container(
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    RaisedButton(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5.0)),
+                      elevation: 4.0,
+                      onPressed: () {
+                        DatePicker.showDateTimePicker(context,
+                            theme: DatePickerTheme(
+                              containerHeight: 300.0,
                             ),
+                            showTitleActions: true,
+                          
+                             onConfirm: (time) {
+                         showstart = dateFormat.format(time).substring(0,16);
+                          setState(() =>start=time );
+                        }, 
+                        currentTime: DateTime.now(), locale: LocaleType.en);
+                       // setState(() =>start=date );
+                      },
+                      child: Container(
+                        alignment: Alignment.center,
+                        height: 50.0,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Row(
+                              children: <Widget>[
+                                Container(
+                                  child: Row(
+                                    children: <Widget>[
+                                      Icon(
+                                        Icons.access_time,
+                                        size: 18.0,
+                                        color: Colors.blue,
+                                      ),
+                                      Text(showstart==null?' select time':
+                                        " $showstart",
+                                        style: TextStyle(
+                                            color: Colors.blue,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 18.0),
+                                      ),
+                                    ],
+                                  ),
+                                )
+                              ],
+                            ),
+                            Text(
+                          "  Change",
+                          style: TextStyle(
+                              color: Colors.blue,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18.0),
+                        ),
+                          ],
+                        ),
+                      ),
+                      color: Colors.white,
+                    ),
+                    SizedBox(
+                      height: 20.0,
+                    ),
+                    RaisedButton(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5.0)),
+                      elevation: 4.0,
+                      onPressed: () {
+                        DatePicker.showDateTimePicker(context,
+                            theme: DatePickerTheme(
+                              containerHeight: 300.0,
+                            ),
+                            showTitleActions: true, onConfirm: (time) {
+                         // print('confirm $time');
+                         showend = dateFormat.format(time).substring(0,16);
+                          setState(() =>finish=time );
+                        }, currentTime: DateTime.now(), locale: LocaleType.en);
+                      },
+                      child: Container(
+                        alignment: Alignment.center,
+                        height: 50.0,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Row(
+                              children: <Widget>[
+                                Container(
+                                  child: Row(
+                                    children: <Widget>[
+                                      Icon(
+                                        Icons.access_time,
+                                        size: 18.0,
+                                        color: Colors.blue,
+                                      ),
+                                      Text( showend==null?' select time':" $showend",
+                                       // " $_time",
+                                        style: TextStyle(
+                                            color: Colors.blue,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 18.0),
+                                      ),
+                                    ],
+                                  ),
+                                )
+                              ],
+                            ),
+                           Text(
+                          "  Change",
+                          style: TextStyle(
+                              color: Colors.blue,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18.0),
+                        ),
+                          ],
+                        ),
+                      ),
+                      color: Colors.white,
+                    )
+                  ],
+                ),
+              ),
+          ),
+
 
                             SizedBox(height: 20.0),
                             RaisedButton(
@@ -506,7 +518,8 @@ DateFormat timeFormat = DateFormat("HH:00:00:000");
                                         await UserService().timefinish(userData.ID, finishs);
                                         await UserService().duration(userData.ID, dur);
                                     // _showNotification();
-                                    Navigator.pop(context);
+                                  //  Navigator.pop(context);
+                                  _showSnackBar();
                                  
                               }
                                 }),

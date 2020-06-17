@@ -16,14 +16,16 @@ class TeamService {
    Team _teamFromFirebase(DocumentSnapshot team) {
     return team != null ? Team(ID: team.documentID) : null;
   }
+ Future<void> deleteteam(id) async {
+    return await teams.document(id).delete();}
 
-
-  Future<void> createTeam(  String id,String name ,String nO_Team, List<User> users , List<Field> date , String photo ) async {
+  Future<void> createTeam(  String id,String name ,String nO_Team, List<User> users ,String topic, List<Field> date , String photo ) async {
     return await teams.document(id).setData({
       'ID':id,
       'Date': DateTime.now(),
       'Name':name ,
       'NO_Team': nO_Team ,
+      'Topic':topic,
       'PhotoUrl':photo,
       'Players': users.map((u)=>{'UserID' :u.ID,}).toList(),
        'Start':  date.map((u)=>{'StartTime' :u.Date}).toList(),
@@ -69,7 +71,7 @@ Future <void> joinTeam(String ID , List<User> user)async{
 }
 Future <void> disjoinTeam(String ID , List<User> user)async{
     
-  return await teams.document(ID).updateData({'Players':FieldValue.arrayUnion(user.map((e) => {'LeagueID': e.ID}).toList())});
+  return await teams.document(ID).updateData({'Players':FieldValue.arrayRemove(user.map((e) => {'UserID': e.ID}).toList())});
 }
 
   List<Team> _teamsFromSnapshot(QuerySnapshot snapshot) {

@@ -5,8 +5,9 @@ import 'package:flutter_app/screens/Matches/Analysis.dart';
 import 'package:flutter_app/screens/OwnerDashBoard/Field/Analysis.dart';
 import 'package:flutter_app/screens/OwnerDashBoard/OwnerProfile.dart';
 import 'package:flutter_app/screens/OwnerDashBoard/test2.dart';
-import 'Add_League.dart';
-import 'test1.dart';
+import 'Field/FieldNavigate.dart';
+import 'League/LeagueOverviewowner.dart';
+import 'League/League_Navigate.dart';
 
 class Dashboard extends StatefulWidget {
   @override
@@ -18,7 +19,7 @@ class _DashboardState extends State<Dashboard> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Your Dashboard"),
+        title: Center(child: Text(" Dashboard")),
         elevation: .1,
         backgroundColor: Color.fromRGBO(49, 87, 110, 1.0),
       ),
@@ -32,7 +33,6 @@ class _DashboardState extends State<Dashboard> {
             makeDashboardItem("Profile", Icons.person),
             makeDashboardItem2("Fields", Icons.home),
             makeDashboardItem3('leagues', Icons.card_membership),
-            makeDashboardItem4('Analysis', Icons.insert_chart),
 
             // makeDashboardItem4("Add New Field", Icons.create_new_folder),
           ],
@@ -82,7 +82,7 @@ class _DashboardState extends State<Dashboard> {
           decoration: BoxDecoration(color: Color.fromRGBO(220, 220, 220, 1.0)),
           child: new InkWell(
             onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) =>fieldstemp() ),);
+              Navigator.push(context, MaterialPageRoute(builder: (context) =>fieldView() ),);
 
             },
             child: Column(
@@ -108,72 +108,78 @@ class _DashboardState extends State<Dashboard> {
           ),
         ));
   }
-  Card makeDashboardItem3(String title, IconData icon) {
-    return Card(
-        elevation: 1.0,
-        margin: new EdgeInsets.all(8.0),
-        child: Container(
-          decoration: BoxDecoration(color: Color.fromRGBO(220, 220, 220, 1.0)),
-          child: new InkWell(
-            onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) =>LeaguesTemp()));
+  Container makeDashboardItem3(String title, IconData icon) {
+    return Container(
+      margin: EdgeInsets.only(),
+      child: Card(
+        
+          elevation: 1.0,
+          margin: new EdgeInsets.all(8.0),
+          child: Container(
+            decoration: BoxDecoration(color: Color.fromRGBO(220, 220, 220, 1.0)),
+            child: new InkWell(
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) =>leagueview()));
 
-            },
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              mainAxisSize: MainAxisSize.min,
-              verticalDirection: VerticalDirection.down,
-              children: <Widget>[
-                SizedBox(height: 50.0),
-                Center(
-                    child: Icon(
-                      icon,
-                      size: 40.0,
-                      color: Colors.black,
-                    )),
-                SizedBox(height: 20.0),
-                new Center(
-                  child: new Text(title,
-                      style:
-                      new TextStyle(fontSize: 18.0, color: Colors.black)),
-                )
-              ],
+              },
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                mainAxisSize: MainAxisSize.min,
+                verticalDirection: VerticalDirection.down,
+                children: <Widget>[
+                  SizedBox(height: 50.0),
+                  Center(
+                      child: Icon(
+                        icon,
+                        size: 40.0,
+                        color: Colors.black,
+                      )),
+                  SizedBox(height: 20.0),
+                  new Center(
+                    child: new Text(title,
+                        style:
+                        new TextStyle(fontSize: 18.0, color: Colors.black)),
+                  )
+                ],
+              ),
             ),
-          ),
-        ));
+          )),
+    );
   }
-  Card makeDashboardItem4(String title, IconData icon) {
-    return Card(
-        elevation: 1.0,
-        margin: new EdgeInsets.all(8.0),
-        child: Container(
-          decoration: BoxDecoration(color: Color.fromRGBO(220, 220, 220, 1.0)),
-          child: new InkWell(
-            onTap: () {
-              //Navigator.push(context, MaterialPageRoute(builder: (context) =>AnalysisField() ),);
+  Container makeDashboardItem4(String title, IconData icon) {
+    return Container(
+      child: Card(
+          elevation: 1.0,
+          margin: new EdgeInsets.all(8.0),
+          child: Container(
+            decoration: BoxDecoration(color: Color.fromRGBO(220, 220, 220, 1.0)),
+            child: new InkWell(
+              onTap: () {
+                //Navigator.push(context, MaterialPageRoute(builder: (context) =>AnalysisField() ),);
 
-            },
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              mainAxisSize: MainAxisSize.min,
-              verticalDirection: VerticalDirection.down,
-              children: <Widget>[
-                SizedBox(height: 50.0),
-                Center(
-                    child: Icon(
-                      icon,
-                      size: 40.0,
-                      color: Colors.black,
-                    )),
-                SizedBox(height: 20.0),
-                new Center(
-                  child: new Text(title,
-                      style:
-                      new TextStyle(fontSize: 18.0, color: Colors.black)),
-                )
-              ],
+              },
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                mainAxisSize: MainAxisSize.min,
+                verticalDirection: VerticalDirection.down,
+                children: <Widget>[
+                  SizedBox(height: 50.0),
+                  Center(
+                      child: Icon(
+                        icon,
+                        size: 40.0,
+                        color: Colors.black,
+                      )),
+                  SizedBox(height: 20.0),
+                  new Center(
+                    child: new Text(title,
+                        style:
+                        new TextStyle(fontSize: 18.0, color: Colors.black)),
+                  )
+                ],
+              ),
             ),
-          ),
-        ));
+          )),
+    );
   }
 }

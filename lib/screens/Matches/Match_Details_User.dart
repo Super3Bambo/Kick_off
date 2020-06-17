@@ -53,6 +53,7 @@ class _Match_DetailsState extends State<Match_Details> {
 
 String _linkMessage;
   final FirebaseMessaging _fcm = FirebaseMessaging();
+  final GlobalKey<ScaffoldState> _scaffoldKeys = new GlobalKey<ScaffoldState>();
 
   bool _isCreatingLink = false;
   String _testString =
@@ -145,13 +146,13 @@ bool loading = false;
 @override
   Widget build(BuildContext context) {
 
+goback(){Navigator.pop(context);}
 godetails(Match id){
 Navigator.push(context,MaterialPageRoute(builder: (context)=> FriendsOverview()  ) );
 
 }
     DateFormat dateFormat = DateFormat("yyyy-MM-dd HH:00:00:000");
 
-  final GlobalKey<ScaffoldState> _scaffoldKeys = new GlobalKey<ScaffoldState>();
   String matchId = widget.matchid.ID;  
 User user = Provider.of<User>(context);
     List <User> users=[
@@ -330,7 +331,7 @@ _showSnackBar() {
                             style: TextStyle(color: Colors.white),
                           ),
                           onPressed: () async {
-                            if(widget.matchid.Counter>1){
+                            if(widget.matchid.users.length>1){
                               
                                     var f=dateFormat.parse(widget.matchid.Check_in);
                                       var duration =f.add(new Duration(hours: 1));
@@ -361,7 +362,6 @@ _showSnackBar() {
 
                                
 
-                                                                _showSnackBar();
 
                                     var f=dateFormat.parse(widget.matchid.Check_in);
                                       var duration =f.add(new Duration(hours: 1));
@@ -383,6 +383,10 @@ _showSnackBar() {
                               _fcm.unsubscribeFromTopic(widget.matchid.Topic);
                                await MatchService().deleteMatch(widget.matchid.ID ,widget.matchid.Field, widget.matchid.Date.toDate() ,widget.matchid.Location, widget.matchid.Check_in,
                                widget.matchid.Check_out , widget.matchid.Price, count , widget.matchid.Topic);
+                             //  Duration(seconds:3,);
+                           //  Future.delayed(Duration(seconds: 3),  goback());
+                           
+                                                                _showSnackBar();
                           }}
                           ),
                           

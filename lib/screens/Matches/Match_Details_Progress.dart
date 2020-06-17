@@ -1,13 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
-//import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_app/Shared/Loading.dart';
 import 'package:flutter_app/models/field.dart';
-import 'package:flutter_app/screens/Home/myMatches.dart';
 import 'package:flutter_app/screens/Matches/Members_OverView.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import '../../models/Matches.dart';
 import '../../Services/Match.dart';
@@ -18,16 +15,13 @@ import 'package:flutter_icons/flutter_icons.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:getflutter/getflutter.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'Match_Details_User.dart';
-import 'Matches_Overview_Progress.dart';
 import 'package:intl/intl.dart';
 
 
 class Match_DetailsProgress extends StatefulWidget{
+  static const routeName = '/invite';
   
-  final Match matchid;
-  bool val =false;
- 
+  final Match matchid; 
 final List<String> imageList = [
   "https://cdn.pixabay.com/photo/2017/12/03/18/04/christmas-balls-2995437_960_720.jpg",
   "https://cdn.pixabay.com/photo/2017/12/13/00/23/christmas-3015776_960_720.jpg",
@@ -53,6 +47,8 @@ class _Match_DetailsProgressState extends State<Match_DetailsProgress> {
   var initilizationSettingsAndroid;
   var initilizationSettings;
   var initilizationSettingsIOS;
+    final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+
 
  /* void _showNotification()async{
     await _demoNotification();
@@ -168,7 +164,6 @@ User user = Provider.of<User>(context);
   List<String> myList = List<String>();
     myList = widget.matchid.users.map((f)=>f.ID).toList();
   String matchId = widget.matchid.ID;  
-  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   _showSnackBar() {
     final snackBar = new SnackBar(
         content: new Text("You already in this Match"),
@@ -213,6 +208,7 @@ return StreamBuilder<User>(
         if(snapshot.hasData){
           User userData = snapshot.data;
  return  Scaffold(
+   
    key: _scaffoldKey,
       appBar: AppBar(
         title: Text(widget.matchid.Counter.toString()),
@@ -220,6 +216,7 @@ return StreamBuilder<User>(
 
 
         body: Container(
+          
           margin: EdgeInsets.fromLTRB(10.0, 8.0, 10.0, 10.0),
                   child: SingleChildScrollView(
                                       child: Center(
@@ -413,7 +410,6 @@ return StreamBuilder<User>(
                    } 
 
                     else{
-                      
 
                                       var f=dateFormat.parse(widget.matchid.Check_in);
                                       var duration =f.add(new Duration(hours: 1));
@@ -442,7 +438,7 @@ return StreamBuilder<User>(
                                      
                                         Alert(context:  _scaffoldKey.currentContext, title: "Error",desc: 'bb' ).show();}
                                   else{
-                      
+                                       //  _showSnackBar3();
                                           await UserService().timestart(user.ID, starts);
                                           await UserService().timefinish(user.ID, finishs);
                                           await UserService().duration(user.ID, dur);
@@ -450,8 +446,18 @@ return StreamBuilder<User>(
                     await MatchService().joinMatch(matchId , users);
                      await MatchService().editMatch(widget.matchid.ID ,widget.matchid.Field, widget.matchid.Date.toDate() ,widget.matchid.Location, widget.matchid.Check_in,
                        widget.matchid.Check_out , widget.matchid.Price, count , widget.matchid.Topic);
-                        _showSnackBar3();
-                       _fcm.subscribeToTopic(widget.matchid.Topic);
+                       _showSnackBar3();
+                          
+    //                    _fcm.subscribeToTopic(widget.matchid.Topic);
+    //                    final snackBar = new SnackBar(
+    //     content: new Text("Join to match Done"),
+    //     duration: new Duration(seconds: 3),
+    //     //backgroundColor: Colors.pink[300],
+    //     action: new SnackBarAction(label: 'Back', onPressed: (){
+    //        Navigator.pop(context);
+    //     }),
+    // );
+    // _scaffoldKey.currentState.showSnackBar(snackBar);
                      
                    // _showNotification();
                       }}

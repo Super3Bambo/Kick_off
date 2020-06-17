@@ -21,7 +21,7 @@ body: ListView.builder(
           itemBuilder: (context, index) => ChangeNotifierProvider.value(
             value: fields[index],
           // builder: (c)=> fields[index],
-            child: FieldItem(),
+            child: FieldItem(),      
           ),),
           );
   }
@@ -29,25 +29,24 @@ body: ListView.builder(
 
 import 'package:flutter/material.dart';
 import 'package:flutter_app/models/field.dart';
-import 'package:flutter_app/models/league.dart';
-import 'package:flutter_app/screens/OwnerDashBoard/Field/Field_Item.dart';
-import 'package:flutter_app/screens/OwnerDashBoard/League/LeagueItem.dart';
 import 'package:provider/provider.dart';
-class Leagueview extends StatefulWidget {
+
+import 'Field_Item.dart';
+class Fieldview extends StatefulWidget {
   @override
-  _LeagueviewState createState() => _LeagueviewState();
+  _FieldviewState createState() => _FieldviewState();
 }
 
-class _LeagueviewState extends State<Leagueview> {
+class _FieldviewState extends State<Fieldview> {
   @override
   Widget build(BuildContext context) {
 
-    final field = Provider.of<List<League>>(context) ?? [];
+    final field = Provider.of<List<Field>>(context) ?? [];
 
     return ListView.builder(
       itemCount: field.length,
       itemBuilder: (context, index) {
-        return LeagueItemowner(league: field[index]);
+        return FieldItemowner(field: field[index]);
       },
     );
   }

@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/screens/Fields_screens/Fields_Overview.dart';
 import 'package:flutter_app/screens/OwnerDashBoard/Field/Fields_Overview.dart';
 
-import 'Field/AddFieldForm.dart';
+import 'AddFieldForm.dart';
+//import 'Field/AddFieldForm.dart';
 
-class fieldstemp extends    StatelessWidget {
+class fieldView extends    StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

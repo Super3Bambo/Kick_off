@@ -4,6 +4,7 @@ import 'package:flutter_app/Shared/Loading.dart';
 import 'package:flutter_app/models/User.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/screens/Home/Test.dart';
+import 'package:flutter_app/screens/OwnerDashBoard/dashboard.dart';
 import 'package:flutter_app/screens/authenticate/authenticate.dart';
 import 'package:flutter_app/screens/authenticate/OnBorder.dart';
 import 'package:flutter_app/screens/authenticate/Rgester_Complete.dart';
@@ -33,8 +34,8 @@ class Choise extends StatelessWidget {
           if(userData.Role=='User'){
             return HomePage();
           }
-          else if(userData.Role=='Admin'){
-            return Tests();
+          else if(userData.Role=='Owner'){
+            return Dashboard();
           }
           else{return Testtts();}
           

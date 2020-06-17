@@ -1,18 +1,20 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_app/models/LeagueMatches.dart';
+import 'package:flutter_app/models/Matches.dart';
 import 'package:flutter_app/models/league.dart';
 import 'package:flutter_app/models/team.dart';
 
 
 
 class LeagueService {
-  String teamid , id , i;
-  LeagueService({this.teamid, this.id , this.i});
+  String teamid , id , i,ownerid , leagueid;
+  LeagueService({this.teamid, this.id , this.i ,this.ownerid , this.leagueid});
 
 
 final CollectionReference league = Firestore.instance.collection('League');
 
 
-  Future<void> addleague( String fieldid, String start ,String finish , List<Team> teams , String prize , String desc,String name ) async {
+  Future<void> addleague( String fieldid, String start ,String finish , List<Team> teams , String prize , String desc,String name ,String owner) async {
     return await league.document().setData({
       'FieldId': fieldid,
       'Start_at': start ,
@@ -20,6 +22,7 @@ final CollectionReference league = Firestore.instance.collection('League');
       'Description': desc,
       'Prize':prize,
       'Name':name,
+      'Owner':owner,
       'Teams': teams.toList(),
         //'Players' : users,
       // Map<String, dynamic>  {'Players': users}
@@ -27,29 +30,30 @@ final CollectionReference league = Firestore.instance.collection('League');
   
   });
   }
-  Future<void> updateleague( String fieldid, String start ,String finish , String prize , String desc,String name, List<Team> teams ) async {
-    return await league.document(id).setData({
-      'FieldId': fieldid,
-      'Start_at': start ,
-      'Finish_at': finish,
-      'Description': desc,
-      'Prize':prize,
-      'Name':name,
-      'Counter':8,
-      'Teams': teams.map((u)=>{'TeamID' :u.ID,}).toList(),
+  // Future<void> updateleague( String fieldid, String start ,String finish , String prize , String desc,String name, List<Team> teams ) async {
+  //   return await league.document(id).setData({
+  //     'FieldId': fieldid,
+  //     'Start_at': start ,
+  //     'Finish_at': finish,
+  //     'Description': desc,
+  //     'Prize':prize,
+  //     'Name':name,
+  //     'Counter':8,
+  //     'Teams': teams.map((u)=>{'TeamID' :u.ID,}).toList(),
 
-        //'Players' : users,
-      // Map<String, dynamic>  {'Players': users}
-  //   'Players': Match().mapping(),
+  //       //'Players' : users,
+  //     // Map<String, dynamic>  {'Players': users}
+  // //   'Players': Match().mapping(),
   
-  });
-  }
+  // });
+  // }
   
-Future<void> addmatch_to_league( String fieldid, String start ,String finish , List<Team> teams ) async {
+Future<void> addmatch_to_league( String fieldid, String start ,String finish , List<Team> teams ,/*String location*/ ) async {
     return await league.document(id).collection(teamid).document(i).setData({
       'FieldId': fieldid,
       'Start_at': start,
       'Finish_at': finish,
+     // 'Location':location,
       'Teams': teams.map((u)=>{'TeamID' :u.ID,}).toList(),
   });
   }
@@ -73,6 +77,7 @@ Future <void> disjoinLeague(String ID , List<Team> team)async{
     return  snapshot.documents.map((doc){
     return League(
       ID: doc.documentID,
+      Owner:doc.data['Owner'],
       Field:  doc.data['FieldId'] ?? '',
       Finish_Date :  doc.data['Finish_at'] ?? '',
       Start_Date:  doc.data['Start_at'] ?? '',
@@ -86,10 +91,40 @@ Future <void> disjoinLeague(String ID , List<Team> team)async{
     }).toList();
   }
 
+  List<LeagueMatch> _challengesFromSnapshot(QuerySnapshot snapshot) {
+    return  snapshot.documents.map((doc){
+    return LeagueMatch(
+      ID: doc.documentID,
+      Field:  doc.data['FieldId'] ?? '',
+      Check_out :  doc.data['Finish_at'] ?? '',
+      Check_in:  doc.data['Start_at'] ?? '',
+      //Location:  doc.data['Location'] ?? '',
+      team: doc.data['Teams'].map<Team>((player) =>Team.fromMap(player)).toList() ?? [],
+
+
+     // rating: snapshot.data["Rating"],
+    );
+    }).toList();
+  }
+
   Stream<List<League>> get leagues {
   
     return league.where("Start_at" ,isGreaterThan: DateTime.now().toString()).
     snapshots().map(_leaguesFromSnapshot);
+
+  }
+   Stream<List<League>> get leaguesowner {
+  
+    return league.where('Owner' , isEqualTo: ownerid).
+    snapshots().map(_leaguesFromSnapshot);
+
+  }
+  Stream<List<LeagueMatch>> get leagueMatches {
+  
+    return league.document(leagueid).collection(leagueid+'match').snapshots().map(_challengesFromSnapshot);
+    
+  
+    // snapshots().map(_leaguesFromSnapshot);
 
   }
 }

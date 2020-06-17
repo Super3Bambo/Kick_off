@@ -124,12 +124,22 @@ if(team!=null){
                                       margin: EdgeInsets.only(top: 0 ),
                                   child: IconButton(icon: Icon(FontAwesome.sign_out , size: 30, color: Colors.purpleAccent ,), 
                                 onPressed:()async{
-                            await TeamService().disjoinTeam(team.ID, users);
-                            String teamid="";
+                                  if(team.users.length!=1){
+                             
+                          await TeamService().disjoinTeam(team.ID, users);
+                                String teamid="";
                             
                           await UserService(userid: user.ID).updateUserData(userData.FName, userData.LName, userData.Age, userData.Position, userData.Area, userData.Phone, 
+                                  userData.Photo_url, teamid, userData.Token);
+                                  }
+                                  
+                                  else{
+                             await TeamService().deleteteam(team.ID);
+                             String teamid="";
+                          await UserService(userid: user.ID).updateUserData(userData.FName, userData.LName, userData.Age, userData.Position, userData.Area, userData.Phone, 
                           userData.Photo_url, teamid, userData.Token);
-                          //Navigator.pop(context);
+                            
+                                }
                                 }
                                 ))
                                   

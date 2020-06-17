@@ -49,6 +49,7 @@ class _OwnerProfileState extends State<OwnerProfile> {
           if(snapshot.hasData){
             User userData = snapshot.data;
 
+
             Future getImage() async {
               var image = await ImagePicker.pickImage(source: ImageSource.gallery);
 
@@ -87,131 +88,140 @@ class _OwnerProfileState extends State<OwnerProfile> {
             userData.rating.map((e) => e.Position_Skills).forEach((int e){sumPos += e;});
             double poscount= sumPos/userData.rating.length;
             double total =(skillscount*6+moralitycount*2+poscount)/(3*3);
-            return  Stack(children: <Widget>[
-              Container(color: Color.fromRGBO(220, 220, 220, 1.0)),
+            return  Scaffold(
+               backgroundColor: Color.fromRGBO(49, 87, 110, 1.0),
+              appBar: AppBar(title:Text(userData.FName + ' ' +userData.LName)),
+              body: Container(
+                color: Color.fromRGBO(49, 87, 110, 1.0),
+               // padding: EdgeInsets.only(top: 30),
+                child: Stack(children: <Widget>[
+                  Container(),
           Image.network(imgUrl, fit: BoxFit.fill,),
-              BackdropFilter(
-                  filter:  ui.ImageFilter.blur(
-                    sigmaX: 6.0,
-                    sigmaY: 6.0,
-                  ),
-                  child:  Container(
-                    decoration: BoxDecoration(
-                      color:  Colors.blue.withOpacity(0.9),
-                      //borderRadius: BorderRadius.all(Radius.circular(50.0)),
-                    ),)),
-              Scaffold(
-                  drawer:  Drawer(child:  Container(),),
-                  backgroundColor: Color.fromRGBO(49, 87, 110, 1.0),
-                  body:  Center(
-                    child:  Column(
-                      children: <Widget>[
-                        SizedBox(height: _height/12,),
+                  BackdropFilter(
+                      filter:  ui.ImageFilter.blur(
+                        sigmaX: 6.0,
+                        sigmaY: 6.0,
+                      ),
+                      child:  Container(
+                        decoration: BoxDecoration(
+                          color:  Colors.blue.withOpacity(0.9),
+                          //borderRadius: BorderRadius.all(Radius.circular(50.0)),
+                        ),)),
+                  Scaffold(
+                      drawer:  Drawer(child:  Container(),),
+                        backgroundColor: Color.fromRGBO(49, 87, 110, 1.0),
+                      body:  Center(
+                        child:  Column(
+                          children: <Widget>[
+                            SizedBox(height: _height/6,),
 
-                        InkWell(
-                          onTap: ()=>getImage(),
-                          child:  CircleAvatar(
+                            InkWell(
+                              
+                              onTap: ()=>getImage(),
+                              child:  CircleAvatar(
 
-                            radius: 100,
-                            child: ClipOval(
-                              child: SizedBox(
-                                width: 220.0,
-                                height: 220.0,
+                                radius: 100,
+                                child: ClipOval(
+                                  child: SizedBox(
+                                    width: 220.0,
+                                    height: 220.0,
 
-                                //backgroundImage: NetworkImage(imgUrl),
-                                child: (userData.Photo_url!=null)?Image.network(
-                                  /* --------------------*/  userData.Photo_url,
-                                  fit: BoxFit.fill,
-                                ):Image.network(
-                                  imgUrl,
-                                  fit: BoxFit.fill,
-                                ),
+                                    //backgroundImage: NetworkImage(imgUrl),
+                                    child: (userData.Photo_url!=null)?Image.network(
+                                      /* --------------------*/  userData.Photo_url,
+                                      fit: BoxFit.fill,
+                                    ):Image.network(
+                                      imgUrl,
+                                      fit: BoxFit.fill,
+                                    ),
 
-                              ),),),),
+                                  ),),),),
 
 
 
-                        SizedBox(height: _height/25.0,),
-                        Text(userData.FName + ' ' + '${ userData.LName}', style:  TextStyle(fontWeight: FontWeight.bold, fontSize: _width/15, color: Colors.white),),
-                        RatingBar.readOnly(
-                          initialRating: total,
-                          isHalfAllowed: true,
-                          halfFilledIcon: Icons.star_half,
-                          filledIcon: Icons.star,
-                          emptyIcon: Icons.star_border,
-                          filledColor: Colors.lime[100],
-                          emptyColor: Colors.lime[100],
-                          halfFilledColor: Colors.lime[100],
+                            SizedBox(height: _height/14.0,),
+                            Text(userData.FName + ' ' + '${ userData.LName}', style:  TextStyle(fontWeight: FontWeight.bold, fontSize: _width/15, color: Colors.white),),
+                            // RatingBar.readOnly(
+                            //   initialRating: total,
+                            //   isHalfAllowed: true,
+                            //   halfFilledIcon: Icons.star_half,
+                            //   filledIcon: Icons.star,
+                            //   emptyIcon: Icons.star_border,
+                            //   filledColor: Colors.lime[100],
+                            //   emptyColor: Colors.lime[100],
+                            //   halfFilledColor: Colors.lime[100],
+                            // ),
+                            Divider(height: _height/30,color: Colors.white,),
+                            Container(child:  Row(mainAxisAlignment: MainAxisAlignment.spaceAround,children: <Widget>[
+                              /*RaisedButton(
+                                  padding: EdgeInsets.fromLTRB(10.0,10.0,10.0,10.0),
+                                  color: Colors.white,
+                                  child: Text(
+                                    'Followers',
+                                    style: TextStyle(color: Colors.black,fontSize: 15, fontWeight: FontWeight.bold),
+                                  ),
+                                  onPressed: ()  {
+                                    Navigator.push(context,MaterialPageRoute(builder: (context)=> FollowersOverview(userid: userData,)  ) );
+                                  }
+                              ),
+                              RaisedButton(
+                                  padding: EdgeInsets.fromLTRB(10.0,10.0,10.0,10.0),
+                                  color: Colors.white,
+                                  child: Text(
+                                    'Following',
+                                    style: TextStyle(color: Colors.black,fontSize: 15, fontWeight: FontWeight.bold),
+                                  ),
+                                  onPressed: ()  {
+                                    Navigator.push(context,MaterialPageRoute(builder: (context)=> FollowingOverview(userid: userData,)  ) );
+                                  }
+
+                              ),*/
+                              RaisedButton(
+                                  padding: EdgeInsets.fromLTRB(10.0,10.0,10.0,10.0),
+                                  color: Colors.white,
+                                  child: Text(
+                                    'Edit',
+                                    style: TextStyle(color: Colors.black, fontSize: 15, fontWeight: FontWeight.bold),
+                                  ),
+                                  onPressed: ()  {
+                                    Navigator.push(context,MaterialPageRoute(builder: (context)=> Edituser()  ) );
+                                  }
+
+                              ),          //new Icon(Icons.edit),
+                              //new SizedBox(width: _width/30,),
+                              //   new Text('Edit')
+                            ],)),
+                            Divider(height: _height/30,color: Colors.white),
+                            Column(
+                                children:[
+                                  Container(
+                                    margin: EdgeInsets.only(left:8),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                      children: <Widget>[
+                                        Text('Age' ,style: TextStyle(color: Colors.white70,fontSize: 20, fontWeight: FontWeight.bold)),
+                                        Container(
+                                          margin: EdgeInsets.only(left:16),
+                                          child: Text('Area',style: TextStyle(color: Colors.white70,fontSize: 20, fontWeight: FontWeight.bold),),),
+                                        Text('Position',style: TextStyle(color: Colors.white70,fontSize: 20, fontWeight: FontWeight.bold),),
+                                      ],),),
+
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                    children: <Widget>[
+                                      Text(userData.Age ,style: TextStyle(color: Colors.white,fontSize: 20, fontWeight: FontWeight.bold)),
+                                      Text(userData.Area,style: TextStyle(color: Colors.white,fontSize: 20, fontWeight: FontWeight.bold),),
+                                      Text(userData.Position,style: TextStyle(color: Colors.white,fontSize: 20, fontWeight: FontWeight.bold),),
+                                    ],
+                                  )
+                                  ,]),
+                          ],
                         ),
-                        Divider(height: _height/30,color: Colors.white,),
-                        Container(child:  Row(mainAxisAlignment: MainAxisAlignment.spaceAround,children: <Widget>[
-                          /*RaisedButton(
-                              padding: EdgeInsets.fromLTRB(10.0,10.0,10.0,10.0),
-                              color: Colors.white,
-                              child: Text(
-                                'Followers',
-                                style: TextStyle(color: Colors.black,fontSize: 15, fontWeight: FontWeight.bold),
-                              ),
-                              onPressed: ()  {
-                                Navigator.push(context,MaterialPageRoute(builder: (context)=> FollowersOverview(userid: userData,)  ) );
-                              }
-                          ),
-                          RaisedButton(
-                              padding: EdgeInsets.fromLTRB(10.0,10.0,10.0,10.0),
-                              color: Colors.white,
-                              child: Text(
-                                'Following',
-                                style: TextStyle(color: Colors.black,fontSize: 15, fontWeight: FontWeight.bold),
-                              ),
-                              onPressed: ()  {
-                                Navigator.push(context,MaterialPageRoute(builder: (context)=> FollowingOverview(userid: userData,)  ) );
-                              }
-
-                          ),*/
-                          RaisedButton(
-                              padding: EdgeInsets.fromLTRB(10.0,10.0,10.0,10.0),
-                              color: Colors.white,
-                              child: Text(
-                                'Edit',
-                                style: TextStyle(color: Colors.black, fontSize: 15, fontWeight: FontWeight.bold),
-                              ),
-                              onPressed: ()  {
-                                Navigator.push(context,MaterialPageRoute(builder: (context)=> Edituser()  ) );
-                              }
-
-                          ),          //new Icon(Icons.edit),
-                          //new SizedBox(width: _width/30,),
-                          //   new Text('Edit')
-                        ],)),
-                        Divider(height: _height/30,color: Colors.white),
-                        Column(
-                            children:[
-                              Container(
-                                margin: EdgeInsets.only(left:8),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                  children: <Widget>[
-                                    Text('Age' ,style: TextStyle(color: Colors.white70,fontSize: 20, fontWeight: FontWeight.bold)),
-                                    Container(
-                                      margin: EdgeInsets.only(left:16),
-                                      child: Text('Area',style: TextStyle(color: Colors.white70,fontSize: 20, fontWeight: FontWeight.bold),),),
-                                    Text('Position',style: TextStyle(color: Colors.white70,fontSize: 20, fontWeight: FontWeight.bold),),
-                                  ],),),
-
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                children: <Widget>[
-                                  Text(userData.Age ,style: TextStyle(color: Colors.white,fontSize: 20, fontWeight: FontWeight.bold)),
-                                  Text(userData.Area,style: TextStyle(color: Colors.white,fontSize: 20, fontWeight: FontWeight.bold),),
-                                  Text(userData.Position,style: TextStyle(color: Colors.white,fontSize: 20, fontWeight: FontWeight.bold),),
-                                ],
-                              )
-                              ,]),
-                      ],
-                    ),
+                      )
                   )
-              )
-            ],
+                ],
+                ),
+              ),
             );
           }else{ return Loading();}
         }

@@ -37,7 +37,7 @@ return MaterialApp(
 
   }}
 */class DynamicLinkScreen extends StatelessWidget {
-       static const routeName = '/invite';
+       
 final Match matchid;
 
   DynamicLinkScreen({this.matchid});

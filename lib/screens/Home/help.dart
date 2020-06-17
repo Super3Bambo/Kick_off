@@ -20,8 +20,8 @@ class Help extends StatelessWidget
           ),
           new Row(
             children: <Widget>[
-              new FlatButton( onPressed: () { Navigator.push(context, MaterialPageRoute(builder: (context) =>Dashboard() ),); },
-                   child: Text('Dashboard ya Farrag'))
+              // new FlatButton( onPressed: () { Navigator.push(context, MaterialPageRoute(builder: (context) =>Dashboard() ),); },
+              //      child: Text('Dashboard ya Farrag'))
             ],
           ),
           ]

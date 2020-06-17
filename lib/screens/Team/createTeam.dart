@@ -124,7 +124,8 @@ return StreamBuilder<User>(
                     onPressed: () async {
                       if(_formKey.currentState.validate()){
                           var id=randomString(20 , includeSymbols: false,  useCharOnce:false );
-                          await TeamService().createTeam(id ,name, nO_Team, users , date , urlphoto!=null?urlphoto:uurl);
+                          var topic=randomString(6,includeSymbols: false,useCharOnce: false);
+                          await TeamService().createTeam(id ,name, nO_Team, users ,topic, date , urlphoto!=null?urlphoto:uurl);
                           await UserService(userid: user.ID).updateUserData(userData.FName, userData.LName, userData.Age, userData.Position, userData.Area, userData.Phone, 
                           userData.Photo_url, id, userData.Token);
                       // Navigator.push(context,MaterialPageRoute(builder: (context)=> Teams_OverView()  ) );

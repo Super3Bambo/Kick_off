@@ -151,7 +151,7 @@ class AddLeagueState extends State<AddLeague> {
                   var s=dateFormat.format(_start);
                   var f= dateFormat.format(_finish);
                   await LeagueService().addleague(
-                      widget.fieldid.ID,s,f,_teams,_prize,_name,_desc
+                      widget.fieldid.ID,s,f,_teams,_prize,_name,_desc,'f'
                   );
                   Navigator.pop(context);
 

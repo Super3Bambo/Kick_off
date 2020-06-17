@@ -89,40 +89,43 @@ class FieldItem extends StatelessWidget
 import 'package:flutter/material.dart';
 import 'package:flutter_app/Services/Fields.dart';
 import 'package:flutter_app/models/field.dart';
+import 'package:flutter_app/models/league.dart';
 import 'package:flutter_app/screens/OwnerDashBoard/Field/Analysis.dart';
 import 'package:flutter_app/screens/OwnerDashBoard/Field/Field_Details.dart';
 import 'package:flutter_app/screens/OwnerDashBoard/Field/MatchFieldOverview.dart';
 import 'package:flutter_app/screens/OwnerDashBoard/Field/editfield.dart';
 import 'package:flutter_app/screens/OwnerDashBoard/League/EditLeague.dart';
 import 'package:flutter_app/screens/OwnerDashBoard/League/LeagueDetails.dart';
+import 'package:flutter_app/screens/OwnerDashBoard/League/LeagueMatches.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:rating_bar/rating_bar.dart';
+
+import 'Analysis.dart';
+import 'LeagueMemberOverView.dart';
 
 
 
 class LeagueItemowner extends StatelessWidget {
 
 
-  final Field field;
-  LeagueItemowner({ this.field });
+  final League league;
+  LeagueItemowner({ this.league });
+  int check =8;
 
   @override
   Widget build(BuildContext context) {
-    int sum = 0;
-    field.rate.map((e) => e.Rate).forEach((int e){sum += e;});
-    double count= sum/field.rate.length;
 
-    godetails(Field id){
-      Navigator.push(context,MaterialPageRoute(builder: (context)=> LeagueDetailsowner(fieldid: field)  ) );}
+    godetails(){
+      Navigator.push(context,MaterialPageRoute(builder: (context)=> LeagueMatchesOverview(leagueid: league.ID)  ) );}
 
-    godetails2(){
-      Navigator.push(context,MaterialPageRoute(builder: (context)=> MatchFieldOverview(field: field.ID)  ) );}
+     godetails2(){
+    Navigator.push(context,MaterialPageRoute(builder: (context)=> LeaguememberOverviewowner(leagueid: league.teams.map((e) => e.ID).toList())  ) );}
 
-    godetails3(Field id){
-      Navigator.push(context,MaterialPageRoute(builder: (context)=> editLeague(field: field)  ) );}
-    godetails4(){
-      Navigator.push(context,MaterialPageRoute(builder: (context)=> AnalysisField(field: field,)  ) );}
+     godetails3(){
+       Navigator.push(context,MaterialPageRoute(builder: (context)=> AnalysisLeague(league: league)  ) );}
+    // godetails4(){
+    //   Navigator.push(context,MaterialPageRoute(builder: (context)=> AnalysisField(field: league,)  ) );}
 
     return  Card(
         margin: EdgeInsets.fromLTRB(20.0, 5.0, 20.0, 5.0),
@@ -164,7 +167,7 @@ class LeagueItemowner extends StatelessWidget {
                                 child: Icon(Icons.attach_money,size: 30,)),
                             Container(
                               //   margin: EdgeInsets.only(left:50,right: 10),
-                                child: Text(field.Price.toString(),style:TextStyle(fontWeight: FontWeight.bold ) ,)),
+                                child: Text(league.Description.toString(),style:TextStyle(fontWeight: FontWeight.bold ) ,)),
 
 
                           ],),
@@ -184,7 +187,7 @@ class LeagueItemowner extends StatelessWidget {
                                 child: Icon(FontAwesome.newspaper_o ,size: 30,)),
                             Container(
                               //  margin: EdgeInsets.only(left:25,right: 0),
-                                child: Text(field.Name,style:TextStyle(fontWeight: FontWeight.bold ) ,)),
+                                child: Text(league.Name,style:TextStyle(fontWeight: FontWeight.bold ) ,)),
                             //  Container(
                             //  margin: EdgeInsets.only(left:25,right: 0),
                             //  child: Text(field.Location ,style:TextStyle(fontWeight: FontWeight.bold ) ,)),
@@ -205,7 +208,7 @@ class LeagueItemowner extends StatelessWidget {
                                 child: Icon(Icons.location_on,size: 30,)),
                             Container(
                               //  margin: EdgeInsets.only(left:25,right: 0),
-                                child: Text(field.Location ,style:TextStyle(fontWeight: FontWeight.bold ) ,)),
+                                child: Text(league.Prize ,style:TextStyle(fontWeight: FontWeight.bold ) ,)),
                             // Text(field.Location),
                           ],),
                       )
@@ -228,12 +231,15 @@ class LeagueItemowner extends StatelessWidget {
                 mainAxisSize:MainAxisSize.max ,
                 mainAxisAlignment:MainAxisAlignment.spaceAround ,
                 children: <Widget>[
-                  IconButton(icon: Icon(FontAwesome.calendar_plus_o,size: 30, color: Colors.green[600],),  onPressed: ()=>godetails( field),),
-                  IconButton(icon: Icon(FontAwesome.edit,size: 30, color: Colors.green[600],), onPressed: ()=>godetails3(field)),
-                  IconButton(icon: Icon(Icons.delete,size: 30, color: Colors.green[600],), onPressed:()async=> FieldService().deleteField(field.ID)),
-                  IconButton(icon: Icon(Icons.list,size: 30, color: Colors.green[600],), onPressed: ()=>godetails2( ),),
-                  IconButton(icon: Icon(FontAwesome.pie_chart,size: 30, color: Colors.green[600],), onPressed: ()=>godetails4()),
-
+                  IconButton(icon: Icon(Icons.people,size: 30, color: Colors.green[600],),  onPressed: ()=>godetails2()),
+                  league.teams.length==8?IconButton(icon: Icon(FontAwesome.edit,size: 30, ), onPressed: (){}):
+                  IconButton(icon: Icon(FontAwesome.edit,size: 30, color: Colors.green[600],), onPressed: (){}),
+                   IconButton(icon: Icon(FontAwesome.pie_chart,size: 30, color: Colors.green[600],), onPressed: ()=>godetails3()),
+                  //IconButton(icon: Icon(Icons.delete,size: 30, color: Colors.green[600],), onPressed:(){}),
+                  league.teams.length==8? IconButton(icon: Icon(Icons.delete,size: 30, ), onPressed: (){}):
+                  IconButton(icon: Icon(Icons.delete,size: 30, color: Colors.green[600],), onPressed:(){}),
+                  IconButton(icon: Icon(Icons.list,size: 30, color: Colors.green[600],), onPressed: ()=>godetails()),
+                
                 ],),
             ),
 
