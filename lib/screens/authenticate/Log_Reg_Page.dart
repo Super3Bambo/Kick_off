@@ -6,6 +6,7 @@ import 'package:rflutter_alert/rflutter_alert.dart';
 import 'clipper.dart';
 
 class AuthPage extends StatefulWidget {
+   final FirebaseAuth _auth = FirebaseAuth.instance;
   @override
   _AuthPageState createState() => _AuthPageState();
 }
@@ -228,7 +229,30 @@ class _AuthPageState extends State<AuthPage> {
                     setState(() {
               Alert(context: context, title: "Invalid data",desc: " enter your PassWord" ).show();});
       }
-          else{
+    //  else if (await _auth.checkemail(_email)==false){
+    //     setState(() {
+    //     Alert(context: context, title: "Invalid data",desc: " This mail is already taken" ).show();});
+    //     _email='';
+    //   }
+          else{  
+             setState(() => loading = true);
+            var check = await _auth.checkemail(_email);
+          if(check.isNotEmpty){
+
+   setState(() {
+         Alert(context: context, title: "Invalid data",desc: " This mail is already taken" ).show();
+         _emailController.clear();
+         _email='';
+         });
+         loading=false;
+
+
+ 
+
+
+     
+    }else{ 
+
       setState(() => loading = true);
                       dynamic result = await _auth.registerWithEmailAndPassword(_email, _password );
                     
@@ -239,7 +263,11 @@ class _AuthPageState extends State<AuthPage> {
                         loading = false;
 
                       });}
-    }}
+      
+         
+    }
+    }
+    }
 
     void _loginSheet() {
       _scaffoldKey.currentState.showBottomSheet<void>((BuildContext context) {
