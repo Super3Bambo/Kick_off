@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_app/models/team.dart';
 import '../../models/Matches.dart';
 import '../../models/User.dart';
 import 'package:provider/provider.dart';
@@ -8,8 +9,8 @@ import './Friends_Item.dart';
 
 
 class MatchFriends extends StatefulWidget{
-  final Match matchid;
-  MatchFriends({this.matchid});
+  final Team team;
+  MatchFriends({this.team});
 
   @override
   _MatchFriendsState createState() => _MatchFriendsState();
@@ -25,7 +26,7 @@ class _MatchFriendsState extends State<MatchFriends> {
           return ListView.builder( 
             itemCount: friends.length,
             itemBuilder: (context, index) {
-              return FriendsItem(friends:friends[index] , match: widget.matchid,); /* Padding(
+              return FriendsItem(friends:friends[index] , team: widget.team,); /* Padding(
       padding: const EdgeInsets.only(top: 8.0),
       child: Card(
         

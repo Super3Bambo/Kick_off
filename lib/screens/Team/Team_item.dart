@@ -12,6 +12,8 @@ import './teamMembers.dart';
 import './teamBoard.dart';
 import 'package:intl/intl.dart';
 
+import 'Friends_Overview.dart';
+
 class TeamItem extends StatelessWidget {
 
   @override
@@ -24,6 +26,8 @@ class TeamItem extends StatelessWidget {
         Team team = Provider.of<Team>(context);
         godetails(Team id){
 Navigator.push(context,MaterialPageRoute(builder: (context)=> TeamBoard(team: team)  ) );}
+godetails2(){
+Navigator.push(context,MaterialPageRoute(builder: (context)=> FriendsOverview(team: team)  ) );}
 if(team!=null){
   return StreamBuilder<User>(
       stream: UserService(userid: user.ID).userData,
@@ -101,28 +105,28 @@ if(team!=null){
                                   
                                 ],),
                                 Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
                                   mainAxisSize: MainAxisSize.max,
-                                   mainAxisAlignment:MainAxisAlignment.start,
+                                   mainAxisAlignment:MainAxisAlignment.spaceBetween,
 
                                   children: <Widget>[
                                     Container(
-                                      margin: EdgeInsets.only(top:10,),
+                                      //margin: EdgeInsets.only(top:10,),
                                         child: Text('Info',style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
                                 ),
                                     Container(
-                                      margin: EdgeInsets.only(left:90,top: 2 ,right: 50),
-                                  child:IconButton(icon: Icon(FontAwesome.info_circle,color: Colors.red[900],), onPressed: ()=> godetails(team),autofocus: true,
+                                     // margin: EdgeInsets.only(left:50,top: 2 ,right: 0),
+                                  child:IconButton(icon: Icon(FontAwesome.info_circle,color: Colors.white,), onPressed: ()=> godetails(team),autofocus: true,
                                   focusColor:Colors.grey , hoverColor: Colors.red[900],padding: EdgeInsets.all(10),
                                   ) 
                                   ),
                                    Container(
-                                      margin: EdgeInsets.only(top:12, right: 15),
+                                      //margin: EdgeInsets.only(top:12, right: 10),
                                         child: Text('Leave',style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
                                 ),
                                   Container(
-                                      margin: EdgeInsets.only(top: 0 ),
-                                  child: IconButton(icon: Icon(FontAwesome.sign_out , size: 30, color: Colors.purpleAccent ,), 
+                                   //   margin: EdgeInsets.only(top: 0 ),
+                                  child: IconButton(icon: Icon(FontAwesome.sign_out , size: 30, color: Colors.red[900] ,), 
                                 onPressed:()async{
                                   if(team.users.length!=1){
                              
@@ -141,7 +145,16 @@ if(team!=null){
                             
                                 }
                                 }
-                                ))
+                                )),
+                                Container(
+                                     // margin: EdgeInsets.only(top:10,),
+                                        child: Text('Invite',style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
+                                ),
+                                    Container(
+                                   //   margin: EdgeInsets.only(left:20,top: 2 ,right: 0),
+                                  child:IconButton(icon: Icon(FontAwesome.plus_square,color: Colors.green[900],), onPressed: ()=>godetails2(),
+                                  ) 
+                                  ),
                                   
                                 ],
                                 ),

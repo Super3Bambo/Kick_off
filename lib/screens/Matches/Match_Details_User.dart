@@ -15,7 +15,6 @@ import '../../models/Matches.dart';
 //import '../../Services/Match.dart';
 //import '../../models/User.dart';
 import 'package:provider/provider.dart';
-import './Invite_Page.dart';
 import 'dart:async';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/services.dart';
@@ -24,7 +23,7 @@ import 'package:intl/intl.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:getflutter/getflutter.dart';
-
+import 'package:share/share.dart';
 import 'Matches_Overview_User.dart';
 
 
@@ -49,97 +48,18 @@ class Match_Details extends StatefulWidget{
 }
 
 class _Match_DetailsState extends State<Match_Details> {
-    //final FirebaseMessaging _fcm=FirebaseMessaging();
-
-String _linkMessage;
   final FirebaseMessaging _fcm = FirebaseMessaging();
   final GlobalKey<ScaffoldState> _scaffoldKeys = new GlobalKey<ScaffoldState>();
 
-  bool _isCreatingLink = false;
-  String _testString =
-      "To test: long press link and then copy and click from a non-browser "
-      "app. Make sure this isn't being tested on iOS simulator and iOS xcode "
-      "is properly setup. Look at firebase_dynamic_links/README.md for more "
-      "details.";
-
+  
 
   @override
   void initState() {
     super.initState();
-    initDynamicLinks();
-   // _fcm.getToken().then((token){
-//print ("The token ID is "+ token);
-
-  //  });
-
+  
   }
-
-  void initDynamicLinks() async {
-    final PendingDynamicLinkData data =
-    await FirebaseDynamicLinks.instance.getInitialLink();
-    final Uri deepLink = data?.link;
-
-    if (deepLink != null) {
-      Navigator.pushNamed(context, deepLink.path);
-    
-  }
-
-    FirebaseDynamicLinks.instance.onLink(
-        onSuccess: (PendingDynamicLinkData dynamicLink) async {
-          final Uri deepLink = dynamicLink?.link;
-
-          if (deepLink != null) {
-            Navigator.pushNamed(context, deepLink.path);
-            
-           
-          }
-        }, onError: (OnLinkErrorException e) async {
-      print('onLinkError');
-      print(e.message);
-    });
-  }
-
-  Future<void> _createDynamicLink(bool short) async {
-    setState(() {
-      _isCreatingLink = true;
-    });
-
-    final DynamicLinkParameters parameters = DynamicLinkParameters(
-      uriPrefix: 'https://kickoff3.page.link',
-      link: Uri.parse('https://kickoff3.page.link/invite'),
-      androidParameters: AndroidParameters(
-        packageName: 'com.example.kick_off',
-        minimumVersion: 0,
-      ),
-      dynamicLinkParametersOptions: DynamicLinkParametersOptions(
-        shortDynamicLinkPathLength: ShortDynamicLinkPathLength.short,
-      ),
-      iosParameters: IosParameters(
-        bundleId: 'com.google.FirebaseCppDynamicLinksTestApp.dev',
-        minimumVersion: '0',
-      ),
-    );
-
-    Uri url;
-    if (short) {
-      final ShortDynamicLink shortLink = await parameters.buildShortLink();
-      url = shortLink.shortUrl;
-    } else {
-      url = await parameters.buildUrl();
-    }
-
-    setState(() {
-      _linkMessage = url.toString();
-      _isCreatingLink = false;
-    });
-  }
-
-
-
-
 
  
-
 bool loading = false;
 
 
@@ -147,8 +67,8 @@ bool loading = false;
   Widget build(BuildContext context) {
 
 goback(){Navigator.pop(context);}
-godetails(Match id){
-Navigator.push(context,MaterialPageRoute(builder: (context)=> FriendsOverview()  ) );
+godetails(){
+Navigator.push(context,MaterialPageRoute(builder: (context)=> FriendsOverview(match:widget.matchid)  ) );
 
 }
     DateFormat dateFormat = DateFormat("yyyy-MM-dd HH:00:00:000");
@@ -407,9 +327,19 @@ _showSnackBar() {
                                      
                                      //   Navigator.of(context).pushNamed(demo.routeName,);
 
-                                       onPressed:!_isCreatingLink
-                                       ? () => _createDynamicLink(true): null,
-                                      //  Navigator.push(context, MaterialPageRoute(builder: (context) =>  Firebase_Messaging() ),);
+                                       onPressed:()=>godetails(),
+                                  //      async{ !_isCreatingLink==false? null:await _createDynamicLink(true); 
+                                  //        final RenderBox box = context.findRenderObject();
+                                  //         _linkMessage  ==null? Loading(): 
+                                  //          Share.share(_linkMessage,
+                                  // subject: 'Hi I invite You To My Match ',
+                                  // sharePositionOrigin:
+                                  //     box.localToGlobal(Offset.zero) &
+                                  //         box.size);
+                                  //       }
+                                      //  !_isCreatingLink
+                                      //  ? () => _createDynamicLink(true): null, 
+                                      // //  Navigator.push(context, MaterialPageRoute(builder: (context) =>  Firebase_Messaging() ),);
 
                                        
 
@@ -418,24 +348,24 @@ _showSnackBar() {
                                     
                               ]),
 
-                       InkWell(
+                    //    InkWell(
 
-                      child: Center(
-                        child: Text(
-                                       _linkMessage ?? '',
-                          style: const TextStyle(color: Colors.blue),
-                        ),
-                      ),
-                      onTap: () async {
-                        if (_linkMessage != null) {
-                          await launch(_linkMessage);
-                        }
+                    //   child: Center(
+                    //     child: Text(
+                    //                    _linkMessage  ==null? '': _linkMessage+'/'+widget.matchid.ID.substring(5,13),
+                    //       style: const TextStyle(color: Colors.blue),
+                    //     ),
+                    //   ),
+                    //   onTap: () async {
+                    //     if (_linkMessage != null) {
+                    //       await launch(_linkMessage);
+                    //     }
 
-                      },
-                      onLongPress: () {
-                        Clipboard.setData(ClipboardData(text: _linkMessage));
-                      },
-                    ),
+                    //   },
+                    //   onLongPress: () {
+                    //     Clipboard.setData(ClipboardData(text: _linkMessage));
+                    //   },
+                    // ),
                                     
                            ]) )
                     ]),

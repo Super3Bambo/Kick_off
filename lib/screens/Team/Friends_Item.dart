@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/Services/Invations.dart';
 import 'package:flutter_app/models/Matches.dart';
 import 'package:flutter_app/models/User.dart';
+import 'package:flutter_app/models/team.dart';
+import 'package:flutter_app/screens/Matches/Friends_Details.dart';
 import 'package:provider/provider.dart';
-import 'Friends_Details.dart';
-import 'Match_Details_Progress.dart';
 import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
@@ -21,8 +21,8 @@ class FriendsItem extends StatefulWidget {
 
 
 
-  final User friends ; Match match;
-  FriendsItem({ this.friends ,this.match });
+  final User friends ; Team team;
+  FriendsItem({ this.friends ,this.team });
 
   @override
   _FriendsItemState createState() => _FriendsItemState();
@@ -87,7 +87,7 @@ DateTime temp =DateTime.now().add(Duration(hours: 4));
                         style: TextStyle(color: Colors.white),
                       ),
                       onPressed: ()  {
-                        if(widget.match.users.map((e) => e.ID).contains(widget.friends.ID)){
+                        if(widget.team.users.map((e) => e.ID).contains(widget.friends.ID)){
                           setState(() {
                             message=widget.friends.FName+' '+'in match already';
 
@@ -95,7 +95,7 @@ DateTime temp =DateTime.now().add(Duration(hours: 4));
                         }
                         else{
                           var date =dateFormat.format(temp);
-                          InviteService().sendinvitematch(user.ID, widget.friends.ID, widget.match.ID, date);
+                          InviteService().sendinviteteam(user.ID, widget.friends.ID, widget.team.ID, date);
                         }
                       }
                       

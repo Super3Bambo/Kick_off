@@ -4,15 +4,20 @@ import 'package:provider/provider.dart';
 import '../../models/User.dart';
 import '../../Services/User.dart';
 import 'FollowersListView.dart';
+import 'Tempfollow.dart';
 
 class FollowersOverview extends StatelessWidget {
 
-  final User userid;
+  final User userid ;
   FollowersOverview({this.userid});
   
 
   @override
   Widget build(BuildContext context) {
+    if(userid.followerusers.isEmpty){
+      var title ='Followers';
+      return Tempfollow(title:title);
+    }else{
 
     return StreamProvider<List<User>>.value(
       value: UserService(user: userid.followerusers.map((f)=>f.ID).toList()).members,
@@ -33,5 +38,6 @@ class FollowersOverview extends StatelessWidget {
         ),
       ),
     );
+  }
   }
 }

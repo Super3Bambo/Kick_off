@@ -20,7 +20,7 @@ class Teams_OverView extends StatelessWidget{
       builder: (context, snapshot){
         if(snapshot.hasData){
           User userData = snapshot.data;
-    if(userData.TeamID.isEmpty){
+    if(userData.TeamID.isEmpty||userData.TeamID==null ){
       return teamborder();}
       else{
     return  loading?Loading():StreamProvider<Team>.value(

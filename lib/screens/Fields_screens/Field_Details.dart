@@ -96,7 +96,7 @@ _showSnackBar() {
 
 
   
-  openAlertBox() {
+  openAlertBox( String Title , String Content) {
     return showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -116,7 +116,7 @@ _showSnackBar() {
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
                       Text(
-                        "Something wrong",
+                        Title,
                         style: TextStyle(fontSize: 24.0),
                       ),
                       // Row(
@@ -163,7 +163,7 @@ _showSnackBar() {
                     child: Container(
                       margin: EdgeInsets.only(top:2),
                       height:100,
-                      child: Text('fdbjfdnb dfdsjkdsnjksdbn fkjsdnfsdjkfnsdkld' ,maxLines: 2, style: 
+                      child: Text(Content,maxLines: 2, style: 
                       TextStyle(wordSpacing: 1.5 ,height: 2 ,fontWeight: FontWeight.bold),),
                     ),
                     // child: TextField(
@@ -594,74 +594,59 @@ DateFormat timeFormat = DateFormat("HH:00:00:000");
                                           Field(Finish_at:dateFormat.format(finish) )
                                         ];
 
-                                  if (start.isAfter(finish)) {
-                                        Alert(context:  context, title: "Error",desc:startuser.first ).show();
+                                        
+                                     if(start.isBefore(DateTime.now())){
+                                      openAlertBox('Wrong Date' , 'Your Start Time Is Old');
+                                    }
+
+                                else  if (start.isAfter(finish)) {
+                                        openAlertBox('Wrong Date' , 'Strat Date After Finish Date');
  
                                     }
                                      else if(finish.difference(start).inHours>3){
                                       
-                                      openAlertBox();
-                                      // void goback(){ Navigator.pop(context);}
+                                      openAlertBox('Wrong Time' , "You can't Play More than 3 Hours in Day ");
 
                                      //Owen_Alert(context:context).openAlertBox_twobutton('dsds', 'dsddsdsdsdsdwdwsfdefgegrerwdsf', Colors.blue , Colors.red,'k', goback,goback);
-                                      //Alert(context:  context, title: "Error",desc:'ffff' ).show();
                                       }
 
 
-                                    else if(start.isBefore(DateTime.now())){
-                                      Alert(context:  context, title: "Error",desc:'nonon' ).show();
-
-                                    }
                                    
                                     else if(finishuser.contains(dateFormat.format(start))||finishuser.contains(dateFormat.format(finish))||
                                    finishuser.contains(dateFormat.format(duration))){
-                                        Alert(context:  _scaffoldKey.currentContext, title: "Error",desc: 'bb' ).show();
- 
+                                                  openAlertBox('Wrong','You have Match in this Time'); 
                                    }
                                     
                                     else if(startuser.contains(dateFormat.format(start))||startuser.contains(dateFormat.format(finish))|| 
                                     startuser.contains(dateFormat.format(duration))){
-                                                                        Alert(context:  _scaffoldKey.currentContext, title: "Error",desc: 'bb' ).show();
- 
+                                                  openAlertBox('Wrong','You have Match in this Time'); 
                                    }
                                    else  if(durationuser.contains(dateFormat.format(start))||durationuser.contains(dateFormat.format(finish))|| 
                                    durationuser.contains(dateFormat.format(duration))){
-                                     
-                                        Alert(context:  _scaffoldKey.currentContext, title: "Error",desc: 'bb' ).show();
+                                                  openAlertBox('Wrong','You have Match in this Time'); 
  
                                  }
                                    else  if(startfield.contains(dateFormat.format(start))||startfield.contains(dateFormat.format(finish))||
                                    startfield.contains(dateFormat.format(duration))){
-                                      
-                                        Alert(context:  _scaffoldKey.currentContext, title: "Error",desc: 'cc' ).show();
+                                      openAlertBox('Wrong' , 'This Time is not available');
  
                                         
                                  }
                                    else  if(finishfield.contains(dateFormat.format(start))||finishfield.contains(dateFormat.format(finish))||
                                    finishfield.contains(dateFormat.format(duration)) ){
-                                    
-                                        Alert(context:  _scaffoldKey.currentContext, title: "Error",desc: 'cc' ).show();
+                                      openAlertBox('Wrong' , 'This Time is not available');
                                            
                                     }
                                    else   if(durationfield.contains(dateFormat.format(start))||durationfield.contains(dateFormat.format(finish))||
                                    durationfield.contains(dateFormat.format(duration)) ){
-                                                                       Alert(context: _scaffoldKey.currentContext, title: "Error",desc: 'cc', ).show();
-                                          
+                                      openAlertBox('Wrong' , 'This Time is not available');
                                     }
                                      else if(  (  !((parsethestart-parsemystart).isNegative) && (parsethestart-parsemystart)!=8) || (parsemystart==parsetheEnd) ){
-                                                    Alert(context: _scaffoldKey.currentContext, title: "Error",desc: 'str', ).show();
-                                      print(parsemyend);
-                                      print(parsemystart);
-                                      print(parsethestart);
-                                      print(parsetheEnd);
+                                      openAlertBox('Wrong' , 'This Time is not available');
                                           
                                     }
                                      else if(((parsemyend-parsetheEnd)==1||(parsemyend-parsetheEnd)==2)){
-                                                    Alert(context: _scaffoldKey.currentContext, title: "Error",desc: 'end', ).show();
-                                      print(parsemyend);
-                                      print(parsemystart);
-                                      print(parsethestart);
-                                      print(parsetheEnd);
+                                      openAlertBox('Wrong' , 'This Time is not available');
                                           
                                     }
                                  

@@ -1,31 +1,28 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
-import '../../models/Matches.dart';
-import '../../models/User.dart';
+import 'package:flutter_app/Services/Invations.dart';
+import 'package:flutter_app/models/Invite.dart';
+import 'package:flutter_app/models/User.dart';
 import 'package:provider/provider.dart';
-import '../../Services/User.dart';
-import './Friends_Item.dart';
 
+import 'InviteItem.dart';
 
-class MatchFriends extends StatefulWidget{
-  final Match matchid;
-  MatchFriends({this.matchid});
-
+class InviteList extends StatefulWidget{
+  
   @override
-  _MatchFriendsState createState() => _MatchFriendsState();
+  _InviteListState createState() => _InviteListState();
 }
 
-class _MatchFriendsState extends State<MatchFriends> {
+class _InviteListState extends State<InviteList> {
   @override
   Widget build(BuildContext context) {
   //List<User> user = matchid.users;
 
     
-       final friends = Provider.of<List<User>>(context) ?? [];
+       final invite = Provider.of<List<Invite>>(context) ?? [];
           return ListView.builder( 
-            itemCount: friends.length,
+            itemCount: invite.length,
             itemBuilder: (context, index) {
-              return FriendsItem(friends:friends[index] , match: widget.matchid,); /* Padding(
+              return inviteItem(invite: invite[index],); /* Padding(
       padding: const EdgeInsets.only(top: 8.0),
       child: Card(
         

@@ -89,7 +89,7 @@ return Container(
                   ),
                 ),
                    
-                  IconButton(icon: Icon(FontAwesomeIcons.locationArrow , color: Colors.blue ,size: 25,), onPressed: null,)
+                  Container(child: IconButton(icon: Icon(FontAwesomeIcons.locationArrow , color: Colors.blue ,size: 25,), onPressed:(){}))
     
                      ]
                   ),
@@ -102,6 +102,7 @@ return Container(
     
                   Text('Start After' +':' +diff +' ' +'Hours', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),),
                   Text(  match.Price + '\$',style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20))  ,
+                  Text(  match.Location ,style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20))  ,
                   ]))
                   
                  

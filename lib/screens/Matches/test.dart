@@ -521,145 +521,16 @@ List<User> userses=[
     UserService().rate(widget.matchid.users[2].ID, rate3);
     MatchService().removeevaluted(widget.matchid.ID, userses);
   })
-      // ListView.builder(
-      //   physics: ScrollPhysics(),
-      //   shrinkWrap: true,
-      //   itemCount: widget.matchid.users.length,
-      //   itemBuilder: ( context,  index) {
-          
-      //   },
-      // ),
-     /* Expanded(child: StreamProvider<List<User>>.value(
-      value: UserService(user: widget.matchid.users.map((f)=>f.ID).toList()).members,
-      
-
      
-        child: Container(
-       /*   decoration: BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage('images/5omasy.jpg'),
-              fit: BoxFit.cover,
-            ),
-          ),*/
 
-          child: ListView.builder( 
-            itemCount: widget.matchid.users.length,
-            itemBuilder: (context, index) {
-              return  Container(
-      
-      height: 120.0,
-      margin: const EdgeInsets.symmetric(
-        vertical: 16.0,
-        horizontal: 24.0,
-      ),
-      child: InkWell(
-        //onTap: (){godetails(following);},
-              child: new Stack(
-          children: <Widget>[
-            Container(
-    height: 135.0,
-    width: 370,
-    margin: new EdgeInsets.only(left: 46.0),
-    decoration: new BoxDecoration(
-        color: Color(0xFF333366),
-        shape: BoxShape.rectangle,
-        borderRadius: new BorderRadius.circular(8.0),
-        boxShadow: <BoxShadow>[
-          new BoxShadow(  
-            color: Colors.black12,
-            blurRadius: 10.0,
-            offset: new Offset(0.0, 10.0),
-          ),
-        ],
-    ),
-    child:  Container(
-        margin: new EdgeInsets.fromLTRB(76.0, 11.0, 16.0, 11.0),
-        constraints: new BoxConstraints.expand(),
-        child: new Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            new Text( widget.matchid.users[index].ID,
-              style: headerTextStyle,
-            ),
-            RatingBar(
-                      initialRating: 0.0,
-                      isHalfAllowed: true,
-                      halfFilledIcon: Icons.star_half,
-                      filledIcon: Icons.star,
-                      emptyIcon: Icons.star_border,
-                      filledColor:Color.fromRGBO(243, 93, 68, 100),
-                      emptyColor: Color.fromRGBO(243, 93, 66, 100),
-                      halfFilledColor: Color.fromRGBO(243, 93, 68, 100), 
-                      onRatingChanged: (double rating) {  }, 
-                    ),
-                   // new Container(height: 6.0),
-            new Row(
-              children: <Widget>[
-               Icon( 
-                      Icons.assignment,
-                       size: 16.0,
-                      color:  Color(0xffb6b2df),        
-                   ),              
-                new Container(width: 8.0),
-                new Text('22',
-                  style: regularTextStyle,
-                ),
-                new Container(width: 24.0),
-                        Icon( 
-                      Icons.assignment,
-                       size: 16.0,
-                      color:  Color(0xffb6b2df),
-                                        
-                   ),              
-                  new Container(width: 8.0),
-                new Text('22',
-                  style: regularTextStyle,
-                ),
-              ],
-            ),
-          ],
-        ),
-    ),
-  ),
-            Container(
-    margin: new EdgeInsets.only(
-        top: 16.0,
-        bottom: 16.0,
-
-    ),
-    alignment: FractionalOffset.centerLeft,
-    
-    child:  CircleAvatar(
-                     backgroundColor:  Colors.blueGrey,
-                      radius: 50,
-                      child: ClipOval(
-                        
-                     child: SizedBox(
-                          width: 85.0,
-                          height: 85.0,
-                            child: Image.asset('images/5omasy.jpg' , fit: BoxFit.fill, ),
-                    //backgroundImage: NetworkImage(imgUrl),
-                            
-                   
-                   ),
-                   ),
-                   ),
-  ),
-          ],
-        ),
-      )
-    );
-            }),
-      ),
-      
-      ),
-     // Expanded(child: evalutemember(matchid: widget.matchid,),)
-       
-      )*/
       ],
   ),  
      );
   }}
+
+
+
+  
   final baseTextStyle = const TextStyle(
       fontFamily: 'Poppins'
     );

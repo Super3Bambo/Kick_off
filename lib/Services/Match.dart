@@ -165,8 +165,31 @@ List<Match> _matchesFromSnapshot(QuerySnapshot snapshot) {
     }).toList();
   }
 
+  Match _matchrDataFromSnapshot(DocumentSnapshot snapshot) {
+    return Match(
+      ID: snapshot.documentID,
+      Date: snapshot.data['Date'] ?? '',
+      Field:  snapshot.data['FieldId'] ?? '',
+      Check_out :  snapshot.data['Finish_at'] ?? '',
+      Check_in:  snapshot.data['Start_at'] ?? '',
+      Location:  snapshot.data['Location'] ?? '',
+      Challenge: snapshot.data['Challenge'],
+      Price :  snapshot.data['Price'] ?? '',
+      Counter: snapshot.data['Counter'] ?? '',
+      Topic: snapshot.data['Topic'],
+      //users: List.from(doc.data['Players']) ?? [],
+
+      users: snapshot.data['Players'].map<User>((player) =>User.fromMap(player)).toList() ?? [],
+      
+      
+    );
+  }
+
   
-  
+  Stream<Match> get matchData {
+    return matches.document(matchid).snapshots()
+      .map(_matchrDataFromSnapshot);
+  }
 Stream<List<Match>> get matchowner {
   
     return matches.where('FieldId' , isEqualTo: fieldid).

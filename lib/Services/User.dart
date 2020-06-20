@@ -52,8 +52,8 @@ class UserService {
         'Morality':r.Morality,
         'Pos':r.Position_Skills
       }).toList(),
-      'Followers':follow.map((f)=>{'UserID': f.ID}).toList(),
-      'Following':follow.map((f)=>{'UserID': f.ID}).toList(),
+      'Followers':follow.toList(),
+      'Following':follow.toList(),
 
       
     });

@@ -1,4 +1,5 @@
 import 'package:flutter_app/Shared/Loading.dart';
+import 'package:flutter_app/models/team.dart';
 import 'package:flutter_app/screens/User/Tempfollow.dart';
 import '../../models/Matches.dart';
 import 'package:flutter/material.dart';
@@ -10,8 +11,8 @@ import '../../Services/User.dart';
 class FriendsOverview extends StatelessWidget {
 
   
-  Match match ;
-  FriendsOverview({this.match});
+  Team team ;
+  FriendsOverview({this.team});
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +43,7 @@ class FriendsOverview extends StatelessWidget {
               fit: BoxFit.cover,
             ),
           ),*/
-          child: MatchFriends(matchid:match),
+          child: MatchFriends(team:team),
         ),
       ),
     );}

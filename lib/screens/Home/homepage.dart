@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_app/Services/Auth.dart';
+import 'package:flutter_app/screens/invite/InviteOverView.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import '../../main.dart';
 import './lobby.dart' as lobby;
@@ -46,7 +47,7 @@ class HomePage extends StatelessWidget {
                   new Tab(icon: new Icon(Icons.public),text: 'Fields'),
                   new Tab(icon: new Icon(Icons.schedule),text: 'My Matches'),
                    new Tab(icon: new Icon(Icons.group),text: 'Team'),
-                  new Tab(icon: new Icon(Icons.help),text: 'Help'),
+                  new Tab(icon: new Icon(FontAwesome.inbox),text: 'Invitations'),
                 ]
             ),
           ),
@@ -57,7 +58,7 @@ class HomePage extends StatelessWidget {
                 new lobby.Lobby(),
                 new match.Matches(),
                 new team.Teams(),
-                new help.Help(),
+                new inviteOverview(),
               ]
           ),
         ),

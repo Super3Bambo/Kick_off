@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/Shared/Loading.dart';
 import 'package:flutter_app/models/User.dart';
 import 'package:flutter_app/screens/Team/teamMembers.dart';
 import '../../models/team.dart';
@@ -7,10 +8,14 @@ import 'package:provider/provider.dart';
 import '../../Services/User.dart';
 
 class Members_OverView extends StatelessWidget{
+  
  final Team teamid;
   Members_OverView({this.teamid});
   @override
   Widget build(BuildContext context) {
+    if(teamid.users.isEmpty){
+      return Loading();
+    }else{
     return StreamProvider<List<User>>.value(
       value: UserService(usrteam: teamid.users.map((e) => e.ID).toList()).teammember,
       
@@ -21,6 +26,6 @@ class Members_OverView extends StatelessWidget{
       
         
       
-    );
+    );}
     }
     }

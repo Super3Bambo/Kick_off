@@ -336,7 +336,7 @@ class _completeRegisterState extends State<completeRegister> {
         //       ],
         //     ));
        
-            List<User> follow=[User(ID: user.ID)];
+            List<User> follow=[];
                          var tok=await _fcm.getToken();
          setState(() => loading = true);
            await UserService(userid: user.ID).addUserData(data.fName, data.lName, data.age, data.position, data.photourl.toString()??uurl,data.area, data.phone ,tok ,date ,follow,rating );

@@ -14,7 +14,7 @@ class MatchItem extends StatelessWidget {
   Widget build(BuildContext context) {
     
 godetails(Match id){
-Navigator.push(context,MaterialPageRoute(builder: (context)=> ttt(matchid: match)  ) );
+Navigator.push(context,MaterialPageRoute(builder: (context)=> Match_Details(matchid: match)  ) );
 
 }
    return Row(
