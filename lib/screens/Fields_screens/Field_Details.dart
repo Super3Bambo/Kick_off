@@ -7,6 +7,7 @@ import 'package:flutter_app/Services/User.dart';
 import 'package:flutter_app/Shared/Alert.dart';
 import 'package:flutter_app/Shared/Loading.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+
 import 'package:getflutter/getflutter.dart';
 import 'package:random_string_one/random_string.dart';
 import '../../models/field.dart';
@@ -50,7 +51,6 @@ class _FieldDetailsState extends State<FieldDetails> {
 bool loading = false;
 
 final FirebaseMessaging _fcm = FirebaseMessaging();
-final Firestore _db = Firestore.instance;
     final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
 

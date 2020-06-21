@@ -43,7 +43,8 @@ class _addFieldState extends State<addField> {
 //     return storageTaskSnapshot.ref.getDownloadURL();
 //   }
 
- String name='',location='',price='',showstart='',showend='';
+ String name='',location='',showstart='',showend='';
+ int price;
     bool refree=false,
     ball=false,
     bathroom=false;
@@ -152,31 +153,41 @@ return Scaffold(
       
                   ),
       
-                  MyTextFormField(
+                  // MyTextFormField(
       
-                    hintText: 'Price',
+                  //   hintText: 'Price',
       
-                    //isEmail: true,
+                  //   //isEmail: true,
       
-                    validator: (String value) {
+                  //   validator: (String value) {
       
-                      if (value.isEmpty) {
+                  //     if (value.isEmpty) {
       
-                        return 'Please enter a valid email';
+                  //       return 'Please enter a valid email';
       
-                      }
+                  //     }
       
-                      return null;
+                  //     return null;
       
-                    },
+                  //   },
       
-                    onSaved: (String value) {
+                  //   onSaved: (String value) {
       
-                     setState(() =>price=value );
+                  //    setState(() =>price=value );
       
-                    },
+                  //   },
       
-                  ),
+                  // ),
+                   Slider(
+                   //   label: 'Price',
+                      value: 50.5,
+                     // inactiveColor: Colors.blueAccent,
+                     // activeColor: Colors.blue,
+                      min: 50.0,
+                      max: 150.0,
+                      divisions: 10,
+                     onChanged: (val) => setState(() => price=val.round()),
+                    ),
               Container(
                 margin: EdgeInsets.only(top:20),
               child: Row(
@@ -387,8 +398,8 @@ return Scaffold(
                          _formKey.currentState.save();
                         var st= dateFormat.format(start);
                         var se =dateFormat.format(end);
-                        var price2=int.parse(price);
-                        await FieldService().addFieldData(name, location, price2, refree, ball, bathroom, time, rating , st ,se ,user.ID);
+                        //var price2=int.parse(price);
+                        await FieldService().addFieldData(name, location, price, refree, ball, bathroom, time, rating , st ,se ,user.ID);
                         Navigator.pop(context);
                        // _formKey.currentState.reset();
 

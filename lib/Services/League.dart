@@ -30,6 +30,20 @@ final CollectionReference league = Firestore.instance.collection('League');
   
   });
   }
+  Future<void> updateleague( String fieldid, String start ,String finish , String prize , String desc,String name ,String owner) async {
+    return await league.document(leagueid).updateData({
+      'FieldId': fieldid,
+      'Start_at': start ,
+      'Finish_at': finish,
+      'Description': desc,
+      'Prize':prize,
+      'Name':name,
+      'Owner':owner,
+  });
+  }
+
+  Future<void> deleteLeague() async {
+    return await league.document(leagueid).delete();}
   // Future<void> updateleague( String fieldid, String start ,String finish , String prize , String desc,String name, List<Team> teams ) async {
   //   return await league.document(id).setData({
   //     'FieldId': fieldid,

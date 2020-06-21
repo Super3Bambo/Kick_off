@@ -1,107 +1,10 @@
-/*import 'package:flutter/material.dart';
-import './Field_Details.dart' ;
-import 'package:provider/provider.dart';
-import '../../models/field.dart';
-
-class FieldItem extends StatelessWidget
-{
-  @override
-  Widget build(BuildContext context) {
-    final fields = Provider.of<Field>(context , listen: false);
-
-
-
-      /*  return  Card(
-          margin: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 30.0),
-
-          shape: new RoundedRectangleBorder(
-          borderRadius: new BorderRadius.circular(20.0),
-          ),
-            child: new Column(
-          //  mainAxisAlignment: MainAxisAlignment.start,
-            //crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              new ClipRRect(
-                child: GestureDetector( onTap: () {
-                Navigator.push(
-                context, MaterialPageRoute(builder: (context) => FieldDetails()),);
-                },
-
-              child: Image(
-                image: AssetImage(fields.Photo_url),
-                ),
-                ),
-              borderRadius: BorderRadius.only(
-                topLeft: new Radius.circular(16.0),
-                topRight: new Radius.circular(16.0),
-                bottomLeft: new Radius.circular(16.0),
-                bottomRight: new Radius.circular(16.0),
-              ),
-              ),
-              new Padding(
-              padding: new EdgeInsets.all(16.0),
-              child: new Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  new Text(fields.Name,style: TextStyle(fontSize: 20.0),),
-                  new Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      new Text(fields.Location),
-                      new Text(fields.Price),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-
-    );*/
-
-
-    return Padding(
-      padding: const EdgeInsets.only(top: 0.0),
-
-      child: Card(
-        color: Color.fromARGB(300, 30, 30,30),
-        margin: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-        child: ListTile(
-          onTap: (){
-              Navigator.of(context).pushNamed(
-              FieldDetails.routeName,
-              arguments: fields.ID,);
-          },
-          leading: CircleAvatar(
-            radius: 25.0,
-            backgroundColor: Colors.brown[300],
-           // backgroundImage: AssetImage('assets/coffee_icon.png'),
-          ),
-          title: Text(fields.Name),
-          subtitle: Text(fields.Location),
-        ),
-      ),
-    );
-}
-}*/
-
 import 'package:flutter/material.dart';
-import 'package:flutter_app/Services/Fields.dart';
-import 'package:flutter_app/models/field.dart';
+import 'package:flutter_app/Services/League.dart';
 import 'package:flutter_app/models/league.dart';
-import 'package:flutter_app/screens/OwnerDashBoard/Field/Analysis.dart';
-import 'package:flutter_app/screens/OwnerDashBoard/Field/Field_Details.dart';
-import 'package:flutter_app/screens/OwnerDashBoard/Field/MatchFieldOverview.dart';
-import 'package:flutter_app/screens/OwnerDashBoard/Field/editfield.dart';
-import 'package:flutter_app/screens/OwnerDashBoard/League/EditLeague.dart';
-import 'package:flutter_app/screens/OwnerDashBoard/League/LeagueDetails.dart';
 import 'package:flutter_app/screens/OwnerDashBoard/League/LeagueMatches.dart';
 import 'package:flutter_icons/flutter_icons.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:rating_bar/rating_bar.dart';
-
 import 'Analysis.dart';
+import 'EditLeague.dart';
 import 'LeagueMemberOverView.dart';
 
 
@@ -115,6 +18,111 @@ class LeagueItemowner extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+     openAlertBox_twobutton(  String title , String content ) {
+    return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(32.0))),
+            contentPadding: EdgeInsets.only(top: 10.0),
+            content: Container(
+              width: 300.0,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      Text(
+                        title,
+                        style: TextStyle(fontSize: 24.0),
+                      ),
+                      
+                    ],
+                  ),
+                  SizedBox(
+                    height: 5.0,
+                  ),
+                  Divider(
+                    color: Colors.grey,
+                    height: 4.0,
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(left: 30.0, right: 30.0),
+                    child: Container(
+                      margin: EdgeInsets.only(top:2),
+                      height:100,
+                      child: Text(content ,maxLines: 2, style: 
+                      TextStyle(wordSpacing: 1.5 ,height: 2 ,fontWeight: FontWeight.bold),),
+                    ),
+                  ),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center ,
+                    children: <Widget>[
+                      InkWell(
+                        child: Container(
+                          width: 148,
+                          padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
+                          decoration: BoxDecoration(
+                            color:  Color(0xff00bfa5),
+                            borderRadius: BorderRadius.only(
+                                bottomLeft: Radius.circular(32.0),
+                               // bottomRight: Radius.circular(32.0)
+                                ),
+                          ),
+                          child: Text(
+                            "OK",
+                            style: TextStyle(color: Colors.white ,fontWeight: FontWeight.bold),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                        onTap:() {
+                          LeagueService(leagueid: league.ID).deleteLeague();
+                          Navigator.pop(context);
+                        }
+                      ),
+                      Container(
+                        decoration: BoxDecoration(
+                          color: Colors.red
+                        ),
+                        //color: Colors.red,
+                        width: 4,
+                      ),
+                     
+                       InkWell(
+                        child: Container(
+                         
+                          width: 148,
+                          padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
+                          decoration: BoxDecoration(
+                             color:  Color(0xff00bfa5),
+                            borderRadius: BorderRadius.only(
+                               // bottomLeft: Radius.circular(32.0),
+                                bottomRight: Radius.circular(32.0)),
+                          ),
+                          child: Text(
+                            "Cancel",
+                            style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                        onTap: ()=>Navigator.pop(context),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          );
+        }
+        );
+        }
+
 
     godetails(){
       Navigator.push(context,MaterialPageRoute(builder: (context)=> LeagueMatchesOverview(leagueid: league.ID)  ) );}
@@ -124,8 +132,8 @@ class LeagueItemowner extends StatelessWidget {
 
      godetails3(){
        Navigator.push(context,MaterialPageRoute(builder: (context)=> AnalysisLeague(league: league)  ) );}
-    // godetails4(){
-    //   Navigator.push(context,MaterialPageRoute(builder: (context)=> AnalysisField(field: league,)  ) );}
+     godetails4(){
+       Navigator.push(context,MaterialPageRoute(builder: (context)=> editLeague(league: league,)  ) );}
 
     return  Card(
         margin: EdgeInsets.fromLTRB(20.0, 5.0, 20.0, 5.0),
@@ -233,11 +241,11 @@ class LeagueItemowner extends StatelessWidget {
                 children: <Widget>[
                   IconButton(icon: Icon(Icons.people,size: 30, color: Colors.green[600],),  onPressed: ()=>godetails2()),
                   league.teams.length==8?IconButton(icon: Icon(FontAwesome.edit,size: 30, ), onPressed: (){}):
-                  IconButton(icon: Icon(FontAwesome.edit,size: 30, color: Colors.green[600],), onPressed: (){}),
+                  IconButton(icon: Icon(FontAwesome.edit,size: 30, color: Colors.green[600],), onPressed: ()=>godetails4()),
                    IconButton(icon: Icon(FontAwesome.pie_chart,size: 30, color: Colors.green[600],), onPressed: ()=>godetails3()),
                   //IconButton(icon: Icon(Icons.delete,size: 30, color: Colors.green[600],), onPressed:(){}),
                   league.teams.length==8? IconButton(icon: Icon(Icons.delete,size: 30, ), onPressed: (){}):
-                  IconButton(icon: Icon(Icons.delete,size: 30, color: Colors.green[600],), onPressed:(){}),
+                  IconButton(icon: Icon(Icons.delete,size: 30, color: Colors.green[600],), onPressed:()=>openAlertBox_twobutton('Delete League' , 'Press ok To Delete')),
                   IconButton(icon: Icon(Icons.list,size: 30, color: Colors.green[600],), onPressed: ()=>godetails()),
                 
                 ],),

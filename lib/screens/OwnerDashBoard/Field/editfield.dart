@@ -12,19 +12,23 @@ import 'package:provider/provider.dart';
 
 class editField extends StatefulWidget {
   Field field;
+  
   editField({this.field});
   @override
   _editFieldState createState() => _editFieldState();
 }
 class _editFieldState extends State<editField> {
   final _formKey = GlobalKey<FormState>();
-@override
- String name,location,price,showstart,showend;
+ String name,location,showstart,showend;
+ var price;
     bool refree,
     ball,
     bathroom;
     DateTime start,end;
     String alert='';
+
+
+  @override
   Widget build(BuildContext context) {
     DateFormat dateFormat = DateFormat("HH:00:00:000");
 
@@ -129,33 +133,56 @@ return Scaffold(
                     ),
       
                   ),
+
+
+                    Container(
+               margin: EdgeInsets.only(top:20),
+                      child: Column(
+                        children: <Widget>[
+                          Slider(
+                            label: 'Price',
+                            value: widget.field.Price.toDouble(),
+                            inactiveColor: Colors.blueAccent,
+                      activeColor: Colors.blue,
+                            min: 50.0,
+                            max: 150.0,
+                            divisions: 10,
+                           onChanged: (val) => setState(() => price=val.round()),
+                          ),
+                        ],
+                      ),
+                    ),
+                     
+
+
+
+                      price!=null? Text(price.toString()+' '+'\$'):Text('0' +' '+'\$'),
+                  // MyTextFormField(
+                  //   initvalue: widget.field.Price.toString(),
       
-                  MyTextFormField(
-                    initvalue: widget.field.Price.toString(),
+                  //   hintText: 'Price',
       
-                    hintText: 'Price',
+                  //   //isEmail: true,
       
-                    //isEmail: true,
+                  //   validator: (String value) {
       
-                    validator: (String value) {
+                  //     if (value.isEmpty) {
       
-                      if (value.isEmpty) {
+                  //       return 'Please enter a valid email';
       
-                        return 'Please enter a valid email';
+                  //     }
       
-                      }
+                  //     return null;
       
-                      return null;
+                  //   },
       
-                    },
+                  //   onSaved: (String value) {
       
-                    onSaved: (String value) {
+                  //    setState(() =>price=value );
       
-                     setState(() =>price=value );
+                  //   },
       
-                    },
-      
-                  ),
+                  // ),
               Container(
                 margin: EdgeInsets.only(top:20),
               child: Row(
@@ -354,11 +381,11 @@ return Scaffold(
                          var st,se;
                         start==null? st=null:  st= dateFormat.format(start);
                        end==null? se=null :st=dateFormat.format(end);
-                        var price2=int.tryParse(price);
+                        
                         print(ball);
                         print(bathroom);
                         print(refree);
-                        await FieldService(fieldid: widget.field.ID).editFieldData(name?? widget.field.Name, location?? widget.field.Location, price2?? widget.field.Price, 
+                        await FieldService(fieldid: widget.field.ID).editFieldData(name?? widget.field.Name, location?? widget.field.Location, price?? widget.field.Price, 
                         refree==null? widget.field.Refree:refree , ball?? widget.field.Ball, bathroom?? widget.field.Bathroom, widget.field.start_time
                         ,widget.field.finish_time , widget.field.duration ,widget.field.rate , st?? widget.field.Start_at ,se?? widget.field.Finish_at ,widget.field.Owner);
                         Navigator.pop(context);

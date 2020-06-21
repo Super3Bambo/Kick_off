@@ -1,442 +1,549 @@
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/Services/Fields.dart';
+import 'package:flutter_app/Services/League.dart';
+import 'package:flutter_app/Shared/Loading.dart';
 import 'package:flutter_app/models/RatingField.dart';
 import 'package:flutter_app/models/User.dart';
 import 'package:flutter_app/models/field.dart';
+import 'package:flutter_app/models/league.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
-//import 'package:multi_image_picker/multi_image_picker.dart';
+import 'package:flutter_icons/flutter_icons.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 
 class editLeague extends StatefulWidget {
-  Field field;
-  editLeague({this.field});
+  League league;
+  editLeague({this.league});
   @override
   _editLeagueState createState() => _editLeagueState();
 }
 class _editLeagueState extends State<editLeague> {
   final _formKey = GlobalKey<FormState>();
   @override
-  String name,location,price,showstart,showend;
+      final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+
+  String name,showstart,showend,desc;
+         int prize  ;
   bool refree,
       ball,
       bathroom;
-  DateTime start,end;
+  DateTime start,finish;
   String alert='';
   Widget build(BuildContext context) {
-    DateFormat dateFormat = DateFormat("HH:00:00:000");
+DateFormat dateFormat = DateFormat("yyyy-MM-dd HH:00:00:000");
+DateTime tempstart ,tempend;
+tempend=dateFormat.parse(widget.league.Finish_Date);
+tempstart=dateFormat.parse(widget.league.Start_Date);
 
-
-    final halfMediaWidth = MediaQuery.of(context).size.width / 2.1;
     User user = Provider.of<User>(context);
 
-    return Scaffold(
-      appBar: AppBar(title:Text('ffss')),
-      body:   Container(
-        margin: EdgeInsets.only(top:60),
-        child: SingleChildScrollView(
-          child: Form(
-
-            key: _formKey,
-
-            child:  Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Column(
-
-                children: <Widget>[
-
-
-                  Container(
-
-                    alignment: Alignment.topCenter,
-
-                    child: Row(
-
-                      crossAxisAlignment: CrossAxisAlignment.start,
-
-                      children: <Widget>[
-
-                        Container(
-
-                          alignment: Alignment.topCenter,
-
-                          width: halfMediaWidth,
-
-                          child: MyTextFormField(
-                            initvalue: widget.field.Name,
-
-                            hintText: 'Name',
-
-                            validator: (String value) {
-
-                              if (value.isEmpty) {
-
-                                return 'Enter your first name';
-
-                              }
-
-                              return null;
-
-                            },
-
-                            onSaved: (String value) {
-
-                              setState(() =>name=value );
-
-                            },
-
-                          ),
-
-                        ),
-
-                        Container(
-
-                          alignment: Alignment.topCenter,
-
-                          width: halfMediaWidth,
-
-                          child: MyTextFormField(
-                            initvalue: widget.field.Location,
-
-                            hintText: 'Location',
-
-                            validator: (String value) {
-
-                              if (value.isEmpty) {
-
-                                return 'Enter your last name';
-
-                              }
-
-                              return null;
-
-                            },
-
-                            onSaved: (String value) {
-
-                              setState(() =>location=value );
-
-                            },
-
-                          ),
-
-                        )
-
-                      ],
-
-                    ),
-
-                  ),
-
-                  MyTextFormField(
-                    initvalue: widget.field.Price.toString(),
-
-                    hintText: 'Price',
-
-                    //isEmail: true,
-
-                    validator: (String value) {
-
-                      if (value.isEmpty) {
-
-                        return 'Please enter a valid email';
-
-                      }
-
-                      return null;
-
-                    },
-
-                    onSaved: (String value) {
-
-                      setState(() =>price=value );
-
-                    },
-
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(top:20),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        // [Monday] checkbox
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Text("Refree"),
-                            Checkbox(
-                              value:refree?? widget.field.Refree,
-                              onChanged: (bool values) {
-                                setState(() {
-                                  refree = values;
-                                });
-                              },
-                            ),
-                          ],
-                        ),
-                        // [Tuesday] checkbox
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Text("Ball"),
-                            Checkbox(
-                              value:  ball?? widget.field.Ball,
-                              onChanged: (bool values) {
-                                setState(() {
-                                  ball = values;
-                                });
-                              },
-                            ),
-                          ],
-                        ),
-                        // [Wednesday] checkbox
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Text("Bathroom"),
-                            Checkbox(
-                              value:bathroom?? widget.field.Bathroom,
-                              onChanged: (bool values) {
-                                setState(() {
-                                  bathroom = values;
-                                });
-                              },
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-
-                  Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Container(
-                      child: Column(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          RaisedButton(
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(5.0)),
-                            elevation: 4.0,
-                            onPressed: () {
-                              DatePicker.showTimePicker(context,
-                                  theme: DatePickerTheme(
-                                    containerHeight: 300.0,
-                                  ),
-                                  showTitleActions: true,
-
-                                  onConfirm: (time) {
-                                    showstart = dateFormat.format(time);
-                                    setState(() =>start=time );
-                                  },
-                                  currentTime: DateTime.now(), locale: LocaleType.en);
-                              // setState(() =>start=date );
-                            },
-                            child: Container(
-                              alignment: Alignment.center,
-                              height: 50.0,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: <Widget>[
-                                  Row(
-                                    children: <Widget>[
-                                      Container(
-                                        child: Row(
-                                          children: <Widget>[
-                                            Icon(
-                                              Icons.access_time,
-                                              size: 18.0,
-                                              color: Colors.blue,
-                                            ),
-                                            Text(
-                                              " ${showstart??widget.field.Start_at}",
-                                              style: TextStyle(
-                                                  color: Colors.blue,
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 18.0),
-                                            ),
-                                          ],
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                  Text(
-                                    "  Change",
-                                    style: TextStyle(
-                                        color: Colors.blue,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 18.0),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            color: Colors.white,
-                          ),
-                          SizedBox(
-                            height: 20.0,
-                          ),
-                          RaisedButton(
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(5.0)),
-                            elevation: 4.0,
-                            onPressed: () {
-                              DatePicker.showTimePicker(context,
-                                  theme: DatePickerTheme(
-                                    containerHeight: 300.0,
-                                  ),
-                                  showTitleActions: true, onConfirm: (time) {
-                                    // print('confirm $time');
-                                    showend = dateFormat.format(time);
-                                    setState(() =>end=time );
-                                  }, currentTime: DateTime.now(), locale: LocaleType.en);
-                            },
-                            child: Container(
-                              alignment: Alignment.center,
-                              height: 50.0,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: <Widget>[
-                                  Row(
-                                    children: <Widget>[
-                                      Container(
-                                        child: Row(
-                                          children: <Widget>[
-                                            Icon(
-                                              Icons.access_time,
-                                              size: 18.0,
-                                              color: Colors.blue,
-                                            ),
-
-                                            Text( " ${showend??widget.field.Finish_at}",
-                                              // " $_time",
-                                              style: TextStyle(
-                                                  color: Colors.blue,
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 18.0),
-                                            ),
-                                          ],
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                  Text(
-                                    "  Change",
-                                    style: TextStyle(
-                                        color: Colors.blue,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 18.0),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            color: Colors.white,
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-
-
-                  RaisedButton(
-
-                    color: Colors.blueAccent,
-
-                    onPressed: ()async {
-
-                      if (_formKey.currentState.validate()) {
-
-                        alert='';
-
-                        _formKey.currentState.save();
-                        var st,se;
-                        start==null? st=null:  st= dateFormat.format(start);
-                        end==null? se=null :st=dateFormat.format(end);
-                        var price2=int.tryParse(price);
-                        print(ball);
-                        print(bathroom);
-                        print(refree);
-                        await FieldService(fieldid: widget.field.ID).editFieldData(name?? widget.field.Name, location?? widget.field.Location, price2?? widget.field.Price,
-                            refree==null? widget.field.Refree:refree , ball?? widget.field.Ball, bathroom?? widget.field.Bathroom, widget.field.start_time
-                            ,widget.field.finish_time , widget.field.duration ,widget.field.rate , st?? widget.field.Start_at ,se?? widget.field.Finish_at ,widget.field.Owner);
-                        Navigator.pop(context);
-                        // _formKey.currentState.reset();
-
-
-
-
-                      }
-
-                    },
-
-                    child: Text(
-
-                      'Edit',
-
-                      style: TextStyle(
-
-                        color: Colors.white,
-
-                      ),
-
-                    ),
-
-                  ),
-                  Container(
-                    height: 30,
-                    child: Text(alert ,style:TextStyle(color: Colors.red)),
-                  ),
-
-                ],
-
-              ),
-            ),
-
-          ),
-        ),
-      ),
+    _showSnackBar() {
+    final snackBar = new SnackBar(
+        content: new Text("you out of match Done"),
+        duration: new Duration(seconds: 5),
+        //backgroundColor: Colors.pink[300],
+        action: new SnackBarAction(label: 'Back',
+         onPressed: (){
+           Navigator.pop(context);
+        }),
     );
+    _scaffoldKey.currentState.showSnackBar(snackBar);
+  }
+
+
+DateFormat timeFormat = DateFormat("HH:00:00:000");
+
+    return StreamBuilder<Field>(
+      stream: FieldService(fieldid: widget.league.Field).fieldd,
+      builder: (context, snapshot){
+        if(snapshot.hasData){
+          Field fieldid = snapshot.data;
+          return  Scaffold (
+             key: _scaffoldKey,
+          appBar: AppBar(
+            title: Text(widget.league.ID),
+          ),
+          
+          body: Container(
+            margin: EdgeInsets.only(top:10),
+                      child: SingleChildScrollView(
+                                              child: Center(
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                        Container(
+                          child: new Padding(
+                            padding: new EdgeInsets.all(16.0),
+                            child: new Column(
+                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              
+                              children: <Widget>[
+
+                                 Column(
+                                  children: <Widget>[
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.max,
+                   mainAxisAlignment:MainAxisAlignment.start,
+
+                  children: <Widget>[
+                    Row(
+                        children: <Widget>[
+                          Container(
+                            margin: EdgeInsets.only(top:10,),
+                  child:
+                  Icon(FontAwesome.hourglass_start, size: 20, color: Colors.yellow[800],),),
+                   Container(
+                    margin: EdgeInsets.only(left:80 ,top: 10,right: 50),
+                          child: Text(fieldid.Start_at.substring(0,5) ,style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),),
+                          
+                          
+                          
+                           Container(
+                            margin: EdgeInsets.only(top:10,),
+                  child:
+                  Icon(FontAwesome.hourglass_end, size: 20, color: Colors.yellow[800],),),
+                   Container(
+                    margin: EdgeInsets.only(left:80 ,top: 10),
+                          child: Text(fieldid.Finish_at.substring(0,5) ,style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),),    
+
+
+
+                        ],
+                    ),
+                                            
+
+                  
+                                   
+                ],),
+                 Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.max,
+                   mainAxisAlignment:MainAxisAlignment.start,
+
+                  children: <Widget>[
+                     Container(
+                        margin: EdgeInsets.only(top:10,),
+                  child: Icon( FontAwesome.location_arrow , size: 20, color: Colors.blue,) ,/*Icon( FontAwesome.location_arrow , size: 20, color: Colors.blue,)*/ ),
+                  
+                  Container(
+                    margin: EdgeInsets.only(left:110, top: 10),
+                          child: Text(fieldid.Location ,style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
+)
+                  
+                  
+                ],),
+
+
+                 Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.max,
+                   mainAxisAlignment:MainAxisAlignment.start,
+
+                  children: <Widget>[
+                     Container(
+                        margin: EdgeInsets.only(top:10,),
+                  child: Icon(FontAwesome.newspaper_o , size: 20, color: Colors.blue,),),
+                  Container(
+                    margin: EdgeInsets.only(left:110, top: 10),
+                          child: Text(fieldid.Name ,style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
+)
+                  
+                  
+                ],),
+                                   
+ 
+                                   Container(
+                 margin: EdgeInsets.only(top:25,bottom: 10) ,
+                 child:Row(
+                   mainAxisAlignment:MainAxisAlignment.spaceBetween,
+                                  mainAxisSize:MainAxisSize.max,
+                                  crossAxisAlignment:CrossAxisAlignment.start,
+                   children: <Widget>[
+                  Icon(FontAwesome.bath , size: 30, color: fieldid.Bathroom? Colors.green[900]: Colors.grey[700],),
+                  Icon(Ionicons.md_football ,size: 30,color: fieldid.Ball? Colors.green[900]: Colors.grey[700],),
+                  Icon(MaterialIcons.person_outline, size: 30,color: fieldid.Refree? Colors.green[900]: Colors.grey[700],),
+                                   // IconToggle(value: true ,activeColor: Colors.yellow,),
+                                  ],
+
+                                ),),
+
+
+
+                                
+                                new SizedBox(height: 16.0),
+                                new Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: <Widget>[
+                                  
+                                  ],
+                                ),
+                             
+                                 Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Container(
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    RaisedButton(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(5.0)),
+                        elevation: 4.0,
+                        onPressed: () {
+                          DatePicker.showDateTimePicker(context,
+                              theme: DatePickerTheme(
+                                containerHeight: 300.0,
+                              ),
+                              showTitleActions: true,
+                            
+                               onConfirm: (time) {
+                           showstart = dateFormat.format(time).substring(0,16);
+                            setState(() =>start=time );
+                          }, 
+                          currentTime: tempstart, locale: LocaleType.en);
+                         // setState(() =>start=date );
+                        },
+                        child: Container(
+                          alignment: Alignment.center,
+                          height: 50.0,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Row(
+                                children: <Widget>[
+                                  Container(
+                                    child: Row(
+                                      children: <Widget>[
+                                        Icon(
+                                          Icons.access_time,
+                                          size: 18.0,
+                                          color: Colors.blue,
+                                        ),
+                                        Text(" ${showstart??widget.league.Start_Date}",
+                                          style: TextStyle(
+                                              color: Colors.blue,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 18.0),
+                                        ),
+                                      ],
+                                    ),
+                                  )
+                                ],
+                              ),
+                              Text(
+                            "  Change",
+                            style: TextStyle(
+                                color: Colors.blue,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18.0),
+                          ),
+                            ],
+                          ),
+                        ),
+                        color: Colors.white,
+                    ),
+                    SizedBox(
+                        height: 20.0,
+                    ),
+                    RaisedButton(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(5.0)),
+                        elevation: 4.0,
+                        onPressed: () {
+                          DatePicker.showDateTimePicker(context,
+                              theme: DatePickerTheme(
+                                containerHeight: 300.0,
+                              ),
+                              showTitleActions: true, onConfirm: (time) {
+                           // print('confirm $time');
+                           showend = dateFormat.format(time).substring(0,16);
+                            setState(() =>finish=time );
+                          }, currentTime: tempend, locale: LocaleType.en);
+                        },
+                        child: Container(
+                          alignment: Alignment.center,
+                          height: 50.0,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Row(
+                                children: <Widget>[
+                                  Container(
+                                    child: Row(
+                                      children: <Widget>[
+                                        Icon(
+                                          Icons.access_time,
+                                          size: 18.0,
+                                          color: Colors.blue,
+                                        ),
+                                       Text(" ${showend??widget.league.Finish_Date.substring(0,16)}",
+
+                                          style: TextStyle(
+                                              color: Colors.blue,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 18.0),
+                                        ),
+                                      ],
+                                    ),
+                                  )
+                                ],
+                              ),
+                             Text(
+                            "  Change",
+                            style: TextStyle(
+                                color: Colors.blue,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18.0),
+                          ),
+                            ],
+                          ),
+                        ),
+                        color: Colors.white,
+                    )
+                  ],
+                ),
+              ),
+          ),
+
+           Column(
+      
+                children: <Widget>[
+    
+      
+                  Container(
+      
+                    alignment: Alignment.topCenter,
+      
+                    child: Column(
+                      children: <Widget>[
+                       
+      
+                              Container(
+                                
+      
+                                alignment: Alignment.topCenter,
+      
+      
+                                child: MyTextFormField(
+                                  initvalue: widget.league.Name,
+      
+                                  hintText: 'Name',
+      
+                                  validator: (String value) {
+                                  if (value.isEmpty) {
+      
+                                return 'Enter name';
+      
+                              }
+      
+                              return null;
+      
+                            },
+      
+                            onChanged: (String value) {
+      
+                             setState(() =>name=value );
+      
+                            },
+      
+                                ),
+      
+                              ),
+      
+                              Container(
+      
+                                alignment: Alignment.topCenter,
+      
+      
+                                child: MyTextFormField(
+                                  initvalue: widget.league.Description,
+                                  minline: 5,
+      
+                                  hintText: 'Description',
+      
+                                  validator: (String value) {
+      
+                                    if (value.isEmpty) {
+      
+                                     //  return 'Enter your last name';
+      
+                                    }
+      
+                                    return null;
+      
+                                  },
+      
+                                  onChanged: (String value) {
+      
+                                   setState(() =>desc=value );
+      
+                                  },
+      
+                                ),
+      
+                              )
+      
+                            ],
+      
+                        
+                    
+                    ),
+      
+                  ),
+      
+                  
+                   Container(margin: EdgeInsets.only(top:20),
+                     child: Slider(
+                       label: 'Prize',
+                          value: int.tryParse(widget.league.Prize).toDouble() ,
+                       // inactiveColor: Colors.blueAccent,
+                       // activeColor: Colors.blue,
+                          min: 0.0,
+                          max: 100.0,
+                          divisions: 10,
+                       onChanged: (val) => 
+                       setState(() => prize=val.round()),
+                      ),
+                   ),
+                      prize==null?Text(widget.league.Prize+' '+'\$'):Text(prize.toString()+' '+'\$'),
+
+                    ]),
+
+                                SizedBox(height: 20.0),
+                                RaisedButton(
+                color: Colors.blue[700],
+                child: Text(
+                  'Add League',
+                  style: TextStyle(color: Colors.white),
+                ),
+                
+                onPressed: () async {
+                             var starttemp= fieldid.Start_at;
+                var temp1 = starttemp.substring(0,2);
+                var parsethestart = int.tryParse(temp1);
+
+                 var endtemp =fieldid.Finish_at;
+                  var temp2 = endtemp.substring(0,2);
+                  var parsetheEnd = int.tryParse(temp2);
+
+
+                 var getstart=timeFormat.format(start);
+                     var temp3 = getstart.substring(0,2);
+                     var parsemystart = int.tryParse(temp3);
+
+                   var getend=timeFormat.format(finish);
+                     var temp4 = getend.substring(0,2);
+                     var parsemyend = int.tryParse(temp4);
+
+
+
+                  if (start.isAfter(finish)) {
+                          Alert(context:  context, title: "Error",desc:'ds' ).show();
+ 
+                    }
+                     else if(finish.difference(start).inDays<7){
+                        Alert(context:  context, title: "Error",desc:'ffff' ).show();}
+
+
+                    else if(start.isBefore(DateTime.now())){
+                        Alert(context:  context, title: "Error",desc:'nonon' ).show();
+
+                    }
+                   
+                     else if(  (  !((parsethestart-parsemystart).isNegative) && (parsethestart-parsemystart)!=8) || (parsemystart==parsetheEnd) ){
+                                      Alert(context: _scaffoldKey.currentContext, title: "Error",desc: 'str', ).show();
+                        print(parsemyend);
+                        print(parsemystart);
+                        print(parsethestart);
+                        print(parsetheEnd);
+                            
+                    }
+                     else if(((parsemyend-parsetheEnd)==1||(parsemyend-parsetheEnd)==2)){
+                                      Alert(context: _scaffoldKey.currentContext, title: "Error",desc: 'end', ).show();
+                        print(parsemyend);
+                        print(parsemystart);
+                        print(parsethestart);
+                        print(parsetheEnd);
+                            
+                    }
+                 
+                   else {
+                     var s,f;
+                     start==null? s=null:  s=dateFormat.format(start);
+                       finish==null? s=null : f= dateFormat.format(finish);
+                     LeagueService(leagueid: widget.league.ID).updateleague(fieldid.ID, s??widget.league.Start_Date, f??widget.league.Finish_Date,
+                      prize==null?widget.league.Prize:prize.toString(), desc??widget.league.Description, name??widget.league.Name, user.ID);
+    // Subscribe the user to a topic
+                   
+                    // _showNotification();
+                  //  Navigator.pop(context);
+                 // _showSnackBar();
+                 
+                                  }
+                }),
+                              ],
+                            ),
+                              ]),
+                          ),
+                        )],
+                  )
+            ),
+                      ),
+          )
+         
+    );}else{return Loading();}
+    });
   }
 }
 class MyTextFormField extends StatelessWidget {
   final String hintText;
   final Function validator;
-  final String initvalue;
-  final Function onSaved;
+    final String initvalue;
+
+  final Function onChanged;
   final bool isPassword;
   final bool isEmail;
-  MyTextFormField({
+  final int minline;
+MyTextFormField({
     this.hintText,
     this.validator,
-    this.onSaved,
+    this.onChanged,
+    this.initvalue,
     this.isPassword = false,
     this.isEmail = false,
-    this.initvalue
+    this.minline=1,
   });
-  @override
+@override
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.all(8.0),
       child: TextFormField(
-        initialValue: initvalue,
+                initialValue: initvalue,
 
+        maxLines: minline,
+        
+        
         autofocus: false,
         decoration: InputDecoration(
           //icon: Icon(Icons.chat),
           focusColor: Colors.blue,
           hintText: hintText,
-
+          
           contentPadding: EdgeInsets.all(15.0),
-          // border: InputBorder.none,
+         // border: InputBorder.none,
           filled: true,
           fillColor: Colors.grey[200],
         ),
-
+        
         obscureText: isPassword ? true : false,
         validator: validator,
-        onSaved: onSaved,
+        onChanged: onChanged,
         keyboardType: isEmail ? TextInputType.emailAddress : TextInputType.text,
       ),
     );

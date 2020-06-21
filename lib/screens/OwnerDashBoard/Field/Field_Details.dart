@@ -1,6 +1,6 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
@@ -41,6 +41,8 @@ class FieldDetailsowner extends StatefulWidget {
 class _FieldDetailsownerState extends State<FieldDetailsowner> {
   DateTime start, finish ;
   int diff,diff2;
+     var showstart,showend;
+
   DateTime now=DateTime.now();
 bool loading = false;
 
@@ -208,33 +210,160 @@ DateFormat timeFormat = DateFormat("HH:00:00:000");
                             //                  onPressed: () {
 //                      )
 
-                            SizedBox(
-                              height: 20.0,
-                            ),
-                            DateTimePickerFormField(
-                              inputType: InputType.both,
-                              format: DateFormat("EEEE, MMMM d, yyyy 'at' h:mm a"),
-                              editable: false,
-                              decoration: InputDecoration(
-                                  labelText: 'Start', hasFloatingPlaceholder: false),
-                              onChanged: (dt) {
-                                setState(() => start = dt);
-                              },
-                            ),
+                            // SizedBox(
+                            //   height: 20.0,
+                            // ),
+                            // DateTimePickerFormField(
+                            //   inputType: InputType.both,
+                            //   format: DateFormat("EEEE, MMMM d, yyyy 'at' h:mm a"),
+                            //   editable: false,
+                            //   decoration: InputDecoration(
+                            //       labelText: 'Start', hasFloatingPlaceholder: false),
+                            //   onChanged: (dt) {
+                            //     setState(() => start = dt);
+                            //   },
+                            // ),
 
-                            SizedBox(
-                              height: 20.0,
+                            // SizedBox(
+                            //   height: 20.0,
+                            // ),
+                            // DateTimePickerFormField(
+                            //   inputType: InputType.both,
+                            //   format: DateFormat("EEEE, MMMM d, yyyy 'at' h:mm a"),
+                            //   editable: false,
+                            //   decoration: InputDecoration(
+                            //       labelText: 'Finish', hasFloatingPlaceholder: false),
+                            //   onChanged: (dt) {
+                            //     setState(() => finish = dt);
+                            //   },
+                            // ),
+                             Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Container(
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    RaisedButton(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5.0)),
+                      elevation: 4.0,
+                      onPressed: () {
+                        DatePicker.showDateTimePicker(context,
+                            theme: DatePickerTheme(
+                              containerHeight: 300.0,
                             ),
-                            DateTimePickerFormField(
-                              inputType: InputType.both,
-                              format: DateFormat("EEEE, MMMM d, yyyy 'at' h:mm a"),
-                              editable: false,
-                              decoration: InputDecoration(
-                                  labelText: 'Finish', hasFloatingPlaceholder: false),
-                              onChanged: (dt) {
-                                setState(() => finish = dt);
-                              },
+                            showTitleActions: true,
+                          
+                             onConfirm: (time) {
+                         showstart = dateFormat.format(time).substring(0,16);
+                          setState(() =>start=time );
+                        }, 
+                        currentTime: DateTime.now(), locale: LocaleType.en);
+                       // setState(() =>start=date );
+                      },
+                      child: Container(
+                        alignment: Alignment.center,
+                        height: 50.0,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Row(
+                              children: <Widget>[
+                                Container(
+                                  child: Row(
+                                    children: <Widget>[
+                                      Icon(
+                                        Icons.access_time,
+                                        size: 18.0,
+                                        color: Colors.blue,
+                                      ),
+                                      Text(showstart==null?' select time':
+                                        " $showstart",
+                                        style: TextStyle(
+                                            color: Colors.blue,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 18.0),
+                                      ),
+                                    ],
+                                  ),
+                                )
+                              ],
                             ),
+                            Text(
+                          "  Change",
+                          style: TextStyle(
+                              color: Colors.blue,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18.0),
+                        ),
+                          ],
+                        ),
+                      ),
+                      color: Colors.white,
+                    ),
+                    SizedBox(
+                      height: 20.0,
+                    ),
+                    RaisedButton(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5.0)),
+                      elevation: 4.0,
+                      onPressed: () {
+                        DatePicker.showDateTimePicker(context,
+                            theme: DatePickerTheme(
+                              containerHeight: 300.0,
+                            ),
+                            showTitleActions: true, onConfirm: (time) {
+                         // print('confirm $time');
+                         showend = dateFormat.format(time).substring(0,16);
+                          setState(() =>finish=time );
+                        }, currentTime: DateTime.now(), locale: LocaleType.en);
+                      },
+                      child: Container(
+                        alignment: Alignment.center,
+                        height: 50.0,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Row(
+                              children: <Widget>[
+                                Container(
+                                  child: Row(
+                                    children: <Widget>[
+                                      Icon(
+                                        Icons.access_time,
+                                        size: 18.0,
+                                        color: Colors.blue,
+                                      ),
+                                      Text( showend==null?' select time':" $showend",
+                                       // " $_time",
+                                        style: TextStyle(
+                                            color: Colors.blue,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 18.0),
+                                      ),
+                                    ],
+                                  ),
+                                )
+                              ],
+                            ),
+                           Text(
+                          "  Change",
+                          style: TextStyle(
+                              color: Colors.blue,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18.0),
+                        ),
+                          ],
+                        ),
+                      ),
+                      color: Colors.white,
+                    )
+                  ],
+                ),
+              ),
+          ),
 
                             SizedBox(height: 20.0),
                             RaisedButton(
