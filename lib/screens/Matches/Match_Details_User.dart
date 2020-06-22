@@ -91,6 +91,548 @@ _showSnackBar() {
     _scaffoldKeys.currentState.showSnackBar(snackBar);
   }
 
+Disjoin()
+  async {
+    if(widget.matchid.Counter>1){
+
+      var f=dateFormat.parse(widget.matchid.Check_in);
+      var duration =f.add(new Duration(hours: 1));
+
+
+      List<Field> starts=[
+        Field(Start_at:widget.matchid.Check_in )];
+      List<Field> finishs=[
+        Field(Finish_at:widget.matchid.Check_out )];
+      List<Field> dur=[
+        Field(Duration:dateFormat.format(duration) ) ];
+      var count= (widget.matchid.Counter)-1;
+      await MatchService().disjoinMatch(matchId , users);
+      await FieldService().removetimestart(widget.matchid.Field, starts);
+      await FieldService().removetimefinish(widget.matchid.Field, finishs);
+      await FieldService().removeduration(widget.matchid.Field, dur);
+      await UserService().removetimestart(user.ID, starts);
+      await UserService().removetimefinish(user.ID, finishs);
+      await UserService().removeduration(user.ID, dur);
+      _fcm.unsubscribeFromTopic(widget.matchid.Topic);
+      await MatchService().editMatch(widget.matchid.ID ,widget.matchid.Field, widget.matchid.Date.toDate() ,widget.matchid.Location, widget.matchid.Check_in,
+          widget.matchid.Check_out , widget.matchid.Price, count , widget.matchid.Topic);
+
+      _showSnackBar();
+
+    }else{
+
+
+
+
+
+      var f=dateFormat.parse(widget.matchid.Check_in);
+      var duration =f.add(new Duration(hours: 1));
+
+
+      List<Field> starts=[
+        Field(Start_at:widget.matchid.Check_in )];
+      List<Field> finishs=[
+        Field(Finish_at:widget.matchid.Check_out )];
+      List<Field> dur=[
+        Field(Duration:dateFormat.format(duration) ) ];
+
+
+      var count= (widget.matchid.Counter)-1;
+      await MatchService().disjoinMatch(matchId , users);
+      await UserService().removetimestart(user.ID, starts);
+      await UserService().removetimefinish(user.ID, finishs);
+      await UserService().removeduration(user.ID, dur);
+      _fcm.unsubscribeFromTopic(widget.matchid.Topic);
+      await MatchService().deleteMatch(widget.matchid.ID ,widget.matchid.Field, widget.matchid.Date.toDate() ,widget.matchid.Location, widget.matchid.Check_in,
+          widget.matchid.Check_out , widget.matchid.Price, count , widget.matchid.Topic);
+      _showSnackBar();
+    }
+}
+Disjoin2() async{
+if(widget.matchid.Counter>1){
+
+  var f=dateFormat.parse(widget.matchid.Check_in);
+  var duration =f.add(new Duration(hours: 1));
+
+
+  List<Field> starts=[
+    Field(Start_at:widget.matchid.Check_in )];
+  List<Field> finishs=[
+    Field(Finish_at:widget.matchid.Check_out )];
+  List<Field> dur=[
+    Field(Duration:dateFormat.format(duration) ) ];
+  var count= (widget.matchid.Counter)-1;
+  await MatchService().disjoinMatch(matchId , users);
+  await FieldService().removetimestart(widget.matchid.Field, starts);
+  await FieldService().removetimefinish(widget.matchid.Field, finishs);
+  await FieldService().removeduration(widget.matchid.Field, dur);
+  await UserService().removetimestart(user.ID, starts);
+  await UserService().removetimefinish(user.ID, finishs);
+  await UserService().removeduration(user.ID, dur);
+  _fcm.unsubscribeFromTopic(widget.matchid.Topic);
+  await MatchService().editMatch(widget.matchid.ID ,widget.matchid.Field, widget.matchid.Date.toDate() ,widget.matchid.Location, widget.matchid.Check_in,
+      widget.matchid.Check_out , widget.matchid.Price, count , widget.matchid.Topic);
+
+  _showSnackBar();
+
+}else{
+
+
+
+
+
+  var f=dateFormat.parse(widget.matchid.Check_in);
+  var duration =f.add(new Duration(hours: 1));
+
+
+  List<Field> starts=[
+    Field(Start_at:widget.matchid.Check_in )];
+  List<Field> finishs=[
+    Field(Finish_at:widget.matchid.Check_out )];
+  List<Field> dur=[
+    Field(Duration:dateFormat.format(duration) ) ];
+
+
+  var count= (widget.matchid.Counter)-1;
+  await MatchService().disjoinMatch(matchId , users);
+  await UserService().removetimestart(user.ID, starts);
+  await UserService().removetimefinish(user.ID, finishs);
+  await UserService().removeduration(user.ID, dur);
+  _fcm.unsubscribeFromTopic(widget.matchid.Topic);
+  await MatchService().deleteMatch(widget.matchid.ID ,widget.matchid.Field, widget.matchid.Date.toDate() ,widget.matchid.Location, widget.matchid.Check_in,
+      widget.matchid.Check_out , widget.matchid.Price, count , widget.matchid.Topic);
+  _showSnackBar();
+}}
+
+openAlertBox_twobutton1(  String title , String content ) {
+  return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(32.0))),
+          contentPadding: EdgeInsets.only(top: 10.0),
+          content: Container(
+            width: 300.0,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    Text(
+                      title,
+                      style: TextStyle(fontSize: 24.0),
+                    ),
+
+                  ],
+                ),
+                SizedBox(
+                  height: 5.0,
+                ),
+                Divider(
+                  color: Colors.grey,
+                  height: 4.0,
+                ),
+                Padding(
+                  padding: EdgeInsets.only(left: 30.0, right: 30.0),
+                  child: Container(
+                    margin: EdgeInsets.only(top:2),
+                    height:100,
+                    child: Text(content ,maxLines: 2, style:
+                    TextStyle(wordSpacing: 1.5 ,height: 2 ,fontWeight: FontWeight.bold),),
+                  ),
+                ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center ,
+                  children: <Widget>[
+                    InkWell(
+                      child: Container(
+                        width: 148,
+                        padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
+                        decoration: BoxDecoration(
+                          color:  Color(0xff00bfa5),
+                          borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(32.0),
+                            // bottomRight: Radius.circular(32.0)
+                          ),
+                        ),
+                        child: Text(
+                          "Yes",
+                          style: TextStyle(color: Colors.white ,fontWeight: FontWeight.bold),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                      onTap:() async{
+        if(widget.matchid.Counter>1){
+
+        var f=dateFormat.parse(widget.matchid.Check_in);
+        var duration =f.add(new Duration(hours: 1));
+
+
+        List<Field> starts=[
+        Field(Start_at:widget.matchid.Check_in )];
+        List<Field> finishs=[
+        Field(Finish_at:widget.matchid.Check_out )];
+        List<Field> dur=[
+        Field(Duration:dateFormat.format(duration) ) ];
+        var count= (widget.matchid.Counter)-1;
+        await MatchService().disjoinMatch(matchId , users);
+        await FieldService().removetimestart(widget.matchid.Field, starts);
+        await FieldService().removetimefinish(widget.matchid.Field, finishs);
+        await FieldService().removeduration(widget.matchid.Field, dur);
+        await UserService().removetimestart(user.ID, starts);
+        await UserService().removetimefinish(user.ID, finishs);
+        await UserService().removeduration(user.ID, dur);
+        _fcm.unsubscribeFromTopic(widget.matchid.Topic);
+        await MatchService().editMatch(widget.matchid.ID ,widget.matchid.Field, widget.matchid.Date.toDate() ,widget.matchid.Location, widget.matchid.Check_in,
+        widget.matchid.Check_out , widget.matchid.Price, count , widget.matchid.Topic);
+
+        _showSnackBar();
+
+        }else{
+
+
+
+
+
+        var f=dateFormat.parse(widget.matchid.Check_in);
+        var duration =f.add(new Duration(hours: 1));
+
+
+        List<Field> starts=[
+        Field(Start_at:widget.matchid.Check_in )];
+        List<Field> finishs=[
+        Field(Finish_at:widget.matchid.Check_out )];
+        List<Field> dur=[
+        Field(Duration:dateFormat.format(duration) ) ];
+
+
+        var count= (widget.matchid.Counter)-1;
+        await MatchService().disjoinMatch(matchId , users);
+        await UserService().removetimestart(user.ID, starts);
+        await UserService().removetimefinish(user.ID, finishs);
+        await UserService().removeduration(user.ID, dur);
+        _fcm.unsubscribeFromTopic(widget.matchid.Topic);
+        await MatchService().deleteMatch(widget.matchid.ID ,widget.matchid.Field, widget.matchid.Date.toDate() ,widget.matchid.Location, widget.matchid.Check_in,
+        widget.matchid.Check_out , widget.matchid.Price, count , widget.matchid.Topic);
+        _showSnackBar();
+        }
+        Navigator.pop(context);
+        },
+
+
+
+
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                          color: Colors.red
+                      ),
+                      //color: Colors.red,
+                      width: 4,
+                    ),
+
+                    InkWell(
+                      child: Container(
+
+                        width: 148,
+                        padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
+                        decoration: BoxDecoration(
+                          color:  Color(0xff00bfa5),
+                          borderRadius: BorderRadius.only(
+                            // bottomLeft: Radius.circular(32.0),
+                              bottomRight: Radius.circular(32.0)),
+                        ),
+                        child: Text(
+                          "No",
+                          style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                      onTap: ()=>Navigator.pop(context),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        );
+      }
+  );
+}
+
+
+openAlertBox_twobutton2(  String title , String content ) {
+  return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(32.0))),
+          contentPadding: EdgeInsets.only(top: 10.0),
+          content: Container(
+            width: 300.0,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    Text(
+                      title,
+                      style: TextStyle(fontSize: 24.0),
+                    ),
+
+                  ],
+                ),
+                SizedBox(
+                  height: 5.0,
+                ),
+                Divider(
+                  color: Colors.grey,
+                  height: 4.0,
+                ),
+                Padding(
+                  padding: EdgeInsets.only(left: 30.0, right: 30.0),
+                  child: Container(
+                    margin: EdgeInsets.only(top:2),
+                    height:100,
+                    child: Text(content ,maxLines: 2, style:
+                    TextStyle(wordSpacing: 1.5 ,height: 2 ,fontWeight: FontWeight.bold),),
+                  ),
+                ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center ,
+                  children: <Widget>[
+                    InkWell(
+                      child: Container(
+                        width: 148,
+                        padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
+                        decoration: BoxDecoration(
+                          color:  Color(0xff00bfa5),
+                          borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(32.0),
+                            // bottomRight: Radius.circular(32.0)
+                          ),
+                        ),
+                        child: Text(
+                          "Yes",
+                          style: TextStyle(color: Colors.white ,fontWeight: FontWeight.bold),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                      onTap:() async{
+                        if(widget.matchid.Counter>1){
+
+                          var f=dateFormat.parse(widget.matchid.Check_in);
+                          var duration =f.add(new Duration(hours: 1));
+
+
+                          List<Field> starts=[
+                            Field(Start_at:widget.matchid.Check_in )];
+                          List<Field> finishs=[
+                            Field(Finish_at:widget.matchid.Check_out )];
+                          List<Field> dur=[
+                            Field(Duration:dateFormat.format(duration) ) ];
+                          var count= (widget.matchid.Counter)-1;
+                          await MatchService().disjoinMatch(matchId , users);
+                          await FieldService().removetimestart(widget.matchid.Field, starts);
+                          await FieldService().removetimefinish(widget.matchid.Field, finishs);
+                          await FieldService().removeduration(widget.matchid.Field, dur);
+                          await UserService().removetimestart(user.ID, starts);
+                          await UserService().removetimefinish(user.ID, finishs);
+                          await UserService().removeduration(user.ID, dur);
+                          _fcm.unsubscribeFromTopic(widget.matchid.Topic);
+                          await MatchService().editMatch(widget.matchid.ID ,widget.matchid.Field, widget.matchid.Date.toDate() ,widget.matchid.Location, widget.matchid.Check_in,
+                              widget.matchid.Check_out , widget.matchid.Price, count , widget.matchid.Topic);
+
+                          _showSnackBar();
+
+                        }else{
+
+
+
+
+
+                          var f=dateFormat.parse(widget.matchid.Check_in);
+                          var duration =f.add(new Duration(hours: 1));
+
+
+                          List<Field> starts=[
+                            Field(Start_at:widget.matchid.Check_in )];
+                          List<Field> finishs=[
+                            Field(Finish_at:widget.matchid.Check_out )];
+                          List<Field> dur=[
+                            Field(Duration:dateFormat.format(duration) ) ];
+
+
+                          var count= (widget.matchid.Counter)-1;
+                          await MatchService().disjoinMatch(matchId , users);
+                          await UserService().removetimestart(user.ID, starts);
+                          await UserService().removetimefinish(user.ID, finishs);
+                          await UserService().removeduration(user.ID, dur);
+                          _fcm.unsubscribeFromTopic(widget.matchid.Topic);
+                          await MatchService().deleteMatch(widget.matchid.ID ,widget.matchid.Field, widget.matchid.Date.toDate() ,widget.matchid.Location, widget.matchid.Check_in,
+                              widget.matchid.Check_out , widget.matchid.Price, count , widget.matchid.Topic);
+                          _showSnackBar();
+                        }
+                        Navigator.pop(context);},
+
+
+
+
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                          color: Colors.red
+                      ),
+                      //color: Colors.red,
+                      width: 4,
+                    ),
+
+                    InkWell(
+                      child: Container(
+
+                        width: 148,
+                        padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
+                        decoration: BoxDecoration(
+                          color:  Color(0xff00bfa5),
+                          borderRadius: BorderRadius.only(
+                            // bottomLeft: Radius.circular(32.0),
+                              bottomRight: Radius.circular(32.0)),
+                        ),
+                        child: Text(
+                          "No",
+                          style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                      onTap: ()=>Navigator.pop(context),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        );
+      }
+  );
+}
+
+
+openAlertBox_twobutton3(  String title , String content ) {
+  return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(32.0))),
+          contentPadding: EdgeInsets.only(top: 10.0),
+          content: Container(
+            width: 300.0,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    Text(
+                      title,
+                      style: TextStyle(fontSize: 24.0),
+                    ),
+
+                  ],
+                ),
+                SizedBox(
+                  height: 5.0,
+                ),
+                Divider(
+                  color: Colors.grey,
+                  height: 4.0,
+                ),
+                Padding(
+                  padding: EdgeInsets.only(left: 30.0, right: 30.0),
+                  child: Container(
+                    margin: EdgeInsets.only(top:2),
+                    height:100,
+                    child: Text(content ,maxLines: 2, style:
+                    TextStyle(wordSpacing: 1.5 ,height: 2 ,fontWeight: FontWeight.bold),),
+                  ),
+                ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center ,
+                  children: <Widget>[
+                    InkWell(
+                      child: Container(
+                        width: 148,
+                        padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
+                        decoration: BoxDecoration(
+                          color:  Color(0xff00bfa5),
+                          borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(32.0),
+                            // bottomRight: Radius.circular(32.0)
+                          ),
+                        ),
+                        child: Text(
+                          "Yes",
+                          style: TextStyle(color: Colors.white ,fontWeight: FontWeight.bold),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                      onTap:() {godetails();
+                        Navigator.pop(context);}
+
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                          color: Colors.red
+                      ),
+                      //color: Colors.red,
+                      width: 4,
+                    ),
+
+                    InkWell(
+                      child: Container(
+
+                        width: 148,
+                        padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
+                        decoration: BoxDecoration(
+                          color:  Color(0xff00bfa5),
+                          borderRadius: BorderRadius.only(
+                            // bottomLeft: Radius.circular(32.0),
+                              bottomRight: Radius.circular(32.0)),
+                        ),
+                        child: Text(
+                          "No",
+                          style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                      onTap: ()=>Navigator.pop(context),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        );
+      }
+  );
+}
+
   if (widget.matchid.Counter!=10) {/************************************************************ */
 
     
@@ -250,10 +792,11 @@ _showSnackBar() {
                             'DisJoin',
                             style: TextStyle(color: Colors.white),
                           ),
-                          onPressed: () async {
-                            if(widget.matchid.users.length>1){
-                              
-                                    var f=dateFormat.parse(widget.matchid.Check_in);
+                          onPressed: (){
+
+   openAlertBox_twobutton1(  'Caution' , 'Are you sure you want to disjoin this match?'); }
+
+                                /*    var f=dateFormat.parse(widget.matchid.Check_in);
                                       var duration =f.add(new Duration(hours: 1));
 
                                            _showSnackBar();
@@ -307,7 +850,7 @@ _showSnackBar() {
                            //  Future.delayed(Duration(seconds: 3),  goback());
                            
                                                                 _showSnackBar();
-                          }}
+                          }}*/
                           ),
                           
                           
@@ -326,8 +869,10 @@ _showSnackBar() {
                                         //godetails(widget.matchid);
                                      
                                      //   Navigator.of(context).pushNamed(demo.routeName,);
+                               onPressed: (){
 
-                                       onPressed:()=>godetails(),
+                                 openAlertBox_twobutton3(  'Caution' , 'Are you sure you want to invite friends to this match?'); },
+                                     /*  onPressed:()=>godetails(),*/
                                   //      async{ !_isCreatingLink==false? null:await _createDynamicLink(true); 
                                   //        final RenderBox box = context.findRenderObject();
                                   //         _linkMessage  ==null? Loading(): 
@@ -442,7 +987,9 @@ _showSnackBar() {
                   'DisJoin',
                   style: TextStyle(color: Colors.white),
                 ),
-                 onPressed: () async {
+                  onPressed: (){
+
+                    openAlertBox_twobutton2(  'Caution' , 'Are you sure you want to disjoin this match?'); }/*async {
                             if(widget.matchid.Counter>1){
                               
                                     var f=dateFormat.parse(widget.matchid.Check_in);
@@ -496,7 +1043,7 @@ _showSnackBar() {
                                await MatchService().deleteMatch(widget.matchid.ID ,widget.matchid.Field, widget.matchid.Date.toDate() ,widget.matchid.Location, widget.matchid.Check_in,
                                widget.matchid.Check_out , widget.matchid.Price, count , widget.matchid.Topic);
                               _showSnackBar();
-                          }}
+                          }}*/
                 )
                           ],
                         ),

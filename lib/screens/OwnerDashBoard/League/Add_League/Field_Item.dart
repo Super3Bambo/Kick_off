@@ -36,7 +36,7 @@ class FieldItemowner extends StatelessWidget {
 return  Card(
   
   elevation: 15.0,
-  shadowColor: Colors.blueAccent,
+  //shadowColor: Colors.blueAccent,
           margin: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 5.0),
          
           shape: new RoundedRectangleBorder(

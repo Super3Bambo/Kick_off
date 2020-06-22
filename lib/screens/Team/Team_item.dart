@@ -18,7 +18,9 @@ class TeamItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-        DateFormat dateFormat = DateFormat("yyyy-MM-dd HH:00:00:000");
+    goback(){Navigator.pop(context);}
+
+    DateFormat dateFormat = DateFormat("yyyy-MM-dd HH:00:00:000");
           User user =Provider.of<User>(context);
           List<User> users =[
             User(ID: user.ID),
@@ -28,12 +30,153 @@ class TeamItem extends StatelessWidget {
 Navigator.push(context,MaterialPageRoute(builder: (context)=> TeamBoard(team: team)  ) );}
 godetails2(){
 Navigator.push(context,MaterialPageRoute(builder: (context)=> FriendsOverview(team: team)  ) );}
+
+
+
 if(team!=null){
   return StreamBuilder<User>(
       stream: UserService(userid: user.ID).userData,
       builder: (context, snapshot){
         if(snapshot.hasData){
           User userData = snapshot.data;
+          Leave()async{
+            if(team.users.length!=1){
+
+              await TeamService().disjoinTeam(team.ID, users);
+              String teamid="";
+
+              await UserService(userid: user.ID).updateUserData(userData.FName, userData.LName, userData.Age, userData.Position, userData.Area, userData.Phone,
+                  userData.Photo_url, teamid, userData.Token);
+            }
+
+            else{
+              await TeamService().deleteteam(team.ID);
+              String teamid="";
+              await UserService(userid: user.ID).updateUserData(userData.FName, userData.LName, userData.Age, userData.Position, userData.Area, userData.Phone,
+                  userData.Photo_url, teamid, userData.Token);
+
+            }
+          }
+
+          openAlertBox_twobutton(  String title , String content ) {
+            return showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(32.0))),
+                    contentPadding: EdgeInsets.only(top: 10.0),
+                    content: Container(
+                      width: 300.0,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        mainAxisSize: MainAxisSize.min,
+                        children: <Widget>[
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            mainAxisSize: MainAxisSize.min,
+                            children: <Widget>[
+                              Text(
+                                title,
+                                style: TextStyle(fontSize: 24.0),
+                              ),
+
+                            ],
+                          ),
+                          SizedBox(
+                            height: 5.0,
+                          ),
+                          Divider(
+                            color: Colors.grey,
+                            height: 4.0,
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(left: 30.0, right: 30.0),
+                            child: Container(
+                              margin: EdgeInsets.only(top:2),
+                              height:100,
+                              child: Text(content ,maxLines: 2, style:
+                              TextStyle(wordSpacing: 1.5 ,height: 2 ,fontWeight: FontWeight.bold),),
+                            ),
+                          ),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center ,
+                            children: <Widget>[
+                              InkWell(
+                                child: Container(
+                                  width: 148,
+                                  padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
+                                  decoration: BoxDecoration(
+                                    color:  Color(0xff00bfa5),
+                                    borderRadius: BorderRadius.only(
+                                      bottomLeft: Radius.circular(32.0),
+                                      // bottomRight: Radius.circular(32.0)
+                                    ),
+                                  ),
+                                  child: Text(
+                                    "Yes",
+                                    style: TextStyle(color: Colors.white ,fontWeight: FontWeight.bold),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                                onTap:() async{
+                                  if(team.users.length!=1){
+
+                                    await TeamService().disjoinTeam(team.ID, users);
+                                    String teamid="";
+
+                                    await UserService(userid: user.ID).updateUserData(userData.FName, userData.LName, userData.Age, userData.Position, userData.Area, userData.Phone,
+                                        userData.Photo_url, teamid, userData.Token);
+                                  }
+
+                                  else{
+                                    await TeamService().deleteteam(team.ID);
+                                    String teamid="";
+                                    await UserService(userid: user.ID).updateUserData(userData.FName, userData.LName, userData.Age, userData.Position, userData.Area, userData.Phone,
+                                        userData.Photo_url, teamid, userData.Token);
+
+                                  } Navigator.pop(context);
+                                },
+                              ),
+                              Container(
+                                decoration: BoxDecoration(
+                                    color: Colors.red
+                                ),
+                                //color: Colors.red,
+                                width: 4,
+                              ),
+
+                              InkWell(
+                                child: Container(
+
+                                  width: 148,
+                                  padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
+                                  decoration: BoxDecoration(
+                                    color:  Color(0xff00bfa5),
+                                    borderRadius: BorderRadius.only(
+                                      // bottomLeft: Radius.circular(32.0),
+                                        bottomRight: Radius.circular(32.0)),
+                                  ),
+                                  child: Text(
+                                    "No",
+                                    style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                                onTap: ()=>Navigator.pop(context),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                }
+            );
+          }
+
    return Container(
           margin: EdgeInsets.fromLTRB(10.0, 8.0, 10.0, 10.0),
                   child: SingleChildScrollView(
@@ -126,8 +269,12 @@ if(team!=null){
                                 ),
                                   Container(
                                    //   margin: EdgeInsets.only(top: 0 ),
-                                  child: IconButton(icon: Icon(FontAwesome.sign_out , size: 30, color: Colors.red[900] ,), 
-                                onPressed:()async{
+                                  child: IconButton(icon: Icon(FontAwesome.sign_out , size: 30, color: Colors.red[900] ,),
+                                      onPressed: (){
+
+                                        openAlertBox_twobutton(  'Caution' , 'Are you sure you want to leave this team?'); }
+
+                          /*      onPressed:()async{
                                   if(team.users.length!=1){
                              
                           await TeamService().disjoinTeam(team.ID, users);
@@ -144,7 +291,7 @@ if(team!=null){
                           userData.Photo_url, teamid, userData.Token);
                             
                                 }
-                                }
+                                }*/
                                 )),
                                 Container(
                                      // margin: EdgeInsets.only(top:10,),

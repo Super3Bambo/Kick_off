@@ -4,7 +4,7 @@ import 'package:flutter_app/Services/Auth.dart';
 import 'package:flutter_app/Shared/Loading.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'clipper.dart';
-
+import'package:flutter_app/Shared/Alert.dart';
 class AuthPage extends StatefulWidget {
    final FirebaseAuth _auth = FirebaseAuth.instance;
   @override
@@ -23,9 +23,76 @@ class _AuthPageState extends State<AuthPage> {
   bool _obsecure = false;
     bool loading = false;
 
-
   @override
   Widget build(BuildContext context) {
+    openAlertBox_onebutton(   String title , String content ) {
+      return showDialog(
+          context: context,
+          builder: (BuildContext context) {
+        return AlertDialog(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(32.0))),
+            contentPadding: EdgeInsets.only(top: 10.0),
+            content: Container(
+                width: 300.0,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    Text(
+                      title,
+                      style: TextStyle(fontSize: 24.0),
+                    ),
+
+                  ],
+                ),
+                SizedBox(
+                  height: 5.0,
+                ),
+                Divider(
+                  color: Colors.grey,
+                  height: 4.0,
+                ),
+                Padding(
+                  padding: EdgeInsets.only(left: 30.0, right: 30.0),
+                  child: Container(
+                    margin: EdgeInsets.only(top:2),
+                    height:100,
+                    child: Text(content ,maxLines: 2, style:
+                    TextStyle(wordSpacing: 1.5 ,height: 2 ,fontWeight: FontWeight.bold),),
+                  ),
+                ),
+
+                InkWell(
+                  child: Container(
+
+                    //width: 148,
+                    padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
+                    decoration: BoxDecoration(
+                      color: Colors.blue ,
+                      borderRadius: BorderRadius.only(
+                          bottomLeft: Radius.circular(32.0),
+                          bottomRight: Radius.circular(32.0)),
+                    ),
+                    child: Text(
+                      "OK",
+                      style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                  onTap: ()=>Navigator.pop(context),
+                ),  ],
+                ),
+            ),
+        );
+          }
+      );
+    }
     Color primary = Theme.of(context).primaryColor;
     void initState() {
       super.initState();
@@ -196,13 +263,18 @@ class _AuthPageState extends State<AuthPage> {
       _password = _passwordController.text;
       if(_email.isEmpty){
          setState(() {
-              Alert(context: context, title: "Invalid data",desc: " enter your email" ).show();});
+          //    Alert(context: context, title: "Invalid data",desc: " enter your email" ).show();});
+        openAlertBox_onebutton(  'Invalid data' , 'Enter your email' );});
       }else if(_password.length<8){
                     setState(() {
-              Alert(context: context, title: "Invalid data",desc: " PassWord Length Atleast 8 " ).show();});
+             // Alert(context: context, title: "Invalid data",desc: " PassWord Length Atleast 8 " ).show();});
+        openAlertBox_onebutton(  'Invalid data' , 'Enter at least 8 characters'  );});
+
       }else if(_password.isEmpty){
                     setState(() {
-              Alert(context: context, title: "Invalid data",desc: " enter your PassWord" ).show();});
+            //  Alert(context: context, title: "Invalid data",desc: " enter your PassWord" ).show();});
+        openAlertBox_onebutton(  'Invalid data' , 'Enter your password'  );});
+
       }
           else{
                     setState(() => loading = true);
@@ -210,25 +282,33 @@ class _AuthPageState extends State<AuthPage> {
                     
                     if(result == null) {
                       setState(() {
-                     Alert(context: context, title: "Invalid data",desc: " invalid email or password" ).show();
-                      
-                        loading = false;});}}
+                    // Alert(context: context, title: "Invalid data",desc: " invalid email or password" ).show();
+                      openAlertBox_onebutton(  'Invalid data' , 'Inavlid email or password'  );});
 
-    }
+
+                      loading = false;};}}
+
+
 
     Future<void> _registerUser() async {
       _email = _emailController.text;
       _password = _passwordController.text;
      if(_email.isEmpty){
-         setState(() {
-              Alert(context: context, title: "Invalid data",desc: " enter your email" ).show();});
-      }else if(_password.length<8){
+        setState(() {
+              //Alert(context: context, title: "Invalid data",desc: " enter your email" ).show();});
+       openAlertBox_onebutton(  'Invalid data' , 'Enter your email'  );});
+
+     }else if(_password.length<8){
                     setState(() {
-              Alert(context: context, title: "Invalid data",desc: " PassWord Length Atleast 8 " ).show();});
-      }else if(_password.isEmpty){
-                    setState(() {
-              Alert(context: context, title: "Invalid data",desc: " enter your PassWord" ).show();});
-      }
+              //Alert(context: context, title: "Invalid data",desc: " PassWord Length Atleast 8 " ).show();});
+       openAlertBox_onebutton(  'Invalid data' , 'Enter at least 8 characters'  );});
+
+     }else if(_password.isEmpty){
+                  setState(() {
+              //Alert(context: context, title: "Invalid data",desc: " enter your PassWord" ).show();});
+       openAlertBox_onebutton(  'Invalid data' , 'Enter your password'  );});
+
+     }
     //  else if (await _auth.checkemail(_email)==false){
     //     setState(() {
     //     Alert(context: context, title: "Invalid data",desc: " This mail is already taken" ).show();});
@@ -240,7 +320,8 @@ class _AuthPageState extends State<AuthPage> {
           if(check.isNotEmpty){
 
    setState(() {
-         Alert(context: context, title: "Invalid data",desc: " This mail is already taken" ).show();
+        // Alert(context: context, title: "Invalid data",desc: " This mail is already taken" ).show();
+     openAlertBox_onebutton(   'Invalid data' , 'This mail is already taken'  );
          _emailController.clear();
          _email='';
          });
@@ -258,8 +339,9 @@ class _AuthPageState extends State<AuthPage> {
                     
                     if(result == null) {
                       setState(() {
-                     Alert(context: context, title: "Invalid data",desc: " invalid email or password" ).show();
-                      
+                  //   Alert(context: context, title: "Invalid data",desc: " invalid email or password" ).show();
+                        openAlertBox_onebutton(   'Invalid data','Invalid email or password'  );
+
                         loading = false;
 
                       });}
@@ -568,5 +650,4 @@ class _AuthPageState extends State<AuthPage> {
           ],
           crossAxisAlignment: CrossAxisAlignment.stretch,
         ));
-  }
-}
+  }}

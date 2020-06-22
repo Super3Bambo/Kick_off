@@ -121,6 +121,115 @@ Navigator.push(context,MaterialPageRoute(builder: (context)=> editField(field: f
 godetails4(){
 Navigator.push(context,MaterialPageRoute(builder: (context)=> AnalysisField(field: field,)  ) );}
 
+    openAlertBox_twobutton(  String title , String content ) {
+      return showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(32.0))),
+              contentPadding: EdgeInsets.only(top: 10.0),
+              content: Container(
+                width: 300.0,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        Text(
+                          title,
+                          style: TextStyle(fontSize: 24.0),
+                        ),
+
+                      ],
+                    ),
+                    SizedBox(
+                      height: 5.0,
+                    ),
+                    Divider(
+                      color: Colors.grey,
+                      height: 4.0,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(left: 30.0, right: 30.0),
+                      child: Container(
+                        margin: EdgeInsets.only(top:2),
+                        height:100,
+                        child: Text(content ,maxLines: 2, style:
+                        TextStyle(wordSpacing: 1.5 ,height: 2 ,fontWeight: FontWeight.bold),),
+                      ),
+                    ),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center ,
+                      children: <Widget>[
+                        InkWell(
+                          child: Container(
+                            width: 148,
+                            padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
+                            decoration: BoxDecoration(
+                              color:  Color(0xff00bfa5),
+                              borderRadius: BorderRadius.only(
+                                bottomLeft: Radius.circular(32.0),
+                                // bottomRight: Radius.circular(32.0)
+                              ),
+                            ),
+                            child: Text(
+                              "Yes",
+                              style: TextStyle(color: Colors.white ,fontWeight: FontWeight.bold),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                          onTap:() {     FieldService().deleteField(field.ID);
+                          Navigator.pop(context);}
+                          ,
+                        ),
+                        Container(
+                          decoration: BoxDecoration(
+                              color: Colors.red
+                          ),
+                          //color: Colors.red,
+                          width: 4,
+                        ),
+
+                        InkWell(
+                          child: Container(
+
+                            width: 148,
+                            padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
+                            decoration: BoxDecoration(
+                              color:  Color(0xff00bfa5),
+                              borderRadius: BorderRadius.only(
+                                // bottomLeft: Radius.circular(32.0),
+                                  bottomRight: Radius.circular(32.0)),
+                            ),
+                            child: Text(
+                              "No",
+                              style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                          onTap: ()=>Navigator.pop(context),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            );
+          }
+      );
+    }
+    goback(){Navigator.pop(context);}
+
+    Delete() async{
+      FieldService().deleteField(field.ID);
+    }
+
 return  Card(
           margin: EdgeInsets.fromLTRB(20.0, 5.0, 20.0, 5.0),
          
@@ -227,7 +336,12 @@ return  Card(
                            children: <Widget>[
                              IconButton(icon: Icon(FontAwesome.calendar_plus_o,size: 30, color: Colors.green[600],),  onPressed: ()=>godetails( field),),
                              IconButton(icon: Icon(FontAwesome.edit,size: 30, color: Colors.green[600],), onPressed: ()=>godetails3(field)),
-                             IconButton(icon: Icon(Icons.delete,size: 30, color: Colors.green[600],), onPressed:()async=> FieldService().deleteField(field.ID)),
+                             IconButton(icon: Icon(Icons.delete,size: 30, color: Colors.green[600],),
+                                 onPressed: (){
+
+                                   openAlertBox_twobutton(  'Caution' , 'Are you sure you want to delete this field?' ); }),
+
+                                 //onPressed:()async=> FieldService().deleteField(field.ID)),
                              IconButton(icon: Icon(Icons.list,size: 30, color: Colors.green[600],), onPressed: ()=>godetails2( ),),
                              IconButton(icon: Icon(FontAwesome.pie_chart,size: 30, color: Colors.green[600],), onPressed: ()=>godetails4()),
                    

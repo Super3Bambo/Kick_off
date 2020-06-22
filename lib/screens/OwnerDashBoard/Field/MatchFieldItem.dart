@@ -16,6 +16,112 @@ class MatchFieldItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    openAlertBox_twobutton(  String title , String content) {
+      return showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(32.0))),
+              contentPadding: EdgeInsets.only(top: 10.0),
+              content: Container(
+                width: 300.0,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        Text(
+                          title,
+                          style: TextStyle(fontSize: 24.0),
+                        ),
+
+                      ],
+                    ),
+                    SizedBox(
+                      height: 5.0,
+                    ),
+                    Divider(
+                      color: Colors.grey,
+                      height: 4.0,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(left: 30.0, right: 30.0),
+                      child: Container(
+                        margin: EdgeInsets.only(top:2),
+                        height:100,
+                        child: Text(content ,maxLines: 2, style:
+                        TextStyle(wordSpacing: 1.5 ,height: 2 ,fontWeight: FontWeight.bold),),
+                      ),
+                    ),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center ,
+                      children: <Widget>[
+                        InkWell(
+                          child: Container(
+                            width: 148,
+                            padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
+                            decoration: BoxDecoration(
+                              color:  Color(0xff00bfa5),
+                              borderRadius: BorderRadius.only(
+                                bottomLeft: Radius.circular(32.0),
+                                // bottomRight: Radius.circular(32.0)
+                              ),
+                            ),
+                            child: Text(
+                              "Yes",
+                              style: TextStyle(color: Colors.white ,fontWeight: FontWeight.bold),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                          onTap:() {FieldService().deleteField(match.ID);
+                            Navigator.pop(context);}
+                        ),
+                        Container(
+                          decoration: BoxDecoration(
+                              color: Colors.red
+                          ),
+                          //color: Colors.red,
+                          width: 4,
+                        ),
+
+                        InkWell(
+                          child: Container(
+
+                            width: 148,
+                            padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
+                            decoration: BoxDecoration(
+                              color:  Color(0xff00bfa5),
+                              borderRadius: BorderRadius.only(
+                                // bottomLeft: Radius.circular(32.0),
+                                  bottomRight: Radius.circular(32.0)),
+                            ),
+                            child: Text(
+                              "No",
+                              style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                          onTap: ()=>Navigator.pop(context),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            );
+          }
+      );
+    }
+    goback(){Navigator.pop(context);}
+Delete()async{
+  await FieldService().deleteField(match.ID);
+}
     // int sum = 0;
     // field.rate.map((e) => e.Rate).forEach((int e){sum += e;});
     //   double count= sum/field.rate.length;
@@ -119,8 +225,12 @@ return  Card(
                                 ),
                                 Container(
                                   width: 50,
-                                  child: IconButton(icon: Icon(Icons.delete,size: 20, color: Colors.green[600],), onPressed:()async=> FieldService().deleteField(match.ID))),
-                             ],
+                                  child: IconButton(icon: Icon(Icons.delete,size: 20, color: Colors.green[600],),
+                                      //onPressed:()async=> FieldService().deleteField(match.ID))),
+                                    onPressed: (){
+
+                                      openAlertBox_twobutton(  'Caution' , 'Are you sure you want to delete this match?' ) ;}
+                                  ))],
                            )
                             
                         
