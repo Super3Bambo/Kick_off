@@ -1,23 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/models/Matches.dart';
 import 'package:flutter_app/models/team.dart';
-import '../../models/Matches.dart';
-import 'package:flutter_app/screens/Matches/Match_Details_Progress.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:intl/intl.dart';
 
-import 'MatchChallengeDetails.dart';
-class MatchItemChallenge extends StatelessWidget {
+import 'MatchChallengeDetailsteam.dart';
+
+
+class MatchItemChallengeteam extends StatelessWidget {
   final Match match;
   final Team team;
-  MatchItemChallenge({ this.match ,this.team});
+  MatchItemChallengeteam({ this.match ,this.team});
 
   @override
   Widget build(BuildContext context) {
     DateFormat dateFormat = DateFormat("yyyy-MM-dd HH:00:00:000");
 
     godetails(Match id){
-Navigator.push(context,MaterialPageRoute(builder: (context)=> MatchChallenge_Details(matchid: match  , team: team,)  ) );
+Navigator.push(context,MaterialPageRoute(builder: (context)=> MatchChallenge_Detailsteam(matchid: match , team: team,)  ) );
 
 }
     DateTime c = dateFormat.parse(match.Check_in);

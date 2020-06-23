@@ -494,7 +494,7 @@ DateFormat timeFormat = DateFormat("HH:00:00:000");
                    else {
                       var s=dateFormat.format(start);
                       var f= dateFormat.format(finish);
-                     LeagueService().addleague(widget.fieldid.ID, s, f, team, prize.toString(), desc, name, user.ID);
+                     LeagueService().addleague(widget.fieldid.ID, s, f, team, prize.toString(), desc, name, user.ID ,widget.fieldid.Location);
     // Subscribe the user to a topic
                    
                     // _showNotification();

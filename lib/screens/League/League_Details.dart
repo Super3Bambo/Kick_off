@@ -100,7 +100,7 @@ _showSnackBar() {
             return  Scaffold(
              key: _scaffoldKey,
               appBar: AppBar(
-              title: Text(widget.league.teams.last.ID),
+              title: Text(widget.league.Name),
               ),
               body: Container(
                               margin: EdgeInsets.fromLTRB(10.0, 20.0, 10.0, 10.0),
@@ -174,7 +174,7 @@ _showSnackBar() {
                                   child: Icon(FontAwesome.dollar, size: 20,color: Colors.green,),),
                                   Container(
                                     margin: EdgeInsets.only(left:110,top: 10),
-                                        child: Text(widget.league.teams.length.toString() +" " + '\$',style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
+                                        child: Text(widget.league.teams.isEmpty?'0': widget.league.teams.length.toString() +" " + '\$',style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
 )
                                   
                                   
@@ -245,9 +245,12 @@ _showSnackBar() {
                             else if(myList.length==8){
                               _showSnackBar3();
                             }
+                            else if(widget.teamid.users.length<5){
+                               _showSnackBar3();
+                            }
                             else{
                            await LeagueService().joinLeague(widget.league.ID, tmid);
-                           await TeamService().joinLeague(widget.teamid.ID, lgid);
+                           //await TeamService().joinLeague(widget.teamid.ID, lgid);
                            for(var i=0;i<(7-widget.league.teams.length);i++){
                              DateTime starttime = dateFormat.parse(widget.league.Start_Date);
                              var star =starttime.add(Duration( days: i , hours: (widget.league.teams.length+i)));
@@ -262,8 +265,8 @@ _showSnackBar() {
                                         List<Field> finishs=[
                                           Field(Finish_at:dateFormat.format(end) )
                                         ];
-                            await LeagueService(id: widget.league.ID , teamid: widget.league.ID+'match' ,i:  widget.teamid.ID+ i.toString() ).
-                             addmatch_to_league(widget.league.Field,start , finish, tmid, );
+                             await LeagueService(id: widget.league.ID , teamid: widget.league.ID+'match' ,i:  widget.teamid.ID+ i.toString() ).
+                              addmatch_to_league(widget.league.Field,start , finish, tmid, widget.league.Location);
                              await FieldService().timestart(widget.league.Field, starts);
                              await FieldService().timefinish(widget.league.Field, finishs);
                            }
@@ -308,32 +311,21 @@ _showSnackBar() {
 
                           }
                           ),
-                    // RaisedButton(onPressed:  ()async{
-                    //                myList.toSet();
-                    //           templist.addAll(myList);
-                    //           print(templist);
-                    //           var owner= myList[0];
-                    //           print(owner);
-                    //           templist.removeWhere((element) => element==owner);
-                    //            print(templist);
-                    //           var h= templist[0];
-                    //           print(h);
-                    //           templist.addAll(myList);
-                    //           print(templist);
-                    //           templist.removeWhere((element) => element==myList[1]);
-                    //               print(templist);
-                    //               print(myList);
-                    //               for(var i=0; i<=(myList.length-1);i++){
-                    //                 for(var j=0 ;j<(myList.length-1);i++ ){
-                    //                       var owner= myList[i];
-                    //                       templist.skipWhile((element) => element==owner);
-                    //                       List <Team> teamdata=[
-                    //                       Team(ID:templist[j]),];
-                    //                       await LeagueService(id: widget.league.ID , teamid: owner , i:owner+j.toString()).joinmatchLeague(teamdata);
-                    //                       _showSnackBar();
-                    //                     }
-                    //                   }
-                    //             }),
+                      
+                       widget.league.teams.length==8?Container(width:0):  myList.contains(widget.teamid.ID)?  RaisedButton(padding: EdgeInsets.fromLTRB(10.0,10.0,10.0,10.0),
+                          color: Colors.pink[300],
+                          child: Text(
+                            'DisJoin',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          onPressed: () async {
+                            LeagueService().disjoinLeague(widget.league.ID, tmid);
+                            Navigator.pop(context);
+
+                          }
+                          ):Container(width: 0,)
+                    
+                    
                     
                     ]
 

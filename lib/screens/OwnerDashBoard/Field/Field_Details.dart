@@ -259,7 +259,7 @@ DateFormat timeFormat = DateFormat("HH:00:00:000");
                          showstart = dateFormat.format(time).substring(0,16);
                           setState(() =>start=time );
                         }, 
-                        currentTime: DateTime.now(), locale: LocaleType.en);
+                        currentTime: start??DateTime.now(), locale: LocaleType.en);
                        // setState(() =>start=date );
                       },
                       child: Container(
@@ -318,7 +318,7 @@ DateFormat timeFormat = DateFormat("HH:00:00:000");
                          // print('confirm $time');
                          showend = dateFormat.format(time).substring(0,16);
                           setState(() =>finish=time );
-                        }, currentTime: DateTime.now(), locale: LocaleType.en);
+                        }, currentTime:finish?? DateTime.now(), locale: LocaleType.en);
                       },
                       child: Container(
                         alignment: Alignment.center,
@@ -400,7 +400,7 @@ DateFormat timeFormat = DateFormat("HH:00:00:000");
 
 
                                      var duration = start.add(new Duration(hours: 1));
-                                     var duration2 = start.add(new Duration(hours: 2));
+                                     var duration2 = finish.subtract(new Duration(hours: 1));
                                       List<Field> dur=[
                                       Field(Duration:dateFormat.format(duration) ) ,
                                       Field(Duration: dateFormat.format(duration2))

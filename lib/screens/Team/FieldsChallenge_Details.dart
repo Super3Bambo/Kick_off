@@ -1,4 +1,3 @@
-import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_app/Services/Team.dart';
@@ -13,6 +12,7 @@ import 'package:getflutter/getflutter.dart';
 import 'package:random_string_one/random_string.dart';
 import '../../Services/Match.dart';
 import 'package:flutter_icons/flutter_icons.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 
 
 class FieldDetailsTeam extends StatefulWidget {
@@ -36,6 +36,8 @@ final Team teamid;
 class _FieldDetailsTeamState extends State<FieldDetailsTeam> {
   DateTime start, finish = DateTime.now();
   int diff,diff2;
+         var showstart,showend;
+
   DateTime now=DateTime.now();
   final FirebaseMessaging _fcm = FirebaseMessaging();
   final Firestore _db = Firestore.instance;
@@ -47,12 +49,8 @@ class _FieldDetailsTeamState extends State<FieldDetailsTeam> {
     int sum = 0;
     widget.fieldid.rate.map((e) => e.Rate).forEach((int e){sum += e;});
     double count= sum/widget.fieldid.rate.length;
-    // User user = Provider.of<User>(context);
-    // List<User> users = [
-    //   User(
-    //     ID: user.ID,
-    //   ),
-    // ];
+    
+
     List<Team> teams=[
       Team(
         ID: widget.teamid.ID,
@@ -84,6 +82,8 @@ class _FieldDetailsTeamState extends State<FieldDetailsTeam> {
 
 
     DateFormat dateFormat = DateFormat("yyyy-MM-dd HH:00:00:000");
+    DateFormat timeFormat = DateFormat("HH:00:00:000");
+
    
             return  Scaffold (
                 key: _scaffoldKey,
@@ -211,33 +211,135 @@ class _FieldDetailsTeamState extends State<FieldDetailsTeam> {
                                         //                  onPressed: () {
 //                      )
 
-                                        SizedBox(
-                                          height: 20.0,
-                                        ),
-                                        DateTimePickerFormField(
-                                          inputType: InputType.both,
-                                          format: DateFormat("EEEE, MMMM d, yyyy 'at' h:mm a"),
-                                          editable: false,
-                                          decoration: InputDecoration(
-                                              labelText: 'Start', hasFloatingPlaceholder: false),
-                                          onChanged: (dt) {
-                                            setState(() => start = dt);
-                                          },
-                                        ),
+                                                    
+                             Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Container(
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    RaisedButton(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5.0)),
+                      elevation: 4.0,
+                      onPressed: () {
+                        DatePicker.showDateTimePicker(context,
+                            theme: DatePickerTheme(
+                              containerHeight: 300.0,
+                            ),
+                            showTitleActions: true,
+                          
+                             onConfirm: (time) {
+                         showstart = dateFormat.format(time).substring(0,16);
+                          setState(() =>start=time );
+                        }, 
+                        currentTime: start??DateTime.now(), locale: LocaleType.en);
+                       // setState(() =>start=date );
+                      },
+                      child: Container(
+                        alignment: Alignment.center,
+                        height: 50.0,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Row(
+                              children: <Widget>[
+                                Container(
+                                  child: Row(
+                                    children: <Widget>[
+                                      Icon(
+                                        Icons.access_time,
+                                        size: 18.0,
+                                        color: Colors.blue,
+                                      ),
+                                      Text(showstart==null?' select time':
+                                        " $showstart",
+                                        style: TextStyle(
+                                            color: Colors.blue,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 18.0),
+                                      ),
+                                    ],
+                                  ),
+                                )
+                              ],
+                            ),
+                            Text(
+                          "  Change",
+                          style: TextStyle(
+                              color: Colors.blue,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18.0),
+                        ),
+                          ],
+                        ),
+                      ),
+                      color: Colors.white,
+                    ),
+                    SizedBox(
+                      height: 20.0,
+                    ),
+                    RaisedButton(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5.0)),
+                      elevation: 4.0,
+                      onPressed: () {
+                        DatePicker.showDateTimePicker(context,
+                            theme: DatePickerTheme(
+                              containerHeight: 300.0,
+                            ),
+                            showTitleActions: true, onConfirm: (time) {
+                         // print('confirm $time');
+                         showend = dateFormat.format(time).substring(0,16);
+                          setState(() =>finish=time );
+                        }, currentTime:finish?? DateTime.now(), locale: LocaleType.en);
+                      },
+                      child: Container(
+                        alignment: Alignment.center,
+                        height: 50.0,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Row(
+                              children: <Widget>[
+                                Container(
+                                  child: Row(
+                                    children: <Widget>[
+                                      Icon(
+                                        Icons.access_time,
+                                        size: 18.0,
+                                        color: Colors.blue,
+                                      ),
+                                      Text( showend==null?' select time':" $showend",
+                                       // " $_time",
+                                        style: TextStyle(
+                                            color: Colors.blue,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 18.0),
+                                      ),
+                                    ],
+                                  ),
+                                )
+                              ],
+                            ),
+                           Text(
+                          "  Change",
+                          style: TextStyle(
+                              color: Colors.blue,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18.0),
+                        ),
+                          ],
+                        ),
+                      ),
+                      color: Colors.white,
+                    )
+                  ],
+                ),
+              ),
+          ),
 
-                                        SizedBox(
-                                          height: 20.0,
-                                        ),
-                                        DateTimePickerFormField(
-                                          inputType: InputType.both,
-                                          format: DateFormat("EEEE, MMMM d, yyyy 'at' h:mm a"),
-                                          editable: false,
-                                          decoration: InputDecoration(
-                                              labelText: 'Finish', hasFloatingPlaceholder: false),
-                                          onChanged: (dt) {
-                                            setState(() => finish = dt);
-                                          },
-                                        ),
 
                                         SizedBox(height: 20.0),
                                         RaisedButton(
@@ -248,12 +350,28 @@ class _FieldDetailsTeamState extends State<FieldDetailsTeam> {
                                             ),
 
                                             onPressed: () async {
-                                              
+                                               var starttemp= widget.fieldid.Start_at;
+                                var temp1 = starttemp.substring(0,2);
+                                var parsethestart = int.tryParse(temp1);
+
+                                 var endtemp =widget.fieldid.Finish_at;
+                                  var temp2 = endtemp.substring(0,2);
+                                  var parsetheEnd = int.tryParse(temp2);
+
+
+                                 var getstart=timeFormat.format(start);
+                                     var temp3 = getstart.substring(0,2);
+                                     var parsemystart = int.tryParse(temp3);
+
+                                   var getend=timeFormat.format(finish);
+                                     var temp4 = getend.substring(0,2);
+                                     var parsemyend = int.tryParse(temp4);
 
 
                                               var duration = start.add(new Duration(hours: 1));
+                                              var duration2=finish.subtract(new Duration(hours: 1));
                                               List<Field> dur=[
-                                                Field(Duration:dateFormat.format(duration) ) ];
+                                                Field(Duration:dateFormat.format(duration) ),Field(Duration:dateFormat.format(duration2)) ];
                                               List<Field> starts=[
                                                 Field(Start_at:dateFormat.format(start) )
                                               ];
@@ -261,46 +379,63 @@ class _FieldDetailsTeamState extends State<FieldDetailsTeam> {
                                                 Field(Finish_at:dateFormat.format(finish) )
                                               ];
 
-                                              if (start.isAfter(finish)) {
+                                                  
+                                     if(start.isBefore(DateTime.now())){
+                                              Alert(context:  context, title: "Error",desc:'dsds' ).show();     }
+                                                                               
+                                              else if (start.isAfter(finish)) {
                                                 Alert(context:  context, title: "Error",desc:'dsds' ).show();
 
                                               }
 
+                                              else if(finish.difference(start).inHours>3){
+                                      
+                                                Alert(context:  context, title: "Error",desc:'dsds' ).show();
+                                                                                      }
                                               else if(startfield.contains(dateFormat.format(start))||startfield.contains(dateFormat.format(finish))||
-                                                  startfield.contains(dateFormat.format(duration))){
+                                                  startfield.contains(dateFormat.format(duration))||startfield.contains(dateFormat.format(duration2))){
                                                 Alert(context:  _scaffoldKey.currentContext, title: "Error",desc: 'b' ).show();
 
                                               }
 
                                               else if(finishfield.contains(dateFormat.format(start))||finishfield.contains(dateFormat.format(finish))||
-                                                  finishfield.contains(dateFormat.format(duration))){
+                                                  finishfield.contains(dateFormat.format(duration))||finishfield.contains(dateFormat.format(duration2))){
                                                 Alert(context:  _scaffoldKey.currentContext, title: "Error",desc: 'bb' ).show();
 
                                               }
                                               else  if(durationfield.contains(dateFormat.format(start))||durationfield.contains(dateFormat.format(finish))||
-                                                durationfield.contains(dateFormat.format(duration))){
+                                                durationfield.contains(dateFormat.format(duration))||durationfield.contains(dateFormat.format(duration2))){
 
                                                 Alert(context:  _scaffoldKey.currentContext, title: "Error",desc: 'bbb' ).show();
 
                                               }
                                               else  if(startusers.contains(dateFormat.format(start))||startusers.contains(dateFormat.format(finish))||
-                                                  startusers.contains(dateFormat.format(duration))){
+                                                  startusers.contains(dateFormat.format(duration))||
+                                                  startusers.contains(dateFormat.format(duration2))){
 
                                                 Alert(context:  _scaffoldKey.currentContext, title: "Error",desc: 'c' ).show();
 
 
                                               }
                                               else  if( durationuser.contains(dateFormat.format(start))||durationuser.contains(dateFormat.format(finish))||
-                                               durationuser.contains(dateFormat.format(duration)) ){
+                                               durationuser.contains(dateFormat.format(duration))||durationuser.contains(dateFormat.format(duration2)) ){
 
                                                 Alert(context:  _scaffoldKey.currentContext, title: "Error",desc: 'cc' ).show();
 
                                               }
                                               else   if(  finishuser.contains(dateFormat.format(start))||  finishuser.contains(dateFormat.format(finish))||
-                                                   finishuser.contains(dateFormat.format(duration)) ){
+                                                   finishuser.contains(dateFormat.format(duration))||finishuser.contains(dateFormat.format(duration2)) ){
                                                 Alert(context: _scaffoldKey.currentContext, title: "Error",desc: 'ccb', ).show();
 
                                               }
+                                              else if(  (  !((parsethestart-parsemystart).isNegative) && (parsethestart-parsemystart)!=8) || (parsemystart==parsetheEnd) ){
+                                                Alert(context: _scaffoldKey.currentContext, title: "Error",desc: 'ccb', ).show();
+                                          
+                                    }
+                                     else if(((parsemyend-parsetheEnd)==1||(parsemyend-parsetheEnd)==2)){
+                                                Alert(context: _scaffoldKey.currentContext, title: "Error",desc: 'ccb', ).show();
+                                          
+                                    }
 
                                               else {
                                                 // Subscribe the user to a topic

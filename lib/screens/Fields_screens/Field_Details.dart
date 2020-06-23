@@ -7,7 +7,6 @@ import 'package:flutter_app/Services/User.dart';
 import 'package:flutter_app/Shared/Alert.dart';
 import 'package:flutter_app/Shared/Loading.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
-
 import 'package:getflutter/getflutter.dart';
 import 'package:random_string_one/random_string.dart';
 import '../../models/field.dart';
@@ -119,36 +118,6 @@ _showSnackBar() {
                         Title,
                         style: TextStyle(fontSize: 24.0),
                       ),
-                      // Row(
-                      //   mainAxisSize: MainAxisSize.min,
-                      //   children: <Widget>[
-                      //     Icon(
-                      //       Icons.star_border,
-                      //       color:  Color(0xff00bfa5),
-                      //       size: 30.0,
-                      //     ),
-                      //     Icon(
-                      //       Icons.star_border,
-                      //       color:  Color(0xff00bfa5),
-                      //       size: 30.0,
-                      //     ),
-                      //     Icon(
-                      //       Icons.star_border,
-                      //       color:  Color(0xff00bfa5),
-                      //       size: 30.0,
-                      //     ),
-                      //     Icon(
-                      //       Icons.star_border,
-                      //       color:  Color(0xff00bfa5),
-                      //       size: 30.0,
-                      //     ),
-                      //     Icon(
-                      //       Icons.star_border,
-                      //       color:  Color(0xff00bfa5),
-                      //       size: 30.0,
-                      //     ),
-                      //   ],
-                      // ),
                     ],
                   ),
                   SizedBox(
@@ -385,38 +354,7 @@ DateFormat timeFormat = DateFormat("HH:00:00:000");
                               
                               ],
                             ),
-                            //                 FlatButton(
-                            //                child: Text('Book NOW'),
-                            //                  onPressed: () {
-//                      )
-
-                            /*SizedBox(
-                              height: 20.0,
-                            ),
-                            DateTimePickerFormField(
-                              inputType: InputType.both,
-                              format: DateFormat("EEEE, MMMM d, yyyy 'at' h:mm a"),
-                              editable: false,
-                              decoration: InputDecoration(
-                                  labelText: 'Start', hasFloatingPlaceholder: false),
-                              onChanged: (dt) {
-                                setState(() => start = dt);
-                              },
-                            ),
-
-                            SizedBox(
-                              height: 20.0,
-                            ),
-                            DateTimePickerFormField(
-                              inputType: InputType.both,
-                              format: DateFormat("EEEE, MMMM d, yyyy 'at' h:mm a"),
-                              editable: false,
-                              decoration: InputDecoration(
-                                  labelText: 'Finish', hasFloatingPlaceholder: false),
-                              onChanged: (dt) {
-                                setState(() => finish = dt);
-                              },
-                            ),*/
+                           
                              Padding(
               padding: const EdgeInsets.all(16.0),
               child: Container(
@@ -439,7 +377,7 @@ DateFormat timeFormat = DateFormat("HH:00:00:000");
                          showstart = dateFormat.format(time).substring(0,16);
                           setState(() =>start=time );
                         }, 
-                        currentTime: DateTime.now(), locale: LocaleType.en);
+                        currentTime: start??DateTime.now(), locale: LocaleType.en);
                        // setState(() =>start=date );
                       },
                       child: Container(
@@ -498,7 +436,7 @@ DateFormat timeFormat = DateFormat("HH:00:00:000");
                          // print('confirm $time');
                          showend = dateFormat.format(time).substring(0,16);
                           setState(() =>finish=time );
-                        }, currentTime: DateTime.now(), locale: LocaleType.en);
+                        }, currentTime: finish??DateTime.now(), locale: LocaleType.en);
                       },
                       child: Container(
                         alignment: Alignment.center,
@@ -582,7 +520,7 @@ DateFormat timeFormat = DateFormat("HH:00:00:000");
 
 
                                    var duration = start.add(new Duration(hours: 1));
-                                     var duration2 = start.add(new Duration(hours: 2));
+                                     var duration2 = finish.subtract(new Duration(hours: 1));
                                       List<Field> dur=[
                                       Field(Duration:dateFormat.format(duration) ) ,
                                       Field(Duration: dateFormat.format(duration2))
@@ -651,9 +589,9 @@ DateFormat timeFormat = DateFormat("HH:00:00:000");
                                     }
                                  
                                    else {
-    // Subscribe the user to a topic
                                      var s=dateFormat.format(start);
                                      var f= dateFormat.format(finish);
+                                         // Subscribe the user to a topic
                                      var topic=  randomString(9, includeSymbols: false , includeNumbers: false , includeLowercase: false );
                                       _fcm.subscribeToTopic(topic);
                                       await MatchService().addMatch(

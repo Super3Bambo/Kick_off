@@ -1,3 +1,6 @@
+import 'package:flutter_app/Services/Team.dart';
+import 'package:flutter_app/models/team.dart';
+
 import '../../models/Matches.dart';
 import '../../Services/Match.dart';
 import 'package:flutter/material.dart';
@@ -16,8 +19,8 @@ class MatchesOverview extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return StreamProvider<List<User>>.value(
-      value: UserService(user: matchid.users.map((f)=>f.ID).toList()).members,
+    return StreamProvider<List<Team>>.value(
+      value: TeamService(teamid: matchid.team.map((f)=>f.ID).toList()).members,
       
 
       child: Scaffold(
@@ -25,12 +28,6 @@ class MatchesOverview extends StatelessWidget {
           title:Text('Match Members')         
         ),
         body: Container(
-       /*   decoration: BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage('images/5omasy.jpg'),
-              fit: BoxFit.cover,
-            ),
-          ),*/
           child: MatchMember(),
         ),
       ),

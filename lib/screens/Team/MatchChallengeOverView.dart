@@ -17,7 +17,7 @@ class MatchesOverviewChallenge extends StatelessWidget {
 
 
     return StreamProvider<List<Match>>.value(
-      value: MatchService(teamid: teamid.ID).allchallenge,
+      value: MatchService().allchallenges,
       
 child: Scaffold(
         

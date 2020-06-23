@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 //import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_app/models/team.dart';
 import '../../models/Matches.dart';
 import '../../Services/Match.dart';
 import '../../models/User.dart';
@@ -23,7 +24,7 @@ class _MatchMemberState extends State<MatchMember> {
   //List<User> user = matchid.users;
 
     
-       final members = Provider.of<List<User>>(context) ?? [];
+       final members = Provider.of<List<Team>>(context) ?? [];
           return ListView.builder( 
             itemCount: members.length,
             itemBuilder: (context, index) {

@@ -8,8 +8,8 @@ class TeamService {
 
 
   final String userid;
-    List<String> leagueid;
-  TeamService({this.userid,this.leagueid});
+    List<String> leagueid , teamid;
+  TeamService({this.userid,this.leagueid,this.teamid});
 
   final CollectionReference teams = Firestore.instance.collection('Team');
 
@@ -126,7 +126,7 @@ Stream<List<Team>> get teamz {
   }
 Stream<List<Team>> get members {
   
-    return teams.where('ID' ,whereIn: leagueid).
+    return teams.where('ID' ,whereIn: teamid).
     snapshots().map(_teamsFromSnapshot);
 
   }

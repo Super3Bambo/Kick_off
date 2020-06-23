@@ -14,7 +14,6 @@ import '../../Services/User.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:getflutter/getflutter.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:intl/intl.dart';
 
 
@@ -42,115 +41,8 @@ class _Match_DetailsProgressState extends State<Match_DetailsProgress> {
   final Firestore _db = Firestore.instance;
   final FirebaseMessaging _fcm = FirebaseMessaging();
 
-
-  FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin= new FlutterLocalNotificationsPlugin();
-  var initilizationSettingsAndroid;
-  var initilizationSettings;
-  var initilizationSettingsIOS;
     final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
-
- /* void _showNotification()async{
-    await _demoNotification();
-  }
-
-  Future<void> _demoNotification()async{
-    // var androidPlateform= AndroidNotificationDetails('channel ID','channel name','chaneel Description',importance: Importance.Max,priority: Priority.High,ticker: 'text ticker');
-    // var iosPlateform=IOSNotificationDetails();
-    // var plateformChannel=NotificationDetails(androidPlateform,iosPlateform);
-    // await flutterLocalNotificationsPlugin.show(0, 'A new member in the match', 'Check it out!', plateformChannel,payload: 'test payload');
-  }
-
-
-  @override
-  void initState() {
-    super.initState();
-    initilizationSettingsAndroid = new AndroidInitializationSettings('app_icon');
-    initilizationSettings=new InitializationSettings(initilizationSettingsAndroid, initilizationSettingsIOS);
-    initilizationSettingsIOS = new IOSInitializationSettings(
-        onDidReceiveLocalNotification: onDidReceiveLocalNotification);
-    initilizationSettings = new InitializationSettings(
-        initilizationSettingsAndroid, initilizationSettingsIOS);
-    flutterLocalNotificationsPlugin.initialize(initilizationSettings,
-        onSelectNotification: onSelectNotification);
-
-    _fcm.configure(
-      onMessage: (Map<String, dynamic> message) async {
-        // _showNotification();
-
-var androidPlateform= AndroidNotificationDetails('channel ID','channel name','chaneel Description',importance: Importance.Max,priority: Priority.High,ticker: 'text ticker');
-    var iosPlateform=IOSNotificationDetails();
-    var plateformChannel=NotificationDetails(androidPlateform,iosPlateform);
-    await flutterLocalNotificationsPlugin.show(0, message['notification']['title'], message['notification']['body'], plateformChannel,payload: 'test payload');
-        print("onMessage: $message");
-        
-        // final snackbar = SnackBar(
-        //   content: Text(message['notification']['title']),
-        //   action: SnackBarAction(
-        //     label: 'Go',
-        //     onPressed: () => null,
-        //   ),
-        // );
-
-        // Scaffold.of(context).showSnackBar(snackbar);
-         /*showDialog(
-          context: context,
-          builder: (context) => AlertDialog(
-                content: ListTile(
-                  title: Text(message['notification']['title']),
-                  subtitle: Text(message['notification']['body']),
-                ),
-                actions: <Widget>[
-                  FlatButton(
-                    color: Colors.amber,
-                    child: Text('Ok'),
-                    onPressed: () => Navigator.of(context).pop(),
-                  ),
-                ],
-              ),
-        );*/
-      },
-      onLaunch: (Map<String, dynamic> message) async {
-        print("onLaunch: $message");
-        // TODO optional
-      },
-      onResume: (Map<String, dynamic> message) async {
-        print("onResume: $message");
-        // TODO optional
-      },
-    );
-  }
-
-  Future onDidReceiveLocalNotification(
-      int id, String title, String body, String payload) async {
-    await showDialog(
-        context: context,
-        builder: (BuildContext context) => CupertinoAlertDialog(
-          title: Text(title),
-          content: Text(body),
-          actions: <Widget>[
-            CupertinoDialogAction(
-              isDefaultAction: true,
-              child: Text('Ok'),
-              onPressed: () async {
-               // Navigator.of(context, rootNavigator: true).pop();
-                await Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => MatchesOverviewProgress()));
-              },
-            )
-          ],
-        ));
-
-
-  }
-  Future onSelectNotification(String payload)async{
-    if(payload!=null){
-      debugPrint('Notification Payload : $payload');
-    }
-    await Navigator.push(context, new MaterialPageRoute(builder: (context) =>MatchesOverviewProgress()));
-  }
-
-*/
 
   @override
   Widget build(BuildContext context) {
@@ -412,7 +304,11 @@ return StreamBuilder<User>(
                     else{
 
                                       var f=dateFormat.parse(widget.matchid.Check_in);
+                                       var s=dateFormat.parse(widget.matchid.Check_out);
+                                    
                                       var duration =f.add(new Duration(hours: 1));
+                                      var duration2=s.subtract(new Duration(hours: 1));
+                                      var durs2=dateFormat.format(duration2);
                                       var durs=dateFormat.format(duration);
 
                                            List<Field> starts=[
@@ -420,21 +316,21 @@ return StreamBuilder<User>(
                                           List<Field> finishs=[
                                         Field(Finish_at:widget.matchid.Check_out )];
                                          List<Field> dur=[
-                                    Field(Duration:dateFormat.format(duration) ) ];
+                                    Field(Duration:dateFormat.format(duration) ) ,Field(Duration:dateFormat.format(duration2) )];
 
                                       if(finishuser.contains((widget.matchid.Check_in))||finishuser.contains(widget.matchid.Check_out)||
-                                   finishuser.contains(durs)){
+                                   finishuser.contains(durs)||finishuser.contains(durs2)){
                                         Alert(context:  _scaffoldKey.currentContext, title: "Error",desc: 'bb' ).show();
  
                                    }
                                     
                                     else if(startuser.contains(widget.matchid.Check_in)||startuser.contains(widget.matchid.Check_out)|| 
-                                    startuser.contains(durs)){
+                                    startuser.contains(durs) || startuser.contains(durs2)){
                                           Alert(context:  _scaffoldKey.currentContext, title: "Error",desc: 'bb' ).show();
  
                                    }
                                    else  if(durationuser.contains(widget.matchid.Check_in)||durationuser.contains(widget.matchid.Check_out)|| 
-                                   durationuser.contains(durs)){
+                                   durationuser.contains(durs)||durationuser.contains(durs2)){
                                      
                                         Alert(context:  _scaffoldKey.currentContext, title: "Error",desc: 'bb' ).show();}
                                   else{
@@ -448,18 +344,7 @@ return StreamBuilder<User>(
                        widget.matchid.Check_out , widget.matchid.Price, count , widget.matchid.Topic);
                        _showSnackBar3();
                           
-    //                    _fcm.subscribeToTopic(widget.matchid.Topic);
-    //                    final snackBar = new SnackBar(
-    //     content: new Text("Join to match Done"),
-    //     duration: new Duration(seconds: 3),
-    //     //backgroundColor: Colors.pink[300],
-    //     action: new SnackBarAction(label: 'Back', onPressed: (){
-    //        Navigator.pop(context);
-    //     }),
-    // );
-    // _scaffoldKey.currentState.showSnackBar(snackBar);
-                     
-                   // _showNotification();
+                        _fcm.subscribeToTopic(widget.matchid.Topic);
                       }}
                       
                       

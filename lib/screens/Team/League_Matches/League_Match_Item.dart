@@ -1,21 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/models/league.dart';
 import 'package:flutter_app/models/team.dart';
-import 'League_Details.dart';
 
-class LeagueItem extends StatelessWidget {
+import 'MatchesofLeagueBoard.dart';
+
+class LeagueMatchItem extends StatelessWidget {
 
 
   final League league;
   final Team teamid;
 
-  LeagueItem({ this.league ,this.teamid });
+  LeagueMatchItem({ this.league ,this.teamid });
 
   
   @override
   Widget build(BuildContext context) {
 
-    godetails(League id ,Team ids){Navigator.push(context,MaterialPageRoute(builder: (context)=> League_Details(league: league , teamid:teamid)  ) );}
+    godetails(){Navigator.push(context,MaterialPageRoute(builder: (context)=> LeagueMatchesTeam(leagueid: league, teamid:teamid)  ) );}
 
     return Card(
   
@@ -35,13 +36,13 @@ class LeagueItem extends StatelessWidget {
           borderRadius: BorderRadius.circular(20),
 
      child:  GestureDetector(
-       onTap: () => godetails(league, teamid),
+       onTap: () => godetails(),
      
      
      child: Image.asset('images/5omasy.jpg', height: 200, width: 420, fit: BoxFit.cover, ),),
      ), 
      InkWell(
-      onTap: () => godetails(league ,teamid),
+      onTap: () => godetails(),
             child: ClipRRect(
                         borderRadius: BorderRadius.circular(10),
 

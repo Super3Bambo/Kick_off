@@ -1,7 +1,6 @@
 import 'package:flutter_app/Services/Team.dart';
 import 'package:flutter_app/models/league.dart';
 import 'package:flutter_app/models/team.dart';
-import 'package:flutter_app/screens/League/nomember.dart';
 import 'package:flutter_app/screens/User/Tempfollow.dart';
 
 import '../../models/Matches.dart';
@@ -11,36 +10,29 @@ import '../../models/User.dart';
 import '../../Services/User.dart';
 import 'LeagueMemberListview.dart';
 
-class LeaguememberOverview extends StatelessWidget {
+class NOMEMBER extends StatelessWidget {
 
-  final List<String> leagueid;
-  LeaguememberOverview({this.leagueid});
+  final String title,content;
+  NOMEMBER({@required this.title ,@required this.content});
   
 
   @override
   Widget build(BuildContext context) {
-    if(leagueid.isEmpty){
-      return NOMEMBER(content: 'NO Members yet', title: 'MEMBERS',);
-    }else{
+    
 
-    return StreamProvider<List<Team>>.value(
-      value: TeamService(leagueid: leagueid).members,
-      
-
-      child: Scaffold(
+    return  Scaffold(
         appBar: AppBar(
-          title:Text(leagueid.last.toString())         
+          title:Text(title)         
         ),
-        body: Container(
+        body: Center(
        /*   decoration: BoxDecoration(
             image: DecorationImage(
               image: AssetImage('images/5omasy.jpg'),
               fit: BoxFit.cover,
             ),
           ),*/
-          child: Leaguememberview(),
-        ),
+          child: Text(content),
       ),
     );
-  }}
+  }
 }

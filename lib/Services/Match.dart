@@ -84,6 +84,18 @@ Future<void> addMatchadmin( String fieldid, String location  ,String start ,Stri
       'Date':date ,
       'Deleted':true,
   });}
+  Future<void> deletechallenge(String id, String fieldid,DateTime date, String location  ,String start ,String finish ,String price,  int counter , String topic) async {
+    return await matches.document(id).updateData({
+       'FieldId': fieldid,
+      'Location': location,
+      'Start_at': start ,
+      'Finish_at': finish,
+      'Topic':topic,
+      'Price': price,
+      'Counter':counter,
+      'Date':date ,
+      'Deleted':true,
+  });}
 
   Future<void> editMatch(String id, String fieldid,DateTime date, String location  ,String start ,String finish ,String price,  int counter , String topic) async {
     return await matches.document(id).updateData({
@@ -108,6 +120,14 @@ Future<void> addMatchadmin( String fieldid, String location  ,String start ,Stri
 Future <void> joinMatch(String ID , List<User> user)async{
     
   return await matches.document(ID).updateData({'Players':FieldValue.arrayUnion(user.map((e) => {'UserID': e.ID}).toList())});
+}
+Future <void> joinchallenge(String ID , List<Team> team)async{
+    
+  return await matches.document(ID).updateData({'Players':FieldValue.arrayUnion(team.map((e) => {'UserID': e.ID}).toList())});
+}
+Future <void> Disjoinchallenge(String ID , List<Team> team)async{
+    
+  return await matches.document(ID).updateData({'Players':FieldValue.arrayRemove(team.map((e) => {'UserID': e.ID}).toList())});
 }
 
 Future <void> disjoinMatch(String ID , List<User> user)async{
@@ -202,10 +222,17 @@ Stream<List<Match>> get allmatches {
     snapshots().map(_matchesFromSnapshot);
 
   }
-  Stream<List<Match>> get allchallenge {
+  Stream<List<Match>> get allchallengeteam {
   
     return matches.where("Players" ,arrayContains: {'UserID' :teamid}).
     where("Start_at" ,isGreaterThan: DateTime.now().toString()).where('Deleted' ,isEqualTo: false).
+    where('Challenge' ,isEqualTo: true).
+    snapshots().map(_challengesFromSnapshot);
+
+  }
+   Stream<List<Match>> get allchallenges {
+  
+    return matches.where("Start_at" ,isGreaterThan: DateTime.now().toString()).where('Deleted' ,isEqualTo: false).
     where('Challenge' ,isEqualTo: true).
     snapshots().map(_challengesFromSnapshot);
 

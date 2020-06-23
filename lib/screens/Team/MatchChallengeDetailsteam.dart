@@ -2,15 +2,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_app/Services/Fields.dart';
 import 'package:flutter_app/Services/Match.dart';
 import 'package:flutter_app/Services/Team.dart';
+import 'package:flutter_app/models/Matches.dart';
 import 'package:flutter_app/models/field.dart';
 import 'package:flutter_app/models/team.dart';
 import 'package:flutter_app/screens/Matches/Members_OverView.dart';
-import 'package:rflutter_alert/rflutter_alert.dart';
-import '../../models/Matches.dart';
-import '../../models/User.dart';
-import 'package:provider/provider.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:getflutter/getflutter.dart';
@@ -18,7 +16,7 @@ import 'package:intl/intl.dart';
 
 
 
-class MatchChallenge_Details extends StatefulWidget{
+class MatchChallenge_Detailsteam extends StatefulWidget{
 
   final Match matchid;
   final Team team;
@@ -32,18 +30,19 @@ class MatchChallenge_Details extends StatefulWidget{
     "https://cdn.pixabay.com/photo/2019/12/22/04/18/x-mas-4711785__340.jpg",
     "https://cdn.pixabay.com/photo/2016/11/22/07/09/spruce-1848543__340.jpg"
   ];
-  MatchChallenge_Details({this.matchid , this.team});
+  MatchChallenge_Detailsteam({this.matchid,  this.team});
 
 
   @override
-  _MatchChallenge_DetailsState createState() => _MatchChallenge_DetailsState();
+  _MatchChallenge_DetailsteamState createState() => _MatchChallenge_DetailsteamState();
 }
 
-class _MatchChallenge_DetailsState extends State<MatchChallenge_Details> {
+class _MatchChallenge_DetailsteamState extends State<MatchChallenge_Detailsteam> {
 
   final Firestore _db = Firestore.instance;
   final FirebaseMessaging _fcm = FirebaseMessaging();
- DateFormat dateFormat = DateFormat("yyyy-MM-dd HH:00:00:000");
+      DateFormat dateFormat = DateFormat("yyyy-MM-dd HH:00:00:000");
+
 
 
 
@@ -62,7 +61,7 @@ class _MatchChallenge_DetailsState extends State<MatchChallenge_Details> {
     final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
     _showSnackBar() {
       final snackBar = new SnackBar(
-        content: new Text("You already in this Match"),
+        content: new Text(" deleted match Done"),
         duration: new Duration(seconds: 3),
         //backgroundColor: Colors.pink[300],
         action: new SnackBarAction(label: 'Back', onPressed: (){
@@ -255,97 +254,106 @@ class _MatchChallenge_DetailsState extends State<MatchChallenge_Details> {
                               padding: EdgeInsets.fromLTRB(30.0,10.0,30.0,10.0),
                               color: Colors.blueAccent,
                               child: Text(
-                                'Join',
+                                'DisJoin',
                                 style: TextStyle(color: Colors.white),
                               ),
                               onPressed: () async {
 
+                                 if(widget.matchid.Counter==1){
 
-                                  List<String> startteam = List<String>();
-                                        startteam = widget.team.start_time.map((e) => e.Start_at).toList();
-                                  List<String> finishteam = List<String>();
-                                        finishteam =widget.team.finish_time.map((e) => e.Finish_at).toList();
-                                  List<String> durationteam = List<String>();
-                                         durationteam =widget.team.duration.map((e) => e.Duration).toList();
-
-
-                                if(myList.contains(widget.team.ID)){
-
-                                  _showSnackBar();
+        var f=dateFormat.parse(widget.matchid.Check_in);
+        var s=dateFormat.parse(widget.matchid.Check_out);
+        var duration =f.add(new Duration(hours: 1));
+        var duration2 = s.subtract(new Duration(hours: 1));
 
 
+        List<Field> starts=[
+        Field(Start_at:widget.matchid.Check_in )];
+        List<Field> finishs=[
+        Field(Finish_at:widget.matchid.Check_out )];
+        List<Field> dur=[
+        Field(Duration:dateFormat.format(duration) ),Field(Duration: dateFormat.format(duration2)) ];
+        var count= (widget.matchid.Counter)-1;
+        await MatchService().Disjoinchallenge(matchId , team);
+        await FieldService().removetimestart(widget.matchid.Field, starts);
+        await FieldService().removetimefinish(widget.matchid.Field, finishs);
+        await FieldService().removeduration(widget.matchid.Field, dur);
+        await TeamService().removetimestart(widget.team.ID, starts);
+        await TeamService().removetimefinish(widget.team.ID, finishs);
+        await TeamService().removeduration(widget.team.ID, dur);
+        _fcm.unsubscribeFromTopic(widget.matchid.Topic);
+        await MatchService().deleteMatch(widget.matchid.ID ,widget.matchid.Field, widget.matchid.Date.toDate() ,widget.matchid.Location, widget.matchid.Check_in,
+        widget.matchid.Check_out , widget.matchid.Price, count , widget.matchid.Topic);
+                        _showSnackBar();
 
-                                }
 
-                                else if (widget.matchid.Counter==2) {
-                                  _showSnackBar2();
-                                }
 
-                                else{
+        
+        
+        
+        }else{
+          var f=dateFormat.parse(widget.matchid.Check_in);
+        var s=dateFormat.parse(widget.matchid.Check_out);
+        var duration =f.add(new Duration(hours: 1));
+        var duration2 = s.subtract(new Duration(hours: 1));
+
+
+        List<Field> starts=[
+        Field(Start_at:widget.matchid.Check_in )];
+        List<Field> finishs=[
+        Field(Finish_at:widget.matchid.Check_out )];
+        List<Field> dur=[
+        Field(Duration:dateFormat.format(duration) ),Field(Duration: dateFormat.format(duration2)) ];
+        var count= (widget.matchid.Counter)-1;
+        await MatchService().Disjoinchallenge(matchId , team);
+         await TeamService().removetimestart(widget.team.ID, starts);
+        await TeamService().removetimefinish(widget.team.ID, finishs);
+        await TeamService().removeduration(widget.team.ID, dur);
+                _fcm.unsubscribeFromTopic(widget.matchid.Topic);
+                 await MatchService().editMatch(widget.matchid.ID ,widget.matchid.Field, widget.matchid.Date.toDate() ,widget.matchid.Location, widget.matchid.Check_in,
+        widget.matchid.Check_out , widget.matchid.Price, count , widget.matchid.Topic);
+                _showSnackBar2();
+
+        }
+                                // if(myList.contains(widget.team.ID)){
+
+                                //   _showSnackBar();
+
+
+
+                                // }
+
+                                // else if (widget.matchid.Counter==10) {
+                                //   _showSnackBar2();
+                                // }
+
+                                // else{
+                                //   var count= (widget.matchid.Counter)-1;
                                   
-                                      var f=dateFormat.parse(widget.matchid.Check_in);
-                                       var s=dateFormat.parse(widget.matchid.Check_out);
-                                    
-                                      var duration =f.add(new Duration(hours: 1));
-                                      var duration2=s.subtract(new Duration(hours: 1));
-                                      var durs2=dateFormat.format(duration2);
-                                      var durs=dateFormat.format(duration);
-                                      List<Field> starts=[
-                                        Field(Start_at:widget.matchid.Check_in )];
-                                          List<Field> finishs=[
-                                        Field(Finish_at:widget.matchid.Check_out )];
-                                         List<Field> dur=[
-                                    Field(Duration:dateFormat.format(duration) ) ,Field(Duration:dateFormat.format(duration2) )];
-
-
-                                      
-                                      if(finishteam.contains((widget.matchid.Check_in))||finishteam.contains(widget.matchid.Check_out)||
-                                   finishteam.contains(durs)||finishteam.contains(durs2)){
-                                        Alert(context:  _scaffoldKey.currentContext, title: "Error",desc: 'bb' ).show();
- 
-                                   }
-                                    
-                                    else if(startteam.contains(widget.matchid.Check_in)||startteam.contains(widget.matchid.Check_out)|| 
-                                    startteam.contains(durs) || startteam.contains(durs2)){
-                                          Alert(context:  _scaffoldKey.currentContext, title: "Error",desc: 'bb' ).show();
- 
-                                   }
-                                   else  if(durationteam.contains(widget.matchid.Check_in)||durationteam.contains(widget.matchid.Check_out)|| 
-                                   durationteam.contains(durs)||durationteam.contains(durs2)){
-                                     
-                                        Alert(context:  _scaffoldKey.currentContext, title: "Error",desc: 'bb' ).show();}
-
-
-                                   var count= (widget.matchid.Counter)+1;
-                                    await TeamService().timestart(widget.team.ID, starts);
-                                          await TeamService().timefinish(widget.team.ID, finishs);
-                                          await TeamService().duration(widget.team.ID, dur);
-                                          await MatchService().joinchallenge(matchId , team);
-                                  
-                                   await MatchService().editMatch(widget.matchid.ID ,widget.matchid.Field, widget.matchid.Date.toDate() ,widget.matchid.Location, widget.matchid.Check_in,
-                                       widget.matchid.Check_out , widget.matchid.Price, count , widget.matchid.Topic);
-                                   _fcm.subscribeToTopic(widget.matchid.Topic);
-                                   _showSnackBar3();
-
-                                }
+                                //   await MatchService().Disjoinchallenge(matchId , team);
+                                //   await MatchService().editMatch(widget.matchid.ID ,widget.matchid.Field, widget.matchid.Date.toDate() ,widget.matchid.Location, widget.matchid.Check_in,
+                                //       widget.matchid.Check_out , widget.matchid.Price, count , widget.matchid.Topic);
+                                //   _fcm.subscribeToTopic(widget.matchid.Topic);
+                                //   _showSnackBar3();
+                                // }
 
 
                               }
                           ),
 
-                          SizedBox(height: 20.0, width: 60,),
-                          RaisedButton(
-                              padding: EdgeInsets.fromLTRB(20.0,10.0,20.0,10.0),
-                              color: Colors.blueAccent,
-                              child: Text(
-                                'Members',
-                                style: TextStyle(color: Colors.white),
-                              ),
-                              onPressed: ()  {
-                                gomember(widget.matchid);
-                              }
+                          // SizedBox(height: 20.0, width: 60,),
+                          // RaisedButton(
+                          //     padding: EdgeInsets.fromLTRB(20.0,10.0,20.0,10.0),
+                          //     color: Colors.blueAccent,
+                          //     child: Text(
+                          //       'Members',
+                          //       style: TextStyle(color: Colors.white),
+                          //     ),
+                          //     onPressed: ()  {
+                          //       gomember(widget.matchid);
+                          //     }
 
-                          ),
+                          // ),
 
                         ],
                       ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/screens/Team/MatchesBoard.dart';
 import 'package:flutter_app/screens/Team/TeamMember_OverView.dart';
 import './FieldsChallengeOverview.dart';
 import 'package:flutter_app/models/team.dart';
@@ -37,7 +38,7 @@ final Team team;
             //controller: controller,
               children: <Widget>[
                 new Members_OverView(teamid: team),
-                new MatchesOverviewChallenge(teamid: team),
+                new MatchesTeam(teamid: team),
                 new FieldsChallengeOverview(teamid: team),
                 new LeagueOverviewProgress(teamid: team),
               ]

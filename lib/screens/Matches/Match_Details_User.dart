@@ -91,118 +91,118 @@ _showSnackBar() {
     _scaffoldKeys.currentState.showSnackBar(snackBar);
   }
 
-Disjoin()
-  async {
-    if(widget.matchid.Counter>1){
+// Disjoin()
+//   async {
+//     if(widget.matchid.Counter>1){
 
-      var f=dateFormat.parse(widget.matchid.Check_in);
-      var duration =f.add(new Duration(hours: 1));
-
-
-      List<Field> starts=[
-        Field(Start_at:widget.matchid.Check_in )];
-      List<Field> finishs=[
-        Field(Finish_at:widget.matchid.Check_out )];
-      List<Field> dur=[
-        Field(Duration:dateFormat.format(duration) ) ];
-      var count= (widget.matchid.Counter)-1;
-      await MatchService().disjoinMatch(matchId , users);
-      await FieldService().removetimestart(widget.matchid.Field, starts);
-      await FieldService().removetimefinish(widget.matchid.Field, finishs);
-      await FieldService().removeduration(widget.matchid.Field, dur);
-      await UserService().removetimestart(user.ID, starts);
-      await UserService().removetimefinish(user.ID, finishs);
-      await UserService().removeduration(user.ID, dur);
-      _fcm.unsubscribeFromTopic(widget.matchid.Topic);
-      await MatchService().editMatch(widget.matchid.ID ,widget.matchid.Field, widget.matchid.Date.toDate() ,widget.matchid.Location, widget.matchid.Check_in,
-          widget.matchid.Check_out , widget.matchid.Price, count , widget.matchid.Topic);
-
-      _showSnackBar();
-
-    }else{
+//       var f=dateFormat.parse(widget.matchid.Check_in);
+//       var duration =f.add(new Duration(hours: 1));
 
 
+//       List<Field> starts=[
+//         Field(Start_at:widget.matchid.Check_in )];
+//       List<Field> finishs=[
+//         Field(Finish_at:widget.matchid.Check_out )];
+//       List<Field> dur=[
+//         Field(Duration:dateFormat.format(duration) ) ];
+//       var count= (widget.matchid.Counter)-1;
+//       await MatchService().disjoinMatch(matchId , users);
+//       await FieldService().removetimestart(widget.matchid.Field, starts);
+//       await FieldService().removetimefinish(widget.matchid.Field, finishs);
+//       await FieldService().removeduration(widget.matchid.Field, dur);
+//       await UserService().removetimestart(user.ID, starts);
+//       await UserService().removetimefinish(user.ID, finishs);
+//       await UserService().removeduration(user.ID, dur);
+//       _fcm.unsubscribeFromTopic(widget.matchid.Topic);
+//       await MatchService().editMatch(widget.matchid.ID ,widget.matchid.Field, widget.matchid.Date.toDate() ,widget.matchid.Location, widget.matchid.Check_in,
+//           widget.matchid.Check_out , widget.matchid.Price, count , widget.matchid.Topic);
 
+//       _showSnackBar();
 
-
-      var f=dateFormat.parse(widget.matchid.Check_in);
-      var duration =f.add(new Duration(hours: 1));
-
-
-      List<Field> starts=[
-        Field(Start_at:widget.matchid.Check_in )];
-      List<Field> finishs=[
-        Field(Finish_at:widget.matchid.Check_out )];
-      List<Field> dur=[
-        Field(Duration:dateFormat.format(duration) ) ];
-
-
-      var count= (widget.matchid.Counter)-1;
-      await MatchService().disjoinMatch(matchId , users);
-      await UserService().removetimestart(user.ID, starts);
-      await UserService().removetimefinish(user.ID, finishs);
-      await UserService().removeduration(user.ID, dur);
-      _fcm.unsubscribeFromTopic(widget.matchid.Topic);
-      await MatchService().deleteMatch(widget.matchid.ID ,widget.matchid.Field, widget.matchid.Date.toDate() ,widget.matchid.Location, widget.matchid.Check_in,
-          widget.matchid.Check_out , widget.matchid.Price, count , widget.matchid.Topic);
-      _showSnackBar();
-    }
-}
-Disjoin2() async{
-if(widget.matchid.Counter>1){
-
-  var f=dateFormat.parse(widget.matchid.Check_in);
-  var duration =f.add(new Duration(hours: 1));
-
-
-  List<Field> starts=[
-    Field(Start_at:widget.matchid.Check_in )];
-  List<Field> finishs=[
-    Field(Finish_at:widget.matchid.Check_out )];
-  List<Field> dur=[
-    Field(Duration:dateFormat.format(duration) ) ];
-  var count= (widget.matchid.Counter)-1;
-  await MatchService().disjoinMatch(matchId , users);
-  await FieldService().removetimestart(widget.matchid.Field, starts);
-  await FieldService().removetimefinish(widget.matchid.Field, finishs);
-  await FieldService().removeduration(widget.matchid.Field, dur);
-  await UserService().removetimestart(user.ID, starts);
-  await UserService().removetimefinish(user.ID, finishs);
-  await UserService().removeduration(user.ID, dur);
-  _fcm.unsubscribeFromTopic(widget.matchid.Topic);
-  await MatchService().editMatch(widget.matchid.ID ,widget.matchid.Field, widget.matchid.Date.toDate() ,widget.matchid.Location, widget.matchid.Check_in,
-      widget.matchid.Check_out , widget.matchid.Price, count , widget.matchid.Topic);
-
-  _showSnackBar();
-
-}else{
+//     }else{
 
 
 
 
 
-  var f=dateFormat.parse(widget.matchid.Check_in);
-  var duration =f.add(new Duration(hours: 1));
+//       var f=dateFormat.parse(widget.matchid.Check_in);
+//       var duration =f.add(new Duration(hours: 1));
 
 
-  List<Field> starts=[
-    Field(Start_at:widget.matchid.Check_in )];
-  List<Field> finishs=[
-    Field(Finish_at:widget.matchid.Check_out )];
-  List<Field> dur=[
-    Field(Duration:dateFormat.format(duration) ) ];
+//       List<Field> starts=[
+//         Field(Start_at:widget.matchid.Check_in )];
+//       List<Field> finishs=[
+//         Field(Finish_at:widget.matchid.Check_out )];
+//       List<Field> dur=[
+//         Field(Duration:dateFormat.format(duration) ) ];
 
 
-  var count= (widget.matchid.Counter)-1;
-  await MatchService().disjoinMatch(matchId , users);
-  await UserService().removetimestart(user.ID, starts);
-  await UserService().removetimefinish(user.ID, finishs);
-  await UserService().removeduration(user.ID, dur);
-  _fcm.unsubscribeFromTopic(widget.matchid.Topic);
-  await MatchService().deleteMatch(widget.matchid.ID ,widget.matchid.Field, widget.matchid.Date.toDate() ,widget.matchid.Location, widget.matchid.Check_in,
-      widget.matchid.Check_out , widget.matchid.Price, count , widget.matchid.Topic);
-  _showSnackBar();
-}}
+//       var count= (widget.matchid.Counter)-1;
+//       await MatchService().disjoinMatch(matchId , users);
+//       await UserService().removetimestart(user.ID, starts);
+//       await UserService().removetimefinish(user.ID, finishs);
+//       await UserService().removeduration(user.ID, dur);
+//       _fcm.unsubscribeFromTopic(widget.matchid.Topic);
+//       await MatchService().deleteMatch(widget.matchid.ID ,widget.matchid.Field, widget.matchid.Date.toDate() ,widget.matchid.Location, widget.matchid.Check_in,
+//           widget.matchid.Check_out , widget.matchid.Price, count , widget.matchid.Topic);
+//       _showSnackBar();
+//     }
+// }
+// Disjoin2() async{
+// if(widget.matchid.Counter>1){
+
+//   var f=dateFormat.parse(widget.matchid.Check_in);
+//   var duration =f.add(new Duration(hours: 1));
+
+
+//   List<Field> starts=[
+//     Field(Start_at:widget.matchid.Check_in )];
+//   List<Field> finishs=[
+//     Field(Finish_at:widget.matchid.Check_out )];
+//   List<Field> dur=[
+//     Field(Duration:dateFormat.format(duration) ) ];
+//   var count= (widget.matchid.Counter)-1;
+//   await MatchService().disjoinMatch(matchId , users);
+//   await FieldService().removetimestart(widget.matchid.Field, starts);
+//   await FieldService().removetimefinish(widget.matchid.Field, finishs);
+//   await FieldService().removeduration(widget.matchid.Field, dur);
+//   await UserService().removetimestart(user.ID, starts);
+//   await UserService().removetimefinish(user.ID, finishs);
+//   await UserService().removeduration(user.ID, dur);
+//   _fcm.unsubscribeFromTopic(widget.matchid.Topic);
+//   await MatchService().editMatch(widget.matchid.ID ,widget.matchid.Field, widget.matchid.Date.toDate() ,widget.matchid.Location, widget.matchid.Check_in,
+//       widget.matchid.Check_out , widget.matchid.Price, count , widget.matchid.Topic);
+
+//   _showSnackBar();
+
+// }else{
+
+
+
+
+
+//   var f=dateFormat.parse(widget.matchid.Check_in);
+//   var duration =f.add(new Duration(hours: 1));
+
+
+//   List<Field> starts=[
+//     Field(Start_at:widget.matchid.Check_in )];
+//   List<Field> finishs=[
+//     Field(Finish_at:widget.matchid.Check_out )];
+//   List<Field> dur=[
+//     Field(Duration:dateFormat.format(duration) ) ];
+
+
+//   var count= (widget.matchid.Counter)-1;
+//   await MatchService().disjoinMatch(matchId , users);
+//   await UserService().removetimestart(user.ID, starts);
+//   await UserService().removetimefinish(user.ID, finishs);
+//   await UserService().removeduration(user.ID, dur);
+//   _fcm.unsubscribeFromTopic(widget.matchid.Topic);
+//   await MatchService().deleteMatch(widget.matchid.ID ,widget.matchid.Field, widget.matchid.Date.toDate() ,widget.matchid.Location, widget.matchid.Check_in,
+//       widget.matchid.Check_out , widget.matchid.Price, count , widget.matchid.Topic);
+//   _showSnackBar();
+// }}
 
 openAlertBox_twobutton1(  String title , String content ) {
   return showDialog(
@@ -268,10 +268,12 @@ openAlertBox_twobutton1(  String title , String content ) {
                         ),
                       ),
                       onTap:() async{
-        if(widget.matchid.Counter>1){
+        if(widget.matchid.Counter==1){
 
         var f=dateFormat.parse(widget.matchid.Check_in);
+        var s=dateFormat.parse(widget.matchid.Check_out);
         var duration =f.add(new Duration(hours: 1));
+        var duration2 = s.subtract(new Duration(hours: 1));
 
 
         List<Field> starts=[
@@ -279,7 +281,7 @@ openAlertBox_twobutton1(  String title , String content ) {
         List<Field> finishs=[
         Field(Finish_at:widget.matchid.Check_out )];
         List<Field> dur=[
-        Field(Duration:dateFormat.format(duration) ) ];
+        Field(Duration:dateFormat.format(duration) ),Field(Duration: dateFormat.format(duration2)) ];
         var count= (widget.matchid.Counter)-1;
         await MatchService().disjoinMatch(matchId , users);
         await FieldService().removetimestart(widget.matchid.Field, starts);
@@ -302,6 +304,10 @@ openAlertBox_twobutton1(  String title , String content ) {
 
         var f=dateFormat.parse(widget.matchid.Check_in);
         var duration =f.add(new Duration(hours: 1));
+        var s=dateFormat.parse(widget.matchid.Check_out);
+       var duration2 = s.subtract(new Duration(hours: 1));
+
+
 
 
         List<Field> starts=[
@@ -309,7 +315,7 @@ openAlertBox_twobutton1(  String title , String content ) {
         List<Field> finishs=[
         Field(Finish_at:widget.matchid.Check_out )];
         List<Field> dur=[
-        Field(Duration:dateFormat.format(duration) ) ];
+        Field(Duration:dateFormat.format(duration) ),Field(Duration: dateFormat.format(duration2)) ];
 
 
         var count= (widget.matchid.Counter)-1;
