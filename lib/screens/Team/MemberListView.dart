@@ -7,7 +7,7 @@ import '../../Services/Match.dart';
 import '../../models/User.dart';
 import 'package:provider/provider.dart';
 import '../../Services/User.dart';
-import 'Member_Item.dart';
+import 'MemberItem.dart';
 
 
 class MatchMember extends StatefulWidget{
@@ -24,7 +24,7 @@ class _MatchMemberState extends State<MatchMember> {
   //List<User> user = matchid.users;
 
     
-       final members = Provider.of<List<User>>(context) ?? [];
+       final members = Provider.of<List<Team>>(context) ?? [];
           return ListView.builder( 
             itemCount: members.length,
             itemBuilder: (context, index) {

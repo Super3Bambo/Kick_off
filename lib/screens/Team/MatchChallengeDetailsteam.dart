@@ -8,7 +8,6 @@ import 'package:flutter_app/Services/Team.dart';
 import 'package:flutter_app/models/Matches.dart';
 import 'package:flutter_app/models/field.dart';
 import 'package:flutter_app/models/team.dart';
-import 'package:flutter_app/screens/Matches/Members_OverView.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:getflutter/getflutter.dart';
@@ -50,7 +49,6 @@ class _MatchChallenge_DetailsteamState extends State<MatchChallenge_Detailsteam>
   @override
   Widget build(BuildContext context) {
 
-    gomember(Match id) { Navigator.push(context,MaterialPageRoute(builder: (context)=> MatchesOverview(matchid: widget.matchid)  ) );}
 
     List <Team> team=[
       Team(ID: widget.team.ID,),

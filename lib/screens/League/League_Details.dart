@@ -312,7 +312,7 @@ _showSnackBar() {
                           }
                           ),
                       
-                       widget.league.teams.length==8?Container(width:0):  myList.contains(widget.teamid.ID)?  RaisedButton(padding: EdgeInsets.fromLTRB(10.0,10.0,10.0,10.0),
+                       widget.league.teams.length>0?Container(width:0):  myList.contains(widget.teamid.ID)?  RaisedButton(padding: EdgeInsets.fromLTRB(10.0,10.0,10.0,10.0),
                           color: Colors.pink[300],
                           child: Text(
                             'DisJoin',

@@ -83,6 +83,7 @@ class LeagueItemowner extends StatelessWidget {
                         ),
                         onTap:() {
                           LeagueService(leagueid: league.ID).deleteLeague();
+
                           Navigator.pop(context);
                         }
                       ),
@@ -240,11 +241,11 @@ class LeagueItemowner extends StatelessWidget {
                 mainAxisAlignment:MainAxisAlignment.spaceAround ,
                 children: <Widget>[
                   IconButton(icon: Icon(Icons.people,size: 30, color: Colors.green[600],),  onPressed: ()=>godetails2()),
-                  league.teams.length==8?IconButton(icon: Icon(FontAwesome.edit,size: 30, ), onPressed: (){}):
+                  league.teams.length>0?IconButton(icon: Icon(FontAwesome.edit,size: 30, ), onPressed: (){}):
                   IconButton(icon: Icon(FontAwesome.edit,size: 30, color: Colors.green[600],), onPressed: ()=>godetails4()),
                    IconButton(icon: Icon(FontAwesome.pie_chart,size: 30, color: Colors.green[600],), onPressed: ()=>godetails3()),
                   //IconButton(icon: Icon(Icons.delete,size: 30, color: Colors.green[600],), onPressed:(){}),
-                  league.teams.length==8? IconButton(icon: Icon(Icons.delete,size: 30, ), onPressed: (){}):
+                  league.teams.length>0? IconButton(icon: Icon(Icons.delete,size: 30, ), onPressed: (){}):
                   IconButton(icon: Icon(Icons.delete,size: 30, color: Colors.green[600],), onPressed:()=>openAlertBox_twobutton('Delete League' , 'Press ok To Delete')),
                   IconButton(icon: Icon(Icons.list,size: 30, color: Colors.green[600],), onPressed: ()=>godetails()),
                 

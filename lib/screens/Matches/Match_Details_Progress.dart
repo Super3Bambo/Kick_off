@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_app/Shared/Loading.dart';
 import 'package:flutter_app/models/field.dart';
-import 'package:flutter_app/screens/Matches/Members_OverView.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import '../../models/Matches.dart';
 import '../../Services/Match.dart';
@@ -15,6 +14,8 @@ import 'package:flutter_icons/flutter_icons.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:getflutter/getflutter.dart';
 import 'package:intl/intl.dart';
+
+import 'Members_OverView.dart';
 
 
 class Match_DetailsProgress extends StatefulWidget{
@@ -47,7 +48,7 @@ class _Match_DetailsProgressState extends State<Match_DetailsProgress> {
   @override
   Widget build(BuildContext context) {
  DateFormat dateFormat = DateFormat("yyyy-MM-dd HH:00:00:000");
-    gomember(Match id) { Navigator.push(context,MaterialPageRoute(builder: (context)=> MatchesOverview(matchid: widget.matchid)  ) );}
+    gomember(Match id) { Navigator.push(context,MaterialPageRoute(builder: (context)=> MatchesMemberOverview(matchid: widget.matchid)  ) );}
 
 User user = Provider.of<User>(context);
     List <User> users=[

@@ -5,22 +5,21 @@ import '../../models/Matches.dart';
 import '../../Services/Match.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import './Matches_listview_User.dart';
 import '../../models/User.dart';
 import '../../Services/User.dart';
-import 'Member_ListView.dart';
+import 'MemberListView.dart';
 
-class MatchesMemberOverview extends StatelessWidget {
+class MatchesOverview extends StatelessWidget {
 
   final Match matchid;
-  MatchesMemberOverview({this.matchid});
+  MatchesOverview({this.matchid});
   
 
   @override
   Widget build(BuildContext context) {
 
-    return StreamProvider<List<User>>.value(
-      value: UserService(user: matchid.users.map((f)=>f.ID).toList()).members,
+    return StreamProvider<List<Team>>.value(
+      value: TeamService(teamid: matchid.team.map((f)=>f.ID).toList()).members,
       
 
       child: Scaffold(
