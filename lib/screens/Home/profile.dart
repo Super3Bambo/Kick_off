@@ -184,25 +184,33 @@ return StreamBuilder<User>(
                  //   new Text('Edit')
                  ],)),
                  Divider(height: _height/30,color: Colors.white),
-                 Column(
+                 Row(
+                   crossAxisAlignment: CrossAxisAlignment.center,
+                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                    children:[
-                     Container(
-                       margin: EdgeInsets.only(left:8),
-                child: Row(
-                   mainAxisAlignment: MainAxisAlignment.spaceAround,
+                
+                       //margin: EdgeInsets.only(left:8),
+                 Column(
+                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
                     Text('Age' ,style: TextStyle(color: Colors.white70,fontSize: 20, fontWeight: FontWeight.bold)),
-                    Container(
-                      margin: EdgeInsets.only(left:16),
-                    child: Text('Area',style: TextStyle(color: Colors.white70,fontSize: 20, fontWeight: FontWeight.bold),),),
-                    Text('Position',style: TextStyle(color: Colors.white70,fontSize: 20, fontWeight: FontWeight.bold),),
-                  ],),),
-                  
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: <Widget>[
                     Text(userData.Age ,style: TextStyle(color: Colors.white,fontSize: 20, fontWeight: FontWeight.bold)),
+                     // margin: EdgeInsets.only(left:16),
+                     
+                   
+                  ],),
+                  
+                  Column(
+                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    Text('Area',style: TextStyle(color: Colors.white70,fontSize: 20, fontWeight: FontWeight.bold),),
                     Text(userData.Area,style: TextStyle(color: Colors.white,fontSize: 20, fontWeight: FontWeight.bold),),
+                  ],
+                  ),
+                   Column(
+                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    Text('Position',style: TextStyle(color: Colors.white70,fontSize: 20, fontWeight: FontWeight.bold),),
                     Text(userData.Position,style: TextStyle(color: Colors.white,fontSize: 20, fontWeight: FontWeight.bold),),
                   ],
                   )

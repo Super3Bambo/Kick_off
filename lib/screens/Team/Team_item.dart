@@ -317,7 +317,7 @@ if(team!=null){
                                    Padding(
                                       padding: EdgeInsets.all(2.0),
                                       child: new LinearPercentIndicator(
-                                        width: 250,
+                                        width: 220,
                                         animation: true,
                                         lineHeight: 18.0,
                                         animationDuration: 2000,
@@ -343,12 +343,12 @@ if(team!=null){
                                    Padding(
                                       padding: EdgeInsets.all(2.0),
                                       child: new LinearPercentIndicator(
-                                        width: 250,
+                                        width: 220,
                                         animation: true,
                                         lineHeight: 18.0,
                                         animationDuration: 2000,
                                         percent: .35,
-                                        center: Text('35%' ,style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
+                                        center: Text('35%' ,style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11)),
                                         linearStrokeCap: LinearStrokeCap.roundAll,
                                         progressColor: Colors.green[900],
                                         backgroundColor: Colors.white70,
@@ -369,7 +369,7 @@ if(team!=null){
                                    Padding(
                                       padding: EdgeInsets.all(2.0),
                                       child: new LinearPercentIndicator(
-                                        width: 250,
+                                        width: 220,
                                         animation: true,
                                         lineHeight: 18.0,
                                         animationDuration: 2000,
