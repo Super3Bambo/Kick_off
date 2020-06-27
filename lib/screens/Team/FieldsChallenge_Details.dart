@@ -4,7 +4,7 @@ import 'package:flutter_app/Services/Team.dart';
 import 'package:flutter_app/models/team.dart';
 import '../../models/field.dart';
 import 'package:intl/intl.dart';
-import 'package:rflutter_alert/rflutter_alert.dart';
+//import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_app/Services/Fields.dart';
@@ -84,7 +84,142 @@ class _FieldDetailsTeamState extends State<FieldDetailsTeam> {
     DateFormat dateFormat = DateFormat("yyyy-MM-dd HH:00:00:000");
     DateFormat timeFormat = DateFormat("HH:00:00:000");
 
-   
+    penAlertBox_onebutton(   String title , String content ) {
+      return showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(32.0))),
+              contentPadding: EdgeInsets.only(top: 10.0),
+              content: Container(
+                width: 300.0,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        Text(
+                          title,
+                          style: TextStyle(fontSize: 24.0),
+                        ),
+
+                      ],
+                    ),
+                    SizedBox(
+                      height: 5.0,
+                    ),
+                    Divider(
+                      color: Colors.grey,
+                      height: 4.0,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(left: 30.0, right: 30.0),
+                      child: Container(
+                        margin: EdgeInsets.only(top:2),
+                        height:100,
+                        child: Text(content ,maxLines: 2, style:
+                        TextStyle(wordSpacing: 1.5 ,height: 2 ,fontWeight: FontWeight.bold),),
+                      ),
+                    ),
+
+                    InkWell(
+                      child: Container(
+
+                        //width: 148,
+                        padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
+                        decoration: BoxDecoration(
+                          color:  Colors.blue,
+                          borderRadius: BorderRadius.only(
+                              bottomLeft: Radius.circular(32.0),
+                              bottomRight: Radius.circular(32.0)),
+                        ),
+                        child: Text(
+                          "OK",
+                          style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                      onTap: ()=>Navigator.pop(context),
+                    ),],
+                ),
+              ),
+            );
+          }
+      );
+    }
+    penAlertBox_onebutton2(   String title , String content ) {
+      return showDialog(
+          context: _scaffoldKey.currentContext,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(32.0))),
+              contentPadding: EdgeInsets.only(top: 10.0),
+              content: Container(
+                width: 300.0,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        Text(
+                          title,
+                          style: TextStyle(fontSize: 24.0),
+                        ),
+
+                      ],
+                    ),
+                    SizedBox(
+                      height: 5.0,
+                    ),
+                    Divider(
+                      color: Colors.grey,
+                      height: 4.0,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(left: 30.0, right: 30.0),
+                      child: Container(
+                        margin: EdgeInsets.only(top:2),
+                        height:100,
+                        child: Text(content ,maxLines: 2, style:
+                        TextStyle(wordSpacing: 1.5 ,height: 2 ,fontWeight: FontWeight.bold),),
+                      ),
+                    ),
+
+                    InkWell(
+                      child: Container(
+
+                        //width: 148,
+                        padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
+                        decoration: BoxDecoration(
+                          color:  Colors.blue,
+                          borderRadius: BorderRadius.only(
+                              bottomLeft: Radius.circular(32.0),
+                              bottomRight: Radius.circular(32.0)),
+                        ),
+                        child: Text(
+                          "OK",
+                          style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                      onTap: ()=>Navigator.pop(context),
+                    ),],
+                ),
+              ),
+            );
+          }
+      );
+    }
             return  Scaffold (
                 key: _scaffoldKey,
                 appBar: AppBar(
@@ -381,61 +516,81 @@ class _FieldDetailsTeamState extends State<FieldDetailsTeam> {
 
                                                   
                                      if(start.isBefore(DateTime.now())){
-                                              Alert(context:  context, title: "Error",desc:'dsds' ).show();     }
+                                            //  Alert(context:  context, title: "Error",desc:'dsds' ).show();
+                                       penAlertBox_onebutton(   'Error' , 'Choose a resonable time');
+
+                                     }
                                                                                
                                               else if (start.isAfter(finish)) {
-                                                Alert(context:  context, title: "Error",desc:'dsds' ).show();
+                                              //  Alert(context:  context, title: "Error",desc:'dsds' ).show();
+                                       penAlertBox_onebutton(   'Error' , 'Choose a resonable time');
 
-                                              }
+
+                                     }
 
                                               else if(finish.difference(start).inHours>3){
                                       
-                                                Alert(context:  context, title: "Error",desc:'dsds' ).show();
-                                                                                      }
+                                           //     Alert(context:  context, title: "Error",desc:'dsds' ).show();
+                                       penAlertBox_onebutton(   'Error' , 'You can not book more than 3 hours');
+
+                                     }
                                               else if(startfield.contains(dateFormat.format(start))||startfield.contains(dateFormat.format(finish))||
                                                   startfield.contains(dateFormat.format(duration))||startfield.contains(dateFormat.format(duration2))){
-                                                Alert(context:  _scaffoldKey.currentContext, title: "Error",desc: 'b' ).show();
+                                        //        Alert(context:  _scaffoldKey.currentContext, title: "Error",desc: 'b' ).show();
+                                       penAlertBox_onebutton2(   'Error' , 'This field is not available in this time');
 
-                                              }
+
+                                     }
 
                                               else if(finishfield.contains(dateFormat.format(start))||finishfield.contains(dateFormat.format(finish))||
                                                   finishfield.contains(dateFormat.format(duration))||finishfield.contains(dateFormat.format(duration2))){
-                                                Alert(context:  _scaffoldKey.currentContext, title: "Error",desc: 'bb' ).show();
+                                             //   Alert(context:  _scaffoldKey.currentContext, title: "Error",desc: 'bb' ).show();
+                                       penAlertBox_onebutton2(   'Error' , 'This field is not available in this time');
 
                                               }
                                               else  if(durationfield.contains(dateFormat.format(start))||durationfield.contains(dateFormat.format(finish))||
                                                 durationfield.contains(dateFormat.format(duration))||durationfield.contains(dateFormat.format(duration2))){
 
-                                                Alert(context:  _scaffoldKey.currentContext, title: "Error",desc: 'bbb' ).show();
+                                            //    Alert(context:  _scaffoldKey.currentContext, title: "Error",desc: 'bbb' ).show();
+                                       penAlertBox_onebutton2(   'Error' , 'This field is not available in this time');
 
-                                              }
+
+                                     }
                                               else  if(startusers.contains(dateFormat.format(start))||startusers.contains(dateFormat.format(finish))||
                                                   startusers.contains(dateFormat.format(duration))||
                                                   startusers.contains(dateFormat.format(duration2))){
 
-                                                Alert(context:  _scaffoldKey.currentContext, title: "Error",desc: 'c' ).show();
+                                          //      Alert(context:  _scaffoldKey.currentContext, title: "Error",desc: 'c' ).show();
+                                       penAlertBox_onebutton2(   'Error' , 'You have a match in the same time');
 
 
-                                              }
+
+                                     }
                                               else  if( durationuser.contains(dateFormat.format(start))||durationuser.contains(dateFormat.format(finish))||
                                                durationuser.contains(dateFormat.format(duration))||durationuser.contains(dateFormat.format(duration2)) ){
 
-                                                Alert(context:  _scaffoldKey.currentContext, title: "Error",desc: 'cc' ).show();
+                                               // Alert(context:  _scaffoldKey.currentContext, title: "Error",desc: 'cc' ).show();
+                                       penAlertBox_onebutton2(   'Error' , 'You have a match in the same time');
 
                                               }
                                               else   if(  finishuser.contains(dateFormat.format(start))||  finishuser.contains(dateFormat.format(finish))||
                                                    finishuser.contains(dateFormat.format(duration))||finishuser.contains(dateFormat.format(duration2)) ){
-                                                Alert(context: _scaffoldKey.currentContext, title: "Error",desc: 'ccb', ).show();
+                                           //     Alert(context: _scaffoldKey.currentContext, title: "Error",desc: 'ccb', ).show();
+                                       penAlertBox_onebutton2(   'Error' , 'You have a match in the same time');
 
-                                              }
+
+                                     }
                                               else if(  (  !((parsethestart-parsemystart).isNegative) && (parsethestart-parsemystart)!=8) || (parsemystart==parsetheEnd) ){
-                                                Alert(context: _scaffoldKey.currentContext, title: "Error",desc: 'ccb', ).show();
-                                          
-                                    }
+                                           //     Alert(context: _scaffoldKey.currentContext, title: "Error",desc: 'ccb', ).show();
+                                       penAlertBox_onebutton2(   'Error' , 'Choose a resonable time');
+
+                                     }
                                      else if(((parsemyend-parsetheEnd)==1||(parsemyend-parsetheEnd)==2)){
-                                                Alert(context: _scaffoldKey.currentContext, title: "Error",desc: 'ccb', ).show();
-                                          
-                                    }
+                                       //         Alert(context: _scaffoldKey.currentContext, title: "Error",desc: 'ccb', ).show();
+                                       penAlertBox_onebutton2(   'Error' , 'Choose a resonable time');
+
+
+                                     }
 
                                               else {
                                                 // Subscribe the user to a topic

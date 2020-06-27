@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_app/Shared/Loading.dart';
 import 'package:flutter_app/models/field.dart';
-import 'package:rflutter_alert/rflutter_alert.dart';
+//import 'package:rflutter_alert/rflutter_alert.dart';
 import '../../models/Matches.dart';
 import '../../Services/Match.dart';
 import '../../models/User.dart';
@@ -56,7 +56,144 @@ User user = Provider.of<User>(context);
   ];
   List<String> myList = List<String>();
     myList = widget.matchid.users.map((f)=>f.ID).toList();
-  String matchId = widget.matchid.ID;  
+  String matchId = widget.matchid.ID;
+
+ penAlertBox_onebutton(   String title , String content ) {
+   return showDialog(
+       context: context,
+       builder: (BuildContext context) {
+     return AlertDialog(
+         shape: RoundedRectangleBorder(
+             borderRadius: BorderRadius.all(Radius.circular(32.0))),
+         contentPadding: EdgeInsets.only(top: 10.0),
+         content: Container(
+             width: 300.0,
+             child: Column(
+               mainAxisAlignment: MainAxisAlignment.start,
+               crossAxisAlignment: CrossAxisAlignment.stretch,
+               mainAxisSize: MainAxisSize.min,
+               children: <Widget>[
+             Row(
+             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+               mainAxisSize: MainAxisSize.min,
+               children: <Widget>[
+                 Text(
+                   title,
+                   style: TextStyle(fontSize: 24.0),
+                 ),
+
+               ],
+             ),
+             SizedBox(
+               height: 5.0,
+             ),
+             Divider(
+               color: Colors.grey,
+               height: 4.0,
+             ),
+             Padding(
+               padding: EdgeInsets.only(left: 30.0, right: 30.0),
+               child: Container(
+                 margin: EdgeInsets.only(top:2),
+                 height:100,
+                 child: Text(content ,maxLines: 2, style:
+                 TextStyle(wordSpacing: 1.5 ,height: 2 ,fontWeight: FontWeight.bold),),
+               ),
+             ),
+
+             InkWell(
+               child: Container(
+
+                 //width: 148,
+                 padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
+                 decoration: BoxDecoration(
+                   color:  Colors.blue,
+                   borderRadius: BorderRadius.only(
+                       bottomLeft: Radius.circular(32.0),
+                       bottomRight: Radius.circular(32.0)),
+                 ),
+                 child: Text(
+                   "OK",
+                   style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),
+                   textAlign: TextAlign.center,
+                 ),
+               ),
+               onTap: ()=>Navigator.pop(context),
+             ),],
+             ),
+         ),
+     );
+       }
+   );
+ }
+ penAlertBox_onebutton2(   String title , String content ) {
+   return showDialog(
+       context: _scaffoldKey.currentContext,
+       builder: (BuildContext context) {
+         return AlertDialog(
+           shape: RoundedRectangleBorder(
+               borderRadius: BorderRadius.all(Radius.circular(32.0))),
+           contentPadding: EdgeInsets.only(top: 10.0),
+           content: Container(
+             width: 300.0,
+             child: Column(
+               mainAxisAlignment: MainAxisAlignment.start,
+               crossAxisAlignment: CrossAxisAlignment.stretch,
+               mainAxisSize: MainAxisSize.min,
+               children: <Widget>[
+                 Row(
+                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                   mainAxisSize: MainAxisSize.min,
+                   children: <Widget>[
+                     Text(
+                       title,
+                       style: TextStyle(fontSize: 24.0),
+                     ),
+
+                   ],
+                 ),
+                 SizedBox(
+                   height: 5.0,
+                 ),
+                 Divider(
+                   color: Colors.grey,
+                   height: 4.0,
+                 ),
+                 Padding(
+                   padding: EdgeInsets.only(left: 30.0, right: 30.0),
+                   child: Container(
+                     margin: EdgeInsets.only(top:2),
+                     height:100,
+                     child: Text(content ,maxLines: 2, style:
+                     TextStyle(wordSpacing: 1.5 ,height: 2 ,fontWeight: FontWeight.bold),),
+                   ),
+                 ),
+
+                 InkWell(
+                   child: Container(
+
+                     //width: 148,
+                     padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
+                     decoration: BoxDecoration(
+                       color:  Colors.blue,
+                       borderRadius: BorderRadius.only(
+                           bottomLeft: Radius.circular(32.0),
+                           bottomRight: Radius.circular(32.0)),
+                     ),
+                     child: Text(
+                       "OK",
+                       style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),
+                       textAlign: TextAlign.center,
+                     ),
+                   ),
+                   onTap: ()=>Navigator.pop(context),
+                 ),],
+             ),
+           ),
+         );
+       }
+   );
+ }
   _showSnackBar() {
     final snackBar = new SnackBar(
         content: new Text("You already in this Match"),
@@ -338,19 +475,25 @@ return StreamBuilder<User>(
 
                                       if(finishuser.contains((widget.matchid.Check_in))||finishuser.contains(widget.matchid.Check_out)||
                                    finishuser.contains(durs)||finishuser.contains(durs2)){
-                                        Alert(context:  _scaffoldKey.currentContext, title: "Error",desc: 'bb' ).show();
+                                      //  Alert(context:  _scaffoldKey.currentContext, title: "Error",desc: 'bb' ).show();
+                                        penAlertBox_onebutton2(   'Error' , 'You have a match in the same time');
  
                                    }
                                     
                                     else if(startuser.contains(widget.matchid.Check_in)||startuser.contains(widget.matchid.Check_out)|| 
                                     startuser.contains(durs) || startuser.contains(durs2)){
-                                          Alert(context:  _scaffoldKey.currentContext, title: "Error",desc: 'bb' ).show();
- 
-                                   }
+                                         // Alert(context:  _scaffoldKey.currentContext, title: "Error",desc: 'bb' ).show();
+                                        penAlertBox_onebutton2(   'Error' , 'You have a match in the same time');
+
+
+                                      }
                                    else  if(durationuser.contains(widget.matchid.Check_in)||durationuser.contains(widget.matchid.Check_out)|| 
                                    durationuser.contains(durs)||durationuser.contains(durs2)){
                                      
-                                        Alert(context:  _scaffoldKey.currentContext, title: "Error",desc: 'bb' ).show();}
+                                    //    Alert(context:  _scaffoldKey.currentContext, title: "Error",desc: 'bb' ).show();
+                                    //
+                                        penAlertBox_onebutton2(   'Error' , 'You have a match in the same time');
+                                      }
                                   else{
                                        //  _showSnackBar3();
                                           await UserService().timestart(user.ID, starts);
