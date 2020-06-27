@@ -14,7 +14,7 @@ class FollowersOverview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if(userid.followerusers.isEmpty){
+    if(userid.followingusers.map((f)=>f.ID).toList().isEmpty){
       var title ='Followers';
       return Tempfollow(title:title);
     }else{

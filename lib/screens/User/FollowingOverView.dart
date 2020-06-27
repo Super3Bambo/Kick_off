@@ -14,12 +14,9 @@ class FollowingOverview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if(userid.followerusers.isEmpty){
-      var title ='Following';
-      return Tempfollow(title:title);
-    }else{
+    if(userid.followingusers.map((f)=>f.ID).toList().isNotEmpty){
 
-    return StreamProvider<List<User>>.value(
+      return StreamProvider<List<User>>.value(
       value: UserService(user: userid.followingusers.map((f)=>f.ID).toList()).members,
       
 
@@ -28,15 +25,16 @@ class FollowingOverview extends StatelessWidget {
           title:Text('Following')         
         ),
         body: Container(
-       /*   decoration: BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage('images/5omasy.jpg'),
-              fit: BoxFit.cover,
-            ),
-          ),*/
           child: FollowingUser(),
         ),
       ),
-    );}
+    );
+     
+    }else{
+       var title ='Following';
+      return Tempfollow(title:title);
+
+    
+    }
   }
 }

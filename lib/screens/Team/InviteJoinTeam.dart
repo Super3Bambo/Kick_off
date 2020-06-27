@@ -343,10 +343,24 @@ class _TeamIteminviteState extends State<TeamIteminvite> {
                                        Container(
                                       margin: EdgeInsets.only(top: 20 ),
                                       child:FlatButton(
+                                        textColor: Colors.white,
+
                                   color: Colors.pink[300],
-                                  child: Text(
-                                    'Join',
-                                    style: TextStyle(color: Colors.white),
+                                  child: Container(
+                                    decoration: const BoxDecoration(
+                                        gradient: LinearGradient(
+                                          colors: <Color>[
+                                            Color(0xFF0D47A1),
+                                            Color(0xFF42A5F5),
+                                          ],
+                                        ),
+                                      ),
+                                      padding: const EdgeInsets.all(10.0),
+
+                                    child: Text(
+                                      'Join',
+                                      style: TextStyle(fontSize: 20),
+                                    ),
                                   ),
                                   onPressed: () async {
                                     

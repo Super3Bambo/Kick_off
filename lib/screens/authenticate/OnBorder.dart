@@ -54,9 +54,11 @@ class Example extends StatelessWidget {
 
         /// Home Screen Route that lands after on-boarding
         homeRoute: '/regcomplete',
+        homeRoute2:'/regcomplete',
     ),
       ),
     routes: <String, WidgetBuilder>{
+      '/regcomplete': (BuildContext context) => completeRegister(),
       '/regcomplete': (BuildContext context) => completeRegister()
         },
         );

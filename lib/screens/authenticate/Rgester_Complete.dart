@@ -79,14 +79,16 @@ class _completeRegisterState extends State<completeRegister> {
 
   @override
   Widget build(BuildContext context) {
+    final List<String> positions = ['Center Forward', 'Midfielder', 'Center Back', 'GoalKeeper' , 'Select Your Position'];
     var uurl='https://thumbs.dreamstime.com/b/avatar-man-soccer-player-graphic-sports-clothes-front-view-over-isolated-background-illustration-73244786.jpg';
     List<Step> steps = [
     new Step(
+      
         title: const Text('Personal Information'),
         //subtitle: const Text('Enter your name'),
         isActive: true,
         //state: StepState.error,
-        state: StepState.indexed,
+        state: StepState.complete,
         content: Column( children: <Widget>[
 
            new TextFormField(
@@ -183,7 +185,6 @@ class _completeRegisterState extends State<completeRegister> {
         content: Column(children: <Widget>[
           new TextFormField(
             keyboardType: TextInputType.text,
-            autocorrect: false,
             validator: (value) {
               if (value.isEmpty ) {
                 return 'Please enter your area';
@@ -200,24 +201,57 @@ class _completeRegisterState extends State<completeRegister> {
                 labelStyle:
                     new TextStyle(decorationStyle: TextDecorationStyle.solid)),
 
-          ), new TextFormField(
-            keyboardType: TextInputType.text,
-            autocorrect: false,
-            validator: (value) {
-              if (value.isEmpty ) {
-                return 'Please enter your position';
-              }
-            },
-            onSaved: (String value) {
-              data.position = value;
-            },
-            maxLines: 1,
-            decoration: new InputDecoration(
-                labelText: 'Enter your position',
-                hintText: 'Enter a position',
-                icon: const Icon(Icons.phone),
-                labelStyle:
-                    new TextStyle(decorationStyle: TextDecorationStyle.solid)),
+          ), 
+          // new TextFormField(
+          //   keyboardType: TextInputType.text,
+          //   autocorrect: false,
+          //   validator: (value) {
+          //     if (value.isEmpty ) {
+          //       return 'Please enter your position';
+          //     }
+          //   },
+          //   onSaved: (String value) {
+          //     data.position = value;
+          //   },
+          //   maxLines: 1,
+          //   decoration: new InputDecoration(
+          //       labelText: 'Enter your position',
+          //       hintText: 'Enter a position',
+          //       icon: const Icon(Icons.phone),
+          //       labelStyle:
+          //           new TextStyle(decorationStyle: TextDecorationStyle.solid)),
+          // ),
+          Container(
+            margin: EdgeInsets.only(top:5),
+            child: DropdownButtonFormField(
+               validator: (value) {
+                if (value.isEmpty|| value=='Select Your Position' ) {
+                  return 'Please enter your Position';
+                }
+              },
+             //  icon: ,
+              value: 'Select Your Position',
+              decoration: InputDecoration(
+  fillColor: Colors.white,
+  filled: true,
+  contentPadding: EdgeInsets.all(10.0),
+  enabledBorder: OutlineInputBorder(
+    borderSide: BorderSide(color: Colors.black, width: 1.0),
+  ),
+  focusedBorder: OutlineInputBorder(
+    borderSide: BorderSide(color: Colors.pink, width: 2.0),
+  ),
+),
+         //   icon: Icon(Icons.track_changes),
+         
+              items: positions.map((pos) {
+                return DropdownMenuItem(
+                  value: pos,
+                  child: Text('$pos'),
+                );
+              }).toList(), onChanged: (val) => setState(() => data.position = val ),
+              
+              ),
           ),
         ]
                    
@@ -226,7 +260,7 @@ class _completeRegisterState extends State<completeRegister> {
     new Step(
         title: const Text('Profile Picture'),
         // subtitle: const Text('Subtitle'),
-        isActive: true,
+         isActive: true,
         state: StepState.indexed,
         // state: StepState.disabled,
         // content: new TextFormField(
@@ -288,7 +322,6 @@ class _completeRegisterState extends State<completeRegister> {
     final snackBar = new SnackBar(
         content: new Text("Please enter correct data"),
         duration: new Duration(seconds: 3),
-        //backgroundColor: Colors.pink[300],
         action: new SnackBarAction(label: 'Back',
          onPressed: (){
            Navigator.pop(context);
@@ -306,35 +339,6 @@ class _completeRegisterState extends State<completeRegister> {
         _showSnackBar();
       } else {
         formState.save();
-        // print("Name: ${data.fName}");
-        // print("Phone: ${data.phone}");
-        // print("Email: ${data.area}");
-        // print("Age: ${data.age}");
-
-        // showDialog(
-        //     context: context,
-        //     child: new AlertDialog(
-        //       title: new Text("Details"),
-        //       //content: new Text("Hello World"),
-        //       content: new SingleChildScrollView(
-        //         child: new ListBody(
-        //           children: <Widget>[
-        //             new Text("Name : " + data.fName),
-        //             new Text("Phone : " + data.phone),
-        //             new Text("Email : " + data.area),
-        //             new Text("Age : " + data.age),
-        //           ],
-        //         ),
-        //       ),
-        //       actions: <Widget>[
-        //         new FlatButton(
-        //           child: new Text('OK'),
-        //           onPressed: () {
-        //             //Navigator.of(context).pop();
-        //           },
-        //         ),
-        //       ],
-        //     ));
        
             List<User> follow=[];
                          var tok=await _fcm.getToken();
@@ -362,7 +366,7 @@ class _completeRegisterState extends State<completeRegister> {
               steps: steps,
               type: StepperType.vertical,
               currentStep: this.currStep,
-              onStepContinue: () {
+              onStepContinue: currStep==2? null: () {
                 setState(() {
                   if (currStep < steps.length - 1) {
                     currStep = currStep + 1;
@@ -382,7 +386,7 @@ class _completeRegisterState extends State<completeRegister> {
                   // }
                 });
               },
-              onStepCancel: () {
+              onStepCancel: currStep==2||currStep==0? null:() {
                 setState(() {
                   if (currStep > 0) {
                     currStep = currStep - 1;
@@ -405,20 +409,6 @@ class _completeRegisterState extends State<completeRegister> {
                 style: new TextStyle(color: Colors.white),
               ),
               onPressed: _submitDetails,
-              // () async{
-              //   List<User> follow=[
-              //               User(ID: user.ID)
-              //                 ];
-              //            var tok=await _fcm.getToken();
-                           
-                       
-              //           if(_formKey.currentState.validate()){
-              //               setState(() => loading = true);
-              //           await UserService(userid: user.ID).addUserData(data.fName, data.lName, data.age, data.position, data.photourl,data.area, data.phone ,tok ,date ,follow,rating );  
-              //             }else{_formKey.currentState.save();}
-
-                                            
-              //           },
               
               color: Colors.blue,
             ),
@@ -426,136 +416,6 @@ class _completeRegisterState extends State<completeRegister> {
       ),
           )),
     ));
- 
 
-    /*  return  loading? Loading() : Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.blue[600],
-        elevation: 0.0,
-        title: Text('Compelete Your Information'),
-      ),
-   body:  Container(
-        child: SingleChildScrollView(
-       
-        padding: EdgeInsets.symmetric(vertical: 20.0 , horizontal: 50.0),
-        child: Form(
-          key: _formKey,
-           
-          child: Column(children: <Widget>[
-
-
-            SizedBox(height: 15.0,),
-              TextFormField(
-                decoration: InputDecoration(
-                contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-                hintText: "Frist Name",
-                border:  OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))),
-                //validator: (val) => val.isEmpty ? 'Enter Your Frist Name' : null,
-                  onChanged: (val) {
-                    setState(() => fName = val); }
-                  ),
-               
-               
-            SizedBox(height: 15.0,),
-              TextFormField(
-                decoration: InputDecoration(
-                  
-                contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-                hintText: "Last Name",
-                border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))), 
-
-              // validator: (val) => val.length == 8 ? 'Enter Your Last Name ' : null,
-                  onChanged: (val) {
-                    setState(() => lName = val);}
-              ),
-
-              SizedBox(height: 15.0,),
-                TextFormField(
-                decoration: InputDecoration(
-                contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-                hintText: "Age",
-                border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))), 
-
-               //validator: (val) => val.length == 8 ? 'Enter Your Age ' : null,
-                  onChanged: (val) {
-                    setState(() => age = val);}
-              ),
-
-              SizedBox(height: 15.0,),
-                TextFormField(
-                decoration: InputDecoration(
-                contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-                hintText: "area",
-                border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))), 
-
-               //validator: (val) => val.length == 8 ? 'Enter Your area ' : null,
-                  onChanged: (val) {
-                    setState(() => area = val);}
-              ),
-
-
-              SizedBox(height: 15.0,),
-               TextFormField(
-                decoration: InputDecoration(
-                contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-                hintText: "position",
-                border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))), 
-
-              // validator: (val) => val.length == 8 ? 'Enter Your position ' : null,
-                  onChanged: (val) {
-                    setState(() => position = val);}
-              ),
-
-
-
-
-             SizedBox(height: 15.0,),
-               TextFormField(
-                decoration: InputDecoration(
-                contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-                hintText: "Phone",
-                border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))), 
-
-             //  validator: (val) => val.length == 8 ? 'Enter Your Phone ' : null,
-                  onChanged: (val) {
-                    setState(() => phone = val);}
-              ),
-
-
-               SizedBox(height: 15.0),
-                RaisedButton(
-                  color: Colors.pink[300],
-                  child: Text(
-                    'Register',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  onPressed: () async {
-                    List<User> follow=[
-                        User(ID: user.ID)
-                          ];
-                    FirebaseUser useres = await FirebaseAuth.instance.currentUser();
-                   var token = useres.getIdToken();
-                  String tok= token.then((value) => value.token).toString();
-                       
-                   
-                    if(_formKey.currentState.validate()){
-                        setState(() => loading = true);
-                    await UserService(userid: user.ID).addUserData(fName, lName, age, position, area, phone ,'h',tok ,date ,follow,rating  );  
-                      }
-                         loading=false;
-
-                                        
-                    }
-                  
-                ),
-                
-
-
-
-          ],)
-        ),
-      ),
-   ));*/
     }
 }

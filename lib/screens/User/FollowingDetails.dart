@@ -128,7 +128,7 @@ List <User> userses=[
                      Padding(padding:  EdgeInsets.only(left: _width/8, right: _width/8), child: new FlatButton(onPressed: (){},
                       child:  Container(child:  Row(mainAxisAlignment: MainAxisAlignment.center,children: <Widget>[
                   FlatButton.icon(
-                  icon: Icon(Icons.edit),
+                  icon: Icon(Icons.check),
                   label: Text('Unfollow'),
                  onPressed: () async{
                                   await UserService().unefollow(user.ID, users);
