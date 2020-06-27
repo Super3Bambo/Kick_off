@@ -248,7 +248,7 @@ return StreamBuilder<User>(
                             ),
 
                             
-                            new Row(
+                            new Column(
                            mainAxisAlignment:MainAxisAlignment.center,
 
                               children: <Widget>[
@@ -274,13 +274,30 @@ return StreamBuilder<User>(
                                    }),*/
 
                     SizedBox(height: 20.0,),
-                RaisedButton(
-                    padding: EdgeInsets.fromLTRB(30.0,10.0,30.0,10.0),
-                    color: Colors.blueAccent,
-                    child: Text(
-                      'Join',
-                      style: TextStyle(color: Colors.white),
-                    ),
+                            RaisedButton(
+               shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(18.0),
+                                side: BorderSide(color: Colors.blue)
+                              ),
+                              padding: const EdgeInsets.all(0.0),
+                              textColor: Colors.white,
+                               // color: Colors.blue[700],
+                                child: Container(
+                                  decoration:  BoxDecoration(
+                                    borderRadius:BorderRadius.circular(20) ,
+                                                gradient: LinearGradient(
+                                                  colors: <Color>[
+                                                    Color(0xFF0D47A1),
+                                                    Color(0xFF42A5F5),
+                                                  ],
+                                                ),
+                                              ),
+                                              padding: const EdgeInsets.all(10.0),                                  
+                                    child: Text(
+                                    '                             Join Match                             ',
+                                    style: TextStyle(fontSize: 18),
+                                  ),
+                                ),
                     onPressed: () async {
                       
                                   List<String> startuser = List<String>();
@@ -353,13 +370,30 @@ return StreamBuilder<User>(
                 ),
 
                 SizedBox(height: 20.0, width: 60,),
-                RaisedButton(
-              padding: EdgeInsets.fromLTRB(20.0,10.0,20.0,10.0),
-                    color: Colors.blueAccent,
-                    child: Text(
-                      'Members',
-                      style: TextStyle(color: Colors.white),
-                    ),
+               RaisedButton(
+               shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(18.0),
+                                side: BorderSide(color: Colors.blue)
+                              ),
+                              padding: const EdgeInsets.all(0.0),
+                              textColor: Colors.white,
+                               // color: Colors.blue[700],
+                                child: Container(
+                                  decoration:  BoxDecoration(
+                                    borderRadius:BorderRadius.circular(20) ,
+                                                gradient: LinearGradient(
+                                                  colors: <Color>[
+                                                    Color(0xFF0D47A1),
+                                                    Color(0xFF42A5F5),
+                                                  ],
+                                                ),
+                                              ),
+                                              padding: const EdgeInsets.all(10.0),                                  
+                                    child: Text(
+                                    '                              Members                              ',
+                                    style: TextStyle(fontSize: 18),
+                                  ),
+                                ),
                     onPressed: ()  {
                       gomember(widget.matchid);
                         }

@@ -785,19 +785,38 @@ openAlertBox_twobutton3(  String title , String content ) {
                               ],
                             ),
                                     
-                          new Row(
+                          new Column(
                            mainAxisAlignment:MainAxisAlignment.start,
 
                               children: <Widget>[
 
                           SizedBox(height: 20.0,width: 60,),
-                        RaisedButton(
-                           padding: EdgeInsets.fromLTRB(10.0,10.0,10.0,10.0),
-                          color: Colors.pink[300],
-                          child: Text(
-                            'DisJoin',
-                            style: TextStyle(color: Colors.white),
-                          ),
+                         RaisedButton(
+               shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(18.0),
+                                side: BorderSide(color: Colors.redAccent)
+                              ),
+                              padding: const EdgeInsets.all(0.0),
+                              textColor: Colors.white,
+                               // color: Colors.blue[700],
+                                child: Container(
+                                  decoration:  BoxDecoration(
+                                    borderRadius:BorderRadius.circular(20) ,
+                                                gradient: LinearGradient(
+                                                  colors: <Color>[
+                                                    // Color(0xFF0D47A1),
+                                                    // Color(0xFF42A5F5),
+                                                    Colors.red,
+                                                    Colors.pink[700]
+                                                  ],
+                                                ),
+                                              ),
+                                              padding: const EdgeInsets.all(10.0),                                  
+                                    child: Text(
+                                    '                           DisJoin match                          ',
+                                    style: TextStyle(fontSize: 18),
+                                  ),
+                                ),
                           onPressed: (){
 
    openAlertBox_twobutton1(  'Caution' , 'Are you sure you want to disjoin this match?'); }
@@ -863,21 +882,40 @@ openAlertBox_twobutton3(  String title , String content ) {
                           
                                                   SizedBox(height: 20.0,width: 80,),
 
-                           RaisedButton(
-                              padding: EdgeInsets.fromLTRB(10.0,10.0,10.0,10.0),
-                          color: Colors.pink[300],
-                          child: Text(
-                            'Invite Friends',
-                            style: TextStyle(color: Colors.white),
-                          ),
+                            RaisedButton(
+               shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(18.0),
+                                side: BorderSide(color: Colors.blue)
+                              ),
+                              padding: const EdgeInsets.all(0.0),
+                              textColor: Colors.white,
+                               // color: Colors.blue[700],
+                                child: Container(
+                                  decoration:  BoxDecoration(
+                                    borderRadius:BorderRadius.circular(20) ,
+                                                gradient: LinearGradient(
+                                                  colors: <Color>[
+                                                    Color(0xFF0D47A1),
+                                                    Color(0xFF42A5F5),
+                                                  ],
+                                                ),
+                                              ),
+                                              padding: const EdgeInsets.all(10.0),                                  
+                                    child: Text(
+                                    '                            Invite Friends                           ',
+                                    style: TextStyle(fontSize: 18),
+                                  ),
+                                ),
                          
                             //Navigator.push(context, MaterialPageRoute(builder: (context) =>  FriendsOverview() ),);
                                         //godetails(widget.matchid);
                                      
                                      //   Navigator.of(context).pushNamed(demo.routeName,);
                                onPressed: (){
+                                 godetails();
 
-                                 openAlertBox_twobutton3(  'Caution' , 'Are you sure you want to invite friends to this match?'); },
+                                 //openAlertBox_twobutton3(  'Caution' , 'Are you sure you want to invite friends to this match?');
+                                  },
                                      /*  onPressed:()=>godetails(),*/
                                   //      async{ !_isCreatingLink==false? null:await _createDynamicLink(true); 
                                   //        final RenderBox box = context.findRenderObject();
@@ -988,11 +1026,31 @@ openAlertBox_twobutton3(  String title , String content ) {
 
                                 SizedBox(height: 20.0),
               RaisedButton(
-                color: Colors.pink[300],
-                child: Text(
-                  'DisJoin',
-                  style: TextStyle(color: Colors.white),
-                ),
+               shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(18.0),
+                                side: BorderSide(color: Colors.redAccent)
+                              ),
+                              padding: const EdgeInsets.all(0.0),
+                              textColor: Colors.white,
+                               // color: Colors.blue[700],
+                                child: Container(
+                                  decoration:  BoxDecoration(
+                                    borderRadius:BorderRadius.circular(20) ,
+                                                gradient: LinearGradient(
+                                                  colors: <Color>[
+                                                    // Color(0xFF0D47A1),
+                                                    // Color(0xFF42A5F5),
+                                                    Colors.red,
+                                                    Colors.pink[700]
+                                                  ],
+                                                ),
+                                              ),
+                                              padding: const EdgeInsets.all(10.0),                                  
+                                    child: Text(
+                                    '                           DisJoin match                          ',
+                                    style: TextStyle(fontSize: 18),
+                                  ),
+                                ),
                   onPressed: (){
 
                     openAlertBox_twobutton2(  'Caution' , 'Are you sure you want to disjoin this match?'); }/*async {

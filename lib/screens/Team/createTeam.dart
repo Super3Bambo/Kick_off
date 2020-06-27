@@ -115,12 +115,31 @@ return StreamBuilder<User>(
   
   
                      SizedBox(height: 15.0),
-                  RaisedButton(
-                    color: Colors.pink[300],
-                    child: Text(
-                      'Create Team',
-                      style: TextStyle(color: Colors.white),
-                    ),
+                 RaisedButton(
+               shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(18.0),
+                                side: BorderSide(color: Colors.blue)
+                              ),
+                              padding: const EdgeInsets.all(0.0),
+                              textColor: Colors.white,
+                               // color: Colors.blue[700],
+                                child: Container(
+                                  decoration:  BoxDecoration(
+                                    borderRadius:BorderRadius.circular(20) ,
+                                                gradient: LinearGradient(
+                                                  colors: <Color>[
+                                                    Color(0xFF0D47A1),
+                                                    Color(0xFF42A5F5),
+                                                   
+                                                  ],
+                                                ),
+                                              ),
+                                              padding: const EdgeInsets.all(10.0),                                  
+                                    child: Text(
+                                    '    Create Team    ',
+                                    style: TextStyle(fontSize: 18),
+                                  ),
+                                ),
                     onPressed: () async {
                       if(_formKey.currentState.validate()){
                           var id=randomString(20 , includeSymbols: false,  useCharOnce:false );
