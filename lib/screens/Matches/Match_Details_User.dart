@@ -1025,7 +1025,7 @@ openAlertBox_twobutton3(  String title , String content ) {
 
 
                                 SizedBox(height: 20.0),
-              RaisedButton(
+               widget.matchid.users.contains(user.ID)?RaisedButton(
                shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(18.0),
                                 side: BorderSide(color: Colors.redAccent)
@@ -1108,7 +1108,7 @@ openAlertBox_twobutton3(  String title , String content ) {
                                widget.matchid.Check_out , widget.matchid.Price, count , widget.matchid.Topic);
                               _showSnackBar();
                           }}*/
-                )
+                ):Text('You Should Pay At Most 4 Hours')
                           ],
                         ),
                         ],

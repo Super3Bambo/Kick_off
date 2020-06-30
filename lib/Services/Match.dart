@@ -14,19 +14,20 @@ final String userid,teamid, matchid , fieldid;
   final CollectionReference matches = Firestore.instance.collection('Match');
 
   
-  Future<void> addMatch( String fieldid, String location  ,String start ,String finish ,String price, List<User> users ,String topic ) async {
-    return await matches.document().setData({
+  Future<void> addMatch(String id, String fieldid, String location  ,String start ,String finish ,String price, List<User> users,List<User> userses ,String topic ) async {
+    return await matches.document(id).setData({
       'FieldId': fieldid,
       'Location': location,
       'Start_at': start ,
       'Finish_at': finish,
       'Price': price,
       'Topic':topic,
-      'Counter': 1,
+      'Counter': 0,
       'Challenge':false,
       'Date': DateTime.now(),
-      'Players': users.map((u)=>{'UserID' :u.ID,}).toList(),
-      "evaluted":users.map((u)=>{'UserID' :u.ID,}).toList(),
+      'Players': userses.toList(),
+      "Pending":users.map((u)=>{'UserID' :u.ID,}).toList(),
+      "evaluted":userses.toList(),
       'Deleted':false,
         //'Players' : users,
       // Map<String, dynamic>  {'Players': users}
@@ -45,10 +46,12 @@ Future<void> addMatchadmin( String fieldid, String location  ,String start ,Stri
       'Challenge':false,
       'Date': DateTime.now(),
       'Players': users.toList(),
+      "Pending": users.toList(),
       "evaluted":users.toList(),
       'Deleted':false,
   
-  });}
+  });
+  }
 
 
  Future<void> addChallenge( String fieldid, String location  ,String start ,String finish ,String price, List<Team> teams ,String topic ) async {
@@ -64,10 +67,6 @@ Future<void> addMatchadmin( String fieldid, String location  ,String start ,Stri
       'Date': DateTime.now(),
       'Players': teams.map((u)=>{'UserID' :u.ID,}).toList(),
       'Deleted':false,
-        //'Players' : users,
-      // Map<String, dynamic>  {'Players': users}
-  //   'Players': Match().mapping(),
-  
   });
       
   }
@@ -121,6 +120,11 @@ Future <void> joinMatch(String ID , List<User> user)async{
     
   return await matches.document(ID).updateData({'Players':FieldValue.arrayUnion(user.map((e) => {'UserID': e.ID}).toList())});
 }
+
+Future <void> joinMatchpay(String ID , List<User> user)async{
+    
+  return await matches.document(ID).updateData({'Pending':FieldValue.arrayUnion(user.map((e) => {'UserID': e.ID}).toList())});
+}
 Future <void> joinchallenge(String ID , List<Team> team)async{
     
   return await matches.document(ID).updateData({'Players':FieldValue.arrayUnion(team.map((e) => {'UserID': e.ID}).toList())});
@@ -138,6 +142,10 @@ Future <void> removeevaluted(String ID , List<User> user)async{
     
   return await matches.document(ID).updateData({'evaluted':FieldValue.arrayRemove(user.map((e) => {'UserID': e.ID}).toList())});
 }
+Future <void> addevaluted(String ID , List<User> user)async{
+    
+  return await matches.document(ID).updateData({'evaluted':FieldValue.arrayUnion(user.map((e) => {'UserID': e.ID}).toList())});
+}
 
 List<Match> _matchesFromSnapshot(QuerySnapshot snapshot) {
     return  snapshot.documents.map((doc){
@@ -152,6 +160,7 @@ List<Match> _matchesFromSnapshot(QuerySnapshot snapshot) {
       Price :  doc.data['Price'] ?? '',
       Counter: doc.data['Counter'] ?? '',
       Topic: doc.data['Topic'],
+      useres:doc.data['Pending'].map<User>((player) =>User.fromMap(player)).toList() ?? [], 
       //users: List.from(doc.data['Players']) ?? [],
 
       users: doc.data['Players'].map<User>((player) =>User.fromMap(player)).toList() ?? [],

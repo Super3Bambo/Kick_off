@@ -3,6 +3,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_app/Services/Fields.dart';
+import 'package:flutter_app/Services/Payment.dart';
 import 'package:flutter_app/Services/User.dart';
 import 'package:flutter_app/Shared/Alert.dart';
 import 'package:flutter_app/Shared/Loading.dart';
@@ -52,7 +53,8 @@ bool loading = false;
 final FirebaseMessaging _fcm = FirebaseMessaging();
     final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
-
+ DateFormat dateFormat14 = DateFormat("yyyy-MM-dd HH:mm:00:000");
+DateTime temp =DateTime.now().add(Duration(hours: 4));
   @override
   Widget build(BuildContext context) {
         int sum = 0;
@@ -64,6 +66,8 @@ final FirebaseMessaging _fcm = FirebaseMessaging();
         ID: user.ID,
       ),
     ];
+    List<User> userses = [];
+
 
     
         List<String> startfield = List<String>();
@@ -569,16 +573,16 @@ DateFormat timeFormat = DateFormat("HH:00:00:000");
 
                                    
                                     else if(finishuser.contains(dateFormat.format(start))||finishuser.contains(dateFormat.format(finish))||
-                                   finishuser.contains(dateFormat.format(duration))){
+                                   finishuser.contains(dateFormat.format(duration))||finishuser.contains(dateFormat.format(duration2))  ){
                                                   openAlertBox('Wrong','You have Match in this Time'); 
                                    }
                                     
                                     else if(startuser.contains(dateFormat.format(start))||startuser.contains(dateFormat.format(finish))|| 
-                                    startuser.contains(dateFormat.format(duration))){
+                                    startuser.contains(dateFormat.format(duration))||startuser.contains(dateFormat.format(duration2))){
                                                   openAlertBox('Wrong','You have Match in this Time'); 
                                    }
                                    else  if(durationuser.contains(dateFormat.format(start))||durationuser.contains(dateFormat.format(finish))|| 
-                                   durationuser.contains(dateFormat.format(duration))){
+                                   durationuser.contains(dateFormat.format(duration))||durationuser.contains(dateFormat.format(duration2))){
                                                   openAlertBox('Wrong','You have Match in this Time'); 
  
                                  }
@@ -607,26 +611,29 @@ DateFormat timeFormat = DateFormat("HH:00:00:000");
                                     }
                                  
                                    else {
+                                         var date =dateFormat14.format(temp);
                                      var s=dateFormat.format(start);
                                      var f= dateFormat.format(finish);
                                          // Subscribe the user to a topic
                                      var topic=  randomString(9, includeSymbols: false , includeNumbers: false , includeLowercase: false );
+                                      var id=  randomString(20, includeSymbols: false , includeNumbers: false , includeLowercase: false );
                                       _fcm.subscribeToTopic(topic);
                                       await MatchService().addMatch(
+                                        id,
                                         widget.fieldid.ID,
                                         widget.fieldid.Location,
                                         s,
                                         f,
                                         widget.fieldid.Price.toString(),
                                         users,
+                                        userses,
                                         topic
                                         );
+                                        PaymentService().matchpay(user.ID, id, date);
                                         await FieldService().timestart(widget.fieldid.ID, starts);
                                         await FieldService().timefinish(widget.fieldid.ID, finishs);
                                         await FieldService().duration(widget.fieldid.ID, dur);
-                                        await UserService().timestart(userData.ID, starts);
-                                        await UserService().timefinish(userData.ID, finishs);
-                                        await UserService().duration(userData.ID, dur);
+                                      
                                     // _showNotification();
                                   //  Navigator.pop(context);
                                   _showSnackBar();

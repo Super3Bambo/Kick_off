@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_app/Services/Payment.dart';
 import 'package:flutter_app/Shared/Loading.dart';
 import 'package:flutter_app/models/field.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
@@ -43,7 +44,8 @@ class _Match_DetailsProgressState extends State<Match_DetailsProgress> {
   final FirebaseMessaging _fcm = FirebaseMessaging();
 
     final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-
+ DateFormat dateFormat14 = DateFormat("yyyy-MM-dd HH:mm:00:000");
+DateTime temp =DateTime.now().add(Duration(hours: 4));
 
   @override
   Widget build(BuildContext context) {
@@ -56,10 +58,24 @@ User user = Provider.of<User>(context);
   ];
   List<String> myList = List<String>();
     myList = widget.matchid.users.map((f)=>f.ID).toList();
+    List<String> pendList = List<String>();
+    pendList = widget.matchid.useres.map((f)=>f.ID).toList();
   String matchId = widget.matchid.ID;  
   _showSnackBar() {
     final snackBar = new SnackBar(
         content: new Text("You already in this Match"),
+        duration: new Duration(seconds: 3),
+        //backgroundColor: Colors.pink[300],
+        action: new SnackBarAction(label: 'Back', onPressed: (){
+           Navigator.pop(context);
+        }),
+    );
+    //How to display Snackbar ?
+    _scaffoldKey.currentState.showSnackBar(snackBar);
+  }
+  _showSnackBar5() {
+    final snackBar = new SnackBar(
+        content: new Text("you need to pay"),
         duration: new Duration(seconds: 3),
         //backgroundColor: Colors.pink[300],
         action: new SnackBarAction(label: 'Back', onPressed: (){
@@ -314,6 +330,13 @@ return StreamBuilder<User>(
                 
 
                     }
+                    if(pendList.contains(user.ID)){
+                
+                _showSnackBar5();
+
+                
+
+                    }
                     
                   else if (widget.matchid.Counter==10) {
                      _showSnackBar2();
@@ -352,12 +375,14 @@ return StreamBuilder<User>(
                                      
                                         Alert(context:  _scaffoldKey.currentContext, title: "Error",desc: 'bb' ).show();}
                                   else{
+                                    var date =dateFormat14.format(temp);
                                        //  _showSnackBar3();
-                                          await UserService().timestart(user.ID, starts);
-                                          await UserService().timefinish(user.ID, finishs);
-                                          await UserService().duration(user.ID, dur);
-                    var count= (widget.matchid.Counter)+1;
-                    await MatchService().joinMatch(matchId , users);
+                                          // await UserService().timestart(user.ID, starts);
+                                          // await UserService().timefinish(user.ID, finishs);
+                                          // await UserService().duration(user.ID, dur);
+                    var count= (widget.matchid.Counter);
+                    await MatchService().joinMatchpay(matchId , users);
+                    PaymentService().matchpay(user.ID, widget.matchid.ID, date);
                      await MatchService().editMatch(widget.matchid.ID ,widget.matchid.Field, widget.matchid.Date.toDate() ,widget.matchid.Location, widget.matchid.Check_in,
                        widget.matchid.Check_out , widget.matchid.Price, count , widget.matchid.Topic);
                        _showSnackBar3();
@@ -415,10 +440,6 @@ return StreamBuilder<User>(
  }
  );
               
-      //                 FlatButton(
-    //                child: Text('Book NOW'),
-  //                  onPressed: () {
-//                      )
 
 
 

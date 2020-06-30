@@ -16,10 +16,11 @@ class Match {
   final String Topic;
   final List <User> users;
   final List <Team> team;
+  final List <User> useres;
 
   
   //final String users;
-  Match ({ this.ID , this.Field, this.Location, this.Date , this.Price,  this.Check_in , this.Check_out ,  this.users , this.Counter ,this.Challenge, this.team , this.Topic});
+  Match ({ this.ID , this.Field, this.Location, this.Date , this.Price,  this.Check_in , this.Check_out ,  this.users , this.Counter ,this.Challenge, this.team ,this.useres, this.Topic});
 
 
 
