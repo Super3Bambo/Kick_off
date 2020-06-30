@@ -11,7 +11,7 @@ import 'package:flutter_app/models/field.dart';
 import 'package:getflutter/getflutter.dart';
 import 'package:random_string_one/random_string.dart';
 import 'package:intl/intl.dart';
-import 'package:rflutter_alert/rflutter_alert.dart';
+//import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 
 
@@ -82,7 +82,142 @@ List<String> durationfield = List<String>();
 
 DateFormat dateFormat = DateFormat("yyyy-MM-dd HH:00:00:000");
 DateFormat timeFormat = DateFormat("HH:00:00:000");
+    penAlertBox_onebutton(   String title , String content ) {
+      return showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(32.0))),
+              contentPadding: EdgeInsets.only(top: 10.0),
+              content: Container(
+                width: 300.0,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        Text(
+                          title,
+                          style: TextStyle(fontSize: 24.0),
+                        ),
 
+                      ],
+                    ),
+                    SizedBox(
+                      height: 5.0,
+                    ),
+                    Divider(
+                      color: Colors.grey,
+                      height: 4.0,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(left: 30.0, right: 30.0),
+                      child: Container(
+                        margin: EdgeInsets.only(top:2),
+                        height:100,
+                        child: Text(content ,maxLines: 2, style:
+                        TextStyle(wordSpacing: 1.5 ,height: 2 ,fontWeight: FontWeight.bold),),
+                      ),
+                    ),
+
+                    InkWell(
+                      child: Container(
+
+                        //width: 148,
+                        padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
+                        decoration: BoxDecoration(
+                          color:  Colors.blue,
+                          borderRadius: BorderRadius.only(
+                              bottomLeft: Radius.circular(32.0),
+                              bottomRight: Radius.circular(32.0)),
+                        ),
+                        child: Text(
+                          "OK",
+                          style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                      onTap: ()=>Navigator.pop(context),
+                    ),],
+                ),
+              ),
+            );
+          }
+      );
+    }
+    penAlertBox_onebutton2(   String title , String content ) {
+      return showDialog(
+          context: _scaffoldKey.currentContext,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(32.0))),
+              contentPadding: EdgeInsets.only(top: 10.0),
+              content: Container(
+                width: 300.0,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        Text(
+                          title,
+                          style: TextStyle(fontSize: 24.0),
+                        ),
+
+                      ],
+                    ),
+                    SizedBox(
+                      height: 5.0,
+                    ),
+                    Divider(
+                      color: Colors.grey,
+                      height: 4.0,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(left: 30.0, right: 30.0),
+                      child: Container(
+                        margin: EdgeInsets.only(top:2),
+                        height:100,
+                        child: Text(content ,maxLines: 2, style:
+                        TextStyle(wordSpacing: 1.5 ,height: 2 ,fontWeight: FontWeight.bold),),
+                      ),
+                    ),
+
+                    InkWell(
+                      child: Container(
+
+                        //width: 148,
+                        padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
+                        decoration: BoxDecoration(
+                          color:  Colors.blue,
+                          borderRadius: BorderRadius.only(
+                              bottomLeft: Radius.circular(32.0),
+                              bottomRight: Radius.circular(32.0)),
+                        ),
+                        child: Text(
+                          "OK",
+                          style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                      onTap: ()=>Navigator.pop(context),
+                    ),],
+                ),
+              ),
+            );
+          }
+      );
+    }
 
           return  Scaffold (
              key: _scaffoldKey,
@@ -413,15 +548,18 @@ DateFormat timeFormat = DateFormat("HH:00:00:000");
                                         ];
 
                                   if (start.isAfter(finish)) {
-                                        Alert(context:  context, title: "Error",desc:'gg' ).show();
-                                        
+                                   //     Alert(context:  context, title: "Error",desc:'gg' ).show();
+                                    penAlertBox_onebutton(   'Error' , 'Choose a resonable time');
  
                                     }
                                       else if(finish.difference(start).inHours>3){
-                                      Alert(context:  context, title: "Error",desc:'ffff' ).show();}
+                               //
+                               //       Alert(context:  context, title: "Error",desc:'ffff' ).show();
+                                    penAlertBox_onebutton(   'Error' , 'You can not book more than 3 hours');       }
 
                                     else if(start.isBefore(DateTime.now())){
-                                      Alert(context:  context, title: "Error",desc:'nonon' ).show();
+                                 //     Alert(context:  context, title: "Error",desc:'nonon' ).show();
+                                    penAlertBox_onebutton(   'Error' , 'Choose a resonable time');
                                       print(parsemyend);
                                       print(parsemystart);
                                       print(parsethestart);
@@ -449,32 +587,37 @@ DateFormat timeFormat = DateFormat("HH:00:00:000");
                                    else  if(startfield.contains(dateFormat.format(start))||startfield.contains(dateFormat.format(finish))||
                                    startfield.contains(dateFormat.format(duration))){
                                       
-                                        Alert(context:  _scaffoldKey.currentContext, title: "Error",desc: 'cc' ).show();
- 
+                                       // Alert(context:  _scaffoldKey.currentContext, title: "Error",desc: 'cc' ).show();
+                                    penAlertBox_onebutton2(   'Error' , 'The field is not available in that time');
                                         
                                  }
                                    else  if(finishfield.contains(dateFormat.format(start))||finishfield.contains(dateFormat.format(finish))||
                                    finishfield.contains(dateFormat.format(duration)) ){
                                     
-                                        Alert(context:  _scaffoldKey.currentContext, title: "Error",desc: 'cc' ).show();
-                                           
+                                     //   Alert(context:  _scaffoldKey.currentContext, title: "Error",desc: 'cc' ).show();
+                                    penAlertBox_onebutton2(   'Error' , 'The field is not available in that time');
                                     }
                                    else if(durationfield.contains(dateFormat.format(start))||durationfield.contains(dateFormat.format(finish))||
                                    durationfield.contains(dateFormat.format(duration)) ){
-                                                                       Alert(context: _scaffoldKey.currentContext, title: "Error",desc: 'cc', ).show();
-                                          
-                                    }
+                                                                    //   Alert(context: _scaffoldKey.currentContext, title: "Error",desc: 'cc', ).show();
+                                    penAlertBox_onebutton2(   'Error' , 'The field is not available in that time');
+
+                                  }
                                   else if(  (  !((parsethestart-parsemystart).isNegative) && (parsethestart-parsemystart)!=8) || (parsemystart==parsetheEnd) ){
-                                                    Alert(context: _scaffoldKey.currentContext, title: "Error",desc: 'str', ).show();
-                                      print(parsemyend);
+                                    //     Alert(context: _scaffoldKey.currentContext, title: "Error",desc: 'str', ).show();
+                                    penAlertBox_onebutton2(   'Error' , 'Choose a resonable time');
+
+                                    print(parsemyend);
                                       print(parsemystart);
                                       print(parsethestart);
                                       print(parsetheEnd);
                                           
                                     }
                                      else if(((parsemyend-parsetheEnd)==1||(parsemyend-parsetheEnd)==2)){
-                                                    Alert(context: _scaffoldKey.currentContext, title: "Error",desc: 'end', ).show();
-                                      print(parsemyend);
+                                                 //   Alert(context: _scaffoldKey.currentContext, title: "Error",desc: 'end', ).show();
+                                    penAlertBox_onebutton2(   'Error' , 'Choose a resonable time');
+
+                                    print(parsemyend);
                                       print(parsemystart);
                                       print(parsethestart);
                                       print(parsetheEnd);

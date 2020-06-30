@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/Services/Auth.dart';
 import 'package:flutter_app/Shared/Loading.dart';
-import 'package:rflutter_alert/rflutter_alert.dart';
+//import 'package:rflutter_alert/rflutter_alert.dart';
 import 'clipper.dart';
 import'package:flutter_app/Shared/Alert.dart';
 class AuthPage extends StatefulWidget {
