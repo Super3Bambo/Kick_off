@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/Services/Request_team.dart';
 import 'package:flutter_app/Services/Team.dart';
 import 'package:flutter_app/Services/User.dart';
 import 'package:flutter_app/Shared/Loading.dart';
@@ -94,9 +95,14 @@ return StreamBuilder<User>(
                       style: TextStyle(color: Colors.white),
                     ),
                     onPressed: () async {
+                      if(teams.Private==false){
                    await   TeamService().joinTeam(teams.ID, users);
                     await UserService(userid: user.ID).updateUserData(userData.FName, userData.LName, userData.Age, userData.Position, userData.Area, userData.Phone, 
-                          userData.Photo_url, teams.ID, userData.Token);
+                          userData.Photo_url, teams.ID, userData.Token);}
+                          else{
+                            await RequestService().requesttojointeam(user.ID, teams.ID, DateTime.now().toString());
+                            
+                          }
                     }),
                                        IconButton(icon: Icon(FontAwesome.circle , color:
                                         (int.tryParse(teams.NO_team) == teams.users.length)==false?Colors.green:Colors.grey ,size: 15,), onPressed: null,)

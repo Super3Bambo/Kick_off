@@ -21,6 +21,7 @@ class _CreateTeamState extends State<CreateTeam> {
   final _formKey = GlobalKey<FormState>();
 
   String nO_Team ;
+  bool private=true;
   String name , urlphoto=null ;
   List<Field> date=[
     Field (Date: DateTime.now().toString())
@@ -144,7 +145,7 @@ return StreamBuilder<User>(
                       if(_formKey.currentState.validate()){
                           var id=randomString(20 , includeSymbols: false,  useCharOnce:false );
                           var topic=randomString(6,includeSymbols: false,useCharOnce: false);
-                          await TeamService().createTeam(id ,name, nO_Team, users ,topic, date , urlphoto!=null?urlphoto:uurl);
+                          await TeamService().createTeam(id ,name, nO_Team, users ,topic, date , urlphoto!=null?urlphoto:uurl , user.ID , private);
                           await UserService(userid: user.ID).updateUserData(userData.FName, userData.LName, userData.Age, userData.Position, userData.Area, userData.Phone, 
                           userData.Photo_url, id, userData.Token);
                       // Navigator.push(context,MaterialPageRoute(builder: (context)=> Teams_OverView()  ) );

@@ -39,24 +39,24 @@ if(team!=null){
       builder: (context, snapshot){
         if(snapshot.hasData){
           User userData = snapshot.data;
-          Leave()async{
-            if(team.users.length!=1){
+          // Leave()async{
+          //   if(team.users.length!=1){
 
-              await TeamService().disjoinTeam(team.ID, users);
-              String teamid="";
+          //     await TeamService().disjoinTeam(team.ID, users);
+          //     String teamid="";
 
-              await UserService(userid: user.ID).updateUserData(userData.FName, userData.LName, userData.Age, userData.Position, userData.Area, userData.Phone,
-                  userData.Photo_url, teamid, userData.Token);
-            }
+          //     await UserService(userid: user.ID).updateUserData(userData.FName, userData.LName, userData.Age, userData.Position, userData.Area, userData.Phone,
+          //         userData.Photo_url, teamid, userData.Token);
+          //   }
 
-            else{
-              await TeamService().deleteteam(team.ID);
-              String teamid="";
-              await UserService(userid: user.ID).updateUserData(userData.FName, userData.LName, userData.Age, userData.Position, userData.Area, userData.Phone,
-                  userData.Photo_url, teamid, userData.Token);
+          //   else{
+          //     await TeamService().deleteteam(team.ID);
+          //     String teamid="";
+          //     await UserService(userid: user.ID).updateUserData(userData.FName, userData.LName, userData.Age, userData.Position, userData.Area, userData.Phone,
+          //         userData.Photo_url, teamid, userData.Token);
 
-            }
-          }
+          //   }
+          // }
 
           openAlertBox_twobutton(  String title , String content ) {
             return showDialog(
@@ -123,12 +123,24 @@ if(team!=null){
                                 ),
                                 onTap:() async{
                                   if(team.users.length!=1){
+                                    if(team.Owner==user.ID){
+                                       await TeamService().disjoinTeam(team.ID, users);
+                                    String teamid="";
+                                    await TeamService().editTeam(team.ID, team.Name, team.NO_team ,team.Topic, team.Photo, team.users.map((e) => e.ID).elementAt(0), team.Private);
 
-                                    await TeamService().disjoinTeam(team.ID, users);
+                                    await UserService(userid: user.ID).updateUserData(userData.FName, userData.LName, userData.Age, userData.Position, userData.Area, userData.Phone,
+                                        userData.Photo_url, teamid, userData.Token);
+
+
+                                    }else{
+                                       await TeamService().disjoinTeam(team.ID, users);
                                     String teamid="";
 
                                     await UserService(userid: user.ID).updateUserData(userData.FName, userData.LName, userData.Age, userData.Position, userData.Area, userData.Phone,
                                         userData.Photo_url, teamid, userData.Token);
+                                    }
+
+                                   
                                   }
 
                                   else{
@@ -223,10 +235,10 @@ if(team!=null){
                                     Container(
                                       margin: EdgeInsets.only(top:10,),
                                   child:
-                                  Icon(FontAwesome.calendar, size: 20, color: Colors.blueAccent,semanticLabel:'Found' ,), ),
+                                  Icon(FontAwesome.drivers_license, size: 20, color: Colors.blueAccent,semanticLabel:'Found' ,), ),
                                   Container(
                                     margin: EdgeInsets.only(left:110 ,top: 10),
-                                        child: Text(dateFormat.format(team.Date.toDate()).substring(0,11) ,style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
+                                        child: Text(team.Name +' '+ 'Team',style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
 )
                                   
                                
@@ -242,8 +254,9 @@ if(team!=null){
                                   child: Icon(FontAwesome.sort_numeric_asc , size: 20, color: Colors.blue,),),
                                   Container(
                                     margin: EdgeInsets.only(left:110, top: 10),
-                                        child: Text( team.users.length.toString() +' of ' + team.NO_team ,style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
-)
+                                        child: Text( team.users.length.toString() +' of ' + team.NO_team ,style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),),
+
+                                       
                                   
                                   
                                 ],),
@@ -253,20 +266,20 @@ if(team!=null){
                                    mainAxisAlignment:MainAxisAlignment.spaceBetween,
 
                                   children: <Widget>[
-                                    Container(
-                                      //margin: EdgeInsets.only(top:10,),
-                                        child: Text('Info',style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
-                                ),
+                                //     Container(
+                                //       //margin: EdgeInsets.only(top:10,),
+                                //         child: Text('Info',style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
+                                // ),
                                     Container(
                                      // margin: EdgeInsets.only(left:50,top: 2 ,right: 0),
                                   child:IconButton(icon: Icon(FontAwesome.info_circle,color: Colors.white,), onPressed: ()=> godetails(team),autofocus: true,
                                   focusColor:Colors.grey , hoverColor: Colors.red[900],padding: EdgeInsets.all(10),
                                   ) 
                                   ),
-                                   Container(
-                                      //margin: EdgeInsets.only(top:12, right: 10),
-                                        child: Text('Leave',style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
-                                ),
+                                //    Container(
+                                //       //margin: EdgeInsets.only(top:12, right: 10),
+                                //         child: Text('Leave',style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
+                                // ),
                                   Container(
                                    //   margin: EdgeInsets.only(top: 0 ),
                                   child: IconButton(icon: Icon(FontAwesome.sign_out , size: 30, color: Colors.red[900] ,),
@@ -293,15 +306,21 @@ if(team!=null){
                                 }
                                 }*/
                                 )),
-                                Container(
-                                     // margin: EdgeInsets.only(top:10,),
-                                        child: Text('Invite',style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
-                                ),
+                                // Container(
+                                //      // margin: EdgeInsets.only(top:10,),
+                                //         child: Text('Invite',style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
+                                // ),
                                     Container(
                                    //   margin: EdgeInsets.only(left:20,top: 2 ,right: 0),
                                   child:IconButton(icon: Icon(FontAwesome.plus_square,color: Colors.green[900],), onPressed: ()=>godetails2(),
                                   ) 
                                   ),
+                                 team.Owner==user.ID? Container(
+                                   //   margin: EdgeInsets.only(left:20,top: 2 ,right: 0),
+                                  child:IconButton(icon: Icon(FontAwesome.edit,color: Colors.blue[900],), onPressed: (){}
+                                  ) 
+                                  ):Container(),
+                                  
                                   
                                 ],
                                 ),

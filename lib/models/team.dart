@@ -10,13 +10,16 @@ class  Team {
    Timestamp Date;
    List <User> users;
    String Counter;
+   String Owner;
    String Photo;
   List<Field> start_time;
   List<Field> finish_time; 
   List<Field> duration; 
   List<Team> team;
+  String Topic;
+  bool Private ;
 
-  Team ({ this.ID ,  this.Name ,this.Photo, this.NO_team  , this.Date , this.users , this.Counter , this.duration, this.finish_time, this.start_time , this.team});
+  Team ({ this.ID ,  this.Topic,this.Name ,this.Photo, this.NO_team  , this.Date , this.users , this.Counter , this.duration, this.finish_time, this.Private,this.start_time , this.team , this.Owner});
 
   Team.fromMap( Map<dynamic, dynamic> data)
        : ID = data['UserID'];

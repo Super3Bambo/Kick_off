@@ -7,10 +7,6 @@ class PaymentService {
   final String payid;
   PaymentService({this.payid});
 
-// final String userid,teamid, matchid , fieldid;
-//   MatchService({ this.userid ,this.teamid, this.matchid ,this.fieldid});
-  
-
   final CollectionReference matches = Firestore.instance.collection('Match');
   final CollectionReference payment = Firestore.instance.collection('Payment');
 

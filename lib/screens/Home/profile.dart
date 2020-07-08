@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/Shared/Loading.dart';
+import 'package:flutter_app/screens/Payment/payOverview.dart';
 import 'package:flutter_app/screens/User/FollowersOverView.dart';
 import 'package:flutter_app/screens/User/FollowingOverView.dart';
-import 'package:flutter_app/screens/test/payOverview.dart';
 import 'package:rating_bar/rating_bar.dart';
 import '../../screens/User/Edit_User.dart';
 import '../../models/User.dart';

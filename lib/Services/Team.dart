@@ -7,9 +7,9 @@ import '../models/User.dart';
 class TeamService {
 
 
-  final String userid;
+  final String userid , teamids;
     List<String> leagueid , teamid;
-  TeamService({this.userid,this.leagueid,this.teamid});
+  TeamService({this.userid,this.leagueid,this.teamid ,this.teamids});
 
   final CollectionReference teams = Firestore.instance.collection('Team');
 
@@ -19,10 +19,11 @@ class TeamService {
  Future<void> deleteteam(id) async {
     return await teams.document(id).delete();}
 
-  Future<void> createTeam(  String id,String name ,String nO_Team, List<User> users ,String topic, List<Field> date , String photo ) async {
+  Future<void> createTeam(  String id,String name ,String nO_Team, List<User> users ,String topic, List<Field> date , String photo,String userids,bool private ) async {
     return await teams.document(id).setData({
       'ID':id,
       'Date': DateTime.now(),
+      "Owner":userids,
       'Name':name ,
       'NO_Team': nO_Team ,
       'Topic':topic,
@@ -31,6 +32,20 @@ class TeamService {
        'Start':  date.map((u)=>{'StartTime' :u.Date}).toList(),
       'Finish': date.map((u)=>{'FinishTime' :u.Date}).toList(),
       'Duration': date.map((u)=>{'Dur' :u.Date}).toList(),
+      'Private':private,
+      
+  });    
+  }
+  Future<void> editTeam(  String id,String name ,String nO_Team, String topic,  String photo,String userids,bool private ) async {
+    return await teams.document(id).setData({
+      'ID':id,
+      'Date': DateTime.now(),
+      "Owner":userids,
+      'Name':name ,
+      'NO_Team': nO_Team ,
+      'Topic':topic,
+      'PhotoUrl':photo,
+      'Private':private,
       
   });    
   }
@@ -81,7 +96,10 @@ Future <void> disjoinTeam(String ID , List<User> user)async{
       Date: doc.data['Date'] ?? '',
       Name:  doc.data['Name'] ?? '',
       NO_team :  doc.data['NO_Team'] ?? '',
-      Photo:  doc.data['PhotoUrl'],
+      Photo:  doc.data['PhotoUrl']?? ' ',
+      Owner: doc.data['Owner']?? '',
+      Private: doc.data['Private']?? '',
+      Topic:doc.data["Topic"]?? '',
       //users: List.from(doc.data['Players']) ?? [],
 
       users: doc.data['Players'].map<User>((player) =>User.fromMap(player)).toList() ?? [],
@@ -98,11 +116,14 @@ Future <void> disjoinTeam(String ID , List<User> user)async{
 
   Team _teamFromSnapshot(DocumentSnapshot snapshot) {
     return Team(
-      ID: snapshot.documentID,
+      ID: snapshot.documentID?? '',
       Date: snapshot.data['Date'] ?? '',
       Name:  snapshot.data['Name'] ?? '',
       NO_team :  snapshot.data['NO_Team'] ?? '',
-      Photo:  snapshot.data['PhotoUrl'],
+      Photo:  snapshot.data['PhotoUrl'] ?? '',
+      Owner: snapshot.data['Owner']??'',
+      Private: snapshot.data['Private']??'',
+      Topic:snapshot.data['Topic']??'',
       //users: List.from(doc.data['Players']) ?? [],
 
       users: snapshot.data['Players'].map<User>((player) =>User.fromMap(player)).toList() ?? [],
@@ -131,7 +152,7 @@ Stream<List<Team>> get members {
 
   }
   Stream<Team> get teamone {
-    return teams.document(userid).snapshots().map(_teamFromSnapshot);
+    return teams.document(teamids).snapshots().map(_teamFromSnapshot);
 
   }
   
