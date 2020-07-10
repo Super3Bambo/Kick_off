@@ -272,11 +272,11 @@ Stream<List<Match>> get historymatches {
 
   }
   
-  Stream<List<Match>> get completematches {
+  // Stream<List<Match>> get completematches {
   
-    return matches.where("Counter" ,isEqualTo: 10).where("Finish_at" ,isGreaterThan: DateTime.now().toString()).where('Challenge' ,isEqualTo: false).
-    where("Players" ,arrayContains: {'UserID' :userid}).
-    snapshots().map(_matchesFromSnapshot);
+  //   return matches.where("Counter" ,isEqualTo: 10).where("Finish_at" ,isGreaterThan: DateTime.now().toString()).where('Challenge' ,isEqualTo: false).
+  //   where("Players" ,arrayContains: {'UserID' :userid}).
+  //   snapshots().map(_matchesFromSnapshot);
 
-  }
+  // }
 }

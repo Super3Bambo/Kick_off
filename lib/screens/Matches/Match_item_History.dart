@@ -5,7 +5,6 @@ import 'package:flutter_app/models/User.dart';
 import '../../models/Matches.dart';
 //import './Field_Details.dart';
 import './Match_Details_History.dart';
-import 'test.dart';
 
 // List<User> temp(BuildContext context , List<String> users  ){
 //   List<User> userdata;
@@ -36,7 +35,7 @@ class MatchItem_History extends StatelessWidget {
     myList =match.users.map((f)=>f.ID).toList();
     
 godetails(Match id){
-Navigator.push(context,MaterialPageRoute(builder: (context)=> test333(matchid: match)  ) );
+Navigator.push(context,MaterialPageRoute(builder: (context)=> Match_Details_History(matchid: match)  ) );
 
 }
     return Card(

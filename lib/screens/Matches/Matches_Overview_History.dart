@@ -15,7 +15,7 @@ class MatchesOverview_History extends StatelessWidget {
     User user = Provider.of<User>(context);
 
     return StreamProvider<List<Match>>.value(
-      value: MatchService(userid:user.ID ).historymatchesevaluted,
+      value: MatchService(userid:user.ID ).historymatches,
       
 
       child:  Container(

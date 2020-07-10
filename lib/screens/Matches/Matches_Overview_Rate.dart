@@ -2,10 +2,10 @@ import '../../models/Matches.dart';
 import '../../Services/Match.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import './Matches_listview_Complete.dart';
 import '../../models/User.dart';
+import 'Matches_listview_Rate.dart';
 
-class MatchesOverview_Complete extends StatelessWidget {
+class MatchesOverview_Rate extends StatelessWidget {
 
   
 
@@ -15,17 +15,12 @@ class MatchesOverview_Complete extends StatelessWidget {
     User user = Provider.of<User>(context);
 
     return StreamProvider<List<Match>>.value(
-      value: MatchService(userid:user.ID ).completematches,
+      value: MatchService(userid:user.ID ).historymatchesevaluted,
       
 
       child: Container(
-       /*   decoration: BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage('images/5omasy.jpg'),
-              fit: BoxFit.cover,
-            ),
-          ),*/
-          child: Matchview_Complete(),
+      
+          child: Matchview_Rate(),
         ),
       
     );

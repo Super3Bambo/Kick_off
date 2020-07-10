@@ -2,18 +2,19 @@ import 'package:flutter/material.dart';
 import '../../models/Matches.dart';
 //import './Field_Details.dart';
 import './Match_Details_Complete.dart';
+import 'Match_EvaluteDetails.dart';
 
-class MatchItem_Complete extends StatelessWidget {
+class MatchItem_Rate extends StatelessWidget {
 
 
   final Match match;
-  MatchItem_Complete({ this.match });
+  MatchItem_Rate({ this.match });
 
   @override
   Widget build(BuildContext context) {
     
-godetails(Match id){
-Navigator.push(context,MaterialPageRoute(builder: (context)=> Match_Details(matchid: match)  ) );
+godetails(){
+Navigator.push(context,MaterialPageRoute(builder: (context)=> Evalte_Details(matchid: match)  ) );
 
 }
     return Card(
@@ -34,13 +35,13 @@ Navigator.push(context,MaterialPageRoute(builder: (context)=> Match_Details(matc
           borderRadius: BorderRadius.circular(20),
 
      child:  GestureDetector(
-       onTap: () => godetails(match),
+       onTap: () => godetails(),
      
      
      child: Image.asset('images/5omasy.jpg', height: 200, width: 420, fit: BoxFit.cover, ),),
      ), 
      InkWell(
-       onTap: () => godetails(match),
+       onTap: () => godetails(),
             child: ClipRRect(
                         borderRadius: BorderRadius.circular(10),
 
