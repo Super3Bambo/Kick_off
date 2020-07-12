@@ -218,7 +218,7 @@ return StreamBuilder<User>(
                   ],
                   )
                   ,]),
-              RaisedButton(onPressed: ()=>godetails())
+           //   RaisedButton(onPressed: ()=>godetails())
               ],
             ),
           )

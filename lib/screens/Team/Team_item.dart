@@ -126,7 +126,8 @@ if(team!=null){
                                     if(team.Owner==user.ID){
                                        await TeamService().disjoinTeam(team.ID, users);
                                     String teamid="";
-                                    await TeamService().editTeam(team.ID, team.Name, team.NO_team ,team.Topic, team.Photo, team.users.map((e) => e.ID).elementAt(0), team.Private);
+                                       //await TeamService().editTeam(team.ID, team.Name, team.NO_team ,team.Topic, team.Photo, '', team.Private);
+                                       await TeamService().editTeam(team.ID, team.Name, team.NO_team ,team.Topic, team.Photo, team.users.map((e) => e.ID).elementAt(1), team.Private);
 
                                     await UserService(userid: user.ID).updateUserData(userData.FName, userData.LName, userData.Age, userData.Position, userData.Area, userData.Phone,
                                         userData.Photo_url, teamid, userData.Token);

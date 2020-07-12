@@ -37,7 +37,7 @@ class TeamService {
   });    
   }
   Future<void> editTeam(  String id,String name ,String nO_Team, String topic,  String photo,String userids,bool private ) async {
-    return await teams.document(id).setData({
+    return await teams.document(id).updateData({
       'ID':id,
       'Date': DateTime.now(),
       "Owner":userids,
