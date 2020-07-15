@@ -9,6 +9,7 @@ import 'package:provider/provider.dart';
 //import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:random_string_one/random_string.dart';
 
 
 
@@ -28,7 +29,7 @@ class _AddLeagueState extends State<AddLeague> {
   String desc='',name='';
   int diff,diff2;
        var showstart,showend;
-       int prize  ;
+       int prize =0 ;
 
   DateTime now=DateTime.now();
 bool loading = false;
@@ -555,7 +556,7 @@ DateFormat timeFormat = DateFormat("HH:00:00:000");
                    Container(margin: EdgeInsets.only(top:20),
                      child: Slider(
                        label: 'Prize',
-                          value: 0.0,
+                          value: prize.toDouble(),
                        // inactiveColor: Colors.blueAccent,
                        // activeColor: Colors.blue,
                           min: 0.0,
@@ -635,7 +636,8 @@ DateFormat timeFormat = DateFormat("HH:00:00:000");
                    else {
                       var s=dateFormat.format(start);
                       var f= dateFormat.format(finish);
-                     LeagueService().addleague(widget.fieldid.ID, s, f, team, prize.toString(), desc, name, user.ID ,widget.fieldid.Location);
+                     var topic= randomString(8 ,includeSymbols: false , useCharOnce: false);
+                     LeagueService().addleague(widget.fieldid.ID, s, f, team, prize.toString(), desc, name, user.ID ,widget.fieldid.Location,topic);
     // Subscribe the user to a topic
                    
                     // _showNotification();

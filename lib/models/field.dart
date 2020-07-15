@@ -23,9 +23,10 @@ class Field  {
   List<Field> duration;
   List<FieldRating> rate;
   String Owner;
+  List<String> images;
 
   Field ({ this.ID, this.Name , this.Capacitance , this.Date, this.Location , this.Start_at , this.Price ,  this.Finish_at,this.Duration  ,this.Photo_url , this.Ball , 
-  this.Bathroom , this.Refree , this.start_time , this.finish_time , this.duration , this.rate , this.Owner});
+  this.Bathroom , this.Refree , this.start_time , this.finish_time , this.duration , this.rate , this.Owner , this.images});
     Field.fromMap(Map<dynamic, dynamic> data)
        : Start_at = data['StartTime'];
     Field.fromMap2(Map<dynamic, dynamic> data)

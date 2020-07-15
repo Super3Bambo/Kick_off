@@ -174,7 +174,8 @@ child: Padding(
                  children: <Widget>[    
 
               Text('Name' +':' +fields.Name, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),),
-              Text('Price' + ':'+ fields.Price.toString(),style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20))  ,
+               Text('Price' + ':'+ fields.Price.toString(),style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20))  ,
+               Container(margin: EdgeInsets.only(right:7), child: Text( fields.Location.toString(),style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)))  ,
               ]))
               
              

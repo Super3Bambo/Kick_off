@@ -11,7 +11,7 @@ class FieldService {
   final CollectionReference field = Firestore.instance.collection('Field');
 
   Future<void> addFieldData(String name,  String location ,int price, bool ref , bool ball , bool bathroom , List<Field> time,List<FieldRating> rating  
-  ,String start ,String end ,String owner) async {
+  ,String start ,String end ,String owner, List<String> images) async {
     return await field.document().setData({
       'Name': name,
       'Owner':owner,
@@ -23,6 +23,7 @@ class FieldService {
        'Ball': ball,
       'Bathroom': bathroom,
       'Refree': ref,
+      'Images':images,
       'Start':  time.map((u)=>{'StartTime' :DateTime.now().toString(),}).toList(),
       'Finish': time.map((u)=>{'FinishTime' :DateTime.now().toString(),}).toList(),
       'Duration': time.map((u)=>{'Dur' :DateTime.now().toString(),}).toList(),
@@ -94,6 +95,7 @@ Future <void> ratefield(String ID , List<FieldRating> rate)async{
       finish_time: doc.data['Finish'].map<Field>((timess) =>Field.fromMap2(timess)).toList() ?? [],
       duration: doc.data['Duration'].map<Field>((timesss) =>Field.fromMap3(timesss)).toList() ?? [],
       rate: doc.data['Rate'].map<FieldRating>((rates) =>FieldRating.fromMap(rates)).toList() ?? [],
+      images: List.from(doc.data['Images'])??[],
       Ball: doc.data['Ball'] ?? '',
       Refree: doc.data['Refree'] ?? '',
       Bathroom: doc.data['Bathroom'] ?? '',
@@ -119,6 +121,7 @@ Future <void> ratefield(String ID , List<FieldRating> rate)async{
       finish_time: snapshot.data['Finish'].map<Field>((timess) =>Field.fromMap2(timess)).toList() ?? [],
       duration: snapshot.data['Duration'].map<Field>((timesss) =>Field.fromMap3(timesss)).toList() ?? [],
       rate:snapshot.data['Rate'].map<FieldRating>((rates) =>FieldRating.fromMap(rates)).toList() ?? [],
+      images: List.from(snapshot.data['Images'])??[],
       Ball: snapshot.data['Ball'] ?? '',
       Refree: snapshot.data['Refree'] ?? '',
       Bathroom: snapshot.data['Bathroom'] ?? '',

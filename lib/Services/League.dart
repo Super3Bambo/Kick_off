@@ -14,7 +14,7 @@ class LeagueService {
 final CollectionReference league = Firestore.instance.collection('League');
 
 
-  Future<void> addleague( String fieldid, String start ,String finish , List<Team> teams , String prize , String desc,String name ,String owner , String location) async {
+  Future<void> addleague( String fieldid, String start ,String finish , List<Team> teams , String prize , String desc,String name ,String owner , String location ,String topic) async {
     return await league.document().setData({
       'FieldId': fieldid,
       'Start_at': start ,
@@ -25,6 +25,7 @@ final CollectionReference league = Firestore.instance.collection('League');
       'Owner':owner,
       'Teams': teams.toList(),
       'Location':location,
+      'Topic':topic,
         //'Players' : users,
       // Map<String, dynamic>  {'Players': users}
   //   'Players': Match().mapping(),
@@ -102,6 +103,7 @@ Future <void> disjoinLeague(String ID , List<Team> team)async{
       Prize: doc.data['Prize'],
       Name: doc.data['Name'],
       Location: doc.data['Location'],
+      Topic: doc.data['Topic'],
       teams: doc.data['Teams'].map<Team>((team) =>Team.fromMap2(team)).toList() ?? [],
 
 
@@ -117,6 +119,7 @@ Future <void> disjoinLeague(String ID , List<Team> team)async{
       Check_out :  doc.data['Finish_at'] ?? '',
       Check_in:  doc.data['Start_at'] ?? '',
       Location: doc.data['Location'],
+      
       //Location:  doc.data['Location'] ?? '',
       team: doc.data['Teams'].map<Team>((player) =>Team.fromMap(player)).toList() ?? [],
 

@@ -402,12 +402,30 @@ class _completeRegisterState extends State<completeRegister> {
               },
             ),
             SizedBox(height: 100,),
-            new RaisedButton(
-              
-              child: new Text(
-                'Save details',
-                style: new TextStyle(color: Colors.white),
-              ),
+           RaisedButton(
+               shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(18.0),
+                                side: BorderSide(color: Colors.blue)
+                              ),
+                              padding: const EdgeInsets.all(0.0),
+                              textColor: Colors.white,
+                               // color: Colors.blue[700],
+                                child: Container(
+                                  decoration:  BoxDecoration(
+                                    borderRadius:BorderRadius.circular(20) ,
+                                                gradient: LinearGradient(
+                                                  colors: <Color>[
+                                                    Color(0xFF0D47A1),
+                                                    Color(0xFF42A5F5),
+                                                  ],
+                                                ),
+                                              ),
+                                              padding: const EdgeInsets.all(10.0),                                  
+                                    child: Text(
+                                    '                              Save                              ',
+                                    style: TextStyle(fontSize: 18),
+                                  ),
+                                ),
               onPressed: _submitDetails,
               
               color: Colors.blue,

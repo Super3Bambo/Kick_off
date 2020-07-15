@@ -21,14 +21,7 @@ class FieldDetailsTeam extends StatefulWidget {
   final Field fieldid;
 final Team teamid;
   FieldDetailsTeam({this.fieldid,this.teamid});
-  final List<String> imageList = [
-    "https://cdn.pixabay.com/photo/2017/12/03/18/04/christmas-balls-2995437_960_720.jpg",
-    "https://cdn.pixabay.com/photo/2017/12/13/00/23/christmas-3015776_960_720.jpg",
-    "https://cdn.pixabay.com/photo/2019/12/19/10/55/christmas-market-4705877_960_720.jpg",
-    "https://cdn.pixabay.com/photo/2019/12/20/00/03/road-4707345_960_720.jpg",
-    "https://cdn.pixabay.com/photo/2019/12/22/04/18/x-mas-4711785__340.jpg",
-    "https://cdn.pixabay.com/photo/2016/11/22/07/09/spruce-1848543__340.jpg"
-  ];
+  
   @override
   _FieldDetailsTeamState createState() => _FieldDetailsTeamState();
 }
@@ -46,6 +39,8 @@ class _FieldDetailsTeamState extends State<FieldDetailsTeam> {
 
   @override
   Widget build(BuildContext context) {
+    List<String> imageList = List<String>();
+    imageList = widget.fieldid.images;
     int sum = 0;
     widget.fieldid.rate.map((e) => e.Rate).forEach((int e){sum += e;});
     double count= sum/widget.fieldid.rate.length;
@@ -235,7 +230,7 @@ class _FieldDetailsTeamState extends State<FieldDetailsTeam> {
                           children: <Widget>[
                             new ClipRRect(
                               child:GFCarousel(
-                                items: widget.imageList.map(
+                                items: imageList.map(
                                       (url) {
                                     return Container(
                                       margin: EdgeInsets.all(8.0),
@@ -477,12 +472,30 @@ class _FieldDetailsTeamState extends State<FieldDetailsTeam> {
 
 
                                         SizedBox(height: 20.0),
-                                        RaisedButton(
-                                            color: Colors.blue[700],
-                                            child: Text(
-                                              'Book',
-                                              style: TextStyle(color: Colors.white),
-                                            ),
+                                       RaisedButton(
+               shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(18.0),
+                                side: BorderSide(color: Colors.blue)
+                              ),
+                              padding: const EdgeInsets.all(0.0),
+                              textColor: Colors.white,
+                               // color: Colors.blue[700],
+                                child: Container(
+                                  decoration:  BoxDecoration(
+                                    borderRadius:BorderRadius.circular(20) ,
+                                                gradient: LinearGradient(
+                                                  colors: <Color>[
+                                                    Color(0xFF0D47A1),
+                                                    Color(0xFF42A5F5),
+                                                  ],
+                                                ),
+                                              ),
+                                              padding: const EdgeInsets.all(10.0),                                  
+                                    child: Text(
+                                    '                              Book                              ',
+                                    style: TextStyle(fontSize: 18),
+                                  ),
+                                ),
 
                                             onPressed: () async {
                                                var starttemp= widget.fieldid.Start_at;

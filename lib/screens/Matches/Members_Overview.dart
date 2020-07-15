@@ -9,6 +9,7 @@ import './Matches_listview_User.dart';
 import '../../models/User.dart';
 import '../../Services/User.dart';
 import 'Member_ListView.dart';
+import 'NoMembers.dart';
 
 class MatchesMemberOverview extends StatelessWidget {
 
@@ -19,7 +20,13 @@ class MatchesMemberOverview extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return StreamProvider<List<User>>.value(
+    if(matchid.users.isEmpty||matchid.users.length==0){
+
+      return TempMembers(title: 'Members',);
+    }
+    
+    else{
+       return StreamProvider<List<User>>.value(
       value: UserService(user: matchid.users.map((f)=>f.ID).toList()).members,
       
 
@@ -32,5 +39,8 @@ class MatchesMemberOverview extends StatelessWidget {
         ),
       ),
     );
+    }
+
+   
   }
 }

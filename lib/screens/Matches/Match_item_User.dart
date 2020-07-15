@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/screens/Matches/Match_Invite_Route.dart';
+import 'package:flutter_icons/flutter_icons.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../models/Matches.dart';
 //import './Field_Details.dart';
 import './Match_Details_User.dart';
@@ -58,19 +60,36 @@ Navigator.push(context,MaterialPageRoute(builder: (context)=> Match_Details(matc
 child: Padding(
         padding: const EdgeInsets.only(bottom: 50 , top: 20) ,
 
-        child: Row(
+        child:Row (
           children: <Widget>[
-            Expanded(child: new Column(
-    children: [
-    new Container(
-              child: Text(match.users.map((f)=>f.ID).toString())),
-              new Container(
-              child: Text('data'))
+            Column(
+              // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                 Container(child: IconButton(icon: Icon(FontAwesomeIcons.calendar , color: Colors.blue ,size: 25,), onPressed:(){})),
+                  Text( match.Check_in.substring(5,16) , style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),),
+                                  
 
- ],),),],
-   mainAxisAlignment:MainAxisAlignment.spaceBetween,
+
+              ],
+            ),
+             Column(
+                                  //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    
+                     children: <Widget>[    
+    
+                 Container(child: IconButton(icon: Icon(FontAwesome.dollar , color: Colors.blue ,size: 25,), onPressed:(){})),
+                  Text( (int.parse(match.Price)/10).toStringAsFixed(0) +' '  + '\$',style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20))  ,
+                  
+                  ]),
+                  Column(children: <Widget>[
+                    Container(child: IconButton(icon: Icon(FontAwesomeIcons.locationArrow , color: Colors.blue ,size: 25,), onPressed:(){})),
+                    Text(  match.Location ,style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20))  ,
+
+                  ],)
+                  ],
+   mainAxisAlignment:MainAxisAlignment.spaceAround,
     mainAxisSize:MainAxisSize.max,
-       crossAxisAlignment:CrossAxisAlignment.start,
+       crossAxisAlignment:CrossAxisAlignment.center,
     
         ),
         )),

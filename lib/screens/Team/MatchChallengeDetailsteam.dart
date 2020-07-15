@@ -247,14 +247,31 @@ class _MatchChallenge_DetailsteamState extends State<MatchChallenge_Detailsteam>
 
                         children: <Widget>[
 
-                          SizedBox(height: 20.0,),
-                          RaisedButton(
-                              padding: EdgeInsets.fromLTRB(30.0,10.0,30.0,10.0),
-                              color: Colors.blueAccent,
-                              child: Text(
-                                'DisJoin',
-                                style: TextStyle(color: Colors.white),
+                          SizedBox(height: 100.0,),
+                         RaisedButton(
+               shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(18.0),
+                                side: BorderSide(color: Colors.blue)
                               ),
+                              padding: const EdgeInsets.all(0.0),
+                              textColor: Colors.white,
+                               // color: Colors.blue[700],
+                                child: Container(
+                                  decoration:  BoxDecoration(
+                                    borderRadius:BorderRadius.circular(20) ,
+                                                gradient: LinearGradient(
+                                                  colors: <Color>[
+                                                    Color(0xFF0D47A1),
+                                                    Color(0xFF42A5F5),
+                                                  ],
+                                                ),
+                                              ),
+                                              padding: const EdgeInsets.all(10.0),                                  
+                                    child: Text(
+                                    '                              DisJoin                              ',
+                                    style: TextStyle(fontSize: 18),
+                                  ),
+                                ),
                               onPressed: () async {
 
                                  if(widget.matchid.Counter==1){

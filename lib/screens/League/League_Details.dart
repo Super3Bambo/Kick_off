@@ -1,3 +1,4 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_app/Services/Fields.dart';
@@ -30,6 +31,7 @@ final League league;
 class _League_DetailsState extends State<League_Details> {
     //final FirebaseMessaging _fcm=FirebaseMessaging();
 
+  final FirebaseMessaging _fcm = FirebaseMessaging();
 
 bool loading = false;
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
@@ -139,10 +141,10 @@ _showSnackBar() {
                                     Container(
                                       margin: EdgeInsets.only(top:10,),
                                   child:
-                                  Icon(FontAwesome.calendar, size: 20, color: Colors.blueAccent,),),
+                                  Icon(FontAwesome.file_word_o, size: 20, color: Colors.blueAccent,),),
                                   Container(
-                                    margin: EdgeInsets.only(left:110 ,top: 10),
-                                        child: Text('fdsfs' ,style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
+                                    margin: EdgeInsets.only(left:90 ,top: 10),
+                                        child: Text(widget.league.Name ,style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
 )
                                   
                                
@@ -157,8 +159,8 @@ _showSnackBar() {
                                       margin: EdgeInsets.only(top:10,),
                                   child: Icon(FontAwesome.clock_o , size: 20, color: Colors.blue,),),
                                   Container(
-                                    margin: EdgeInsets.only(left:110, top: 10),
-                                        child: Text(widget.teamid.ID ,style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
+                                    margin: EdgeInsets.only(left:90, top: 10),
+                                        child: Text(widget.league.Start_Date.substring(0,10)+' to '+ widget.league.Finish_Date.substring(0,10) ,style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
 )
                                   
                                   
@@ -171,15 +173,29 @@ _showSnackBar() {
                                   children: <Widget>[
                                     Container(
                                       margin: EdgeInsets.only(top:10,),
-                                  child: Icon(FontAwesome.dollar, size: 20,color: Colors.green,),),
+                                  child: Icon(FontAwesome.location_arrow, size: 20,color: Colors.blue,),),
                                   Container(
-                                    margin: EdgeInsets.only(left:110,top: 10),
-                                        child: Text(widget.league.teams.isEmpty?'0': widget.league.teams.length.toString() +" " + '\$',style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
-)
+                                    margin: EdgeInsets.only(left:90,top: 10),
+                                        child: Text(widget.league.Location,style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
+),
+
                                   
                                   
                                 ],
                                 ),
+                                 Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisSize: MainAxisSize.max,
+                                   mainAxisAlignment:MainAxisAlignment.start,
+
+                                  children: <Widget>[
+                                    Container(
+                                      margin: EdgeInsets.only(top:10,),
+                                  child: Icon(FontAwesome.dollar, size: 20,color: Colors.green,),),
+                                  Container(
+                                    margin: EdgeInsets.only(left:90,top: 10),
+                                        child: Text(widget.league.Prize +" " + '\$',style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
+)]),
 
                                  Container(
                                  margin: EdgeInsets.only(top:15,bottom: 10) ,
@@ -199,7 +215,7 @@ _showSnackBar() {
                                   CircularPercentIndicator(
                                       radius: 100.0,
                                       lineWidth: 7.0,
-                                      percent: 1.toDouble()/10,
+                                      percent: widget.league.teams.length.toDouble()/10,
                                       header: Padding(padding: EdgeInsets.fromLTRB(00.0, 20.0, 00.0,00.0),),
                                       center: Container(
                                         margin: EdgeInsets.only(top: 25),
@@ -212,31 +228,48 @@ _showSnackBar() {
                                         color: Colors.blue,
                                         
                                       ),
-                                       Text( '10' ,style: TextStyle(fontWeight: FontWeight.bold),),
+                                       Text( widget.league.teams.length.toString() +'/'+'8',style: TextStyle(fontWeight: FontWeight.bold),),
 
                                           ]
                                         ),
                                       ),/* */
-                                      footer: Padding(padding: EdgeInsets.fromLTRB(00.0, 0.0, 00.0,20.0),),
+                                      footer: Padding(padding: EdgeInsets.fromLTRB(00.0, 0.0, 00.0,0.0),),
                                       backgroundColor: Colors.grey,
                                       progressColor: Colors.blue,
                                         ),
                               ],
                             ),
                                       
-                          new Row(
+                          new Column(
                            mainAxisAlignment:MainAxisAlignment.start,
 
                               children: <Widget>[
 
                           SizedBox(height: 20.0,width: 60,),
                         RaisedButton(
-                           padding: EdgeInsets.fromLTRB(10.0,10.0,10.0,10.0),
-                          color: Colors.pink[300],
-                          child: Text(
-                            'Join',
-                            style: TextStyle(color: Colors.white),
-                          ),
+               shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(18.0),
+                                side: BorderSide(color: Colors.blue)
+                              ),
+                              padding: const EdgeInsets.all(0.0),
+                              textColor: Colors.white,
+                               // color: Colors.blue[700],
+                                child: Container(
+                                  decoration:  BoxDecoration(
+                                    borderRadius:BorderRadius.circular(20) ,
+                                                gradient: LinearGradient(
+                                                  colors: <Color>[
+                                                    Color(0xFF0D47A1),
+                                                    Color(0xFF42A5F5),
+                                                  ],
+                                                ),
+                                              ),
+                                              padding: const EdgeInsets.all(10.0),                                  
+                                    child: Text(
+                                    '                                  Join                                  ',
+                                    style: TextStyle(fontSize: 18),
+                                  ),
+                                ),
                           onPressed: () async {
                             if(myList.contains(widget.teamid.ID)){
                               _showSnackBar2();
@@ -250,6 +283,7 @@ _showSnackBar() {
                             }
                             else{
                            await LeagueService().joinLeague(widget.league.ID, tmid);
+                           _fcm.subscribeToTopic(widget.league.Topic);
                            //await TeamService().joinLeague(widget.teamid.ID, lgid);
                            for(var i=0;i<(7-widget.league.teams.length);i++){
                              DateTime starttime = dateFormat.parse(widget.league.Start_Date);
@@ -297,12 +331,30 @@ _showSnackBar() {
 
                             
                     ),
-                    RaisedButton(padding: EdgeInsets.fromLTRB(10.0,10.0,10.0,10.0),
-                          color: Colors.pink[300],
-                          child: Text(
-                            'Members',
-                            style: TextStyle(color: Colors.white),
-                          ),
+                     RaisedButton(
+               shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(18.0),
+                                side: BorderSide(color: Colors.blue)
+                              ),
+                              padding: const EdgeInsets.all(0.0),
+                              textColor: Colors.white,
+                               // color: Colors.blue[700],
+                                child: Container(
+                                  decoration:  BoxDecoration(
+                                    borderRadius:BorderRadius.circular(20) ,
+                                                gradient: LinearGradient(
+                                                  colors: <Color>[
+                                                    Color(0xFF0D47A1),
+                                                    Color(0xFF42A5F5),
+                                                  ],
+                                                ),
+                                              ),
+                                              padding: const EdgeInsets.all(10.0),                                  
+                                    child: Text(
+                                    '                              Members                              ',
+                                    style: TextStyle(fontSize: 18),
+                                  ),
+                                ),
                           onPressed: () async {
                             print(myList);
                             print(templist);

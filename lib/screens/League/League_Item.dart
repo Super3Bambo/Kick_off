@@ -81,10 +81,11 @@ child: Padding(
 
                  children: <Widget>[    
 
-              Text('Name' +':' +league.Name, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),),
+              Text(league.Name+" "+"League", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),),
             //  Text('Prize' + ':'+ league.Prize,style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20))  ,
            // Text(teamid.ID),
-             Text(league.teams.map((e) => e.ID).isEmpty?'empty':'NOOOOT')
+               league.teams.map((e) => e.ID).isEmpty? Text('Available Now',style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),):league.teams.map((e) => e.ID).length==8?
+               Text('Full',style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),):Text('Available Now',style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),)
               ]))
               
              

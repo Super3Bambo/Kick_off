@@ -23,7 +23,7 @@ class _EdituserState extends State<Edituser> {
 
   // form values
   String fName, lName, age, position, area, phone;
-
+final List<String> positions = ['Center Forward', 'Midfielder', 'Center Back', 'GoalKeeper' , 'Select Your Position'];
 bool loading = false;
 
   @override
@@ -103,20 +103,57 @@ bool loading = false;
                         ),
 
 
-                        SizedBox(height: 20.0,),
-                        TextFormField(
-                            initialValue: userData.Position,
-                            decoration: InputDecoration(
-                                contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-                                hintText: "position",
-                                border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))),
+                        // SizedBox(height: 20.0,),
+                        // TextFormField(
+                        //     initialValue: userData.Position,
+                        //     decoration: InputDecoration(
+                        //         contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+                        //         hintText: "position",
+                        //         border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))),
 
-                            validator: (val) => val.length == 8 ? 'Enter Your position ' : null,
-                            onChanged: (val) {
-                              setState(() => position = val);}
-                        ),
+                        //     validator: (val) => val.length == 8 ? 'Enter Your position ' : null,
+                        //     onChanged: (val) {
+                        //       setState(() => position = val);}
+                        // ),
 
 
+                         SizedBox(height: 20.0,),
+
+Container(
+            margin: EdgeInsets.only(top:5),
+            child: DropdownButtonFormField(
+              
+               validator: (value) {
+                if (value.isEmpty|| value=='Select Your Position' ) {
+                  return 'Please enter your Position';
+                }
+              },
+             //  icon: ,
+             
+              value: userData.Position?? 'Select Your Position',
+              decoration: InputDecoration(
+  fillColor: Colors.white,
+  filled: true,
+  contentPadding: EdgeInsets.all(10.0),
+  enabledBorder: OutlineInputBorder(
+    borderRadius: BorderRadius.circular(30),
+    borderSide: BorderSide(color: Colors.black, width: 0.7),
+  ),
+  focusedBorder: OutlineInputBorder(
+    borderSide: BorderSide(color: Colors.pink, width: 2.0),
+  ),
+),
+         //   icon: Icon(Icons.track_changes),
+         
+              items: positions.map((pos) {
+                return DropdownMenuItem(
+                  value: pos,
+                  child: Text('$pos'),
+                );
+              }).toList(), onChanged: (val) => setState(() => position = val ),
+              
+              ),
+          ),
 
 
                         SizedBox(height: 20.0,),
@@ -127,7 +164,7 @@ bool loading = false;
                                 hintText: "Phone",
                                 border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))),
 
-                            validator: (val) => val.length == 8 ? 'Enter Your Phone ' : null,
+                            validator: (val) => val.length == 8? 'Enter Your Phone ' : null,
                             onChanged: (val) {
                               setState(() => phone = val);}
                         ),
@@ -175,16 +212,34 @@ bool loading = false;
                             ),*/],
                         ),*/
 
-                        SizedBox(height: 20.0),
+                        SizedBox(height: 30.0),
 
                         Container(
                           child:GestureDetector(
-                            child: RaisedButton(
-                          color: Colors.pink[300],
-                                  child: Text(
-                              'Update',
-                              style: TextStyle(color: Colors.white),
-                            ),
+                            child:RaisedButton(
+               shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(18.0),
+                                side: BorderSide(color: Colors.blue)
+                              ),
+                              padding: const EdgeInsets.all(0.0),
+                              textColor: Colors.white,
+                               // color: Colors.blue[700],
+                                child: Container(
+                                  decoration:  BoxDecoration(
+                                    borderRadius:BorderRadius.circular(20) ,
+                                                gradient: LinearGradient(
+                                                  colors: <Color>[
+                                                    Color(0xFF0D47A1),
+                                                    Color(0xFF42A5F5),
+                                                  ],
+                                                ),
+                                              ),
+                                              padding: const EdgeInsets.all(10.0),                                  
+                                    child: Text(
+                                    '                             Update                              ',
+                                    style: TextStyle(fontSize: 18),
+                                  ),
+                                ),
 
                             onPressed: () async {
                               // uploadPic(context);
