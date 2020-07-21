@@ -2,14 +2,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_app/Services/Fields.dart';
 import 'package:flutter_app/Services/Match.dart';
 import 'package:flutter_app/Services/Team.dart';
+import 'package:flutter_app/Shared/Loading.dart';
 import 'package:flutter_app/models/field.dart';
 import 'package:flutter_app/models/team.dart';
-//import 'package:rflutter_alert/rflutter_alert.dart';
 import '../../models/Matches.dart';
-import '../../models/User.dart';
-import 'package:provider/provider.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:getflutter/getflutter.dart';
@@ -25,14 +24,7 @@ class MatchChallenge_Details extends StatefulWidget{
   final Team team;
   bool val =false;
 
-  final List<String> imageList = [
-    "https://cdn.pixabay.com/photo/2017/12/03/18/04/christmas-balls-2995437_960_720.jpg",
-    "https://cdn.pixabay.com/photo/2017/12/13/00/23/christmas-3015776_960_720.jpg",
-    "https://cdn.pixabay.com/photo/2019/12/19/10/55/christmas-market-4705877_960_720.jpg",
-    "https://cdn.pixabay.com/photo/2019/12/20/00/03/road-4707345_960_720.jpg",
-    "https://cdn.pixabay.com/photo/2019/12/22/04/18/x-mas-4711785__340.jpg",
-    "https://cdn.pixabay.com/photo/2016/11/22/07/09/spruce-1848543__340.jpg"
-  ];
+ 
   MatchChallenge_Details({this.matchid , this.team});
 
 
@@ -237,6 +229,15 @@ class _MatchChallenge_DetailsState extends State<MatchChallenge_Details> {
       _scaffoldKey.currentState.showSnackBar(snackBar);
     }
 
+return StreamBuilder<Field>(
+      stream: FieldService(fieldid: widget.matchid.Field).fieldd,
+      builder: (context, snapshot){
+        if(snapshot.hasData){
+          Field fieldData = snapshot.data;
+          
+List<String> imageList = List<String>();
+    imageList = fieldData.images; 
+
     return  Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
@@ -257,7 +258,7 @@ class _MatchChallenge_DetailsState extends State<MatchChallenge_Details> {
                           image: AssetImage('images/5omasy.jpg'),
                           fit: BoxFit.cover,
                         ),*/GFCarousel(
-                    items: widget.imageList.map(
+                    items:imageList.map(
                           (url) {
                         return Container(
                           margin: EdgeInsets.all(8.0),
@@ -533,7 +534,7 @@ class _MatchChallenge_DetailsState extends State<MatchChallenge_Details> {
         ),
       ),
 
-    );
+    );}else{ Loading(); }});
 
     //                 FlatButton(
     //                child: Text('Book NOW'),

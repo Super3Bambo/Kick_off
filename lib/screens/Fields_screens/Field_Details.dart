@@ -1,11 +1,9 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_app/Services/Fields.dart';
 import 'package:flutter_app/Services/Payment.dart';
 import 'package:flutter_app/Services/User.dart';
-import 'package:flutter_app/Shared/Alert.dart';
 import 'package:flutter_app/Shared/Loading.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:getflutter/getflutter.dart';
@@ -15,7 +13,6 @@ import '../../Services/Match.dart';
 import '../../models/User.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
-//import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 
 

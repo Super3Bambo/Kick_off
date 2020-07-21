@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/screens/Home/myMatches.dart';
-import 'package:flutter_app/screens/Matches/Match_Details_User.dart';
+import 'package:flutter_app/screens/Matches/Matches_Overview_Progress.dart';
+import 'package:flutter_app/screens/User/Edit_User.dart';
 import './screens/warpper.dart';
 import './Services/Auth.dart';
 import './models/User.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
-//import 'package:flutter_app/screens/Matches/Match_Details_Complete.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 
@@ -21,9 +21,15 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+   final GlobalKey<NavigatorState> navigatorKey = GlobalKey(debugLabel: "Main Navigator");
   final FirebaseMessaging _fcm = FirebaseMessaging();
+  void _navigateToItemDetail(Map<String, dynamic> message) {
+ String pagechooser= message['status'];
+  Navigator.pushNamed(context, pagechooser);
+}
 
 FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin= new FlutterLocalNotificationsPlugin();
+
 
 var initilizationSettingsAndroid;
 
@@ -39,12 +45,14 @@ Future<void> _demoNotification()async{
  var androidPlateform= AndroidNotificationDetails('channel ID','channel name','chaneel Description',importance: Importance.Max,priority: Priority.High,ticker: 'text ticker');
  var iosPlateform=IOSNotificationDetails();
   var plateformChannel=NotificationDetails(androidPlateform,iosPlateform);
-  await flutterLocalNotificationsPlugin.show(0, 'A new Match', 'Come and join us!', plateformChannel,payload: 'test payload');
+  await flutterLocalNotificationsPlugin.show(0, 'A new Match', 'Come and join us!', plateformChannel, payload: 'test payload');
+  
 }
 
   @override
   void initState() {
     super.initState();
+    
     initilizationSettingsAndroid = new AndroidInitializationSettings('app_icon');
   initilizationSettings=new InitializationSettings(initilizationSettingsAndroid, initilizationSettingsIOS);
   initilizationSettingsIOS = new IOSInitializationSettings(
@@ -56,32 +64,50 @@ Future<void> _demoNotification()async{
 
     _fcm.configure(
       onMessage: (Map<String, dynamic> message) async {
-         // _showNotification();
-        //  showDialog(
-        //   context: context,
-        //   builder: (context) => AlertDialog(
-        //         content: ListTile(
-        //           title: Text(message['notification']['title']),
-        //           subtitle: Text(message['notification']['body']),
-        //         ),
-        //         actions: <Widget>[
-        //           FlatButton(
-        //             color: Colors.amber,
-        //             child: Text('Ok'),
-        //             onPressed: () => Navigator.of(context).pop(),
-        //           ),
-        //         ],
-        //       ),
-        // );
+         print("onMessage: $message");
         _showNotification();
  
-        print("onMessage: $message");
+        
+      //  // _navigateToItemDetail(message);
+      // // Navigator.of(context).pushNamed(message['screen']);
+      // var pagechooser= message['data'];
+      // var view = pagechooser['screen'];
+      // if(view!=null){
+      //   Navigator.push(context,MaterialPageRoute(builder: (context)=> Edituser()  ) );
+      // }
+            //await  Navigator.push(context,MaterialPageRoute(builder: (context)=> Matches()  ) );
+
       },
       onLaunch: (Map<String, dynamic> message) async {
-        print("onLaunch: $message");
+       // await Navigator.push(context,MaterialPageRoute(builder: (context)=> Matches()  ) );
+       print("onLaunch: $message");
+        navigatorKey.currentState.push(
+    MaterialPageRoute(builder: (_) => Edituser())
+  );
+      //  // Navigator.of(context).pushNamed(message['screen']);
+      //   var pagechooser= message['screen'];
+      //         var view = pagechooser['screen'];
+
+      // if(view!=null){
+     // await   Navigator.push(context,MaterialPageRoute(builder: (context)=> Edituser()  ) );
+      // }
+      //   //_navigateToItemDetail(message);
       },
       onResume: (Map<String, dynamic> message) async {
-        print("onResume: $message");
+             //  await Navigator.push(context,MaterialPageRoute(builder: (context)=> Matches()  ) );
+
+         print("onResume: $message");
+          navigatorKey.currentState.push(
+    MaterialPageRoute(builder: (_) => Edituser())
+  );
+      //  // Navigator.of(context).pushNamed(message['screen']);
+      //    var pagechooser= message['screen'];
+      //          var view = pagechooser['screen'];
+
+      // if(view!=null){
+      //await  Navigator.push(context,MaterialPageRoute(builder: (context)=> Edituser()  ) );
+      // }
+      //   //_navigateToItemDetail(message);
       },
     );
   }
@@ -111,7 +137,14 @@ Future onDidReceiveLocalNotification(
 
 Future onSelectNotification(String payload)async{
 if(payload!=null){
-  debugPrint('Notification Payload : $payload');
+  //debugPrint('Notification Payload : $payload');
+    debugPrint('HELLO');
+
+    //Navigator.push(context,MaterialPageRoute(builder: (context)=> Matches()  ) );
+    navigatorKey.currentState.push(
+    MaterialPageRoute(builder: (_) => Edituser())
+  );
+  
 }
 //await Navigator.push(context, new MaterialPageRoute(builder: (context) =>new Match_Details()));
 }
@@ -127,13 +160,9 @@ if(payload!=null){
     return StreamProvider<User>.value(
       value: AuthService().user,
       child: MaterialApp(
+        navigatorKey: navigatorKey,
         
         home: Wrapper(),
-        routes: {
-         //   FieldDetails.routeName: (ctx) => FieldDetails(),
-        // Match_Details.routeName:(ctx)=>Match_Details(),
-        },
-        
       ),
     );
     }
