@@ -483,7 +483,7 @@ List<String> imageList = List<String>();
                                   
                                    await MatchService().editMatch(widget.matchid.ID ,widget.matchid.Field, widget.matchid.Date.toDate() ,widget.matchid.Location, widget.matchid.Check_in,
                                        widget.matchid.Check_out , widget.matchid.Price, count , widget.matchid.Topic);
-                                   _fcm.subscribeToTopic(widget.matchid.Topic);
+                                   await _fcm.subscribeToTopic(widget.matchid.Topic);
                                    _showSnackBar3();
 
                                 }

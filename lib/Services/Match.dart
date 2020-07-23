@@ -142,6 +142,12 @@ Future <void> removeevaluted(String ID , List<User> user)async{
     
   return await matches.document(ID).updateData({'evaluted':FieldValue.arrayRemove(user.map((e) => {'UserID': e.ID}).toList())});
 }
+
+Future <void> removepending(String ID , List<User> user)async{
+    
+  return await matches.document(ID).updateData({'Pending':FieldValue.arrayRemove(user.map((e) => {'UserID': e.ID}).toList())});
+}
+
 Future <void> addevaluted(String ID , List<User> user)async{
     
   return await matches.document(ID).updateData({'evaluted':FieldValue.arrayUnion(user.map((e) => {'UserID': e.ID}).toList())});

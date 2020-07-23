@@ -530,7 +530,7 @@ List<String> imageList = List<String>();
                        widget.matchid.Check_out , widget.matchid.Price, count , widget.matchid.Topic);
                        _showSnackBar3();
                           
-                        _fcm.subscribeToTopic(widget.matchid.Topic);
+                        await _fcm.subscribeToTopic(widget.matchid.Topic);
                       }}
                       
                       

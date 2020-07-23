@@ -344,6 +344,7 @@ class _completeRegisterState extends State<completeRegister> {
                          var tok=await _fcm.getToken();
          setState(() => loading = true);
            await UserService(userid: user.ID).addUserData(data.fName, data.lName, data.age, data.position, data.photourl.toString()??uurl,data.area, data.phone ,tok ,date ,follow,rating );
+           await _fcm.subscribeToTopic('League');
            data.photourl=null;
       }
     }

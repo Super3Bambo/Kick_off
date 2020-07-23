@@ -329,10 +329,12 @@ DateTime temp =DateTime.now();
                                     var count=(matchdata.Counter+1);
                                      await MatchService().joinMatch(pay.MatchID,users );
                                      await MatchService().addevaluted(pay.MatchID, users);
+                                     
                                           await UserService().timestart(userdata.ID, starts);
                                           await UserService().timefinish(userdata.ID, finishs);
                                           await UserService().duration(userdata.ID, dur);
                                           await  PaymentService().editpay(pay.ID, pay.UserID, pay.MatchID, pay.EXPDate);
+                                          await MatchService().removepending(pay.MatchID, users);
                                           await PaymentService().editMatchpay(matchdata.ID, matchdata.Field, matchdata.Date.toDate(), matchdata.Location, matchdata.Check_in, matchdata.Check_out,
                                            matchdata.Price, count, matchdata.Topic);
 

@@ -25,7 +25,7 @@ class MembersItem extends StatelessWidget {
         margin: EdgeInsets.fromLTRB(20.0, 6.0, 20.0, 0.0),
         child: ListTile(    
            onTap: () {if(members.ID == user.ID){
-             Navigator.push(context, MaterialPageRoute(builder: (context) =>  HomePage() ),);
+             Navigator.push(context, MaterialPageRoute(builder: (context) =>  HomePage(0,null) ),);
            }else{return godetails(members);}
           
            } ,     

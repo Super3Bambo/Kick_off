@@ -1,3 +1,4 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/Services/Team.dart';
 import 'package:flutter_app/Services/User.dart';
@@ -18,6 +19,8 @@ class TeamItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+          final FirebaseMessaging _fcm = FirebaseMessaging();
+
     goback(){Navigator.pop(context);}
 
     DateFormat dateFormat = DateFormat("yyyy-MM-dd HH:00:00:000");
@@ -124,6 +127,7 @@ if(team!=null){
                                 onTap:() async{
                                   if(team.users.length!=1){
                                     if(team.Owner==user.ID){
+                                      await _fcm.unsubscribeFromTopic(team.Topic);
                                        await TeamService().disjoinTeam(team.ID, users);
                                     String teamid="";
                                        //await TeamService().editTeam(team.ID, team.Name, team.NO_team ,team.Topic, team.Photo, '', team.Private);
@@ -134,6 +138,7 @@ if(team!=null){
 
 
                                     }else{
+                                      await _fcm.unsubscribeFromTopic(team.Topic);
                                        await TeamService().disjoinTeam(team.ID, users);
                                     String teamid="";
 
@@ -145,6 +150,7 @@ if(team!=null){
                                   }
 
                                   else{
+                                    await _fcm.unsubscribeFromTopic(team.Topic);
                                     await TeamService().deleteteam(team.ID);
                                     String teamid="";
                                     await UserService(userid: user.ID).updateUserData(userData.FName, userData.LName, userData.Age, userData.Position, userData.Area, userData.Phone,

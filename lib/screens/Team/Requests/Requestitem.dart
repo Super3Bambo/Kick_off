@@ -294,23 +294,23 @@ DateTime temp =DateTime.now();
                           
                           onPressed: ()async{
 
-
+                        if(teamdata.users.length==int.tryParse(teamdata.NO_team)){
+                              setState(() {
+                                message='team reach limit';
+                              });}else{
+                            
                             if(userdata.TeamID==''){
                                await   TeamService().joinTeam(teamdata.ID, users);
                     await UserService(userid: userdata.ID).updateUserData(userdata.FName, userdata.LName, userdata.Age, userdata.Position, userdata.Area, userdata.Phone, 
                           userdata.Photo_url, teamdata.ID, userdata.Token);
                           RequestService().editrequesttojointeam(widget.req.ID, widget.req.UserID, widget.req.TeamID, widget.req.Date);
                             }
-                            else if(teamdata.users.length==int.tryParse(teamdata.NO_team)){
-                              setState(() {
-                                message='team reach limit';
-                              });
-                            }
+                            
                             else{
                               setState(() {
                                 message='Already in team now';
                               });
-                            }
+                            }}
 
                                           
                         }),

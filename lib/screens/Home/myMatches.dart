@@ -9,6 +9,8 @@ import 'package:flutter_icons/flutter_icons.dart';
 class Matches extends StatelessWidget
  
 {           
+  int matchpage;
+  Matches( this.matchpage);
 
   @override
   Widget build(BuildContext context) {
@@ -19,6 +21,7 @@ class Matches extends StatelessWidget
 
     return  Container(
             child: DefaultTabController(
+               initialIndex:matchpage ,
         length: 5,
         child: Scaffold(
            

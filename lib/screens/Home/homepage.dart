@@ -13,6 +13,9 @@ import './help.dart' as help;
 
 
 class HomePage extends StatelessWidget {
+   int selectedPage;
+  int matchpage;
+  HomePage(this.selectedPage ,@optionalTypeArgs this.matchpage);
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +28,7 @@ class HomePage extends StatelessWidget {
     accentColor: Colors.cyan,
       ),
       home: DefaultTabController(
+        initialIndex:selectedPage ,
         length: 5,
         child: Scaffold(
           
@@ -56,7 +60,7 @@ class HomePage extends StatelessWidget {
               children: <Widget>[
                 new profile.Profile(),
                 new lobby.Lobby(),
-                new match.Matches(),
+                new match.Matches(matchpage??0),
                 new team.Teams(),
                 new inviteOverview(),
               ]

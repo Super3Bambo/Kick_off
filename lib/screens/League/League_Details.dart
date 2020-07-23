@@ -283,7 +283,7 @@ _showSnackBar() {
                             }
                             else{
                            await LeagueService().joinLeague(widget.league.ID, tmid);
-                           _fcm.subscribeToTopic(widget.league.Topic);
+                         await  _fcm.subscribeToTopic(widget.league.Topic);
                            //await TeamService().joinLeague(widget.teamid.ID, lgid);
                            for(var i=0;i<(7-widget.league.teams.length);i++){
                              DateTime starttime = dateFormat.parse(widget.league.Start_Date);

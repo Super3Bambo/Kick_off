@@ -610,7 +610,7 @@ class _FieldDetailsTeamState extends State<FieldDetailsTeam> {
                                                  var startime=dateFormat.format(start);
                                                  var finishtime= dateFormat.format(finish);
                                                  var topic=  randomString(9, includeSymbols: false , includeNumbers: false , includeLowercase: false );
-                                                 _fcm.subscribeToTopic(topic);
+                                                await _fcm.subscribeToTopic(topic);
                                                  await MatchService().addChallenge(
                                                      widget.fieldid.ID,
                                                      widget.fieldid.Location,

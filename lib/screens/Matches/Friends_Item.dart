@@ -35,6 +35,8 @@ String message;
 
   @override
   Widget build(BuildContext context) {
+    List<String> tempmember=[];
+
     DateFormat dateFormat = DateFormat("yyyy-MM-dd HH:mm:00:000");
 DateTime temp =DateTime.now().add(Duration(hours: 4));
 
@@ -92,10 +94,15 @@ DateTime temp =DateTime.now().add(Duration(hours: 4));
                             message=widget.friends.FName+' '+'in match already';
 
                           });                          
+                        }else if(tempmember.contains(widget.friends.ID)){
+                           setState(() {
+                            message='You Sent invite already';
+                          });               
                         }
                         else{
                           var date =dateFormat.format(temp);
                           InviteService().sendinvitematch(user.ID, widget.friends.ID, widget.match.ID, date);
+                          tempmember.add(widget.friends.ID);
                         }
                       }
                       

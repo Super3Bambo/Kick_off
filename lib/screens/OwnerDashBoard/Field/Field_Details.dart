@@ -633,7 +633,7 @@ DateFormat timeFormat = DateFormat("HH:00:00:000");
                                      var s=dateFormat.format(start);
                                      var f= dateFormat.format(finish);
                                      var topic=  randomString(9, includeSymbols: false , includeNumbers: false , includeLowercase: false );
-                                      _fcm.subscribeToTopic(topic);
+                                     await _fcm.subscribeToTopic(topic);
                                       await MatchService().addMatchadmin(
                                         widget.fieldid.ID,
                                         widget.fieldid.Location,

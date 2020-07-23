@@ -1,3 +1,4 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/Services/Request_team.dart';
 import 'package:flutter_app/Services/Team.dart';
@@ -20,6 +21,8 @@ class AllTeamsItem extends StatelessWidget {
   
   @override
   Widget build(BuildContext context) {
+      final FirebaseMessaging _fcm = FirebaseMessaging();
+
 User user = Provider.of<User>(context);
     List <User> users=[
     User(ID: user.ID,),
@@ -97,6 +100,7 @@ return StreamBuilder<User>(
                     onPressed: () async {
                       if(teams.Private==false){
                    await   TeamService().joinTeam(teams.ID, users);
+                   await _fcm.subscribeToTopic(teams.Topic);
                     await UserService(userid: user.ID).updateUserData(userData.FName, userData.LName, userData.Age, userData.Position, userData.Area, userData.Phone, 
                           userData.Photo_url, teams.ID, userData.Token);}
                           else{

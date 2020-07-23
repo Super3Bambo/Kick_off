@@ -32,7 +32,7 @@ class Choise extends StatelessWidget {
         if(snapshot.hasData){
           User userData = snapshot.data;
           if(userData.Role=='User'){
-            return HomePage();
+            return HomePage(0,null);
           }
           else if(userData.Role=='Owner'){
             return Dashboard();

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/screens/Home/homepage.dart';
 import 'package:flutter_app/screens/Home/myMatches.dart';
 import 'package:flutter_app/screens/Matches/Matches_Overview_Progress.dart';
 import 'package:flutter_app/screens/User/Edit_User.dart';
+import 'package:flutter_app/screens/User/FollowersOverView.dart';
 import './screens/warpper.dart';
 import './Services/Auth.dart';
 import './models/User.dart';
@@ -35,17 +37,25 @@ var initilizationSettingsAndroid;
 
 var initilizationSettings;
 
-var initilizationSettingsIOS;
+var initilizationSettingsIOS; 
 
-void _showNotification()async{
-await _demoNotification();
+void _showNotification(Map<String, dynamic> message)async{
+await _demoNotification(message);
+var tt=message['notification']['title'];
+print("$tt");
+print("$message");
+               String topic= message['data']['value2'];
+
+ if(topic!=null||topic.isNotEmpty){
+     await _fcm.subscribeToTopic(topic);
+    }
 }
 
-Future<void> _demoNotification()async{
+Future<void> _demoNotification(Map<String, dynamic> message)async{
  var androidPlateform= AndroidNotificationDetails('channel ID','channel name','chaneel Description',importance: Importance.Max,priority: Priority.High,ticker: 'text ticker');
  var iosPlateform=IOSNotificationDetails();
   var plateformChannel=NotificationDetails(androidPlateform,iosPlateform);
-  await flutterLocalNotificationsPlugin.show(0, 'A new Match', 'Come and join us!', plateformChannel, payload: 'test payload');
+  await flutterLocalNotificationsPlugin.show(0, message['notification']['title'], message['notification']['body'], plateformChannel, payload: message['data']['value']);
   
 }
 
@@ -64,50 +74,104 @@ Future<void> _demoNotification()async{
 
     _fcm.configure(
       onMessage: (Map<String, dynamic> message) async {
-         print("onMessage: $message");
-        _showNotification();
- 
-        
-      //  // _navigateToItemDetail(message);
-      // // Navigator.of(context).pushNamed(message['screen']);
-      // var pagechooser= message['data'];
-      // var view = pagechooser['screen'];
-      // if(view!=null){
-      //   Navigator.push(context,MaterialPageRoute(builder: (context)=> Edituser()  ) );
-      // }
-            //await  Navigator.push(context,MaterialPageRoute(builder: (context)=> Matches()  ) );
+         //print("onMessage: $message");
+        _showNotification(message);
+               String topic= message['data']['value2'];
+                if(topic!=null||topic.isNotEmpty){
+     await _fcm.subscribeToTopic(topic);
+    }
 
+ 
+   
       },
       onLaunch: (Map<String, dynamic> message) async {
-       // await Navigator.push(context,MaterialPageRoute(builder: (context)=> Matches()  ) );
        print("onLaunch: $message");
-        navigatorKey.currentState.push(
-    MaterialPageRoute(builder: (_) => Edituser())
-  );
-      //  // Navigator.of(context).pushNamed(message['screen']);
-      //   var pagechooser= message['screen'];
-      //         var view = pagechooser['screen'];
+       String pagechooser= message['data']['value'];
+       String topic= message['data']['value2'];
+       if(pagechooser=='usermatch'){
+         navigatorKey.currentState.push(
+    MaterialPageRoute(builder: (_) => HomePage(2,1)));
+    if(topic!=null||topic.isNotEmpty){
+     await _fcm.subscribeToTopic(topic);
+    }
+       
+       }
+       else if(pagechooser=='League'||pagechooser=='team'){
 
-      // if(view!=null){
-     // await   Navigator.push(context,MaterialPageRoute(builder: (context)=> Edituser()  ) );
-      // }
-      //   //_navigateToItemDetail(message);
+          navigatorKey.currentState.push(
+    MaterialPageRoute(builder: (_) => HomePage(3,null)));
+    if(topic!=null||topic.isNotEmpty){
+     await _fcm.subscribeToTopic(topic);
+    }
+       }
+
+       else if(pagechooser=='followers'){
+     navigatorKey.currentState.push(
+    MaterialPageRoute(builder: (_) =>FollowersOverview()));
+    if(topic!=null||topic.isNotEmpty){
+     await _fcm.subscribeToTopic(topic);
+    }
+         
+       }
+
+       else if(pagechooser=='invite'){
+          navigatorKey.currentState.push(
+    MaterialPageRoute(builder: (_) =>HomePage(4,null)));
+    if(topic!=null||topic.isNotEmpty){
+     await _fcm.subscribeToTopic(topic);
+    }
+
+       }
+       
+       
+       
+       else{}
       },
       onResume: (Map<String, dynamic> message) async {
              //  await Navigator.push(context,MaterialPageRoute(builder: (context)=> Matches()  ) );
 
          print("onResume: $message");
-          navigatorKey.currentState.push(
-    MaterialPageRoute(builder: (_) => Edituser())
-  );
-      //  // Navigator.of(context).pushNamed(message['screen']);
-      //    var pagechooser= message['screen'];
-      //          var view = pagechooser['screen'];
+                 String pagechooser= message['data']['value'];
+       String topic= message['data']['value2'];
+       if(pagechooser=='usermatch'){
+         navigatorKey.currentState.push(
+    MaterialPageRoute(builder: (_) => HomePage(2,1)));
+    if(topic!=null||topic.isNotEmpty){
+     await _fcm.subscribeToTopic(topic);
+    }
+       
+       }
+       else if(pagechooser=='League'||pagechooser=='team'){
 
-      // if(view!=null){
-      //await  Navigator.push(context,MaterialPageRoute(builder: (context)=> Edituser()  ) );
-      // }
-      //   //_navigateToItemDetail(message);
+          navigatorKey.currentState.push(
+    MaterialPageRoute(builder: (_) => HomePage(3,null)));
+    if(topic!=null||topic.isNotEmpty){
+     await _fcm.subscribeToTopic(topic);
+    }
+       }
+
+       else if(pagechooser=='followers'){
+     navigatorKey.currentState.push(
+    MaterialPageRoute(builder: (_) =>FollowersOverview()));
+    if(topic!=null||topic.isNotEmpty){
+     await _fcm.subscribeToTopic(topic);
+    }
+         
+       }
+
+       else if(pagechooser=='invite'){
+          navigatorKey.currentState.push(
+    MaterialPageRoute(builder: (_) =>HomePage(4,null)));
+    if(topic!=null||topic.isNotEmpty){
+     await _fcm.subscribeToTopic(topic);
+    }
+
+       }
+       
+       
+       
+       else{}
+      
       },
     );
   }
@@ -138,12 +202,47 @@ Future onDidReceiveLocalNotification(
 Future onSelectNotification(String payload)async{
 if(payload!=null){
   //debugPrint('Notification Payload : $payload');
-    debugPrint('HELLO');
+    debugPrint(payload);
 
     //Navigator.push(context,MaterialPageRoute(builder: (context)=> Matches()  ) );
-    navigatorKey.currentState.push(
-    MaterialPageRoute(builder: (_) => Edituser())
-  );
+  //   navigatorKey.currentState.push(
+  //   MaterialPageRoute(builder: (_) => Edituser())
+  // );
+   String pagechooser= payload;
+
+  //         navigatorKey.currentState.push(
+  //   MaterialPageRoute(builder: (_) => Edituser())
+  // );
+       if(pagechooser=='usermatch'){
+         navigatorKey.currentState.push(
+    MaterialPageRoute(builder: (_) => HomePage(2,1)));
+   
+       
+       }
+       else if(pagechooser=='League'||pagechooser=='team'){
+
+          navigatorKey.currentState.push(
+    MaterialPageRoute(builder: (_) => HomePage(3,null)));
+    
+       }
+
+       else if(pagechooser=='followers'){
+     navigatorKey.currentState.push(
+    MaterialPageRoute(builder: (_) =>FollowersOverview()));
+   
+         
+       }
+
+       else if(pagechooser=='invite'){
+          navigatorKey.currentState.push(
+    MaterialPageRoute(builder: (_) =>HomePage(4,null)));
+    
+
+       }
+       
+       
+       
+       else{}
   
 }
 //await Navigator.push(context, new MaterialPageRoute(builder: (context) =>new Match_Details()));

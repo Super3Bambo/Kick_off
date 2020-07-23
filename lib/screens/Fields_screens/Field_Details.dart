@@ -609,7 +609,7 @@ DateFormat timeFormat = DateFormat("HH:00:00:000");
                                          // Subscribe the user to a topic
                                      var topic=  randomString(9, includeSymbols: false , includeNumbers: false , includeLowercase: false );
                                       var id=  randomString(20, includeSymbols: false , includeNumbers: false , includeLowercase: false );
-                                      _fcm.subscribeToTopic(topic);
+                                     await _fcm.subscribeToTopic(topic);
                                       await MatchService().addMatch(
                                         id,
                                         widget.fieldid.ID,
