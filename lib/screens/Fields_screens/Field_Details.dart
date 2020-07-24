@@ -78,7 +78,7 @@ List<String> durationfield = List<String>();
 
 _showSnackBar() {
     final snackBar = new SnackBar(
-        content: new Text("you out of match Done"),
+        content: new Text("Booking the match done!"),
         duration: new Duration(seconds: 5),
         //backgroundColor: Colors.pink[300],
         action: new SnackBarAction(label: 'Back',

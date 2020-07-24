@@ -203,7 +203,7 @@ User user = Provider.of<User>(context);
   }
   _showSnackBar5() {
     final snackBar = new SnackBar(
-        content: new Text("you need to pay"),
+        content: new Text("You need to pay"),
         duration: new Duration(seconds: 3),
         //backgroundColor: Colors.pink[300],
         action: new SnackBarAction(label: 'Back', onPressed: (){
@@ -216,7 +216,7 @@ User user = Provider.of<User>(context);
 
    _showSnackBar2() {
     final snackBar = new SnackBar(
-        content: new Text("Match Complete"),
+        content: new Text("The match is Complete"),
         duration: new Duration(seconds: 3),
         //backgroundColor: Colors.pink[300],
         action: new SnackBarAction(label: 'Back', onPressed: (){
@@ -229,7 +229,7 @@ User user = Provider.of<User>(context);
 
    _showSnackBar3() {
     final snackBar = new SnackBar(
-        content: new Text("Join to match Done"),
+        content: new Text("You joined the match successfully!"),
         duration: new Duration(seconds: 3),
         //backgroundColor: Colors.pink[300],
         action: new SnackBarAction(label: 'Back', onPressed: (){
