@@ -46,7 +46,7 @@ print("$tt");
 print("$message");
                String topic= message['data']['value2'];
 
- if(topic!=null||topic.isNotEmpty){
+ if(topic!=null){
      await _fcm.subscribeToTopic(topic);
     }
 }

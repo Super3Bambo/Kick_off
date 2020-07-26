@@ -127,7 +127,6 @@ if(team!=null){
                                 onTap:() async{
                                   if(team.users.length!=1){
                                     if(team.Owner==user.ID){
-                                      await _fcm.unsubscribeFromTopic(team.Topic);
                                        await TeamService().disjoinTeam(team.ID, users);
                                     String teamid="";
                                        //await TeamService().editTeam(team.ID, team.Name, team.NO_team ,team.Topic, team.Photo, '', team.Private);
@@ -135,26 +134,28 @@ if(team!=null){
 
                                     await UserService(userid: user.ID).updateUserData(userData.FName, userData.LName, userData.Age, userData.Position, userData.Area, userData.Phone,
                                         userData.Photo_url, teamid, userData.Token);
+                                          await _fcm.unsubscribeFromTopic(team.Topic);
 
 
                                     }else{
-                                      await _fcm.unsubscribeFromTopic(team.Topic);
                                        await TeamService().disjoinTeam(team.ID, users);
                                     String teamid="";
 
                                     await UserService(userid: user.ID).updateUserData(userData.FName, userData.LName, userData.Age, userData.Position, userData.Area, userData.Phone,
                                         userData.Photo_url, teamid, userData.Token);
+                                      await _fcm.unsubscribeFromTopic(team.Topic);
+
                                     }
 
                                    
                                   }
 
                                   else{
-                                    await _fcm.unsubscribeFromTopic(team.Topic);
                                     await TeamService().deleteteam(team.ID);
                                     String teamid="";
                                     await UserService(userid: user.ID).updateUserData(userData.FName, userData.LName, userData.Age, userData.Position, userData.Area, userData.Phone,
                                         userData.Photo_url, teamid, userData.Token);
+                                    await _fcm.unsubscribeFromTopic(team.Topic);
 
                                   } Navigator.pop(context);
                                 },

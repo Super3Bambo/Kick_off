@@ -31,6 +31,44 @@ class UserService {
     });
   }
 
+  Future<void> updateownerData(String fName, String lName, String age,String position ,String area,String phone, String imageurl,String teamid, String token , ) async {
+        
+    return await users.document(userid).updateData({
+      'ID':userid,
+      'FName': fName,
+      'LName': lName,
+      'Age': age,
+      'Position': position ,
+      'Role':"Owner",
+      'Area': area,
+      'Phone': phone,
+      'Photo_Url' : imageurl,
+      'TeamID':teamid,
+      'Token':token,
+    });
+  }
+  // Future<void> updateUserDataforrate(String fName, String lName, String age,String position ,String area,String phone, String imageurl,String teamid, String token ,List<UserRating> rating ) async {
+        
+  //   return await users.document(userid).updateData({
+  //     'ID':userid,
+  //     'FName': fName,
+  //     'LName': lName,
+  //     'Age': age,
+  //     'Position': position ,
+  //     'Role':"User",
+  //     'Area': area,
+  //     'Phone': phone,
+  //     'Photo_Url' : imageurl,
+  //     'TeamID':teamid,
+  //     'Token':token,
+  //     'Rating': rating.map((r)=>{
+  //       'Skills':r.Skills,
+  //       'Morality':r.Morality,
+  //       'Pos':r.Position_Skills
+  //     }).toList(),
+  //   });
+  // }
+
   Future<void> addUserData(String fName, String lName, String age,String position, String photo ,String area,String phone, String token , List<Field> date  ,List<User> follow,List<UserRating> rating) async {
     return await users.document(userid).setData({
       'ID':userid,

@@ -218,7 +218,7 @@ class _FieldDetailsTeamState extends State<FieldDetailsTeam> {
             return  Scaffold (
                 key: _scaffoldKey,
                 appBar: AppBar(
-                  title: Text(startusers.last),
+                  title: Text(widget.fieldid.Name),
                 ),
 
                 body: Container(

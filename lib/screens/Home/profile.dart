@@ -156,7 +156,7 @@ return StreamBuilder<User>(
                     style: TextStyle(color: Colors.black,fontSize: 15, fontWeight: FontWeight.bold),
                   ),
                   onPressed: ()  {
-                    Navigator.push(context,MaterialPageRoute(builder: (context)=> FollowersOverview(userid: userData,)  ) );
+                    Navigator.push(context,MaterialPageRoute(builder: (context)=> FollowersOverview(userids: userData,)  ) );
                       }
                 ),
                RaisedButton(

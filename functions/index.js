@@ -12,7 +12,7 @@ async (snapshot,context)=>
 {
     const  match =  snapshot.after.data();
     const  matchold =  snapshot.before.data();
-    if(match.Counter>matchold.Counter){
+    if(match.Counter==10){
 
         var payload = {notification: {title: 'Match Complete!', body: 'Match now is full , Prepare Your Bag.'}, data: {value: 'usermatch' , click_action: 'FLUTTER_NOTIFICATION_CLICK',  }}
 
@@ -142,7 +142,7 @@ async (snapshot,context)=>
     const querySnapshotmatch = await db
     .collection('Match').doc(match).get();
     const snapmatch =querySnapshotmatch.data();
-    var topic=snapmatch.topic;
+    var topic=snapmatch.Topic;
 
    // const olduser=snapshot.data();
     const querySnapshot = await db
@@ -173,7 +173,7 @@ async (snapshot,context)=>
     const querySnapshotteam = await db
     .collection('Team').doc(team).get();
     const snapteam =querySnapshotteam.data();
-    var topic=snapteam.topic;
+    var topic=snapteam.Topic;
 
    // const olduser=snapshot.data();
     const querySnapshot = await db

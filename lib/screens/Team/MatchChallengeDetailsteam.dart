@@ -103,7 +103,7 @@ List<String> imageList = List<String>();
     return  Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
-        title: Text(widget.matchid.Counter.toString()),
+        title: Text('Match'),
       ),
 
 

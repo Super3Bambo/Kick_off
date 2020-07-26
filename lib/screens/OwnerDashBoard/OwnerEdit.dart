@@ -10,14 +10,14 @@ import 'package:image_picker/image_picker.dart';
 
 
 
-class Edituser extends StatefulWidget {
+class Editowner extends StatefulWidget {
            static const routeName = '/rrr';
 
   @override
-  _EdituserState createState() => _EdituserState();
+  _EditownerState createState() => _EditownerState();
 }
 
-class _EdituserState extends State<Edituser> {
+class _EditownerState extends State<Editowner> {
 
   final _formKey = GlobalKey<FormState>();
 
@@ -119,41 +119,41 @@ bool loading = false;
 
                          SizedBox(height: 20.0,),
 
-Container(
-            margin: EdgeInsets.only(top:5),
-            child: DropdownButtonFormField(
+// Container(
+//             margin: EdgeInsets.only(top:5),
+//             child: DropdownButtonFormField(
               
-               validator: (value) {
-                if (value.isEmpty|| value=='Select Your Position' ) {
-                  return 'Please enter your Position';
-                }
-              },
-             //  icon: ,
+//                validator: (value) {
+//                 if (value.isEmpty|| value=='Select Your Position' ) {
+//                   return 'Please enter your Position';
+//                 }
+//               },
+//              //  icon: ,
              
-              value: userData.Position?? 'Select Your Position',
-              decoration: InputDecoration(
-  fillColor: Colors.white,
-  filled: true,
-  contentPadding: EdgeInsets.all(10.0),
-  enabledBorder: OutlineInputBorder(
-    borderRadius: BorderRadius.circular(30),
-    borderSide: BorderSide(color: Colors.black, width: 0.7),
-  ),
-  focusedBorder: OutlineInputBorder(
-    borderSide: BorderSide(color: Colors.pink, width: 2.0),
-  ),
-),
-         //   icon: Icon(Icons.track_changes),
+//               value: userData.Position?? 'Select Your Position',
+//               decoration: InputDecoration(
+//   fillColor: Colors.white,
+//   filled: true,
+//   contentPadding: EdgeInsets.all(10.0),
+//   enabledBorder: OutlineInputBorder(
+//     borderRadius: BorderRadius.circular(30),
+//     borderSide: BorderSide(color: Colors.black, width: 0.7),
+//   ),
+//   focusedBorder: OutlineInputBorder(
+//     borderSide: BorderSide(color: Colors.pink, width: 2.0),
+//   ),
+// ),
+//          //   icon: Icon(Icons.track_changes),
          
-              items: positions.map((pos) {
-                return DropdownMenuItem(
-                  value: pos,
-                  child: Text('$pos'),
-                );
-              }).toList(), onChanged: (val) => setState(() => position = val ),
+//               items: positions.map((pos) {
+//                 return DropdownMenuItem(
+//                   value: pos,
+//                   child: Text('$pos'),
+//                 );
+//               }).toList(), onChanged: (val) => setState(() => position = val ),
               
-              ),
-          ),
+//               ),
+//           ),
 
 
                         SizedBox(height: 20.0,),
@@ -249,11 +249,11 @@ Container(
                              // var uploadTask = firebaseStorageRef.putFile(_image);
                             //  photo = await (await uploadTask.onComplete ).ref.getDownloadURL();
                                 setState(() => loading = true);
-                                await UserService(userid: user.ID).updateUserData(
+                                await UserService(userid: user.ID).updateownerData(
                                     fName ?? userData.FName,
                                     lName ?? userData.LName,
                                     age ?? userData.Age,
-                                    position ?? userData.Position,
+                                     userData.Position,
                                     area ?? userData.Area,
                                     phone ?? userData.Phone,
                                       userData.Photo_url,

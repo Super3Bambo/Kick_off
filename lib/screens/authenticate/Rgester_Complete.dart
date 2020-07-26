@@ -103,6 +103,10 @@ class _completeRegisterState extends State<completeRegister> {
               if (value.isEmpty ) {
                 return 'Please enter Frist Name';
               }
+              else if(!RegExp(r'^[a-zA-Z]+$').hasMatch(value)){
+                return 'Please enter Frist Name';
+              }
+              
             },
             decoration: new InputDecoration(
                 labelText: 'Enter your Frist Name',
@@ -121,6 +125,9 @@ class _completeRegisterState extends State<completeRegister> {
             maxLines: 1,
             validator: (value) {
               if (value.isEmpty ) {
+                return 'Please enter Last Name';
+              }
+              else if(!RegExp(r'^[a-zA-Z]').hasMatch(value)){
                 return 'Please enter Last Name';
               }
             },
@@ -142,6 +149,8 @@ class _completeRegisterState extends State<completeRegister> {
             validator: (value) {
               if (value.isEmpty ) {
                 return 'Please enter Age';
+              }else if(!RegExp(r'^[0-9]').hasMatch(value) ||value.length>2){
+                return 'Please enter valid Age';
               }
             },
             decoration: new InputDecoration(
@@ -162,6 +171,9 @@ class _completeRegisterState extends State<completeRegister> {
             validator: (value) {
               if (value.isEmpty ) {
                 return 'Please enter Phone Number';
+              }
+              else if(!RegExp(r'^(?:[+0]9)?[0-9]').hasMatch(value) || value.length>11){
+                return 'Please enter valid Phone Number';
               }
             },
             decoration: new InputDecoration(
@@ -356,7 +368,7 @@ class _completeRegisterState extends State<completeRegister> {
         home: new Scaffold(
           key: _scaffoldKey,
           appBar: new AppBar(
-            title: new Text('Complete Date'),
+            title: new Text('Complete Your Date'),
           ),
           body:new Container(
                child: Center(

@@ -1,3 +1,5 @@
+import 'package:flutter_app/Shared/Loading.dart';
+import 'package:flutter_app/Shared/Loading.dart';
 import '../../models/Matches.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -8,13 +10,24 @@ import 'Tempfollow.dart';
 
 class FollowersOverview extends StatelessWidget {
 
-  final User userid ;
-  FollowersOverview({this.userid});
+   final User userids ;
+   FollowersOverview({this.userids});
   
 
   @override
   Widget build(BuildContext context) {
-    if(userid.followingusers.map((f)=>f.ID).toList().isEmpty){
+ User user = Provider.of<User>(context);
+if(user.ID==null){
+      return Loading();
+    }
+    else{
+
+    return StreamBuilder<User>(
+      stream: UserService(userid: user.ID).userData,
+      builder: (context, snapshot){
+        if(snapshot.hasData){
+          User userid = snapshot.data;
+    if(userid.followerusers.isEmpty){
       var title ='Followers';
       return Tempfollow(title:title);
     }else{
@@ -39,5 +52,6 @@ class FollowersOverview extends StatelessWidget {
       ),
     );
   }
+        }else{return Loading();}});}
   }
 }

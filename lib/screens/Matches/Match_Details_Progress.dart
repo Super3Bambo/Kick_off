@@ -40,6 +40,7 @@ DateTime temp =DateTime.now().add(Duration(hours: 4));
 
   @override
   Widget build(BuildContext context) {
+    List<String> tempmember=[];
  DateFormat dateFormat = DateFormat("yyyy-MM-dd HH:00:00:000");
     gomember(Match id) { Navigator.push(context,MaterialPageRoute(builder: (context)=> MatchesMemberOverview(matchid: widget.matchid)  ) );}
 
@@ -50,7 +51,7 @@ User user = Provider.of<User>(context);
   List<String> myList = List<String>();
     myList = widget.matchid.users.map((f)=>f.ID).toList();
     List<String> pendList = List<String>();
-    pendList = widget.matchid.useres.map((f)=>f.ID).toList();
+    widget.matchid.useres==null? pendList=null:pendList = widget.matchid.useres.map((f)=>f.ID).toList();
   String matchId = widget.matchid.ID;  
 
  penAlertBox_onebutton(   String title , String content ) {
@@ -257,7 +258,7 @@ List<String> imageList = List<String>();
    
    key: _scaffoldKey,
       appBar: AppBar(
-        title: Text(widget.matchid.Counter.toString()),
+        title: Text('Match'),
       ),
 
 
@@ -467,13 +468,14 @@ List<String> imageList = List<String>();
                 
 
                     }
-                    if(pendList.contains(user.ID)){
+                    else if(pendList!=null){
+                   if(pendList.contains(user.ID)){
                 
                 _showSnackBar5();
 
                 
 
-                    }
+                    }}
                     
                   else if (widget.matchid.Counter==10) {
                      _showSnackBar2();
@@ -516,6 +518,9 @@ List<String> imageList = List<String>();
                                     //    Alert(context:  _scaffoldKey.currentContext, title: "Error",desc: 'bb' ).show();
                                     //
                                         penAlertBox_onebutton2(   'Error' , 'You have a match in the same time');
+                                      }
+                                      else if(tempmember.contains(user.ID)){
+                                        penAlertBox_onebutton2(   'Alert' , 'You Should pay to join match check Notification');
                                       }
                                   else{
                                     var date =dateFormat14.format(temp);

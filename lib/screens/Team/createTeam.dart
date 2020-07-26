@@ -19,6 +19,33 @@ class CreateTeam extends StatefulWidget {
 
 class _CreateTeamState extends State<CreateTeam> {
 
+ bool switchControl = false;
+  var textHolder = 'Switch is OFF';
+
+  void toggleSwitch(bool value) {
+
+      if(switchControl == false)
+      {
+        setState(() {
+          switchControl = true;
+          textHolder = 'Team Is Private ';
+        });
+        print(switchControl);
+        // Put your code here which you want to execute on Switch ON event.
+
+      }
+      else
+      {
+        setState(() {
+          switchControl = false;
+           textHolder = 'Team Is Public';
+        });
+        print(switchControl);
+        // Put your code here which you want to execute on Switch OFF event.
+      }
+  }
+
+
   final _formKey = GlobalKey<FormState>();
 
   String nO_Team ;
@@ -116,7 +143,28 @@ return StreamBuilder<User>(
                     onChanged: (val) {
                       setState(() => nO_Team = val); }
                     ),
-  
+
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Text('Statue:        ',style: TextStyle(color:Colors.blue[900] ,fontSize: 20)),
+                        Transform.scale( 
+                          scale: 1.5,
+                          child: Switch(
+                          onChanged: toggleSwitch,
+                          value: switchControl,
+                          activeColor: Colors.blue,
+                          activeTrackColor: Colors.green,
+                          inactiveThumbColor: Colors.white,
+                          inactiveTrackColor: Colors.grey,
+                        )
+                  ),
+                      ],
+                    ), 
+                    Text(textHolder , style: TextStyle(color:Colors.redAccent[700] ,fontSize: 17),),
+          
   
                      SizedBox(height: 15.0),
                  RaisedButton(
@@ -149,7 +197,7 @@ return StreamBuilder<User>(
                           var id=randomString(20 , includeSymbols: false,  useCharOnce:false );
                           var topic=randomString(6,includeSymbols: false,useCharOnce: false);
                            await _fcm.subscribeToTopic(topic); 
-                          await TeamService().createTeam(id ,name, nO_Team, users ,topic, date , urlphoto!=null?urlphoto:uurl , user.ID , private);
+                          await TeamService().createTeam(id ,name, nO_Team, users ,topic, date , urlphoto!=null?urlphoto:uurl , user.ID , switchControl);
                           await UserService(userid: user.ID).updateUserData(userData.FName, userData.LName, userData.Age, userData.Position, userData.Area, userData.Phone, 
                           userData.Photo_url, id, userData.Token);
                       // Navigator.push(context,MaterialPageRoute(builder: (context)=> Teams_OverView()  ) );

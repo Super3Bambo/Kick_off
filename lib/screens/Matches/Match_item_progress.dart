@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/Services/Fields.dart';
+import 'package:flutter_app/Shared/Loading.dart';
+import 'package:flutter_app/models/field.dart';
 import 'package:flutter_app/screens/Matches/Match_Details_Progress.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
@@ -24,6 +27,12 @@ Navigator.push(context,MaterialPageRoute(builder: (context)=> Match_DetailsProgr
 DateTime c = dateFormat.parse(match.Check_in);
 var now= DateTime.now();
 var diff= c.difference(now).inHours.toString();
+
+return StreamBuilder<Field>(
+      stream: FieldService(fieldid: match.Field).fieldd,
+      builder: (context, snapshot){
+        if(snapshot.hasData){
+          Field fieldData = snapshot.data;
 return Container(
   padding: EdgeInsets.only(top:10),
   margin: EdgeInsets.only(bottom: 5),
@@ -48,7 +57,7 @@ return Container(
          onTap: () => godetails(match),
        
        
-       child: Image.asset('images/5omasy.jpg', height: 200, width: 420, fit: BoxFit.cover, ),),
+       child: Image.network(fieldData.images[0], height: 200, width: 420, fit: BoxFit.fill ),),
        ), 
        InkWell(
          onTap: () => godetails(match),
@@ -118,7 +127,7 @@ return Container(
      ],)
      
   )),
-);
+);}else{return Loading();}});
   }
 }
 /*return Padding(

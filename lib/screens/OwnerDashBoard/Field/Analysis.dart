@@ -295,7 +295,7 @@ class _AnalysisFieldState extends State<AnalysisField> {
     return Scaffold(
       appBar: AppBar(
        // leading: IconButton(icon: Icon(Icons.menu), onPressed: () {}),
-        title: Text('d'),
+        title: Text(widget.field.Name+' '+'Analysis'),
         actions: <Widget>[
          // IconButton(icon: Icon(FontAwesomeIcons.chartLine), onPressed: () {}),
         ],
@@ -312,8 +312,8 @@ class _AnalysisFieldState extends State<AnalysisField> {
             child: mychart2Items(widget.field.Price.toString(),widget.field.Name,widget.field.Location),
           ),
           Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: myCircularItems("Avg Played Hours ",(((widget.field.start_time.length+widget.field.duration.length)/24)*100).toStringAsFixed(2) + ' '+'%'),
+            padding: const EdgeInsets.fromLTRB(6.0,3.0,3.0,3.0),
+            child: myCircularItems("Avg Played Hours",(((widget.field.start_time.length+widget.field.duration.length)/24)*100).toStringAsFixed(2) + ' '+'%'),
           ),
           Padding(
             padding: const EdgeInsets.only(right:8.0),

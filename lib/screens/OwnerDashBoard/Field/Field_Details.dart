@@ -222,7 +222,7 @@ DateFormat timeFormat = DateFormat("HH:00:00:000");
           return  Scaffold (
              key: _scaffoldKey,
           appBar: AppBar(
-            title: Text(durationfield.first),
+            title: Text(widget.fieldid.Name),
           ),
           
           body: Container(

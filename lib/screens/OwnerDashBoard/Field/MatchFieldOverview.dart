@@ -23,7 +23,7 @@ MatchFieldOverview({this.field});
     return StreamProvider<List<Match>>.value(
       value: MatchService(fieldid: field).matchowner,
         child: Scaffold(
-          appBar: AppBar(title:Text('ds')),
+          appBar: AppBar(title:Text('Matches')),
                   body: Container(
           /*  decoration: BoxDecoration(
               image: DecorationImage(

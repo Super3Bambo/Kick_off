@@ -52,7 +52,7 @@ if(invite.Type.length==4){
         if(snapshot.hasData){
           User recieverdata = snapshot.data;
         return StreamBuilder<Team>(
-      stream: TeamService(userid:invite.MatchID).teamone,
+      stream: TeamService(teamids:invite.MatchID).teamone,
       builder: (context, snapshot){
         if(snapshot.hasData){
           Team teamdata = snapshot.data;
@@ -98,7 +98,7 @@ if(invite.Type.length==4){
   
                             child: Container(
                  // color :Color.fromRGBO(207, 243, 246, 100) ,
-                   padding: EdgeInsets.fromLTRB(30.0, 0.0, 30.0,0.0),
+                   padding: EdgeInsets.fromLTRB(10.0, 0.0, 30.0,0.0),
                        //  margin: EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 0.0),
   
   
@@ -235,7 +235,7 @@ var diff= c.difference(now).inHours.toString();
   
                             child: Container(
                  // color :Color.fromRGBO(207, 243, 246, 100) ,
-                   padding: EdgeInsets.fromLTRB(30.0, 0.0, 30.0,0.0),
+                   padding: EdgeInsets.fromLTRB(10.0, 0.0, 30.0,0.0),
                        //  margin: EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 0.0),
   
   

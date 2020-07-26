@@ -40,7 +40,9 @@ class HomePage extends StatelessWidget {
           FlatButton.icon(
             icon: Icon(FontAwesome.sign_out),
             label: Text('Logout' , style: TextStyle(color:Colors.white),),
-            onPressed: () async{ await _auth.signOut();godetails();},)],
+            onPressed: () async{ await _auth.signOut();
+            
+            Future.delayed(Duration.zero, godetails());},)],
 
             bottom: TabBar(
               

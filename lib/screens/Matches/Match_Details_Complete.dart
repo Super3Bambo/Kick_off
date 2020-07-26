@@ -39,7 +39,7 @@ List<String> imageList = List<String>();
 
  return Scaffold(
       appBar: AppBar(
-        title: Text(widget.matchid.ID),
+        title: Text('Match Completed'),
       ),
 
 

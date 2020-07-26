@@ -23,6 +23,21 @@ class _TeamIteminviteState extends State<TeamIteminvite> {
 
   @override
   Widget build(BuildContext context) {
+
+    
+_showSnackBar() {
+    final snackBar = new SnackBar(
+        content: new Text("You Joined to Team Done"),
+        duration: new Duration(seconds: 5),
+        //backgroundColor: Colors.pink[300],
+        action: new SnackBarAction(label: 'Back',
+         onPressed: (){
+           Navigator.pop(context);
+        }),
+    );
+    _scaffoldKeys.currentState.showSnackBar(snackBar);
+  }
+
     openAlertBox( String Title , String Content) {
     return showDialog(
         context: context,
@@ -341,43 +356,50 @@ class _TeamIteminviteState extends State<TeamIteminvite> {
 
                               ),),
                                        Container(
-                                      margin: EdgeInsets.only(top: 20 ),
-                                      child:FlatButton(
-                                        textColor: Colors.white,
-
-                                  color: Colors.pink[300],
-                                  child: Container(
-                                    decoration: const BoxDecoration(
-                                        gradient: LinearGradient(
-                                          colors: <Color>[
-                                            Color(0xFF0D47A1),
-                                            Color(0xFF42A5F5),
-                                          ],
-                                        ),
-                                      ),
-                                      padding: const EdgeInsets.all(10.0),
-
+                                         margin: EdgeInsets.only(top:21),
+                                         child: RaisedButton(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(18.0),
+                                side: BorderSide(color: Colors.blue)
+                              ),
+                              padding: const EdgeInsets.all(0.0),
+                              textColor: Colors.white,
+                               // color: Colors.blue[700],
+                                child: Container(
+                                  decoration:  BoxDecoration(
+                                    borderRadius:BorderRadius.circular(20) ,
+                                                  gradient: LinearGradient(
+                                                    colors: <Color>[
+                                                      Color(0xFF0D47A1),
+                                                      Color(0xFF42A5F5),
+                                                    ],
+                                                  ),
+                                                ),
+                                                padding: const EdgeInsets.all(10.0),                                  
                                     child: Text(
-                                      'Join',
-                                      style: TextStyle(fontSize: 20),
-                                    ),
+                                    '      Join     ',
+                                    style: TextStyle(fontSize: 18),
                                   ),
+                                ),
                                   onPressed: () async {
                                     
                                     if(widget.userData.TeamID==null || widget.userData.TeamID==""){
                                       await   TeamService().joinTeam(widget.team.ID, users);
                     await UserService(userid: widget.userData.ID).updateUserData(widget.userData.FName, widget.userData.LName, widget.userData.Age, widget.userData.Position, widget.userData.Area, widget.userData.Phone, 
                           widget.userData.Photo_url, widget.team.ID, widget.userData.Token);
+                                    _showSnackBar();
+
                                       
                                     }else{
-                                                                            openAlertBox('Wrong' , 'You Already in Another Team');
+                                                                              openAlertBox('Wrong' , 'You Already in Another Team');
 
                                       
                                     }
                                   
                                   }
                       
-                    ),),
+                    ),
+                                       ),
                                 ],
                               ),
 

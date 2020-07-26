@@ -106,7 +106,7 @@ class _addFieldState extends State<addField> {
      User user = Provider.of<User>(context);
 
 return Scaffold(
-  appBar: AppBar(title:Text('ffss')),
+  appBar: AppBar(title:Text('Add Match')),
   body:   Container(
     margin: EdgeInsets.only(top:10),
     child: SingleChildScrollView(

@@ -60,6 +60,7 @@ class teamborder extends StatelessWidget {
 
         /// Home Screen Route that lands after on-boarding
         homeRoute: '/createteam',
+        homeRoute2: '/createteam',
         //homeRoute2: '/createteam',
     ),
       ),

@@ -35,7 +35,7 @@ class PaymentService {
   }
 
   Future<void> editpay(String id, String userid, String matchId, String EXP_Date ) async {
-    return await payment.document(id).setData({
+    return await payment.document(id).updateData({
      'UserID':userid,
       'MatchId':matchId,
       'Date':EXP_Date,

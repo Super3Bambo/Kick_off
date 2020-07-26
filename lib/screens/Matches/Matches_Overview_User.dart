@@ -1,3 +1,5 @@
+import 'package:flutter_app/Shared/Loading.dart';
+
 import '../../models/Matches.dart';
 import '../../Services/Match.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +15,10 @@ class MatchesOverview extends StatelessWidget {
   Widget build(BuildContext context) {
 
     User user = Provider.of<User>(context);
+    if(user.ID==null){
+      return Loading();
+    }
+    else{
 
     return StreamProvider<List<Match>>.value(
       value: MatchService(userid:user.ID ).matchcontaimuser,
@@ -29,5 +35,6 @@ class MatchesOverview extends StatelessWidget {
         ),
       
     );
+    }
   }
 }

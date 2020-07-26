@@ -86,6 +86,7 @@ class FieldItem extends StatelessWidget
 }
 }*/
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/Services/Fields.dart';
 import 'package:flutter_app/models/field.dart';
@@ -106,6 +107,8 @@ class FieldItemowner extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+      final CollectionReference matches = Firestore.instance.collection('Match');
+
     int sum = 0;
     field.rate.map((e) => e.Rate).forEach((int e){sum += e;});
       double count= sum/field.rate.length;
@@ -184,7 +187,13 @@ Navigator.push(context,MaterialPageRoute(builder: (context)=> AnalysisField(fiel
                               textAlign: TextAlign.center,
                             ),
                           ),
-                          onTap:() {     FieldService().deleteField(field.ID);
+                          onTap:() {  
+                           var deletematch= matches.where('FieldId',isEqualTo:field.ID ); 
+                           deletematch.getDocuments().then((querySnapshot){
+                             querySnapshot.documents.forEach((doc) {doc.reference.delete(); });
+                           });
+                             FieldService().deleteField(field.ID);
+
                           Navigator.pop(context);}
                           ,
                         ),

@@ -29,7 +29,7 @@ class _Match_Details_HistoryState extends State<Match_Details_History> {
 
  return Scaffold(
       appBar: AppBar(
-        title: Text(widget.matchid.ID),
+        title: Text('Match History'),
       ),
 
 

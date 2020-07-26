@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/Services/Fields.dart';
+import 'package:flutter_app/Shared/Loading.dart';
+import 'package:flutter_app/models/field.dart';
 import '../../models/Matches.dart';
 //import './Field_Details.dart';
 import './Match_Details_Complete.dart';
@@ -17,6 +20,12 @@ godetails(){
 Navigator.push(context,MaterialPageRoute(builder: (context)=> Evalte_Details(matchid: match)  ) );
 
 }
+
+return StreamBuilder<Field>(
+      stream: FieldService(fieldid: match.Field).fieldd,
+      builder: (context, snapshot){
+        if(snapshot.hasData){
+          Field fieldData = snapshot.data;
     return Card(
   
     margin:EdgeInsets.fromLTRB(0.0, 5.0, 0.0, 5.0),
@@ -38,7 +47,7 @@ Navigator.push(context,MaterialPageRoute(builder: (context)=> Evalte_Details(mat
        onTap: () => godetails(),
      
      
-     child: Image.asset('images/5omasy.jpg', height: 200, width: 420, fit: BoxFit.cover, ),),
+     child: Image.network(fieldData.images[0], height: 200, width: 420, fit: BoxFit.cover, ),),
      ), 
      InkWell(
        onTap: () => godetails(),
@@ -52,25 +61,32 @@ Navigator.push(context,MaterialPageRoute(builder: (context)=> Evalte_Details(mat
 
 
 child: Padding(
-        padding: const EdgeInsets.only(bottom: 50 , top: 20) ,
+        padding: const EdgeInsets.only(bottom: 12 , top: 10) ,
 
-        child: Row(
-          children: <Widget>[     
-           
-              Text(match.users.map((f)=>f.ID).toString()),
-              Text('data')
-              
+        child: Column(
+          children: [
+            Row(
+              children: <Widget>[     
+               
+                  Text(fieldData.Name,style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
+                  //Text('was Played in',style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
+                  Text(match.Check_out.substring(0,16),style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),)
+                  
  ],
-   mainAxisAlignment:MainAxisAlignment.spaceBetween,
+   mainAxisAlignment:MainAxisAlignment.spaceAround,
     mainAxisSize:MainAxisSize.max,
        crossAxisAlignment:CrossAxisAlignment.start,
     
+            ),
+            Container( margin: EdgeInsets.only(top:7), child: Text('Rate Now!',style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold,color: Colors.redAccent[700]),)),
+          ],
         ),
+        
         )),
             ),
      )
    ],)
    
-));
+));}else{return Loading();}});
   }
 }

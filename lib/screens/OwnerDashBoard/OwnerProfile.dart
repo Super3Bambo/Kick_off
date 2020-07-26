@@ -13,6 +13,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:path/path.dart';
 
+import 'OwnerEdit.dart';
+
 
 
 class OwnerProfile extends StatefulWidget {
@@ -61,7 +63,7 @@ class _OwnerProfileState extends State<OwnerProfile> {
                 setState(() {
                   loading =true;
                 });
-                await UserService(userid: user.ID).updateUserData(
+                await UserService(userid: user.ID).updateownerData(
                   fName ?? userData.FName,
                   lName ?? userData.LName,
                   age ?? userData.Age,
@@ -184,7 +186,7 @@ class _OwnerProfileState extends State<OwnerProfile> {
                                     style: TextStyle(color: Colors.black, fontSize: 15, fontWeight: FontWeight.bold),
                                   ),
                                   onPressed: ()  {
-                                    Navigator.push(context,MaterialPageRoute(builder: (context)=> Edituser()  ) );
+                                    Navigator.push(context,MaterialPageRoute(builder: (context)=> Editowner()  ) );
                                   }
 
                               ),          //new Icon(Icons.edit),
@@ -194,32 +196,41 @@ class _OwnerProfileState extends State<OwnerProfile> {
                             Divider(height: _height/30,color: Colors.white),
                             Column(
                                 children:[
-                                  Container(
-                                    margin: EdgeInsets.only(left:8),
-                                    child: Row(
+                                
+                                     Row(
                                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                                       children: <Widget>[
-                                        Text('Age' ,style: TextStyle(color: Colors.white70,fontSize: 20, fontWeight: FontWeight.bold)),
-                                        Container(
-                                          margin: EdgeInsets.only(left:16),
-                                          child: Text('Area',style: TextStyle(color: Colors.white70,fontSize: 20, fontWeight: FontWeight.bold),),),
-                                        Text('Position',style: TextStyle(color: Colors.white70,fontSize: 20, fontWeight: FontWeight.bold),),
-                                      ],),),
+                                        Column(
+                                          children: [
+                                            Text('Age' ,style: TextStyle(color: Colors.white70,fontSize: 20, fontWeight: FontWeight.bold)),
+                                             Text(userData.Age ,style: TextStyle(color: Colors.white,fontSize: 20, fontWeight: FontWeight.bold)),
 
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                    children: <Widget>[
-                                      Text(userData.Age ,style: TextStyle(color: Colors.white,fontSize: 20, fontWeight: FontWeight.bold)),
+                                          ],
+                                        ),
+                                        Column(
+                                          children: [
+                                            Text('Area',style: TextStyle(color: Colors.white70,fontSize: 20, fontWeight: FontWeight.bold),),                          
                                       Text(userData.Area,style: TextStyle(color: Colors.white,fontSize: 20, fontWeight: FontWeight.bold),),
+
+                                          ],
+                                        ),
+                                        Column(
+                                          children: [
+                                        Text('Position',style: TextStyle(color: Colors.white70,fontSize: 20, fontWeight: FontWeight.bold),),
                                       Text(userData.Position,style: TextStyle(color: Colors.white,fontSize: 20, fontWeight: FontWeight.bold),),
-                                    ],
-                                  )
-                                  ,]),
+
+                                          ],
+                                        ),
+                                        
+                                       
+
+                                  
+                                  ]),
                           ],
                         ),
-                      )
+                          ])
                   )
-                ],
+                  )],
                 ),
               ),
             );

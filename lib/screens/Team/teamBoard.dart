@@ -26,7 +26,7 @@ User user = Provider.of<User>(context);
         length: 5,
         child: Scaffold(
           appBar: AppBar(
-            title: const Text('Kick Off'),
+            title:  Text(team.Name.toString()),
             bottom: TabBar(
                 isScrollable: true,
                 //controller: controller,

@@ -265,12 +265,14 @@ class _AuthPageState extends State<AuthPage> {
          setState(() {
           //    Alert(context: context, title: "Invalid data",desc: " enter your email" ).show();});
         openAlertBox_onebutton(  'Invalid data' , 'Enter your email' );});
-      }else if(_password.length<8){
-                    setState(() {
-             // Alert(context: context, title: "Invalid data",desc: " PassWord Length Atleast 8 " ).show();});
-        openAlertBox_onebutton(  'Invalid data' , 'Enter at least 8 characters'  );});
+      }
+      // else if(_password.length<8){
+      //               setState(() {
+      //        // Alert(context: context, title: "Invalid data",desc: " PassWord Length Atleast 8 " ).show();});
+      //   openAlertBox_onebutton(  'Invalid data' , 'Enter at least 8 characters'  );});
 
-      }else if(_password.isEmpty){
+      // }
+      else if(_password.isEmpty){
                     setState(() {
             //  Alert(context: context, title: "Invalid data",desc: " enter your PassWord" ).show();});
         openAlertBox_onebutton(  'Invalid data' , 'Enter your password'  );});
@@ -308,6 +310,9 @@ class _AuthPageState extends State<AuthPage> {
               //Alert(context: context, title: "Invalid data",desc: " enter your PassWord" ).show();});
        openAlertBox_onebutton(  'Invalid data' , 'Enter your password'  );});
 
+     }
+     else if(  !RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(_email)){
+        openAlertBox_onebutton(  'Invalid data' , 'Enter Correct email'  );
      }
     //  else if (await _auth.checkemail(_email)==false){
     //     setState(() {

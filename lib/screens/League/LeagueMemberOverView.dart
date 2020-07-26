@@ -29,7 +29,7 @@ class LeaguememberOverview extends StatelessWidget {
 
       child: Scaffold(
         appBar: AppBar(
-          title:Text(leagueid.last.toString())         
+          title:Text('League Member')         
         ),
         body: Container(
        /*   decoration: BoxDecoration(

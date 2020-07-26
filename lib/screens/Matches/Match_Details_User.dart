@@ -636,7 +636,7 @@ List<String> imageList = List<String>();
             return  Scaffold(
              key: _scaffoldKeys,
               appBar: AppBar(
-              title: Text(user.ID),
+              title: Text('Match'),
               ),
               body: Container(
                               margin: EdgeInsets.fromLTRB(10.0, 20.0, 10.0, 10.0),
@@ -974,7 +974,7 @@ List<String> imageList = List<String>();
    key: _scaffoldKeys,
       appBar: AppBar(
         
-        title: Text(widget.matchid.ID),
+        title: Text('Match'),
       ),
 
 

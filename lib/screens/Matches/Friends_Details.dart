@@ -70,7 +70,7 @@ List <User> userses=[
           if (userData.followingusers.map((e) => e.ID).contains(widget.userid.ID)) {
               return Scaffold(
         appBar: AppBar(
-          title: Text(userData.FName),
+          title: Text(userData.FName+' '+ userData.LName),
           ),
             key:   _scaffoldKey,
             body: Stack(children: <Widget>[
@@ -158,7 +158,7 @@ List <User> userses=[
 }else{/******************************************************************************************************************* */
   return Scaffold(
         appBar: AppBar(
-          title: Text(userData.FName),
+          title: Text(userData.FName+' '+ userData.LName),
           ),
             key:   _scaffoldKey,
             body: Stack(children: <Widget>[

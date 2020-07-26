@@ -25,7 +25,7 @@ LeagueMatchesOverview({this.leagueid});
     return StreamProvider<List<LeagueMatch>>.value(
       value: LeagueService(leagueid:leagueid).leagueMatches,
         child: Scaffold(
-          appBar: AppBar(title:Text('Select Field To Add League')),
+          appBar: AppBar(title:Text('League Matches')),
                   body: Container(
           /*  decoration: BoxDecoration(
               image: DecorationImage(

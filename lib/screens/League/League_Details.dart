@@ -102,7 +102,7 @@ _showSnackBar() {
             return  Scaffold(
              key: _scaffoldKey,
               appBar: AppBar(
-              title: Text(widget.league.Name),
+              title: Text(widget.league.Name+' '+'League'),
               ),
               body: Container(
                               margin: EdgeInsets.fromLTRB(10.0, 20.0, 10.0, 10.0),

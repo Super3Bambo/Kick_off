@@ -202,7 +202,7 @@ DateFormat timeFormat = DateFormat("HH:00:00:000");
           return  Scaffold (
              key: _scaffoldKey,
           appBar: AppBar(
-            title: Text(widget.fieldid.Name),
+            title: Text('Add League'),
           ),
           
           body: Container(

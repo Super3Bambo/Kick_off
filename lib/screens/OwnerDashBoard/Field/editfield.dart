@@ -37,7 +37,7 @@ class _editFieldState extends State<editField> {
      User user = Provider.of<User>(context);
 
 return Scaffold(
-  appBar: AppBar(title:Text('ffss')),
+  appBar: AppBar(title:Text('Edit Field')),
   body:   Container(
     margin: EdgeInsets.only(top:60),
     child: SingleChildScrollView(
